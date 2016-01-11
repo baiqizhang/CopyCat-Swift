@@ -9,11 +9,11 @@
 import CoreData
 
 @objc class CCCoreUtil:NSObject{
-    //Persistance
+    // MARK: Persistance
     static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     static let userDefault = NSUserDefaults.standardUserDefaults()
     
-    //Settings
+    // MARK: Settings
     static var isUsingBackgrondMode : Int {
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isUsingBackgrondMode")
@@ -39,7 +39,7 @@ import CoreData
         }
     }
 
-    // Constants
+    // MARK: Constants
     static let fontSizeS = CGFloat((NSLocalizedString("FontSizeS", comment:"FontSizeS")as NSString).floatValue)
     static var categories =  NSMutableArray()
     static var categoryCount : Int{
@@ -86,7 +86,7 @@ import CoreData
         }
     }
     
-    // Create
+    //MARK: Create
     
     static func addCategory(name: String, bannerURI : String) -> CCCategory{
         let category = NSEntityDescription.insertNewObjectForEntityForName("Category",

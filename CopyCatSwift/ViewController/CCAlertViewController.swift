@@ -23,14 +23,21 @@ class CCAlertViewController : UIViewController {
         background.alpha = 0.75
         background.addTarget(self, action: "closeAction", forControlEvents: .AllTouchEvents)
         view.addSubview(background)
-        
-//        tableView.backgroundColor = .blackColor()
-//        tableView.separatorStyle = .None
-        view.addSubview(tableView)
-        
+
+        // Title View
+        let titleBackground = UIView()
+        titleBackground.backgroundColor = .blackColor()
+        view.addSubview(titleBackground)
+
+        let titleLable = UILabel()
+        titleLable.text = "Add to category"
+        view.addSubview(titleLable)
+
+        // Table View
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.allowsSelection = false
         tableView.dataSource = self
+        view.addSubview(tableView)
         
         // User Image constraint
         tableView.translatesAutoresizingMaskIntoConstraints = false
