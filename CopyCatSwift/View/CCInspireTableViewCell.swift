@@ -84,10 +84,10 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60) + "m ago"
             } else if now < 60*60*24{
                 timestampLabel.text = String(now/60/60) + "h ago"
-            } else if now < 60*60*24/365{
-                timestampLabel.text = String(now/60/60/24) + "days ago"
+            } else if now < 60*60*24*365{
+                timestampLabel.text = String(now/60/60/24) + " days ago"
             } else {
-                timestampLabel.text = String(now/60/60/24/365/12) + "months ago"
+                timestampLabel.text = String(now/60/60/24/365/12) + " months ago"
             }
             
             timestampLabel.textColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.75)
