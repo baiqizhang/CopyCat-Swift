@@ -233,7 +233,9 @@ class CCInspireTableViewCell : UITableViewCell {
     
     // MARK: UI Action
     func pinAction(){
-        delegate?.pinAction()
+        if let image = myImageView.image{
+            delegate?.pinAction(image)
+        }
     }
 
     func likeAction(){
