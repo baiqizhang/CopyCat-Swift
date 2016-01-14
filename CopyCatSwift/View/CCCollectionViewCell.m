@@ -28,8 +28,8 @@
     {
         CCGalleryViewController * vc=self.delegate;
         [self flip];
-        [vc prepareDelete];
         [vc prepareDeleteCell:self];
+        [vc prepareDelete];
     }
 }
 
@@ -75,8 +75,10 @@
     return tmImage;
 }
 
--(void) initWithImagePath:(NSString*)imagePath{
-    self.deleteFlag=NO;
+-(void) initWithImagePath:(NSString*)imagePath deleteFlag:(BOOL)deleteFlag{
+    self.deleteFlag= deleteFlag;
+
+    
     self.imagePath=imagePath;
     if (!self.imageView)
     {
@@ -108,6 +110,7 @@
             [UIView animateWithDuration:0.3 animations:^{
                 self.imageView.alpha=1;
             }];
+
         });
     });
     

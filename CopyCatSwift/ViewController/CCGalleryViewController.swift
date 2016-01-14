@@ -123,7 +123,6 @@ import AssetsLibrary
             self.closeButton.alpha = 0
         })
         self.deleting = true
-        self.cellsToDelete = NSMutableArray()
     }
     
     func cancelDelete() {
@@ -137,6 +136,7 @@ import AssetsLibrary
             let cell = item as! CCCollectionViewCell
             cell.flip()
         }
+        self.cellsToDelete = NSMutableArray()
     }
     
     func performDelete() {
@@ -222,7 +222,10 @@ extension CCGalleryViewController:UICollectionViewDataSource{
         let photo = category!.photoList![indexPath.row] as! CCPhoto
         
         cell.backgroundColor = .whiteColor()
-        cell.initWithImagePath(photo.photoURI)
+        
+        var deleteFlag = false
+
+        cell.initWithImagePath(photo.photoURI, deleteFlag: deleteFlag)
         cell.delegate = self
         cell.coreData = photo
         
