@@ -26,7 +26,8 @@
 -(void)handleLongPress:(UILongPressGestureRecognizer *)longPress{
     if (longPress.state==UIGestureRecognizerStateBegan)
     {
-        CCGalleryViewController * vc=self.delegate;
+        CCGalleryViewController * vc = self.delegate;
+
         [self flip];
         [vc prepareDeleteCell:self];
         [vc prepareDelete];
@@ -110,6 +111,11 @@
             [UIView animateWithDuration:0.3 animations:^{
                 self.imageView.alpha=1;
             }];
+            if (self.deleteFlag)
+            {
+                self.overlayView.alpha=1;
+                self.imageView.alpha=0.5;
+            }
 
         });
     });

@@ -21,7 +21,7 @@ import AssetsLibrary
     
     //Delete
     private var deleting = false
-    private var cellsToDelete = NSMutableArray()
+    private var photosToDelete = NSMutableArray()
     
     //Wait
     var waitingAssetsCount: Int?
@@ -75,7 +75,7 @@ import AssetsLibrary
         cancelButton.frame = CGRectMake(0, -5, 50, 50)
         cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        cancelButton.addTarget(self, action: "cancelDelete", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: "finishDelete", forControlEvents: .TouchUpInside)
         view!.addSubview(cancelButton)
         
         deleteButton.frame = CGRectMake(view.frame.size.width - 45, 0, 40, 40)
@@ -125,36 +125,36 @@ import AssetsLibrary
         self.deleting = true
     }
     
-    func cancelDelete() {
+    func finishDelete() {
+        collectionView!.reloadData()
+        
         UIView.animateWithDuration(0.2, animations: {() -> Void in
             self.cancelButton.alpha = 0
             self.deleteButton.alpha = 0
             self.closeButton.alpha = 1
         })
         self.deleting = false
-        for item in self.cellsToDelete {
-            let cell = item as! CCCollectionViewCell
-            cell.flip()
-        }
-        self.cellsToDelete = NSMutableArray()
+
+        self.photosToDelete = NSMutableArray()
     }
     
     func performDelete() {
-        for item in self.cellsToDelete {
-            let cell = item as! CCCollectionViewCell
-            let photo = cell.coreData as! CCPhoto
+        for item in self.photosToDelete {
+            let photo = item as! CCPhoto
             CCCoreUtil.removePhotoForCategory(category!, photo: photo)
         }
-        collectionView!.reloadData()
-        cancelDelete()
+        
+        finishDelete()
     }
     
     func prepareDeleteCell(cell: CCCollectionViewCell) {
-        cellsToDelete.addObject(cell)
+        let photo = cell.coreData as! CCPhoto
+        photosToDelete.addObject(photo)
     }
     
     func cancelDeleteCell(cell: CCCollectionViewCell) {
-        cellsToDelete.removeObject(cell)
+        let photo = cell.coreData as! CCPhoto
+        photosToDelete.removeObject(photo)
     }
     
     // MARK: Show overlay
@@ -223,7 +223,12 @@ extension CCGalleryViewController:UICollectionViewDataSource{
         
         cell.backgroundColor = .whiteColor()
         
+        // check if the photo is in the toDelete list
         var deleteFlag = false
+        for item in self.photosToDelete {
+            let pho = item as! CCPhoto
+            if pho.photoURI == photo.photoURI { deleteFlag = true }
+        }
 
         cell.initWithImagePath(photo.photoURI, deleteFlag: deleteFlag)
         cell.delegate = self
