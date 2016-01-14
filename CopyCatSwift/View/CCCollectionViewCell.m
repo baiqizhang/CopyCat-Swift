@@ -17,13 +17,14 @@
 @property (strong,nonatomic) UITextField * textField;
 @property (strong,nonatomic) UILongPressGestureRecognizer *longPress;
 @property (strong,nonatomic) CCOverlayFrameView* overlayView;
-@property BOOL deleteFlag;
+@property int deleteFlag;
 @end
 
 @implementation CCCollectionViewCell
 
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)longPress{
+    if (self.deleteFlag < 0) return;
     if (longPress.state==UIGestureRecognizerStateBegan)
     {
         CCGalleryViewController * vc = self.delegate;
@@ -39,11 +40,11 @@
     {
         self.overlayView.alpha=1;
         self.imageView.alpha=0.5;
-        self.deleteFlag=YES;
+        self.deleteFlag = 1 - self.deleteFlag;
     }else{
         self.overlayView.alpha=0;
         self.imageView.alpha=1;
-        self.deleteFlag=NO;
+        self.deleteFlag = 1 - self.deleteFlag;
     }
     return self.deleteFlag;
 }
@@ -76,9 +77,8 @@
     return tmImage;
 }
 
--(void) initWithImagePath:(NSString*)imagePath deleteFlag:(BOOL)deleteFlag{
+-(void) initWithImagePath:(NSString*)imagePath deleteFlag:(int)deleteFlag{
     self.deleteFlag= deleteFlag;
-
     
     self.imagePath=imagePath;
     if (!self.imageView)
@@ -111,7 +111,7 @@
             [UIView animateWithDuration:0.3 animations:^{
                 self.imageView.alpha=1;
             }];
-            if (self.deleteFlag)
+            if (self.deleteFlag == 1)
             {
                 self.overlayView.alpha=1;
                 self.imageView.alpha=0.5;

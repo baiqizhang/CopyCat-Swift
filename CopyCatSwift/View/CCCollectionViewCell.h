@@ -14,7 +14,7 @@
 @property (strong,nonatomic) id coreData;
 
 -(UIImage*) image;
--(void) initWithImagePath:(NSString*)imagePath deleteFlag: (BOOL) deleteFlag;
+-(void) initWithImagePath:(NSString*)imagePath deleteFlag: (int) deleteFlag;
 -(BOOL)flip;
 
 @end

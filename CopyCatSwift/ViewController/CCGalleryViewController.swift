@@ -224,11 +224,12 @@ extension CCGalleryViewController:UICollectionViewDataSource{
         cell.backgroundColor = .whiteColor()
         
         // check if the photo is in the toDelete list
-        var deleteFlag = false
+        var deleteFlag : Int32 = 0
         for item in self.photosToDelete {
             let pho = item as! CCPhoto
-            if pho.photoURI == photo.photoURI { deleteFlag = true }
+            if pho.photoURI == photo.photoURI { deleteFlag = 1 }
         }
+        if indexPath.row == 0 { deleteFlag = -1 }
 
         cell.initWithImagePath(photo.photoURI, deleteFlag: deleteFlag)
         cell.delegate = self
@@ -252,7 +253,7 @@ extension CCGalleryViewController:UICollectionViewDelegate{
                 browser.modalTransitionStyle = .CrossDissolve
                 self.presentViewController(browser, animated: false, completion: { _ in })
             }
-        } else {
+        } else if indexPath.row > 0 {
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CCCollectionViewCell
             if cell.flip(){
                 prepareDeleteCell(cell)
