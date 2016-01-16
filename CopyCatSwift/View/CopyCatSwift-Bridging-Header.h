@@ -9,7 +9,6 @@
 
 // Views
 #import "CCLabel.h"
-#import "CCFramedButton.h"
 #import "CCOverlayFrameView.h"
 
 // Collection View
