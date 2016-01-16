@@ -13,7 +13,6 @@
 #import "CCOverlayFrameView.h"
 
 // Collection View
-#import "CCCollectionView.h"
 #import "CCCollectionViewCell.h"
 #import "CCBrowserCell.h"
 
