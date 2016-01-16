@@ -11,7 +11,6 @@
 #import "CCLabel.h"
 
 // Collection View
-#import "CCCollectionViewCell.h"
 #import "CCBrowserCell.h"
 
 // Table View

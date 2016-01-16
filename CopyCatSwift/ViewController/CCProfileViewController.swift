@@ -214,7 +214,7 @@ extension CCProfileViewController:UICollectionViewDataSource{
         let photo = category!.photoList![indexPath.row] as! CCPhoto
         
         cell.backgroundColor = .whiteColor()
-        cell.initWithImagePath(photo.photoURI, deleteFlag: 0)
+        cell.initWithImagePath(photo.photoURI!, deleteFlag: 0)
         cell.delegate = self
         cell.coreData = photo
         
