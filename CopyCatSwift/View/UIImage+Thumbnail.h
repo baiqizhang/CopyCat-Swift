@@ -13,5 +13,4 @@
 - (UIImage *)thumbnailWithFactor:(float)factor;
 - (UIImage *)resizeWithFactor:(float)factor;
 - (UIImage *)zoomWithFactor:(float)factor;
-
 @end

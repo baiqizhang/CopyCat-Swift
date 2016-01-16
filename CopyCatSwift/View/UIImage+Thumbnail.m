@@ -11,25 +11,85 @@
 @implementation UIImage (Thumbnail)
 
 - (UIImage *)thumbnail{
-    UIImage* image=self;
+    return [self thumbnailWithFactor:100];
+}
 
-    struct CGImage *tmCGImage;
-    if (image.size.width>image.size.height)
-        tmCGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake((image.size.width-image.size.height)/2.0, 0, image.size.height, image.size.height));
-    else
-        tmCGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, (image.size.height-image.size.width)/2.0, image.size.width, image.size.width));
+
+- (UIImage *)thumbnailWithFactor:(float)factor{
+    UIImage * sourceImage  = self;
     
-    float factor=100;
-    UIGraphicsBeginImageContext(CGSizeMake(factor, factor));
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextScaleCTM(context, 1.0,-1.0);
-    CGContextTranslateCTM(context, 0, -factor);
-    CGContextDrawImage(context, CGRectMake(0, 0, factor, factor),tmCGImage);
-    UIImage *tmImage= UIGraphicsGetImageFromCurrentImageContext();
+    // input size comes from image
+    CGSize inputSize = sourceImage.size;
+    
+    CGFloat sideLength = factor;
+    
+    // round up side length to avoid fractional output size
+    sideLength = ceilf(sideLength);
+    
+    // output size has sideLength for both dimensions
+    CGSize outputSize = CGSizeMake(sideLength, sideLength);
+    
+    // calculate scale so that smaller dimension fits sideLength
+    CGFloat scale = MAX(sideLength / inputSize.width,
+                        sideLength / inputSize.height);
+    
+    // scaling the image with this scale results in this output size
+    CGSize scaledInputSize = CGSizeMake(inputSize.width * scale,
+                                        inputSize.height * scale);
+    
+    // determine point in center of "canvas"
+    CGPoint center = CGPointMake(outputSize.width/2.0,
+                                 outputSize.height/2.0);
+    
+    // calculate drawing rect relative to output Size
+    CGRect outputRect = CGRectMake(center.x - scaledInputSize.width/2.0,
+                                   center.y - scaledInputSize.height/2.0,
+                                   scaledInputSize.width,
+                                   scaledInputSize.height);
+    
+    // begin a new bitmap context, scale 0 takes display scale
+    UIGraphicsBeginImageContextWithOptions(outputSize, YES, 0);
+    
+    // optional: set the interpolation quality.
+    // For this you need to grab the underlying CGContext
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(ctx, kCGInterpolationHigh);
+    
+    // draw the source image into the calculated rect
+    [sourceImage drawInRect:outputRect];
+    
+    // create new image from bitmap context
+    UIImage *outImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // clean up
     UIGraphicsEndImageContext();
     
-    return tmImage;
+    // pass back new image
+    return outImage;
 }
+
+#pragma mark - bad code below, will cause memory issue, don't know why yet
+
+- (UIImage *)crop{
+    CGRect rect;
+    if (self.size.width>self.size.height)
+        rect = CGRectMake((self.size.width-self.size.height)/2.0, 0, self.size.height, self.size.height);
+    else
+        rect = CGRectMake(0, (self.size.height-self.size.width)/2.0, self.size.width, self.size.width);
+    
+    rect = CGRectMake(rect.origin.x*self.scale,
+                      rect.origin.y*self.scale,
+                      rect.size.width*self.scale,
+                      rect.size.height*self.scale);
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], rect);
+    UIImage *result = [UIImage imageWithCGImage:imageRef
+                                          scale:self.scale
+                                    orientation:self.imageOrientation];
+    CGImageRelease(imageRef);
+    return result;
+}
+
 
 - (UIImage *)resizeWithFactor:(float)factor{
     UIImage* image=self;
@@ -49,25 +109,6 @@
     return tmImage;
 }
 
-- (UIImage *)thumbnailWithFactor:(float)factor{
-    UIImage* image=self;
-    
-    struct CGImage *tmCGImage;
-    if (image.size.width>image.size.height)
-        tmCGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake((image.size.width-image.size.height)/2.0, 0, image.size.height, image.size.height));
-    else
-        tmCGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, (image.size.height-image.size.width)/2.0, image.size.width, image.size.width));
-    
-    UIGraphicsBeginImageContext(CGSizeMake(factor, factor));
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextScaleCTM(context, 1.0,-1.0);
-    CGContextTranslateCTM(context, 0, -factor);
-    CGContextDrawImage(context, CGRectMake(0, 0, factor, factor),tmCGImage);
-    UIImage *tmImage= UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return tmImage;
-}
 
 - (UIImage *)zoomWithFactor:(float)factor{
     UIImage* image=self;
