@@ -8,7 +8,6 @@
 
 #import "CCCollectionViewCell.h"
 #import "UIImage+Thumbnail.h"
-#import "CCOverlayFrameView.h"
 #import "CopyCatSwift-Swift.h"
 
 @interface CCCollectionViewCell()
