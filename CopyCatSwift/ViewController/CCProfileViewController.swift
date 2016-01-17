@@ -59,7 +59,7 @@ class CCProfileViewController: UIViewController {
         //Collection
         flowLayout.minimumInteritemSpacing = 0
         flowLayout.minimumLineSpacing = 2
-        collectionView = CCCollectionView(frame: CGRectMake(0, 40 + 2 * lineWidth + height, self.view.frame.size.width, self.view.frame.size.height - 40), collectionViewLayout: self.flowLayout)
+        collectionView = CCCollectionView(frame: CGRectMake(0, 40 + 2 * lineWidth + height, self.view.frame.size.width, self.view.frame.size.height - 40 - 2 * lineWidth - height), collectionViewLayout: self.flowLayout)
         collectionView!.registerClass(CCCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView!.backgroundColor = .clearColor()
         collectionView!.delegate = self
