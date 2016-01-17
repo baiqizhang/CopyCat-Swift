@@ -134,6 +134,8 @@ import AssetsLibrary
             bar.backgroundColor = UIColor(white: 0.13, alpha: 1)
             view!.addSubview(bar)
         }
+        
+        currentCell = collectionView(browserCollectionView!, cellForItemAtIndexPath: NSIndexPath(forRow: currentIndex, inSection: 0)) as! CCBrowserCell
     }
     
     //MARK: UI actions
