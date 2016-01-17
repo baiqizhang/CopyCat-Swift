@@ -117,11 +117,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     // MARK: UI Action
     func pinAction(image : UIImage){
-        let alertVC = CCAlertViewController()
-        alertVC.input = image
+        let alertVC = CCAlertViewController(style: .CategoryList)
+        alertVC.image = image
         alertVC.modalPresentationStyle = .OverCurrentContext
         alertVC.modalTransitionStyle = .CrossDissolve
-        
+
         presentViewController(alertVC, animated: true, completion: nil)
     }
     
