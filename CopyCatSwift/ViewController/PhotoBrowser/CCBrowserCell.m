@@ -69,7 +69,7 @@
         if (!self.image)
             self.image=[UIImage imageNamed:imagePath];
     }
-    self.photoBrowser.currentCell=self;
+//    self.photoBrowser.currentCell=self;
     
     CGRect photoImageViewFrame;
     photoImageViewFrame.origin = CGPointZero;

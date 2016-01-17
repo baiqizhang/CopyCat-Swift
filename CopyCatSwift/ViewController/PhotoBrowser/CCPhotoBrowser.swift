@@ -248,6 +248,7 @@ extension CCPhotoBrowser:UIScrollViewDelegate{
             let page = Int(offsetX / itemWidth)
             self.currentIndex = page
         }
+        currentCell = collectionView(browserCollectionView!, cellForItemAtIndexPath: NSIndexPath(forRow: currentIndex, inSection: 0)) as! CCBrowserCell
     }
 }
 
