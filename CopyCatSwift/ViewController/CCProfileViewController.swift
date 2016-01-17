@@ -159,6 +159,7 @@ class CCProfileViewController: UIViewController {
             self.cancelButton.alpha = 1
             self.deleteButton.alpha = 1
             self.closeButton.alpha = 0
+            self.settingsButton.alpha = 0
         })
         self.deleting = true
         self.cellsToDelete = NSMutableArray()
@@ -169,6 +170,7 @@ class CCProfileViewController: UIViewController {
             self.cancelButton.alpha = 0
             self.deleteButton.alpha = 0
             self.closeButton.alpha = 1
+            self.settingsButton.alpha = 1
         })
         self.deleting = false
         for item in self.cellsToDelete {
