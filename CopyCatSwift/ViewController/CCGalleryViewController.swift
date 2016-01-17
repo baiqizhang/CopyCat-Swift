@@ -181,21 +181,26 @@ extension CCGalleryViewController : DNImagePickerControllerDelegate{
             let dnasset = item as! DNAsset
             let lib: ALAssetsLibrary = ALAssetsLibrary()
             lib.assetForURL(dnasset.url, resultBlock: { (asset : ALAsset!) -> Void in
-                    let assetRep: ALAssetRepresentation = asset.defaultRepresentation()
-                    let iref = assetRep.fullResolutionImage().takeUnretainedValue()
-                    let image = UIImage(CGImage: iref).fixOrientation()
+                let assetRep: ALAssetRepresentation = asset.defaultRepresentation()
+
+                let orientValueFromImage = asset.valueForProperty("ALAssetPropertyOrientation") as! NSNumber
+                let imageOrientation = UIImageOrientation(rawValue: orientValueFromImage.integerValue)!
                 
-                    CCCoreUtil.addPhotoForCategory(self.category!, image: image)
+            
+                let iref = assetRep.fullResolutionImage().takeUnretainedValue()
+                let image = UIImage(CGImage: iref, scale: 1, orientation: imageOrientation)//.fixOrientation()
+            
+                CCCoreUtil.addPhotoForCategory(self.category!, image: image)
+            
+                self.waitingAssetsCount = self.waitingAssetsCount! - 1
                 
-                    self.waitingAssetsCount = self.waitingAssetsCount! - 1
-                    
-                    if self.waitingAssetsCount == 0 {
-                        self.collectionView!.reloadData()
-                        self.alert.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                }, failureBlock: { (error:NSError!) -> Void in
-                    NSLog("%@",error)
-                })
+                if self.waitingAssetsCount == 0 {
+                    self.collectionView!.reloadData()
+                    self.alert.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }, failureBlock: { (error:NSError!) -> Void in
+                NSLog("%@",error)
+            })
         }
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
     }
