@@ -14,8 +14,6 @@
 // Views
 #import "CCLabel.h"
 
-// Collection View
-#import "CCBrowserCell.h"
 
 // Table View
 #import "SKStatefulTableViewController.h"
@@ -37,3 +35,5 @@
 
 //Login
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+#import "MWTapDetectingImageView.h"
