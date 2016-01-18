@@ -65,7 +65,7 @@ import AssetsLibrary
         // CollectionView
         browserCollectionView = UICollectionView(frame: CGRectMake(-10, 0, self.view.bounds.size.width + 20, self.view.bounds.size.height + 1), collectionViewLayout: layout)
         browserCollectionView!.backgroundColor = UIColor.blackColor()
-        browserCollectionView!.registerClass(CCBrowserCell.self, forCellWithReuseIdentifier: NSStringFromClass(CCBrowserCell.self))
+        browserCollectionView!.registerClass(CCBrowserCell.self, forCellWithReuseIdentifier: NSStringFromClass(CCBrowserCell))
         browserCollectionView!.delegate = self
         browserCollectionView!.dataSource = self
         browserCollectionView!.pagingEnabled = true
@@ -139,7 +139,7 @@ import AssetsLibrary
     //MARK: UI actions
     
     func saveAction() {
-        UIImageWriteToSavedPhotosAlbum(currentCell!.image, self, "image:didFinishSavingWithError:contextInfo:", nil)
+        UIImageWriteToSavedPhotosAlbum(currentCell!.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
     }
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
         if error == nil {
@@ -169,9 +169,9 @@ import AssetsLibrary
     func checkAction() {
         self.dismissViewControllerAnimated(true, completion: {() -> Void in
             if (self.delegate is CCGalleryViewController) {
-                NSLog("%@", self.currentCell!.image)
+                NSLog("%@", self.currentCell!.image!)
                 let vc = self.delegate as! CCGalleryViewController
-                vc.showOverlayViewWithImage(self.currentCell!.image, isNewImage: false)
+                vc.showOverlayViewWithImage(self.currentCell!.image!, isNewImage: false)
             }
         })
     }
@@ -200,7 +200,7 @@ import AssetsLibrary
     }
 
     func shareAction() {
-        CCNetUtil.newPost(currentCell!.image)
+        CCNetUtil.newPost(currentCell!.image!)
     }
     
     //MARK: Controls
