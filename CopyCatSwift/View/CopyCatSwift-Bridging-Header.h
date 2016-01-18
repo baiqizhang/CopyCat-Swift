@@ -11,9 +11,6 @@
 #import "UIImage+Thumbnail.h"
 #import "UIImage+Rotating.h"
 
-// Views
-#import "CCLabel.h"
-
 
 // Table View
 #import "SKStatefulTableViewController.h"
