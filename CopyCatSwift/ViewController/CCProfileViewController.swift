@@ -135,7 +135,7 @@ class CCProfileViewController: UIViewController {
         cancelButton.frame = CGRectMake(0, -5, 50, 50)
         cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        cancelButton.addTarget(self, action: "cancelDelete", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: "finishDelete", forControlEvents: .TouchUpInside)
         view!.addSubview(cancelButton)
         
         deleteButton.frame = CGRectMake(view.frame.size.width - 45, 0, 40, 40)
@@ -159,6 +159,7 @@ class CCProfileViewController: UIViewController {
             self.cancelButton.alpha = 1
             self.deleteButton.alpha = 1
             self.closeButton.alpha = 0
+            self.settingsButton.alpha = 0
         })
         self.deleting = true
     }
@@ -170,6 +171,7 @@ class CCProfileViewController: UIViewController {
             self.cancelButton.alpha = 0
             self.deleteButton.alpha = 0
             self.closeButton.alpha = 1
+            self.settingsButton.alpha = 1
         })
         self.deleting = false
         
