@@ -117,9 +117,18 @@ class CCAlertViewController : UIViewController {
             background.addTarget(self, action: "testAction", forControlEvents: .AllTouchEvents)
 
             let titleHeight : CGFloat = 30.0
+            let height : CGFloat = 45.0
+
+            // Alert Background View
+            let alertBackground = UIView(frame: CGRectMake(50, view.frame.height/2 - 100 , view.frame.width-100, height + titleHeight))
+            alertBackground.backgroundColor = .blackColor()
+            alertBackground.layer.borderColor = UIColor.hexStringToColor("#41AFFF").CGColor
+            alertBackground.layer.borderWidth = 0.5
+            view.addSubview(alertBackground)
+            
             
             // Title View
-            let titleBackground = UIView(frame: CGRectMake(50, view.frame.height/2 - 100, view.frame.width-100, titleHeight))
+            let titleBackground = UIView(frame: CGRectMake(50+0.5, view.frame.height/2 - 100 + 0.5, view.frame.width-100 - 1, titleHeight))
             titleBackground.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
             view.addSubview(titleBackground)
             
@@ -127,12 +136,6 @@ class CCAlertViewController : UIViewController {
             titleLable.text = "Importing..."
             titleLable.textColor = .whiteColor()
             view.addSubview(titleLable)
-
-            let height : CGFloat = 45.0
-            // Alert Background View
-            let alertBackground = UIView(frame: CGRectMake(50, view.frame.height/2 - 100 + titleHeight, view.frame.width-100, height))
-            alertBackground.backgroundColor = .blackColor()
-            view.addSubview(alertBackground)
 
             // Alert Background View
             progressBar.frame = CGRectMake(progressBarMargin, view.frame.height/2 - 100 + titleHeight + height/2 - 5, 0, 10)

@@ -182,36 +182,33 @@ extension CCGalleryViewController : DNImagePickerControllerDelegate{
             
             self.presentViewController(alertVC, animated: true, completion: nil)
 
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                for item in imageAssets{
-                    let dnasset = item as! DNAsset
-                    let lib: ALAssetsLibrary = ALAssetsLibrary()
-                    lib.assetForURL(dnasset.url, resultBlock: { (asset : ALAsset!) -> Void in
-                        let assetRep: ALAssetRepresentation = asset.defaultRepresentation()
-                        
-                        let orientValueFromImage = asset.valueForProperty("ALAssetPropertyOrientation") as! NSNumber
-                        let imageOrientation = UIImageOrientation(rawValue: orientValueFromImage.integerValue)!
-                        
-                        
-                        let iref = assetRep.fullResolutionImage().takeUnretainedValue()
-                        let image = UIImage(CGImage: iref, scale: 1, orientation: imageOrientation)
-                        
-                        self.waitingAssetsCount = self.waitingAssetsCount! - 1
+            for item in imageAssets{
+                let dnasset = item as! DNAsset
+                let lib: ALAssetsLibrary = ALAssetsLibrary()
+                lib.assetForURL(dnasset.url, resultBlock: { (asset : ALAsset!) -> Void in
+                    let assetRep: ALAssetRepresentation = asset.defaultRepresentation()
+                    
+                    let orientValueFromImage = asset.valueForProperty("ALAssetPropertyOrientation") as! NSNumber
+                    let imageOrientation = UIImageOrientation(rawValue: orientValueFromImage.integerValue)!
+                    
+                    
+                    let iref = assetRep.fullResolutionImage().takeUnretainedValue()
+                    let image = UIImage(CGImage: iref, scale: 1, orientation: imageOrientation)
+                    
+                    self.waitingAssetsCount = self.waitingAssetsCount! - 1
 
-                        CCCoreUtil.addPhotoForCategory(self.category!, image: image)
-
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            alertVC.progress = CGFloat(self.waitingAssetsCountTotal! - self.waitingAssetsCount!) / CGFloat(self.waitingAssetsCountTotal!)
-                            if self.waitingAssetsCount == 0 {
-                                self.collectionView!.reloadData()
-                                alertVC.dismissViewControllerAnimated(true, completion: nil)
-                            }
-                        })                        
-                    }, failureBlock: { (error:NSError!) -> Void in
-                        NSLog("%@",error)
-                    })
-                }
-            }) // end of dispatch
+                    CCCoreUtil.addPhotoForCategory(self.category!, image: image)
+                
+                    alertVC.progress = CGFloat(self.waitingAssetsCountTotal! - self.waitingAssetsCount!) / CGFloat(self.waitingAssetsCountTotal!)
+                    NSRunLoop.mainRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.01))
+                    if self.waitingAssetsCount == 0 {
+                        self.collectionView!.reloadData()
+                        alertVC.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                }, failureBlock: { (error:NSError!) -> Void in
+                    NSLog("%@",error)
+                })
+            }
         }
     }
     
