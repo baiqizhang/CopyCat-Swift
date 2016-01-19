@@ -9,7 +9,7 @@
 import UIKit
 import AssetsLibrary
 
-@objc class CCGalleryViewController: UIViewController {
+@objc class CCGalleryViewController: UIViewController, CCPhotoCollectionManipulation {
     
     internal var category : CCCategory?
     

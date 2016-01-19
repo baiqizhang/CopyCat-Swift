@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CCProfileViewController: UIViewController {
+class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
     internal var category : CCCategory?
     private let closeButton = UIButton()
     private let cancelButton = UIButton()
