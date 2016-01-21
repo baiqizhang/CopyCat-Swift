@@ -48,7 +48,7 @@ class CCPreviewViewController : UIViewController {
             })
             if CCCoreUtil.isSaveToCameraRoll == 1 {
                 // TODO warning message
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(image?.CGImage, orientation: image?.imageOrientation as! ALAssetOrientation, completionBlock: nil)
+                ALAssetsLibrary().writeImageToSavedPhotosAlbum(image?.CGImage, orientation: ALAssetOrientation.init(rawValue: (image?.imageOrientation.rawValue)!)!, completionBlock: nil)
             }
             
             CCCoreUtil.addUserPhoto(image!, refImage: self.refImage!)
