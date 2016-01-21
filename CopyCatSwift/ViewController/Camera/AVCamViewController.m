@@ -14,7 +14,6 @@
 
 #import "AVCamPreviewView.h"
 #import "CCOverlayView.h"
-#import "CCPreviewViewController.h"
 
 #import "UIImage+Thumbnail.h"
 #import "UIImage+fixOrientation.h"
