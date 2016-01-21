@@ -21,7 +21,6 @@
 #import "DNAsset.h"
 
 // Camera
-#import "CCOverlayView.h"
 #import "AVCamViewController.h"
 #import "YIPopupTextView.h"
 

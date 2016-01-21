@@ -13,7 +13,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "AVCamPreviewView.h"
-#import "CCOverlayView.h"
 
 #import "UIImage+Thumbnail.h"
 #import "UIImage+fixOrientation.h"
