@@ -16,7 +16,7 @@ class CCWelcomeViewController: UIViewController {
     private var categoryButton = UIButton()
     private var inspireButton = UIButton()
     private var instagramLoingButton = UIButton()
-    private var settingsButton = UIButton()
+    private var settingsButton = UIImageView()
 
     func openGallery(){
         let controller = CCCategoryViewController()
@@ -108,10 +108,21 @@ class CCWelcomeViewController: UIViewController {
         let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
 
         //Settings
-        settingsButton = UIButton()
-        settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
-        settingsButton.setBackgroundImage(UIImage(named: "circleuser_highlight.png")!.imageWithAlignmentRectInsets(inset), forState: .Highlighted)
-        settingsButton.addTarget(self, action: "openProfile", forControlEvents: .TouchUpInside)
+
+        settingsButton.image = CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset)
+        
+        //settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
+        //settingsButton.setBackgroundImage(UIImage(named: "circleuser_highlight.png")!.imageWithAlignmentRectInsets(inset), forState: .Highlighted)
+        let singleTap = UITapGestureRecognizer.init(target: self, action: "openProfile")
+        settingsButton.addGestureRecognizer(singleTap)
+        settingsButton.userInteractionEnabled = true
+        
+        settingsButton.layer.cornerRadius = 12
+        settingsButton.clipsToBounds = true
+        settingsButton.layer.borderWidth = 1
+        settingsButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        
         view!.addSubview(self.settingsButton)
         
         // Like button constraint
@@ -145,11 +156,7 @@ class CCWelcomeViewController: UIViewController {
     //Fading
     override func viewDidAppear(animated: Bool) {
         if CCCoreUtil.userType > 0 {
-            let buttonPadding : CGFloat = -7.5
-            let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
-            settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
-            
-            instagramLoingButton.alpha = 0
+         
             
         }
         UIView.animateWithDuration(0.1) { () -> Void in
