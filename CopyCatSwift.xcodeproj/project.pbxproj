@@ -16,6 +16,8 @@
 		1A4DF1F51C5083AE001A4775 /* CCBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F41C5083AE001A4775 /* CCBrowserCell.swift */; };
 		1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */; };
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
+		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
+		1AAD32141C64495F009D1DA7 /* CCUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD32131C64495F009D1DA7 /* CCUserManager.swift */; };
 		3A3B2E769D388850121560A1 /* libPods-CopyCatSwift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4918A51876760FC0CDBDC09 /* libPods-CopyCatSwift.a */; };
 		9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1551C21FC4800A48C5F /* AppDelegate.swift */; };
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
@@ -212,6 +214,8 @@
 		1A4DF1F41C5083AE001A4775 /* CCBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCBrowserCell.swift; sourceTree = "<group>"; };
 		1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPreviewViewController.swift; sourceTree = "<group>"; };
 		1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOverlayView.swift; sourceTree = "<group>"; };
+		1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramLoginViewController.swift; sourceTree = "<group>"; };
+		1AAD32131C64495F009D1DA7 /* CCUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserManager.swift; sourceTree = "<group>"; };
 		44E8B4CE334F19FC16EDAF08 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		9704E1521C21FC4800A48C5F /* CopyCatSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CopyCatSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1551C21FC4800A48C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -448,6 +452,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AAD320E1C640029009D1DA7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		1C556B28B7E5CE5F2165B445 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +852,7 @@
 		97F6DFD91C23A54700707180 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1AAD32131C64495F009D1DA7 /* CCUserManager.swift */,
 				97254FBB1C29EB780047968A /* CCPhoto+CoreDataProperties.swift */,
 				97254FBC1C29EB780047968A /* CCPhoto.swift */,
 				97254FBD1C29EB780047968A /* CCUser+CoreDataProperties.swift */,
@@ -882,6 +895,7 @@
 		97F6DFDF1C23A54700707180 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1AAD320E1C640029009D1DA7 /* Login */,
 				9717A53B1C388D5E002AB0C6 /* SKStatefulTableViewController */,
 				9740CA4A1C2FE8570023FE2C /* Camera */,
 				9740CA511C2FE8B30023FE2C /* DNImagePicker */,
@@ -911,6 +925,7 @@
 				9704E14F1C21FC4800A48C5F /* Frameworks */,
 				9704E1501C21FC4800A48C5F /* Resources */,
 				F5F0F23041E858F1358BE46B /* Copy Pods Resources */,
+				5E374EEA8BB93B47CEDEADE5 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1151,6 +1166,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		5E374EEA8BB93B47CEDEADE5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F5F0F23041E858F1358BE46B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1193,6 +1223,7 @@
 				9740CA8C1C2FE8B30023FE2C /* DNFullImageButton.m in Sources */,
 				9717A5331C3767D8002AB0C6 /* SwiftyJSON.swift in Sources */,
 				9740CA321C2F5A7B0023FE2C /* UIImage+Thumbnail.m in Sources */,
+				1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */,
 				1A4DF1EF1C508380001A4775 /* CCCollectionView.swift in Sources */,
 				9740CA8E1C2FE8B30023FE2C /* DNUnAuthorizedTipsView.m in Sources */,
 				9740CA2F1C2F5A7B0023FE2C /* UIImage+fixOrientation.m in Sources */,
@@ -1228,6 +1259,7 @@
 				9740CA501C2FE8770023FE2C /* AVCamViewController.m in Sources */,
 				9740CA9E1C30AA280023FE2C /* YIPopupTextView.m in Sources */,
 				1A4DF1F01C508380001A4775 /* CCCollectionViewCell.swift in Sources */,
+				1AAD32141C64495F009D1DA7 /* CCUserManager.swift in Sources */,
 				9727B0DC1C35CCCC005E9D12 /* CCInspireViewController.swift in Sources */,
 				9740C9721C2BE9960023FE2C /* CCSettingsViewController.swift in Sources */,
 				9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */,

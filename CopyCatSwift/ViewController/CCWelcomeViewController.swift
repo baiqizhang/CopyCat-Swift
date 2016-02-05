@@ -15,6 +15,7 @@ class CCWelcomeViewController: UIViewController {
     private var placeHolderImageView = UIImageView()
     private var categoryButton = UIButton()
     private var inspireButton = UIButton()
+    private var instagramLoingButton = UIButton()
     private var settingsButton = UIButton()
 
     func openGallery(){
@@ -31,6 +32,12 @@ class CCWelcomeViewController: UIViewController {
 
     func openInspire() {
         let vc = CCInspireViewController()
+        vc.modalTransitionStyle = .CrossDissolve
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func openInstagramLogin() {
+        let vc = InstagramLoginViewController()
         vc.modalTransitionStyle = .CrossDissolve
         self.presentViewController(vc, animated: true, completion: nil)
     }
@@ -68,6 +75,20 @@ class CCWelcomeViewController: UIViewController {
         inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
         inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
+        
+        NSLog("user type = \(CCCoreUtil.userType)")
+        switch CCCoreUtil.userType {
+        case 1:
+            break
+            
+            
+        default:
+            instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
+            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
+            instagramLoingButton.addTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
+            self.view!.addSubview(instagramLoingButton)
+        }
 
         //Button Labels
         let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))
@@ -88,7 +109,7 @@ class CCWelcomeViewController: UIViewController {
 
         //Settings
         settingsButton = UIButton()
-        settingsButton.setBackgroundImage(UIImage(named: "circleuser.png")!.imageWithAlignmentRectInsets(inset), forState: .Normal)
+        settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
         settingsButton.setBackgroundImage(UIImage(named: "circleuser_highlight.png")!.imageWithAlignmentRectInsets(inset), forState: .Highlighted)
         settingsButton.addTarget(self, action: "openProfile", forControlEvents: .TouchUpInside)
         view!.addSubview(self.settingsButton)
@@ -123,6 +144,14 @@ class CCWelcomeViewController: UIViewController {
 
     //Fading
     override func viewDidAppear(animated: Bool) {
+        if CCCoreUtil.userType > 0 {
+            let buttonPadding : CGFloat = -7.5
+            let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
+            settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
+            
+            instagramLoingButton.alpha = 0
+            
+        }
         UIView.animateWithDuration(0.1) { () -> Void in
             self.placeHolderImageView.alpha = 0;
             self.backgroundImageView.alpha = 1;

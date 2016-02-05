@@ -38,6 +38,34 @@ import CoreData
             return self.userDefault.integerForKey("isPreviewAfterPhotoTaken")
         }
     }
+    
+    static var userType: Int {
+        /*
+            0 - non login user
+            1 - instagram user
+        */
+        set {
+            self.userDefault.setInteger(newValue, forKey: "usertype")
+        }
+        get {
+            return self.userDefault.integerForKey("usertype")
+        }
+    }
+    
+    static var userPicture: UIImage {
+        set {
+            let path = NSHomeDirectory().stringByAppendingString("/Documents/userPicture.png")
+            UIImagePNGRepresentation(newValue)?.writeToFile(path, atomically: true)
+        }
+        get {
+            if self.userType > 0 {
+                let path = NSHomeDirectory().stringByAppendingString("/Documents/userPicture.png")
+                return UIImage(contentsOfFile: path)!
+            } else {
+                return UIImage(named: "circleuser.png")!
+            }
+        }
+    }
 
     // MARK: Constants
     static let fontSizeS = CGFloat((NSLocalizedString("FontSizeS", comment:"FontSizeS")as NSString).floatValue)
