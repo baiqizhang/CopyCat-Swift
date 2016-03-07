@@ -38,6 +38,7 @@ import CoreData
                 
                 post.pinCount = 0//subJson["pinCount"].int
                 post.likeCount = 0//subJson["likeCount"].int
+                post.id = subJson["_id"].string
                 
                 if let date = subJson["time"].string {
                     let dateFormatter = NSDateFormatter()
@@ -64,9 +65,8 @@ import CoreData
     }
     
     
-    static func refreshFeedForCurrentUser(completion:(posts:[CCPost]) -> Void) -> Void{
-        let timestamp = String(NSDate())
-        let url = host+"/api/post/before/" + timestamp
+    static func refreshFeedForCurrentUser(id:String,completion:(posts:[CCPost]) -> Void) -> Void{
+        let url = host+"timeline?count=5&sinceId=" + id
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromJson(json)
@@ -74,13 +74,8 @@ import CoreData
         }
     }
     
-    static func loadMoreFeedForCurrentUser(timestamp:NSDate?, completion:(posts:[CCPost]) -> Void) -> Void{
-        var url:String
-        if let ts = timestamp {
-            url = host+"/api/post/after/" + String(ts)
-        } else {
-            url = host+"/api/post/after/" + String(NSDate())
-        }
+    static func loadMoreFeedForCurrentUser(id:String, completion:(posts:[CCPost]) -> Void) -> Void{
+        let url = host+"timeline?count=5&maxId=" + id
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromJson(json)

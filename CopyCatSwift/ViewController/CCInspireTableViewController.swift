@@ -65,7 +65,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func statefulTableViewControllerWillBeginLoadingFromPullToRefresh(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
-        CCNetUtil.refreshFeedForCurrentUser { (posts) -> Void in
+        CCNetUtil.refreshFeedForCurrentUser(self.postList[0].id!, completion: { (posts) -> Void in
             for post in posts{
                 NSLog("uri:" + post.photoURI!);
             }
@@ -76,11 +76,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 tvc.tableView.reloadData()
                 completion(self.postList.count == 0, nil)
             })
-        }
+        })
     }
     
     override func statefulTableViewControllerWillBeginLoadingMore(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!, Bool) -> Void)!) {
-        CCNetUtil.loadMoreFeedForCurrentUser(postList.last?.timestamp) { (posts) -> Void in
+        CCNetUtil.loadMoreFeedForCurrentUser(self.postList.last!.id!, completion: { (posts) -> Void in
             var indexArray = [NSIndexPath]()
             var i = self.postList.count
             
@@ -98,7 +98,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 tvc.tableView.endUpdates()
                 completion(posts.count != 0, nil,false)
             })
-        }
+        })
     }
     
     

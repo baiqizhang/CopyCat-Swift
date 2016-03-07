@@ -34,7 +34,6 @@
 		97254FC81C29EB780047968A /* CCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254FBE1C29EB780047968A /* CCUser.swift */; };
 		97254FCB1C29EB780047968A /* CCCategory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254FC11C29EB780047968A /* CCCategory+CoreDataProperties.swift */; };
 		97254FCC1C29EB780047968A /* CCCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254FC21C29EB780047968A /* CCCategory.swift */; };
-		97254FCD1C29EB780047968A /* CCPost+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254FC31C29EB780047968A /* CCPost+CoreDataProperties.swift */; };
 		97254FCE1C29EB780047968A /* CCPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254FC41C29EB780047968A /* CCPost.swift */; };
 		9727B0DA1C34F29C005E9D12 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9727B0D91C34F29C005E9D12 /* AppIcon.png */; };
 		9727B0DC1C35CCCC005E9D12 /* CCInspireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9727B0DB1C35CCCC005E9D12 /* CCInspireViewController.swift */; };
@@ -129,6 +128,7 @@
 		9740CAA01C30AA280023FE2C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9740CA9D1C30AA280023FE2C /* README.md */; };
 		9740CAA21C3111F30023FE2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740CAA11C3111F30023FE2C /* AVFoundation.framework */; };
 		9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */; };
+		9756642A1C8D3F67003DA46E /* CCPost+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975664291C8D3F67003DA46E /* CCPost+CoreDataProperties.swift */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
 		9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */; };
@@ -238,7 +238,6 @@
 		97254FBE1C29EB780047968A /* CCUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUser.swift; sourceTree = "<group>"; };
 		97254FC11C29EB780047968A /* CCCategory+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CCCategory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		97254FC21C29EB780047968A /* CCCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCategory.swift; sourceTree = "<group>"; };
-		97254FC31C29EB780047968A /* CCPost+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CCPost+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		97254FC41C29EB780047968A /* CCPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPost.swift; sourceTree = "<group>"; };
 		97254FD11C29EF100047968A /* CopyCatSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CopyCatSwift-Bridging-Header.h"; path = "View/CopyCatSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		9727B0D91C34F29C005E9D12 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon.png; path = Resources/AppIcon.png; sourceTree = "<group>"; };
@@ -362,6 +361,7 @@
 		9740CA9D1C30AA280023FE2C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9740CAA11C3111F30023FE2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCProfileViewController.swift; sourceTree = "<group>"; };
+		975664291C8D3F67003DA46E /* CCPost+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CCPost+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
 		9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCAlertViewController.swift; sourceTree = "<group>"; };
@@ -857,7 +857,7 @@
 				97254FBE1C29EB780047968A /* CCUser.swift */,
 				97254FC11C29EB780047968A /* CCCategory+CoreDataProperties.swift */,
 				97254FC21C29EB780047968A /* CCCategory.swift */,
-				97254FC31C29EB780047968A /* CCPost+CoreDataProperties.swift */,
+				975664291C8D3F67003DA46E /* CCPost+CoreDataProperties.swift */,
 				97254FC41C29EB780047968A /* CCPost.swift */,
 				97F6DFDA1C23A54700707180 /* CopyCatSwift.xcdatamodeld */,
 			);
@@ -1154,7 +1154,6 @@
 				9727B0DE1C35D3C2005E9D12 /* CCNetUtil.swift in Sources */,
 				9740CA811C2FE8B30023FE2C /* DNPhotoBrowser.m in Sources */,
 				9740CA841C2FE8B30023FE2C /* UIColor+Hex.m in Sources */,
-				97254FCD1C29EB780047968A /* CCPost+CoreDataProperties.swift in Sources */,
 				1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */,
 				979A99321C391BBB00214E85 /* UIImageView+Download.swift in Sources */,
 				9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */,
@@ -1186,6 +1185,7 @@
 				97254FCB1C29EB780047968A /* CCCategory+CoreDataProperties.swift in Sources */,
 				9740CA7E1C2FE8B30023FE2C /* DNImageFlowViewController.m in Sources */,
 				97254FC81C29EB780047968A /* CCUser.swift in Sources */,
+				9756642A1C8D3F67003DA46E /* CCPost+CoreDataProperties.swift in Sources */,
 				9740CA861C2FE8B30023FE2C /* UIViewController+DNImagePicker.m in Sources */,
 				97254FCC1C29EB780047968A /* CCCategory.swift in Sources */,
 				9740CAA01C30AA280023FE2C /* README.md in Sources */,
