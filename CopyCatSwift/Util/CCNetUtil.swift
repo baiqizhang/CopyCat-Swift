@@ -13,24 +13,33 @@ import CoreData
     
 //    private static let host = "http://10.0.18.24:8080" //school
 //    static let host = "http://10.0.0.8:8080" //home
-    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
+//    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
+    static let host = "http://54.84.135.175:3000/api/v0/"
     
     // MARK: User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
         var result = [CCPost]()
         for (_, subJson) in json {
-            if let uri = subJson["photoURI"].string {
+            if let uri = subJson["imageUrl"].string {
                 let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
                 let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
                 
                 post.photoURI = uri
-                post.photoWidth = subJson["photoWidth"].int
-                post.photoHeight = subJson["photoHeight"].int
                 
-                post.pinCount = subJson["pinCount"].int
-                post.likeCount = subJson["likeCount"].int
+                post.photoWidth = 1
+                post.photoHeight = 1
+                 
+                if let width = subJson["width"].int {
+                    if let height = subJson["height"].int {
+                        post.photoWidth = width
+                        post.photoHeight = height
+                    }
+                }
                 
-                if let date = subJson["timestamp"].string {
+                post.pinCount = 0//subJson["pinCount"].int
+                post.likeCount = 0//subJson["likeCount"].int
+                
+                if let date = subJson["time"].string {
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"//this your string date format
                     dateFormatter.timeZone = NSTimeZone(name: "UTC")
@@ -47,7 +56,8 @@ import CoreData
     }
     
     static func getFeedForCurrentUser(completion:(posts:[CCPost]) -> Void) -> Void{
-        CCNetUtil.getJSONFromURL(host+"/api/post") { (json:JSON) -> Void in
+//        CCNetUtil.getJSONFromURL(host+"/api/post") { (json:JSON) -> Void in
+        CCNetUtil.getJSONFromURL(host+"timeline") { (json:JSON) -> Void in
             let result = parsePostFromJson(json)
             completion(posts: result)
         }
@@ -85,16 +95,21 @@ import CoreData
 
         var json = [String: AnyObject]()
         let timestamp = String(NSDate())
-        json["photoURI"] = base64String
-        json["photoWidth"] = image.size.width
-        json["photoHeight"] = image.size.height
-        json["timestamp"] = timestamp
+//        json["photoURI"] = base64String
+//        json["photoWidth"] = image.size.width
+//        json["photoHeight"] = image.size.height
+//        json["timestamp"] = timestamp
+        json["data"] = base64String
+        json["width"] = image.size.width
+        json["height"] = image.size.height
         
 
         do{
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
-            HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) -> Void in
-                NSLog("response:%@", response!)
+//           HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) ->
+            HTTPPostJSON(host + "photos", data: data, callback: { (response, error) -> Void in
+                let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String?
+                NSLog("response:%@", datastring!)
             })
         } catch{
             

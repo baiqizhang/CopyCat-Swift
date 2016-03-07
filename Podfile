@@ -2,7 +2,7 @@
 # platform :ios, '6.0'
 
 target 'CopyCatSwift' do
-    pod 'AFNetworking', '~> 3.0’
+#    pod 'AFNetworking', '~> 3.0’
 end
 
 target 'CopyCatSwiftTests' do

@@ -18,7 +18,6 @@
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
 		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
 		1AAD32141C64495F009D1DA7 /* CCUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD32131C64495F009D1DA7 /* CCUserManager.swift */; };
-		3A3B2E769D388850121560A1 /* libPods-CopyCatSwift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4918A51876760FC0CDBDC09 /* libPods-CopyCatSwift.a */; };
 		9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1551C21FC4800A48C5F /* AppDelegate.swift */; };
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
 		9704E1791C21FC4800A48C5F /* CopyCatSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1781C21FC4800A48C5F /* CopyCatSwiftUITests.swift */; };
@@ -431,7 +430,6 @@
 				9792C95A1C437E8300EF63BC /* FBSDKCoreKit.framework in Frameworks */,
 				9792C95C1C437E8300EF63BC /* FBSDKShareKit.framework in Frameworks */,
 				9792C95B1C437E8300EF63BC /* FBSDKLoginKit.framework in Frameworks */,
-				3A3B2E769D388850121560A1 /* libPods-CopyCatSwift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,12 +918,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9704E17D1C21FC4800A48C5F /* Build configuration list for PBXNativeTarget "CopyCatSwift" */;
 			buildPhases = (
-				5328F318D633E196FC72F9C4 /* Check Pods Manifest.lock */,
 				9704E14E1C21FC4800A48C5F /* Sources */,
 				9704E14F1C21FC4800A48C5F /* Frameworks */,
 				9704E1501C21FC4800A48C5F /* Resources */,
-				F5F0F23041E858F1358BE46B /* Copy Pods Resources */,
-				5E374EEA8BB93B47CEDEADE5 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1150,54 +1145,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		5328F318D633E196FC72F9C4 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5E374EEA8BB93B47CEDEADE5 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F5F0F23041E858F1358BE46B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9704E14E1C21FC4800A48C5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1418,9 +1365,27 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Pods/FBSDK",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CopyCatSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"-isystem",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1444,9 +1409,27 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Pods/FBSDK",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CopyCatSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"-isystem",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCatSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

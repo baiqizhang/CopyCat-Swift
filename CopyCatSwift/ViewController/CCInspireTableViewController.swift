@@ -29,7 +29,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
         let post = postList[indexPath.row]
         
-        let uri = CCNetUtil.host + post.photoURI!
+        let uri = post.photoURI!//CCNetUtil.host + post.photoURI!
         
         cell.username = "Anonymous"
         cell.delegate = self

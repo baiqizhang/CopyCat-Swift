@@ -156,6 +156,7 @@ class CCInspireTableViewCell : UITableViewCell {
         likeButton.setBackgroundImage(UIImage(named: "like2.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         likeButton.setBackgroundImage(UIImage(named: "like2_highlight.png"), forState: .Highlighted)
         likeButton.addTarget(self, action: "likeAction", forControlEvents: .TouchUpInside)
+        likeButton.alpha=0
         self.addSubview(likeButton)
 
         // Pin button
@@ -167,11 +168,13 @@ class CCInspireTableViewCell : UITableViewCell {
         // Like count
         likeCountLabel.textColor = .whiteColor()
         likeCountLabel.textAlignment = .Left
+        likeCountLabel.alpha = 0
         self.addSubview(likeCountLabel)
         
         // Pin count
         pinCountLabel.textColor = .whiteColor()
         pinCountLabel.textAlignment = .Left
+        pinCountLabel.alpha=0
         self.addSubview(pinCountLabel)
 
         
