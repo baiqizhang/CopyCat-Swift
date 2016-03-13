@@ -30,7 +30,7 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        let body = webView.stringByEvaluatingJavaScriptFromString("document.body.innerHTML")
+        let body = webView.stringByEvaluatingJavaScriptFromString("document.body.firstChild.innerHTML")
         let a = JSON.parse(body!)
         if let _ = a["access_token"].string {
             
