@@ -200,8 +200,11 @@ class CCInspireTableViewCell : UITableViewCell {
 
         // Pin button constraint
         pinButton.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: likeButton, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: -30))
-        
+        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -15))
+
+//        pinButton.translatesAutoresizingMaskIntoConstraints = false
+//        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: likeButton, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: -30))
+//        
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
