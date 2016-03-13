@@ -10,6 +10,7 @@ import UIKit
 
 class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
     internal var category : CCCategory?
+    let userImageView = UIImageView()
     private let closeButton = UIButton()
     private let cancelButton = UIButton()
     private let deleteButton = UIButton()
@@ -35,6 +36,14 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         presentViewController(vc, animated: true, completion: nil)
     }
     
+    func onTapUser() {
+        if CCCoreUtil.userType != 1{
+            let vc = InstagramLoginViewController()
+            vc.modalTransitionStyle = .CrossDissolve
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,20 +78,22 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "closeAction")
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
-
         
         // User ImageView
         let size:CGFloat = 70.0
         let image = UIImage(named: "AppIcon.png")
-        let imageView = UIImageView(frame: CGRectMake(self.view.frame.size.width/2 - size/2, 40 + height/2, size, size))
-        imageView.image = image
-        imageView.layer.borderWidth = 1.0
-        imageView.layer.masksToBounds = false
-        imageView.layer.borderColor = UIColor.whiteColor().CGColor
-        imageView.layer.cornerRadius = imageView.frame.size.width/2
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = UIColor.blackColor()
-        view!.addSubview(imageView)
+        userImageView.frame = CGRectMake(self.view.frame.size.width/2 - size/2, 40 + height/2, size, size)
+        userImageView.image = image
+        userImageView.layer.borderWidth = 1.0
+        userImageView.layer.masksToBounds = false
+        userImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        userImageView.layer.cornerRadius = userImageView.frame.size.width/2
+        userImageView.clipsToBounds = true
+        userImageView.backgroundColor = UIColor.blackColor()
+        view!.addSubview(userImageView)
+        
+        userImageView.userInteractionEnabled = true
+        userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "onTapUser"))
 
         // User Info
         let labelHeight : CGFloat = 11
@@ -149,6 +160,17 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
+        NSLog("user type = \(CCCoreUtil.userType)")
+        switch CCCoreUtil.userType {
+        case 1:
+            userImageView.image = CCCoreUtil.userPicture
+            break
+        default:
+            userImageView.image = UIImage(named: "AppIcon.png")
+        }
+
+        
         category = CCCoreUtil.categories[0] as? CCCategory
         collectionView?.reloadData()
     }

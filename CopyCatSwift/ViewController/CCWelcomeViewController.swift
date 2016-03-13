@@ -45,7 +45,26 @@ class CCWelcomeViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
+    override func viewWillAppear(animated: Bool) {
+//        NSLog("user type = \(CCCoreUtil.userType)")
+//        switch CCCoreUtil.userType {
+//        case 1:
+//            instagramLoingButton.removeTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
+//            instagramLoingButton.alpha = 0
+//            break
+//        default:
+//            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
+//            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
+//            instagramLoingButton.addTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
+//            instagramLoingButton.alpha = 1
+//        }
+        
+        // Button Inset
+        let buttonPadding : CGFloat = -7.5
+        let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
+        
+        settingsButton.image = CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,21 +94,11 @@ class CCWelcomeViewController: UIViewController {
         inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
         inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
-        
-        NSLog("user type = \(CCCoreUtil.userType)")
-        switch CCCoreUtil.userType {
-        case 1:
-            break
-            
-            
-        default:
-            instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
-            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
-            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
-            instagramLoingButton.addTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
-            self.view!.addSubview(instagramLoingButton)
-        }
 
+        //instagram
+        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+        self.view!.addSubview(instagramLoingButton)
+        
         //Button Labels
         let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))
         cameraLabel.textAlignment = .Center
@@ -103,14 +112,8 @@ class CCWelcomeViewController: UIViewController {
         libraryLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
         self.view!.addSubview(libraryLabel)
         
-        // Button Inset
-        let buttonPadding : CGFloat = -7.5
-        let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
-
-        //Settings
-
-        settingsButton.image = CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset)
         
+        //Settings
         //settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
         //settingsButton.setBackgroundImage(UIImage(named: "circleuser_highlight.png")!.imageWithAlignmentRectInsets(inset), forState: .Highlighted)
         let singleTap = UITapGestureRecognizer.init(target: self, action: "openProfile")
