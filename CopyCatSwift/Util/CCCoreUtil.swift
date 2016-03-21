@@ -139,7 +139,7 @@ import CoreData
         let uri = "\(category.id!)_\(count)"
         let path = "\(NSHomeDirectory())/Documents/\(uri).jpg"
         let tmpath = "\(NSHomeDirectory())/Documents/\(uri)_tm.jpg"
-        let imgData: NSData = UIImageJPEGRepresentation(image, 0)!
+        let imgData: NSData = UIImageJPEGRepresentation(image, 9)!
         imgData.writeToFile(path, atomically: true)
         do {
             try NSFileManager.defaultManager().removeItemAtPath(tmpath)

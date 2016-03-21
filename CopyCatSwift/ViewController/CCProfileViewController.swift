@@ -41,6 +41,19 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
             let vc = InstagramLoginViewController()
             vc.modalTransitionStyle = .CrossDissolve
             self.presentViewController(vc, animated: true, completion: nil)
+        } else {
+            let refreshAlert = UIAlertController(title: "Logout", message: "You will no longer be able to sync instagram likes.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                CCUserManager.instagramUserInfo = nil
+                self.viewWillAppear(false)
+            }))
+            
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            presentViewController(refreshAlert, animated: true, completion: nil)
         }
     }
 
@@ -105,7 +118,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view.addSubview(likes)
         
         let likesLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        likesLabel.text = "Likes"
+        likesLabel.text = "Posts"
         likesLabel.textColor = .whiteColor()
         view.addSubview(likesLabel)
 
@@ -129,7 +142,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         
         //Title
         let titleLabel: CCLabel = CCLabel(frame: CGRectMake(50, -1, self.view.frame.size.width - 100, 40))
-        titleLabel.text = "User Gallery"//category?.name
+        titleLabel.text = "Gallery"//category?.name
         titleLabel.font = UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
         titleLabel.textAlignment = .Center

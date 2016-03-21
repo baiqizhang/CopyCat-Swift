@@ -36,7 +36,7 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
         
         
         let webView:UIWebView = UIWebView(frame: CGRectMake(0, 30, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
-        let authorize_url = "https://api.instagram.com/oauth/authorize/?client_id=\(CLIENTID)&redirect_uri=\(redirect_uri)&response_type=code"
+        let authorize_url = "https://api.instagram.com/oauth/authorize/?client_id=\(CLIENTID)&redirect_uri=\(redirect_uri)&response_type=code&scope=public_content"
         webView.loadRequest(NSURLRequest(URL: NSURL(string: authorize_url)!))
         webView.delegate = self;
         self.view.addSubview(webView)
@@ -50,8 +50,8 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
     func webViewDidFinishLoad(webView: UIWebView) {
         let body = webView.stringByEvaluatingJavaScriptFromString("document.body.firstChild.innerHTML")
         let a = JSON.parse(body!)
-        if let _ = a["access_token"].string {
-            
+        if let token = a["access_token"].string {
+            NSLog("token = "+token)
             self.dismissViewControllerAnimated(true, completion: { })
             CCUserManager.instagramUserInfo = a;
             

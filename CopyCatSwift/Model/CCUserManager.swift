@@ -15,17 +15,26 @@ class CCUserManager: NSObject {
     
     static var instagramUserInfo: JSON {
         set {
+            if newValue==nil{
+                self.userDefault.removeObjectForKey("access_token")
+                self.userDefault.removeObjectForKey("profile_picture")
+                self.userDefault.removeObjectForKey("user")
+                self.userDefault.setInteger(0, forKey: "usertype")
+        
+                return;
+            }
+        
             self.userDefault.setValue(newValue["access_token"].string, forKey: "access_token")
             self.userDefault.setValue(newValue["user"]["profile_picture"].string, forKey: "profile_picture")
             self.userDefault.setValue(newValue["user"]["username"].string, forKey: "user")
         
             self.userDefault.setInteger(1, forKey: "usertype")
         
-        if let url = NSURL(string: newValue["user"]["profile_picture"].string!) {
-            if let data = NSData(contentsOfURL: url) {
-                CCCoreUtil.userPicture = UIImage(data: data)!
+            if let url = NSURL(string: newValue["user"]["profile_picture"].string!) {
+                if let data = NSData(contentsOfURL: url) {
+                    CCCoreUtil.userPicture = UIImage(data: data)!
+                }
             }
-        }
         
         
             NSLog("set Instagram user info = \(self.userDefault.valueForKey("profile_picture"))")
