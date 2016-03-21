@@ -56,6 +56,37 @@ import CoreData
         return result
     }
     
+    static func parsePostFromInstagramJson(json:JSON) -> [CCPost]{
+        var result = [CCPost]()
+        for (_, subJson) in json["data"] {
+            let photo = subJson["images"]["standard_resolution"]
+            let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
+            let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
+            
+            post.photoURI = photo["url"].string
+            
+            post.photoWidth = 1
+            post.photoHeight = 1
+            
+            if let width = photo["width"].int {
+                if let height = photo["height"].int {
+                    post.photoWidth = width
+                    post.photoHeight = height
+                }
+            }
+            
+            post.pinCount = 0//subJson["pinCount"].int
+            post.likeCount = 0//subJson["likeCount"].int
+            post.id = "aaa"
+            
+            post.timestamp = NSDate()
+            
+            result.append(post)
+        }
+        
+        return result
+    }
+    
     static func getFeedForCurrentUser(completion:(posts:[CCPost]) -> Void) -> Void{
 //        CCNetUtil.getJSONFromURL(host+"/api/post") { (json:JSON) -> Void in
         CCNetUtil.getJSONFromURL(host+"timeline") { (json:JSON) -> Void in
@@ -78,10 +109,22 @@ import CoreData
         let url = host+"timeline?count=5&maxId=" + id
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
-            let result = parsePostFromJson(json)
-            completion(posts: result)
+            NSLog("%@",json["data"].string!)
+            completion(posts: [])
         }
     }
+    
+    static func loadInstagramLikes(completion:(posts:[CCPost]) -> Void) -> Void{
+        if let token = NSUserDefaults.standardUserDefaults().valueForKey("access_token"){
+            let url = "https://api.instagram.com/v1/users/self/media/liked?access_token=" + (token as! String)
+            let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+                let result = parsePostFromInstagramJson(json)
+                completion(posts: result)
+            }
+        }
+    }
+
     
     // new post
     static func newPost(image:UIImage){

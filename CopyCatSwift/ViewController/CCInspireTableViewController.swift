@@ -10,6 +10,7 @@ import UIKit
 
 class CCInspireTableViewController : SKStatefulTableViewController {
     private var postList = [CCPost]()
+    private var usingInstagram = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,26 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         tableView.allowsSelection = false
         // Load data
         triggerInitialLoad()
+    }
+    
+    func loadInstagramLikes(){
+        CCNetUtil.loadInstagramLikes() { (posts) -> Void in
+            self.postList = posts //+ self.postList
+            NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+            self.usingInstagram = true
+            self.tableView.reloadData()
+        }
+        
+    }
+    internal func instaAction(){
+        usingInstagram = !usingInstagram
+        if usingInstagram{
+            loadInstagramLikes()
+        } else {
+            self.postList = []
+            statefulTableViewControllerWillBeginInitialLoad(self, completion: nil)
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -65,6 +86,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func statefulTableViewControllerWillBeginLoadingFromPullToRefresh(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
+        if usingInstagram {
+            completion(false, nil)
+            return
+        }
+        
         CCNetUtil.refreshFeedForCurrentUser(self.postList[0].id!, completion: { (posts) -> Void in
             for post in posts{
                 NSLog("uri:" + post.photoURI!);
@@ -80,6 +106,10 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func statefulTableViewControllerWillBeginLoadingMore(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!, Bool) -> Void)!) {
+        if usingInstagram {
+            completion(false, nil,false)
+            return
+        }
         CCNetUtil.loadMoreFeedForCurrentUser(self.postList.last!.id!, completion: { (posts) -> Void in
             var indexArray = [NSIndexPath]()
             var i = self.postList.count

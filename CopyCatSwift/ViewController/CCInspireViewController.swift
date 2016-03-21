@@ -11,12 +11,17 @@ import UIKit
 class CCInspireViewController : UIViewController {
     private var titleLabel = CCLabel()
     private let closeButton = UIButton()
+    private let instaButton = UIButton()
     private let tableViewController = CCInspireTableViewController()
     
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
-    
+
+    func instaAction() {
+        tableViewController.instaAction()
+    }
+
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -49,5 +54,12 @@ class CCInspireViewController : UIViewController {
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
-    }
+
+    
+        //instagram
+        instaButton.frame = CGRectMake(self.view.frame.size.width - 40, 5, 30, 30)
+        instaButton.setBackgroundImage(UIImage(named: "instagram.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        instaButton.addTarget(self, action: "instaAction", forControlEvents: .TouchUpInside)
+        self.view!.addSubview(instaButton)
+}
 }
