@@ -33,7 +33,7 @@ class CCInspireTableViewCell : UITableViewCell {
                             let data = data where error == nil,
                             var image = UIImage(data: data)
                             else { return }
-                        image = image.resizeWithFactor(0.3)
+//                        image = image.resizeWithFactor(0.3)
                         dispatch_async(dispatch_get_main_queue()) { () -> Void in
                             self.count--
                             if self.count != 0 {
