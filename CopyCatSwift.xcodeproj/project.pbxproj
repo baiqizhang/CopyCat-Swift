@@ -140,6 +140,8 @@
 		9792C95B1C437E8300EF63BC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792C9581C437E8300EF63BC /* FBSDKLoginKit.framework */; };
 		9792C95C1C437E8300EF63BC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792C9591C437E8300EF63BC /* FBSDKShareKit.framework */; };
 		979A99321C391BBB00214E85 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A99311C391BBB00214E85 /* UIImageView+Download.swift */; };
+		97C4F33F1C9FAA07003934BB /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4F33E1C9FAA07003934BB /* instagram.png */; };
+		97C4F3411C9FB316003934BB /* UIImageWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */; };
 		97F6DFB31C23A1C300707180 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8C1C23A1C300707180 /* Assets.xcassets */; };
 		97F6DFB41C23A1C300707180 /* AddNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8E1C23A1C300707180 /* AddNew.png */; };
 		97F6DFB51C23A1C300707180 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8F1C23A1C300707180 /* back.png */; };
@@ -373,6 +375,8 @@
 		9792C9581C437E8300EF63BC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Pods/FBSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		9792C9591C437E8300EF63BC /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Pods/FBSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		979A99311C391BBB00214E85 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
+		97C4F33E1C9FAA07003934BB /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
+		97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageWithInsets.swift; sourceTree = "<group>"; };
 		97F6DF8C1C23A1C300707180 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		97F6DF8E1C23A1C300707180 /* AddNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddNew.png; sourceTree = "<group>"; };
 		97F6DF8F1C23A1C300707180 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -657,6 +661,7 @@
 		9740CA371C2F5CAB0023FE2C /* UIImageHelper */ = {
 			isa = PBXGroup;
 			children = (
+				97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */,
 				9740CA361C2F5C910023FE2C /* NYXImagesHelper.h */,
 				9740CA121C2F5A7B0023FE2C /* UIImage+fixOrientation.h */,
 				9740CA131C2F5A7B0023FE2C /* UIImage+fixOrientation.m */,
@@ -801,6 +806,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				97C4F33E1C9FAA07003934BB /* instagram.png */,
 				9792C94F1C437E5400EF63BC /* like2_highlight.png */,
 				9792C9501C437E5400EF63BC /* like2.png */,
 				9792C9511C437E5400EF63BC /* pin_highlight.png */,
@@ -1023,6 +1029,7 @@
 				978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */,
 				97F6DFBE1C23A1C300707180 /* flashAuto_highlight.png in Resources */,
 				97F6DFC21C23A1C300707180 /* flashOn_highlight.png in Resources */,
+				97C4F33F1C9FAA07003934BB /* instagram.png in Resources */,
 				9740C94F1C2BB9210023FE2C /* 1_6.jpg in Resources */,
 				9740C9441C2BB9210023FE2C /* 0_5.jpg in Resources */,
 				97F6DFD41C23A1C300707180 /* switchButton.png in Resources */,
@@ -1210,6 +1217,7 @@
 				9727B0DC1C35CCCC005E9D12 /* CCInspireViewController.swift in Sources */,
 				9740C9721C2BE9960023FE2C /* CCSettingsViewController.swift in Sources */,
 				9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */,
+				97C4F3411C9FB316003934BB /* UIImageWithInsets.swift in Sources */,
 				97254F911C2955EF0047968A /* CCGalleryViewController.swift in Sources */,
 				97254F921C2955EF0047968A /* CCWelcomeViewController.swift in Sources */,
 			);

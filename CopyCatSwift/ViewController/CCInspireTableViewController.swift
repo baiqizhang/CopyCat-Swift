@@ -11,6 +11,7 @@ import UIKit
 class CCInspireTableViewController : SKStatefulTableViewController {
     private var postList = [CCPost]()
     private var usingInstagram = false
+    private var loading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +31,37 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             self.postList = posts //+ self.postList
             NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
             self.usingInstagram = true
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+            })
         }
         
     }
     internal func instaAction(){
+        if loading{
+            return
+        }
         usingInstagram = !usingInstagram
         if usingInstagram{
+            loading = true
             loadInstagramLikes()
+            loading = false
         } else {
+            loading = true
             self.postList = []
-            statefulTableViewControllerWillBeginInitialLoad(self, completion: nil)
-            self.tableView.reloadData()
+            CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
+                for post in posts{
+                    NSLog("uri:" + post.photoURI!);
+                }
+                self.postList = posts
+                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                    self.loading = false
+                })
+            }
         }
     }
     
