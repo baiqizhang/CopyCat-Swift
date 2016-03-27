@@ -202,7 +202,35 @@ import AssetsLibrary
     }
 
     func shareAction() {
-        CCNetUtil.newPost(currentCell!.image!)
+        let refreshAlert = UIAlertController(title: "Share to Inspire", message: "Your photo will be shared to public timeline.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            CCNetUtil.newPost(self.currentCell!.image!)
+            let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
+            notifyLabel.text = "Photo uploaded"
+            notifyLabel.textColor = UIColor.whiteColor()
+            notifyLabel.backgroundColor = UIColor.blackColor()
+            notifyLabel.alpha = 0
+            self.view!.addSubview(notifyLabel)
+            UIView.animateWithDuration(0.3, animations: {() -> Void in
+                notifyLabel.alpha = 1
+                }, completion: {(finished: Bool) -> Void in
+                    UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
+                        notifyLabel.alpha = 0
+                        }, completion: {(finished: Bool) -> Void in
+                            notifyLabel.removeFromSuperview()
+                    })
+            })
+
+            refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+
     }
     
     //MARK: Controls
