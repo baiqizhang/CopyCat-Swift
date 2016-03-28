@@ -172,10 +172,30 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         alertVC.modalPresentationStyle = .OverCurrentContext
         alertVC.modalTransitionStyle = .CrossDissolve
 
+        alertVC.parent = self
         presentViewController(alertVC, animated: true, completion: nil)
+    }
+    
+    func pinCompleted(){
+        let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
+        notifyLabel.text = "Photo pinned"
+        notifyLabel.textColor = UIColor.whiteColor()
+        notifyLabel.backgroundColor = UIColor.blackColor()
+        notifyLabel.alpha = 0
+        self.parentViewController!.view!.addSubview(notifyLabel)
+        UIView.animateWithDuration(0.3, animations: {() -> Void in
+            notifyLabel.alpha = 1
+            }, completion: {(finished: Bool) -> Void in
+                UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
+                    notifyLabel.alpha = 0
+                    }, completion: {(finished: Bool) -> Void in
+                        notifyLabel.removeFromSuperview()
+                })
+        })
     }
     
     func likeAction(){
     }
+    
 
 }
