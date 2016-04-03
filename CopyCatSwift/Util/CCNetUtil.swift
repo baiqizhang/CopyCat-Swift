@@ -11,10 +11,9 @@ import CoreData
 
 @objc class CCNetUtil:NSObject{
     
-//    private static let host = "http://10.0.18.24:8080" //school
-//    static let host = "http://10.0.0.8:8080" //home
 //    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
-    static let host = "http://54.84.135.175:3000/api/v0/"
+//    static let host = "http://54.84.135.175:3000/api/v0/"
+    static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
     
     // MARK: User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
