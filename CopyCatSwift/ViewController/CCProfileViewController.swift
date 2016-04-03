@@ -46,6 +46,13 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
             
             refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                 CCUserManager.instagramUserInfo = nil
+                let url = NSURL(string: "http://instagram.com/accounts/logout")
+                
+                let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+//                    print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                }
+                
+                task.resume()
                 self.viewWillAppear(false)
             }))
             

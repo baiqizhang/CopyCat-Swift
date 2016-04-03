@@ -43,6 +43,24 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
     }
     internal func instaAction(){
+        if CCCoreUtil.userType != 1{
+            let refreshAlert = UIAlertController(title: "Login", message: "Please login via Instagram to sync instagram likes.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                let vc = InstagramLoginViewController()
+                vc.modalTransitionStyle = .CrossDissolve
+                self.presentViewController(vc, animated: true, completion: nil)
+//                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+//                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            presentViewController(refreshAlert, animated: true, completion: nil)
+            return
+        }
+        
         if loading{
             return
         }
