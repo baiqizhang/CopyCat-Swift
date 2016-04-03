@@ -10,6 +10,7 @@ import UIKit
 
 class CCInspireTableViewController : SKStatefulTableViewController {
     private var postList = [CCPost]()
+    private var instagramPostList = [CCPost]()
     private var usingInstagram = false
     private var loading = false
     
@@ -28,11 +29,15 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     func loadInstagramLikes(){
         CCNetUtil.loadInstagramLikes() { (posts) -> Void in
-            self.postList = posts //+ self.postList
+            self.postList = posts
+            self.loading = false
             NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+
             self.usingInstagram = true
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
+                self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top); // scroll to top
+
             })
         }
         
@@ -42,31 +47,34 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             return
         }
         usingInstagram = !usingInstagram
+        loading = true
+
         if usingInstagram{
-            loading = true
             loadInstagramLikes()
-            loading = false
         } else {
-            loading = true
             self.postList = []
             CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
                 for post in posts{
                     NSLog("uri:" + post.photoURI!);
                 }
                 self.postList = posts
+                self.loading = false
                 NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
                 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.tableView.reloadData()
-                    self.loading = false
                 })
             }
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell"/*+String(indexPath.row % 5)*/, forIndexPath: indexPath) as! CCInspireTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! CCInspireTableViewCell
+        
+        if indexPath.row>=postList.count{
+            return cell
+        }
         
         let post = postList[indexPath.row]
         
@@ -85,24 +93,25 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        NSLog("rows:%d",postList.count)
         return postList.count
     }
     
     
     override func statefulTableViewControllerWillBeginInitialLoad(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
-            CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
-                for post in posts{
-                    NSLog("uri:" + post.photoURI!);
-                }
-                self.postList += posts
-                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
-                
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    tvc.tableView.reloadData()
-                    completion(self.postList.count == 0, nil)
-                })
+        CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
+            for post in posts{
+                NSLog("uri:" + post.photoURI!);
             }
+            self.postList += posts
+            NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+            
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                tvc.tableView.reloadData()
+                completion(self.postList.count == 0, nil)
+            })
+        }
     }
     
     override func statefulTableViewControllerWillBeginLoadingFromPullToRefresh(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
@@ -153,6 +162,12 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        NSLog("rows: %d of %d",indexPath.row,postList.count)
+        // synchronization problem
+        if indexPath.row>=postList.count{
+            return 200
+        }
+        
         guard
             let height = postList[indexPath.row].photoHeight,
             let width = postList[indexPath.row].photoWidth
