@@ -126,16 +126,12 @@ import CoreData
 
     
     // new post
-    static func newPost(image:UIImage){
+    static func newPost(image:UIImage,completion:(error: String?) -> Void){
         let imageData = UIImageJPEGRepresentation(image,0.8)//.resizeWithFactor(0.01), 0.8)
         let base64String = imageData!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
 
         var json = [String: AnyObject]()
-        let timestamp = String(NSDate())
-//        json["photoURI"] = base64String
-//        json["photoWidth"] = image.size.width
-//        json["photoHeight"] = image.size.height
-//        json["timestamp"] = timestamp
+        let _ = String(NSDate())
         json["data"] = base64String
         json["width"] = image.size.width
         json["height"] = image.size.height
@@ -145,8 +141,19 @@ import CoreData
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
 //           HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) ->
             HTTPPostJSON(host + "photos", data: data, callback: { (response, error) -> Void in
-                let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String?
-                NSLog("response:%@", datastring!)
+                if let _ = error {
+                    completion(error: "Connection Failed")
+                    return
+                }
+                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+                    NSLog("response:%@", datastring)
+                    let json = JSON.parse(datastring)
+                    if let _ = json["_id"].string{
+                        completion( error: nil)
+                    } else{
+                        completion(error: "Connection Failed")
+                    }
+                }
             })
         } catch{
             

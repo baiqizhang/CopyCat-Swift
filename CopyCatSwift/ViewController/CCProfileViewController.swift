@@ -119,18 +119,18 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         let labelHeight : CGFloat = 11
         let offset : CGFloat = -2
         
-        let likes = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        likes.text = "0"
-        likes.textColor = .whiteColor()
-        view.addSubview(likes)
+        let posts = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
+        posts.text = CCUserManager.postCount.stringValue
+        posts.textColor = .whiteColor()
+        view.addSubview(posts)
         
-        let likesLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        likesLabel.text = "Posts"
-        likesLabel.textColor = .whiteColor()
-        view.addSubview(likesLabel)
+        let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
+        postsLabel.text = "Posts"
+        postsLabel.textColor = .whiteColor()
+        view.addSubview(postsLabel)
 
         let pins = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        pins.text = "0"
+        pins.text = CCUserManager.pinCount.stringValue
         pins.textColor = .whiteColor()
         view.addSubview(pins)
         

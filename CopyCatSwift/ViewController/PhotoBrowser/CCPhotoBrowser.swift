@@ -205,21 +205,32 @@ import AssetsLibrary
         let refreshAlert = UIAlertController(title: "Share to Inspire", message: "Your photo will be shared to public timeline.", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            CCNetUtil.newPost(self.currentCell!.image!)
-            let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
-            notifyLabel.text = "Photo uploaded"
-            notifyLabel.textColor = UIColor.whiteColor()
-            notifyLabel.backgroundColor = UIColor.blackColor()
-            notifyLabel.alpha = 0
-            self.view!.addSubview(notifyLabel)
-            UIView.animateWithDuration(0.3, animations: {() -> Void in
-                notifyLabel.alpha = 1
-                }, completion: {(finished: Bool) -> Void in
-                    UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
-                        notifyLabel.alpha = 0
+            CCNetUtil.newPost(self.currentCell!.image!, completion: { (error:String?) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
+                    notifyLabel.textColor = UIColor.whiteColor()
+                    notifyLabel.backgroundColor = UIColor.blackColor()
+                    notifyLabel.alpha = 0
+
+                    if let errortext = error{
+                        notifyLabel.text = errortext
+                    } else {
+                        notifyLabel.text = "Photo uploaded"
+                        CCUserManager.postCount = CCUserManager.postCount.integerValue+1
+                    }
+                    
+                    self.view!.addSubview(notifyLabel)
+
+                    UIView.animateWithDuration(0.3, animations: {() -> Void in
+                        notifyLabel.alpha = 1
                         }, completion: {(finished: Bool) -> Void in
-                            notifyLabel.removeFromSuperview()
+                            UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
+                                notifyLabel.alpha = 0
+                                }, completion: {(finished: Bool) -> Void in
+                                    notifyLabel.removeFromSuperview()
+                            })
                     })
+                })
             })
 
             refreshAlert.dismissViewControllerAnimated(true, completion: nil)
@@ -242,6 +253,7 @@ import AssetsLibrary
                 self.deleteButton.alpha = 0
                 self.saveButton.alpha = 0
                 self.bgView.alpha = 0
+                self.shareButton.alpha = 0
             })
         }
         else {
@@ -251,6 +263,7 @@ import AssetsLibrary
                 self.deleteButton.alpha = 1
                 self.saveButton.alpha = 1
                 self.bgView.alpha = 1
+                self.shareButton.alpha = 1
             })
         }
     }

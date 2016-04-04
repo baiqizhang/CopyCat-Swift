@@ -49,5 +49,35 @@ class CCUserManager: NSObject {
             return a
         }
     }
-    
+
+    static var pinCount : NSNumber {
+        set {
+            self.userDefault.setValue(newValue, forKey: "pin_count")
+        }
+        get {
+            if let count = self.userDefault.valueForKey("pin_count"){
+                return count as! NSNumber
+            } else {
+                self.userDefault.setValue(NSNumber(int: 0), forKey: "pin_count")
+                return 0
+            }
+        }
+        
+    }
+
+    static var postCount : NSNumber {
+        set {
+            self.userDefault.setValue(newValue, forKey: "post_count")
+        }
+        get {
+            if let count = self.userDefault.valueForKey("post_count"){
+                return count as! NSNumber
+            } else {
+                self.userDefault.setValue(NSNumber(int: 0), forKey: "post_count")
+                return 0
+            }
+        }
+        
+    }
+
 }
