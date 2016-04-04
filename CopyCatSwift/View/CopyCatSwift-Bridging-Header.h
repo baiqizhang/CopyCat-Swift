@@ -30,6 +30,8 @@
 
 
 //Login
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "iRate.h"
 
 #import "MWTapDetectingImageView.h"
+
+

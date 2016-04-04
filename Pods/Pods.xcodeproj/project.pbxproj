@@ -6,43 +6,211 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1513E1E4433F4B945B8C7FDF46CF4FEC /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA2815E2E50FBF13BBD1B6A409CB4A5 /* iRate.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		5841C3C0A29E715F934A0E3BE383F940 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		65D060B240178A259B2209701B33CB5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		A53A2315F1F3902CB3DB0881F88D212D /* iRate-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D47FF470648B93644210FA77F1015E2 /* iRate-dummy.m */; };
+		C74BFA9D3CF27EA90B2A68F63990EBE8 /* Pods-CopyCatSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EA31C9CD535DD70A659DB500D3FE3 /* Pods-CopyCatSwift-dummy.m */; };
+		F94207909B77F7EBB7F69D5502C9EA56 /* iRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 021F6625F7486DFD877FEA35D850C306 /* iRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		40E88B65A0B4047931A18C85B2A45A5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B090755233C44E8E118A8DA48015C08;
+			remoteInfo = iRate;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		021F6625F7486DFD877FEA35D850C306 /* iRate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = iRate.h; path = iRate/iRate.h; sourceTree = "<group>"; };
+		0C1D28A47A1C1FC90B67801971B747E4 /* Pods-CopyCatSwift-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CopyCatSwift-resources.sh"; sourceTree = "<group>"; };
+		2845C1FDA3BA428BDCAF9B1D877F1458 /* Pods-CopyCatSwift-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CopyCatSwift-frameworks.sh"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4A1EA31C9CD535DD70A659DB500D3FE3 /* Pods-CopyCatSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CopyCatSwift-dummy.m"; sourceTree = "<group>"; };
+		4D47FF470648B93644210FA77F1015E2 /* iRate-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iRate-dummy.m"; sourceTree = "<group>"; };
+		56FBEFD721228FA7D12B38C758B60452 /* iRate-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iRate-prefix.pch"; sourceTree = "<group>"; };
+		641ABA31DDAA7D115138D1344DEF2852 /* iRate.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iRate.xcconfig; sourceTree = "<group>"; };
+		6E71CFACDF257B8818760D80C0745475 /* libiRate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiRate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		747657F8ABDCCFC5616CF86C65179E40 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		762FAE8C82D68B990950BB00B7A9BA5D /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
+		A15089DEBD75840E14AC224E36D66FA6 /* Pods-CopyCatSwift-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CopyCatSwift-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B6C220DC51F161B773A5781FCC4E6F36 /* libPods-CopyCatSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CopyCatSwift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		CDA2815E2E50FBF13BBD1B6A409CB4A5 /* iRate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = iRate.m; path = iRate/iRate.m; sourceTree = "<group>"; };
+		EB23BA87106520B38C2AE84F0D7636AC /* Pods-CopyCatSwift-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CopyCatSwift-acknowledgements.plist"; sourceTree = "<group>"; };
+		F73B3568DD04A66520FC4E041EDF4E9D /* iRate.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = iRate.bundle; path = iRate/iRate.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		5C18989F6749AA6493EBEE187038D634 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D060B240178A259B2209701B33CB5D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF4DE357068514685330702108D93A21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5841C3C0A29E715F934A0E3BE383F940 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
-		09C5E90726D2521A760312DBF50D9358 /* Products */ = {
+		05BA41FC155E83978539DA6A07D58321 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F73B3568DD04A66520FC4E041EDF4E9D /* iRate.bundle */,
 			);
-			name = Products;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */ = {
+		06A9986950ECADB0692920E5CB3BF7E1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				641ABA31DDAA7D115138D1344DEF2852 /* iRate.xcconfig */,
+				4D47FF470648B93644210FA77F1015E2 /* iRate-dummy.m */,
+				56FBEFD721228FA7D12B38C758B60452 /* iRate-prefix.pch */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/iRate";
+			sourceTree = "<group>";
+		};
+		5D050CF27C1F0FF85998C9CC7AB553EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				63A65DBD7C51FD45F8F1B0CAE161ED61 /* iRate */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		63A65DBD7C51FD45F8F1B0CAE161ED61 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				021F6625F7486DFD877FEA35D850C306 /* iRate.h */,
+				CDA2815E2E50FBF13BBD1B6A409CB4A5 /* iRate.m */,
+				05BA41FC155E83978539DA6A07D58321 /* Resources */,
+				06A9986950ECADB0692920E5CB3BF7E1 /* Support Files */,
+			);
+			path = iRate;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
-				09C5E90726D2521A760312DBF50D9358 /* Products */,
-				F6CCA5D896907CE7506C37FD31FC265A /* Targets Support Files */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				5D050CF27C1F0FF85998C9CC7AB553EE /* Pods */,
+				BCDC1A9B9C6B13C422CB51FE42D4233E /* Products */,
+				BAC52054158F1A86B921278B2E96AA8B /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		F6CCA5D896907CE7506C37FD31FC265A /* Targets Support Files */ = {
+		A439C9F47FCFECDFBA8CF75CE0725389 /* Pods-CopyCatSwift */ = {
 			isa = PBXGroup;
 			children = (
+				A15089DEBD75840E14AC224E36D66FA6 /* Pods-CopyCatSwift-acknowledgements.markdown */,
+				EB23BA87106520B38C2AE84F0D7636AC /* Pods-CopyCatSwift-acknowledgements.plist */,
+				4A1EA31C9CD535DD70A659DB500D3FE3 /* Pods-CopyCatSwift-dummy.m */,
+				2845C1FDA3BA428BDCAF9B1D877F1458 /* Pods-CopyCatSwift-frameworks.sh */,
+				0C1D28A47A1C1FC90B67801971B747E4 /* Pods-CopyCatSwift-resources.sh */,
+				747657F8ABDCCFC5616CF86C65179E40 /* Pods-CopyCatSwift.debug.xcconfig */,
+				762FAE8C82D68B990950BB00B7A9BA5D /* Pods-CopyCatSwift.release.xcconfig */,
+			);
+			name = "Pods-CopyCatSwift";
+			path = "Target Support Files/Pods-CopyCatSwift";
+			sourceTree = "<group>";
+		};
+		BAC52054158F1A86B921278B2E96AA8B /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A439C9F47FCFECDFBA8CF75CE0725389 /* Pods-CopyCatSwift */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BCDC1A9B9C6B13C422CB51FE42D4233E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6E71CFACDF257B8818760D80C0745475 /* libiRate.a */,
+				B6C220DC51F161B773A5781FCC4E6F36 /* libPods-CopyCatSwift.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D5D456AD000B246F5165EB59FCF32A5D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F94207909B77F7EBB7F69D5502C9EA56 /* iRate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8B090755233C44E8E118A8DA48015C08 /* iRate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF41AD739A2B1AB6D00F631720006F71 /* Build configuration list for PBXNativeTarget "iRate" */;
+			buildPhases = (
+				D5C0966365BD45D79EA4242E155D50D2 /* Sources */,
+				FF4DE357068514685330702108D93A21 /* Frameworks */,
+				D5D456AD000B246F5165EB59FCF32A5D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iRate;
+			productName = iRate;
+			productReference = 6E71CFACDF257B8818760D80C0745475 /* libiRate.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E1FC8CCE7A441D66010B622954427344 /* Pods-CopyCatSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5F9016AF7F31E864AB8BF3A3A61A82D /* Build configuration list for PBXNativeTarget "Pods-CopyCatSwift" */;
+			buildPhases = (
+				310F10CB07E75F4CB732E31A8AC5487A /* Sources */,
+				5C18989F6749AA6493EBEE187038D634 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				833A730840E463FF3C21DE3B4C9CE3E3 /* PBXTargetDependency */,
+			);
+			name = "Pods-CopyCatSwift";
+			productName = "Pods-CopyCatSwift";
+			productReference = B6C220DC51F161B773A5781FCC4E6F36 /* libPods-CopyCatSwift.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
@@ -59,15 +227,98 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 09C5E90726D2521A760312DBF50D9358 /* Products */;
+			productRefGroup = BCDC1A9B9C6B13C422CB51FE42D4233E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				8B090755233C44E8E118A8DA48015C08 /* iRate */,
+				E1FC8CCE7A441D66010B622954427344 /* Pods-CopyCatSwift */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXSourcesBuildPhase section */
+		310F10CB07E75F4CB732E31A8AC5487A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C74BFA9D3CF27EA90B2A68F63990EBE8 /* Pods-CopyCatSwift-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5C0966365BD45D79EA4242E155D50D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A53A2315F1F3902CB3DB0881F88D212D /* iRate-dummy.m in Sources */,
+				1513E1E4433F4B945B8C7FDF46CF4FEC /* iRate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		833A730840E463FF3C21DE3B4C9CE3E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = iRate;
+			target = 8B090755233C44E8E118A8DA48015C08 /* iRate */;
+			targetProxy = 40E88B65A0B4047931A18C85B2A45A5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		0FA8FBA01812588367F602AF23935A4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 747657F8ABDCCFC5616CF86C65179E40 /* Pods-CopyCatSwift.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4BBB17B7B56BF49D20BC39B70E6349FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 762FAE8C82D68B990950BB00B7A9BA5D /* Pods-CopyCatSwift.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		569F2EADC7EC678E2252C1C8B9CC41DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 641ABA31DDAA7D115138D1344DEF2852 /* iRate.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/iRate/iRate-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -141,6 +392,24 @@
 			};
 			name = Release;
 		};
+		FD40CDCAC9A57CA708EF1AB887216168 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 641ABA31DDAA7D115138D1344DEF2852 /* iRate.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/iRate/iRate-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -149,6 +418,24 @@
 			buildConfigurations = (
 				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
 				FB45FFD90572718D82AB9092B750F0CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B5F9016AF7F31E864AB8BF3A3A61A82D /* Build configuration list for PBXNativeTarget "Pods-CopyCatSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FA8FBA01812588367F602AF23935A4A /* Debug */,
+				4BBB17B7B56BF49D20BC39B70E6349FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF41AD739A2B1AB6D00F631720006F71 /* Build configuration list for PBXNativeTarget "iRate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD40CDCAC9A57CA708EF1AB887216168 /* Debug */,
+				569F2EADC7EC678E2252C1C8B9CC41DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
