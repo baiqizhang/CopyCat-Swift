@@ -62,6 +62,9 @@ import CoreData
             let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
             let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
             
+            post.userName = subJson["user"]["username"].stringValue
+            post.userProfileImage = subJson["user"]["profile_picture"].stringValue
+        
             post.photoURI = photo["url"].string
             
             post.photoWidth = 1
@@ -78,7 +81,7 @@ import CoreData
             post.likeCount = 0//subJson["likeCount"].int
             post.id = "aaa"
             
-            post.timestamp = NSDate()
+            post.timestamp = NSDate(timeIntervalSince1970: subJson["caption"]["created_time"].doubleValue)
             
             result.append(post)
         }

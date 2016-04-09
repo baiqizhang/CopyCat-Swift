@@ -122,6 +122,35 @@ class CCInspireTableViewCell : UITableViewCell {
 
     
     private let userImageView = UIImageView()
+    var userImageURI : String{
+        set{
+            dispatch_async(dispatch_get_global_queue(0, 0)) { () -> Void in
+                guard
+                    let url = NSURL(string: newValue)
+                    else {return}
+                NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
+                    guard
+                        let data = data where error == nil,
+                        let image = UIImage(data: data)
+                        else { return }
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        let padding : CGFloat = -7.0
+                        self.userImageView.image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
+                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                            self.userImageView.alpha = 1
+                        })
+                        
+                    }
+                }).resume()
+            }
+        }
+        get{
+            return self.userImageURI
+        }
+    }
+
+    
+    
     private let likeButton = UIButton()
     private let pinButton = UIButton()
     

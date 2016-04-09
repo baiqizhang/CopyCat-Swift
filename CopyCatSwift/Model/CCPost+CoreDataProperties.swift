@@ -2,7 +2,7 @@
 //  CCPost+CoreDataProperties.swift
 //  
 //
-//  Created by Baiqi Zhang on 3/6/16.
+//  Created by Baiqi Zhang on 4/9/16.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,14 +14,16 @@ import CoreData
 
 extension CCPost {
 
+    @NSManaged var id: String?
     @NSManaged var likeCount: NSNumber?
     @NSManaged var liked: NSNumber?
     @NSManaged var photoHeight: NSNumber?
     @NSManaged var photoURI: String?
     @NSManaged var photoWidth: NSNumber?
     @NSManaged var pinCount: NSNumber?
-    @NSManaged var id: String?
     @NSManaged var timestamp: NSDate?
+    @NSManaged var userName: String?
+    @NSManaged var userProfileImage: String?
     @NSManaged var photo: CCPhoto?
     @NSManaged var user: CCUser?
 

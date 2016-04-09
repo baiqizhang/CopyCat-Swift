@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CopyCatSwift/Model/CCPost+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:CopyCatSwift.xcodeproj">
    </FileRef>
    <FileRef

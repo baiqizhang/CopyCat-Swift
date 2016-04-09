@@ -98,7 +98,16 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
         let uri = post.photoURI!//CCNetUtil.host + post.photoURI!
         
-        cell.username = "Anonymous"
+        if let name = post.userName{
+            cell.username = name
+        } else {
+            cell.username = "Anonymous User"
+        }
+        
+        if let uri = post.userProfileImage{
+            cell.userImageURI = uri
+        }
+        
         cell.delegate = self
         cell.myImageURI = uri
         
@@ -134,6 +143,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     override func statefulTableViewControllerWillBeginLoadingFromPullToRefresh(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
         if usingInstagram {
+            tvc.tableView.reloadData()
             completion(false, nil)
             return
         }
