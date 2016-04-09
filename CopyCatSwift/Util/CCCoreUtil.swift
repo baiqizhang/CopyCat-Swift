@@ -107,10 +107,50 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_2.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
 
-            category = CCCoreUtil.addCategory("Nature",bannerURI:"banner1.png")
+            category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
+
+            category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_2.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
+
+            category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_2.jpg")
+
+            category = CCCoreUtil.addCategory("Lifestyle",bannerURI:"banner4.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_2.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
+            
+            category = CCCoreUtil.addCategory("Miscelleanouos",bannerURI:"banner5.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
+
         }
     }
     
