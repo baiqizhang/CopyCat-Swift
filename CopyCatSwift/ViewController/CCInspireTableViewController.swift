@@ -142,8 +142,10 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func statefulTableViewControllerWillBeginLoadingFromPullToRefresh(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
+        self.refreshControl?.endRefreshing()
+        completion(false, nil)
+        return
         if usingInstagram {
-            tvc.tableView.reloadData()
             completion(false, nil)
             return
         }

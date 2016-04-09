@@ -63,7 +63,7 @@ typedef enum {
   self.statefulDelegate = self;
   self.loadMoreTriggerThreshold = 64.f;
   self.canLoadMore = YES;
-  self.canPullToRefresh = YES;
+  self.canPullToRefresh = NO;
 }
 
 - (void)viewDidLoad {
@@ -281,8 +281,8 @@ typedef enum {
 }
 
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
-    return;
+//  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
+//    return;
 
   [self.refreshControl endRefreshing];
 
