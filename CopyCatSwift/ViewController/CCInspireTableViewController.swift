@@ -222,6 +222,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     func pinCompleted(){
+        CCUserManager.pinCount = CCUserManager.pinCount.integerValue + 1
         let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
         notifyLabel.text = "Photo pinned"
         notifyLabel.textColor = UIColor.whiteColor()
