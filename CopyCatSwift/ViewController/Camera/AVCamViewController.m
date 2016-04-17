@@ -214,12 +214,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     self.libraryButton=[[UIButton alloc]initWithFrame:CGRectMake(30, self.view.frame.size.height-67.5, 45, 45)];
     [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
     [self.libraryButton setBackgroundColor:[UIColor blackColor]];
-    NSArray *libraryList= [[[NSFileManager alloc]init] contentsOfDirectoryAtPath: [NSHomeDirectory()  stringByAppendingPathComponent:@"/Documents/Gallery"] error:nil];
-    if ([libraryList count]!=0)
-    {
-        UIImage *image=[[UIImage alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@/Documents/Gallery/%@",NSHomeDirectory(),[libraryList lastObject]]];
-        [self.libraryButton setBackgroundImage:[image thumbnail] forState:UIControlStateNormal];
-    }
     [self.view addSubview:self.libraryButton];
     
     self.flashMode=AVCaptureFlashModeOff;
@@ -292,6 +286,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [self rotateUpright];
             
     }];
+    
+    
+    NSArray *list = [CCCoreUtil categories];
+    CCCategory *userCategory = list[0];
+    if ([[userCategory photoList] count]!=0){
+        NSArray *photoList = [userCategory photoList];
+        CCPhoto *photo = photoList[photoList.count-1];
+        NSString *path =[NSString stringWithFormat:@"%@/Documents/%@.jpg",NSHomeDirectory(),[photo photoURI]];
+        UIImage *image=[[UIImage alloc]initWithContentsOfFile:path];
+        [self.libraryButton setBackgroundImage:[image thumbnail] forState:UIControlStateNormal];
+    } else {
+        [self.libraryButton setBackgroundImage:nil forState:UIControlStateNormal];
+    }
 
 	dispatch_async([self sessionQueue], ^{
 		[self addObserver:self forKeyPath:@"sessionRunningAndDeviceAuthorized" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:SessionRunningAndDeviceAuthorizedContext];
@@ -379,7 +386,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 
--(void)showLibraryDetail{
+-(void)showLibraryDetail{;
+    if ([self.libraryButton backgroundImageForState:UIControlStateNormal]==nil){
+        return;
+    }
     CCCategory *userCategory = [CCCoreUtil categories][0];
     CCPhotoBrowser *libVC=[[CCPhotoBrowser alloc]initWithPhotos:userCategory.photoList.array.mutableCopy currentIndex:[userCategory.photoList count]-1];
     libVC.delegate=self;

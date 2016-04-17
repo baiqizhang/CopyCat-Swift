@@ -663,6 +663,7 @@
 		9740CA371C2F5CAB0023FE2C /* UIImageHelper */ = {
 			isa = PBXGroup;
 			children = (
+				979A99311C391BBB00214E85 /* UIImageView+Download.swift */,
 				97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */,
 				9740CA361C2F5C910023FE2C /* NYXImagesHelper.h */,
 				9740CA121C2F5A7B0023FE2C /* UIImage+fixOrientation.h */,
@@ -891,7 +892,6 @@
 				1A4DF1ED1C508380001A4775 /* CCLabel.swift */,
 				1A4DF1EE1C508380001A4775 /* CCOverlayFrameView.swift */,
 				9717A5431C38EC39002AB0C6 /* CCInspireTableViewCell.swift */,
-				979A99311C391BBB00214E85 /* UIImageView+Download.swift */,
 				9740CA971C30AA280023FE2C /* YIPopupTextView */,
 				9740CA371C2F5CAB0023FE2C /* UIImageHelper */,
 			);

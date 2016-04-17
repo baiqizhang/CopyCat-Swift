@@ -63,7 +63,7 @@ import AssetsLibrary
         layout.scrollDirection = .Horizontal
         
         // CollectionView
-        browserCollectionView = UICollectionView(frame: CGRectMake(-10, 0, self.view.bounds.size.width + 20, self.view.bounds.size.height + 1), collectionViewLayout: layout)
+        browserCollectionView = UICollectionView(frame: CGRectMake(-15, 0, self.view.bounds.size.width + 30, self.view.bounds.size.height + 1), collectionViewLayout: layout)
         browserCollectionView!.backgroundColor = UIColor.blackColor()
         browserCollectionView!.registerClass(CCBrowserCell.self, forCellWithReuseIdentifier: NSStringFromClass(CCBrowserCell))
         browserCollectionView!.delegate = self
@@ -306,6 +306,9 @@ extension CCPhotoBrowser:UICollectionViewDataSource{
         }
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        if indexPath.row<0{
+            return CCBrowserCell()
+        }
         let cell: CCBrowserCell = collectionView.dequeueReusableCellWithReuseIdentifier(NSStringFromClass(CCBrowserCell), forIndexPath: indexPath) as! CCBrowserCell
         var path: String
         if (self.delegate is CCGalleryViewController) {
@@ -327,7 +330,7 @@ extension CCPhotoBrowser:UICollectionViewDataSource{
 
 extension CCPhotoBrowser:UICollectionViewDelegateFlowLayout{
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(self.view.bounds.size.width + 20, self.view.bounds.size.height)
+        return CGSizeMake(self.view.bounds.size.width + 30, self.view.bounds.size.height)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
