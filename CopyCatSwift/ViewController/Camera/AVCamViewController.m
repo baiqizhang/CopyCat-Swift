@@ -583,7 +583,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     NSLog(@"%f %f",devicePoint.x,devicePoint.y);
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
-    [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
+//    [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
 }
 
 - (void)subjectAreaDidChange:(NSNotification *)notification
@@ -604,7 +604,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:focusMode])
 			{
 				[device setFocusMode:focusMode];
-				[device setFocusPointOfInterest:point];
+                [device setFocusPointOfInterest:point];
 			}
 			if ([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:exposureMode])
 			{
