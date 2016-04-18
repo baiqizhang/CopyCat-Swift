@@ -96,7 +96,7 @@ class CCCategoryViewController: UIViewController {
             countLabel.font = UIFont(name: "Georgia", size: 17.0)
             self.scrollView.addSubview(countLabel)
         }
-        self.scrollView.contentSize = CGSizeMake(width, height * CGFloat(list.count))
+        self.scrollView.contentSize = CGSizeMake(width, height * CGFloat(list.count-1))
         self.scrollView.scrollEnabled = true
     }
     
