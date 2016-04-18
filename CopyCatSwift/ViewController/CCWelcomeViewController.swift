@@ -16,7 +16,7 @@ class CCWelcomeViewController: UIViewController {
     private var categoryButton = UIButton()
     private var inspireButton = UIButton()
     private var instagramLoingButton = UIButton()
-    private var settingsButton = UIImageView()
+    private var profileButton = UIButton()
 
     func openGallery(){
         let controller = CCCategoryViewController()
@@ -59,11 +59,11 @@ class CCWelcomeViewController: UIViewController {
 //            instagramLoingButton.alpha = 1
 //        }
         
-        // Button Inset
-        let buttonPadding : CGFloat = -7.5
-        let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
+         let inset = UIEdgeInsetsMake(7.5, 7.5, 12.5, 12.5)
+
         
-        settingsButton.image = CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset)
+        profileButton.setImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: UIControlState.Normal)
+        profileButton.contentEdgeInsets = inset
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,31 +113,26 @@ class CCWelcomeViewController: UIViewController {
         self.view!.addSubview(libraryLabel)
         
         
-        //Settings
-        //settingsButton.setBackgroundImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: .Normal)
-        //settingsButton.setBackgroundImage(UIImage(named: "circleuser_highlight.png")!.imageWithAlignmentRectInsets(inset), forState: .Highlighted)
+
         let singleTap = UITapGestureRecognizer.init(target: self, action: "openProfile")
-        settingsButton.addGestureRecognizer(singleTap)
-        settingsButton.userInteractionEnabled = true
         
-        settingsButton.layer.cornerRadius = 12
-        settingsButton.clipsToBounds = true
-        settingsButton.layer.borderWidth = 1
-        settingsButton.layer.borderColor = UIColor.whiteColor().CGColor
+        profileButton.addGestureRecognizer(singleTap)
+        profileButton.userInteractionEnabled = true
         
+        profileButton.imageView?.layer.cornerRadius = 12
+        profileButton.imageView?.clipsToBounds = true
+        profileButton.imageView?.layer.borderWidth = 1
+        profileButton.imageView?.layer.borderColor = UIColor.whiteColor().CGColor
+        view!.addSubview(profileButton)
+       
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
         
-        view!.addSubview(self.settingsButton)
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
         
-        // Like button constraint
-        settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: settingsButton, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
         
-        view.addConstraint(NSLayoutConstraint(item: settingsButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
-        
-        view.addConstraint(NSLayoutConstraint(item: settingsButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
-        
-        view.addConstraint(NSLayoutConstraint(item: settingsButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
-        
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
 
         
         //Placeholder for Fading
