@@ -102,8 +102,8 @@ import EggsBenedict
             view!.addSubview(shareButton)
             
             flipButton.frame = CGRectMake(view.frame.size.width / 2 + 40, view.frame.size.height - 59, 44, 44)
-            flipButton.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
-            flipButton.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
+            flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
+            flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Highlighted)
             flipButton.addTarget(self, action: "flipAction", forControlEvents: .TouchUpInside)
             view!.addSubview(flipButton)
             
