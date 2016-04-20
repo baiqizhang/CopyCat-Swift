@@ -13,7 +13,8 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
     
     private var webView = UIWebView()
     private let CLIENTID = "ea2679a4073c4809919836b18e91b257"
-    private let redirect_uri = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080/api/instagram/login"
+    private let redirect_uri = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/instagram/login"
+    //"http://ec2-52-21-52-152.compute-1.amazonaws.com:8080/api/instagram/login"
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -50,7 +51,7 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        let body = webView.stringByEvaluatingJavaScriptFromString("document.body.firstChild.innerHTML")
+        let body = webView.stringByEvaluatingJavaScriptFromString("document.body.innerHTML")
         let a = JSON.parse(body!)
         if let token = a["access_token"].string {
             webView.loadHTMLString("<html></html>", baseURL: nil)
