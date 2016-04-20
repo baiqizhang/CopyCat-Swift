@@ -8,6 +8,7 @@
 
 import UIKit
 import AssetsLibrary
+import EggsBenedict
 
 @objc class CCPhotoBrowser: UIViewController {
     let toolbar = UIToolbar()
@@ -25,6 +26,7 @@ import AssetsLibrary
     let flipButton = UIButton()
     let saveButton = UIButton()
     let shareButton = UIButton()
+    let sharingFlow = SharingFlow(type: .IGOExclusivegram)
 
     var delegate : UIViewController?
     var currentCell : CCBrowserCell?
@@ -183,7 +185,13 @@ import AssetsLibrary
     }
     
     func flipAction() {
-        currentCell?.flip()
+//        currentCell?.flip()
+        
+        if sharingFlow.hasInstagramApp {
+            sharingFlow.presentOpenInMenuWithImage(self.currentCell?.image!, inView: self.view)
+        } else {
+            print("no instagarm")
+        }
     }
 
     func deleteAction() {
@@ -196,7 +204,7 @@ import AssetsLibrary
 
         self.photoDataSources?.removeObjectAtIndex(index)
         if index == self.photoDataSources!.count {
-            self.currentIndex--
+            self.currentIndex -= 1
         }
         self.browserCollectionView!.reloadData()
     }
