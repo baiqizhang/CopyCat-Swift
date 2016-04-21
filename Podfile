@@ -5,7 +5,8 @@ target 'CopyCatSwift' do
     pod 'iRate', '~> 1.11'
     pod 'EggsBenedict', '~> 0.9.9'
     pod 'Google-Mobile-Ads-SDK', '~> 7.0'
-
+    pod 'Gecco'
+    
     use_frameworks!
 end
 

@@ -1,16 +1,19 @@
 PODS:
   - EggsBenedict (0.9.9)
-  - Google-Mobile-Ads-SDK (7.7.1)
+  - Gecco (0.2.0)
+  - Google-Mobile-Ads-SDK (7.7.0)
   - iRate (1.11.4)
 
 DEPENDENCIES:
   - EggsBenedict (~> 0.9.9)
+  - Gecco
   - Google-Mobile-Ads-SDK (~> 7.0)
   - iRate (~> 1.11)
 
 SPEC CHECKSUMS:
   EggsBenedict: 1e72e098060916bc51cbedc46bd2b71d29b7e633
-  Google-Mobile-Ads-SDK: e27569901b58881d9a94b42f2c642739cfe3970a
+  Gecco: 27ab0f43da3f8e844771cf641992afdd1ea09c62
+  Google-Mobile-Ads-SDK: d290e523a6e2f223256abcbf8e0c778b55b1f04e
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
 
 COCOAPODS: 0.39.0
