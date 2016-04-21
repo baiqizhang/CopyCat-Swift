@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class CCInspireViewController : UIViewController {
+
+class CCInspireViewController : UIViewController, GADBannerViewDelegate {
     private var titleLabel = CCLabel()
     private let closeButton = UIButton()
     private let instaButton = UIButton()
     private let tableViewController = CCInspireTableViewController()
+    private var banner = GADBannerView()
     
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
@@ -36,7 +39,7 @@ class CCInspireViewController : UIViewController {
 
         //Child VC
         addChildViewController(tableViewController)
-        tableViewController.view.frame = CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-40);
+        tableViewController.view.frame = CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 90);
         view.addSubview(tableViewController.view)
         tableViewController.didMoveToParentViewController(self)
         
@@ -61,5 +64,14 @@ class CCInspireViewController : UIViewController {
         instaButton.setBackgroundImage(UIImage(named: "instagram.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
         instaButton.addTarget(self, action: "instaAction", forControlEvents: .TouchUpInside)
         self.view!.addSubview(instaButton)
+        
+        // google ad banner
+        banner.frame = CGRectMake(0, self.view.frame.size.height - 50, 320, 50)
+        banner.delegate = self
+        banner.adUnitID = "ca-app-pub-5357330627176439/9776620702"
+        banner.rootViewController = self
+        banner.loadRequest(GADRequest())
+        self.view!.addSubview(banner)
+        
 }
 }

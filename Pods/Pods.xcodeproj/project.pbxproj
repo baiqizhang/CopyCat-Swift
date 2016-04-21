@@ -103,18 +103,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>12D71AAE8EFFF4D48CE52BB9CDC84889</key>
+		<key>12C4C38FAC700BFACA51C0283BA36CA4</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>iRate.h</string>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>iRate/iRate.h</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -131,17 +129,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>18BD274B1FC1CD8958FAB9A01559E822</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>iRate.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>18E262CC08AC4815562C637A4DC334C8</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -155,7 +142,22 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1B1CE368BB7D0A605A108E2644F43F8D</key>
+		<key>19350E368542908F8B70C9848C2B7F3D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>name</key>
+			<string>iRate.bundle</string>
+			<key>path</key>
+			<string>iRate/iRate.bundle</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>199DC7458D50D62CE17F0E8C18FA4782</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -170,10 +172,25 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>1BE10835F22C8EC10906EBAD3EC70917</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>D7E52ADE3D1E30A7CDB967CDE7C90AA8</string>
+				<string>480A30D68FADF55FD75F476BCFC973E6</string>
+				<string>E07B5099BFB77DC11049ECD90DBE0457</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>1CBCC11AFEC39AE34CF22778C05A0C30</key>
 		<dict>
 			<key>fileRef</key>
-			<string>625DE36743D8CE36D42538B71064D870</string>
+			<string>19350E368542908F8B70C9848C2B7F3D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -190,30 +207,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>246DE37ED43B6540665CF372695BED35</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>iRate-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>2678CD5FB0B21130D0A4B7584C39BF31</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4F42EFDDF93F4DA964B47B0A1A4FC68D</string>
+			<string>BCB3E15B032582D55750A3B5FFB5B971</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
 		<key>299468C5F7C659D919DC792DF4EE9FE9</key>
 		<dict>
 			<key>fileRef</key>
-			<string>1B1CE368BB7D0A605A108E2644F43F8D</string>
+			<string>199DC7458D50D62CE17F0E8C18FA4782</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -231,6 +235,19 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
+		<key>2DAB1C55B1D37F98BEFC59C7501103D0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>iRate-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>311D389B2B75023CB366C4833C2C398E</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -244,23 +261,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>31F1024A5FF43D8C9B46FBEF479800F9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>EggsBenedict.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>390A8863AE159A26A5744AFD4D272C1B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>57C5C8AC0C936BF665B3F211665E83B5</string>
+			<string>2DAB1C55B1D37F98BEFC59C7501103D0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -280,7 +284,7 @@
 		<key>3B0BC087FEF77A4ACC7ABA82BE33FD1A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C1849DCEE72E657234A880B23FC7C108</string>
+			<string>6E285D663CE7177FC4D5FEDECA9E76EA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -347,38 +351,23 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>40F2163225158C2369AB7B84025D8D18</key>
+		<key>42478ABC4627B17C1F311F8D72A9EE83</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SharingFlowType.swift</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>EggsBenedict/SharingFlowType.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>416736D7EDAF7BA22C39210FAC3D857B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>iRate.xcconfig</string>
+			<string>iRate-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>42D52FD11C172750DA2A7183DAB3762E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>246DE37ED43B6540665CF372695BED35</string>
+			<string>F3CE831BB1E684CDA76863CC84AB19A2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -414,6 +403,19 @@
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
+		<key>47C952D3194FF5B0BC65CD97B843C6BF</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>GoogleMobileAds.framework</string>
+			<key>path</key>
+			<string>GoogleMobileAdsSdkiOS-7.7.1/GoogleMobileAds.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>47E5E4B83D23BE6564F5B5892EEE7C08</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -427,6 +429,41 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
+		</dict>
+		<key>480A30D68FADF55FD75F476BCFC973E6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>70FB18CE58E5A65752D43ADB36AD7537</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Google-Mobile-Ads-SDK</string>
+			<key>path</key>
+			<string>Google-Mobile-Ads-SDK</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4930A4C7F6F2DEC9016726A61E2ABC50</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6799FDB5D73D8DE203B5522D55220F66</string>
+				<string>CAA31B7990974132A6F3DEEDDBAE9159</string>
+				<string>9C428E6DBC39F82F6C7D596CCB12C885</string>
+				<string>2DAB1C55B1D37F98BEFC59C7501103D0</string>
+				<string>42478ABC4627B17C1F311F8D72A9EE83</string>
+				<string>F3CE831BB1E684CDA76863CC84AB19A2</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/iRate</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>498081B376123B1E498D495B68A5DE82</key>
 		<dict>
@@ -444,7 +481,7 @@
 		<key>4D730770C6DF05BC5C0DD9E6A28BE6AD</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>416736D7EDAF7BA22C39210FAC3D857B</string>
+			<string>9C428E6DBC39F82F6C7D596CCB12C885</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -497,18 +534,16 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>4F42EFDDF93F4DA964B47B0A1A4FC68D</key>
+		<key>4DC849C8D0756B1762EE717B61D919E3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SharingFlowResult.swift</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>EggsBenedict/SharingFlowResult.swift</string>
+			<string>EggsBenedict-umbrella.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -527,32 +562,6 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>536228A421B673F2C3AEF90B217CAC88</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>625DE36743D8CE36D42538B71064D870</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5365E5FAB471854CF3EBDFD54AFF4B2A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>570C6DD1D3AE94B93D48D9F071241D14</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -566,23 +575,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>57C5C8AC0C936BF665B3F211665E83B5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>iRate-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>57C7CDC3A549721191748D464ABFF917</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>31F1024A5FF43D8C9B46FBEF479800F9</string>
+			<string>6061D35EF6C6D3852883FFD4965BDF1D</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -668,7 +664,7 @@
 		<key>5C5075898600D035B31F991EF113364F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D45A1853FA7366A5E2AC4111BCDE0F02</string>
+			<string>5F136B887374BE3EEEF5952AB3FB08A6</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -678,6 +674,32 @@
 			<string>3E4E89230EF59BC255123B67864ACF77</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>5F136B887374BE3EEEF5952AB3FB08A6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>EggsBenedict-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6061D35EF6C6D3852883FFD4965BDF1D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>EggsBenedict.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6202850F44042BB842A4C26C606C188A</key>
 		<dict>
@@ -693,64 +715,23 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>625DE36743D8CE36D42538B71064D870</key>
+		<key>6799FDB5D73D8DE203B5522D55220F66</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>wrapper.plug-in</string>
-			<key>name</key>
-			<string>iRate.bundle</string>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>iRate/iRate.bundle</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6B3BDFAC4FCC016D0DE75094A8351F30</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>ACF498EEE3CA5B78FB09DE682F9779C8</string>
-				<string>31F1024A5FF43D8C9B46FBEF479800F9</string>
-				<string>D45A1853FA7366A5E2AC4111BCDE0F02</string>
-				<string>71061F5D031C87284F21CAAC97F2503B</string>
-				<string>C274BDAE1690250B0D2598FE6D3AB022</string>
-				<string>988DFE0E5E90C222AE3DE31D8E69323A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/EggsBenedict</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6B89AD64175A80811487109CC4B659B8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E9BFBE33309A4D71D2715482DE7A7B31</string>
-				<string>1B1CE368BB7D0A605A108E2644F43F8D</string>
-				<string>4F42EFDDF93F4DA964B47B0A1A4FC68D</string>
-				<string>40F2163225158C2369AB7B84025D8D18</string>
-				<string>6B3BDFAC4FCC016D0DE75094A8351F30</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>EggsBenedict</string>
-			<key>path</key>
-			<string>EggsBenedict</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>6C1A55F35BB1EFE065BFA76C10E8D908</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C274BDAE1690250B0D2598FE6D3AB022</string>
+			<string>4DC849C8D0756B1762EE717B61D919E3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -785,7 +766,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>71061F5D031C87284F21CAAC97F2503B</key>
+		<key>6DEE4868D04C534EAB513999CF6ED8DE</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -798,10 +779,53 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>6E285D663CE7177FC4D5FEDECA9E76EA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>iRate.m</string>
+			<key>path</key>
+			<string>iRate/iRate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6EF4CFD517214100C084F5823734C7BB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>iRate.h</string>
+			<key>path</key>
+			<string>iRate/iRate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>70FB18CE58E5A65752D43ADB36AD7537</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>47C952D3194FF5B0BC65CD97B843C6BF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>760C84857D74EF78FC27219D4FE74F86</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>416736D7EDAF7BA22C39210FAC3D857B</string>
+			<string>9C428E6DBC39F82F6C7D596CCB12C885</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -874,45 +898,33 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>7DB346D0F39D3F0E887471402A8071AB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
-				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
-				<string>836ACB1AF214A45965DFAE15D6CCB79D</string>
-				<string>E8AD3D3D7223B08B8D9D557944385B7B</string>
-				<string>13C288DE05A7A2B4B2DAA8CA02B9A722</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>836ACB1AF214A45965DFAE15D6CCB79D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6B89AD64175A80811487109CC4B659B8</string>
-				<string>CF93D0EC9534FC42362044EEFAE9217C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>988DFE0E5E90C222AE3DE31D8E69323A</key>
+		<key>7D9819E5C9B46273EEB24694785495AE</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SharingFlowType.swift</string>
 			<key>path</key>
-			<string>Info.plist</string>
+			<string>EggsBenedict/SharingFlowType.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
+				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
+				<string>1BE10835F22C8EC10906EBAD3EC70917</string>
+				<string>E8AD3D3D7223B08B8D9D557944385B7B</string>
+				<string>13C288DE05A7A2B4B2DAA8CA02B9A722</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -979,6 +991,19 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Debug</string>
+		</dict>
+		<key>9C428E6DBC39F82F6C7D596CCB12C885</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>iRate.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>A4942A492188EC10CF99C9080A0D2B7A</key>
 		<dict>
@@ -1087,17 +1112,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>ACF498EEE3CA5B78FB09DE682F9779C8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>EggsBenedict.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B14F5BC8905993FE75351F0D4762264C</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -1178,7 +1192,7 @@
 		<key>B7564D48FE0920912F3441B03EF36A7E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E9BFBE33309A4D71D2715482DE7A7B31</string>
+			<string>FE6F928B47E8686A9533CC00F1CDD2DE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1225,10 +1239,25 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>BCB3E15B032582D55750A3B5FFB5B971</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SharingFlowResult.swift</string>
+			<key>path</key>
+			<string>EggsBenedict/SharingFlowResult.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>BDFAB222CE5AEC9EB69D0F6EFF62D212</key>
 		<dict>
 			<key>fileRef</key>
-			<string>12D71AAE8EFFF4D48CE52BB9CDC84889</string>
+			<string>6EF4CFD517214100C084F5823734C7BB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1252,44 +1281,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C1849DCEE72E657234A880B23FC7C108</key>
+		<key>CAA31B7990974132A6F3DEEDDBAE9159</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>iRate.m</string>
 			<key>path</key>
-			<string>iRate/iRate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C274BDAE1690250B0D2598FE6D3AB022</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>EggsBenedict-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C7383292AC418B944520F1BBBE44CE9D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>iRate-prefix.pch</string>
+			<string>iRate.modulemap</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1307,24 +1306,6 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>CF93D0EC9534FC42362044EEFAE9217C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>12D71AAE8EFFF4D48CE52BB9CDC84889</string>
-				<string>C1849DCEE72E657234A880B23FC7C108</string>
-				<string>536228A421B673F2C3AEF90B217CAC88</string>
-				<string>E1D289AD6AD7868E671629EF910D3628</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iRate</string>
-			<key>path</key>
-			<string>iRate</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D00F69F94A2E7FF852D8FFED4DD308E3</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -1339,6 +1320,26 @@
 			<string>EggsBenedict.framework</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>D1A9CE4EFD41D28DDF63DE02F537646C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>EB3B64D580DB37B50D8B744BDE41793D</string>
+				<string>6061D35EF6C6D3852883FFD4965BDF1D</string>
+				<string>5F136B887374BE3EEEF5952AB3FB08A6</string>
+				<string>6DEE4868D04C534EAB513999CF6ED8DE</string>
+				<string>4DC849C8D0756B1762EE717B61D919E3</string>
+				<string>12C4C38FAC700BFACA51C0283BA36CA4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/EggsBenedict</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D41D8CD98F00B204E9800998ECF8427E</key>
 		<dict>
@@ -1380,19 +1381,6 @@
 				<string>089CBB40C657ADCB9B3135BA802A0C8A</string>
 			</array>
 		</dict>
-		<key>D45A1853FA7366A5E2AC4111BCDE0F02</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>EggsBenedict-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>D5B563914C75996AB22F8AACF815232A</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1418,23 +1406,40 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>E1D289AD6AD7868E671629EF910D3628</key>
+		<key>D7E52ADE3D1E30A7CDB967CDE7C90AA8</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>5365E5FAB471854CF3EBDFD54AFF4B2A</string>
-				<string>18BD274B1FC1CD8958FAB9A01559E822</string>
-				<string>416736D7EDAF7BA22C39210FAC3D857B</string>
-				<string>57C5C8AC0C936BF665B3F211665E83B5</string>
-				<string>C7383292AC418B944520F1BBBE44CE9D</string>
-				<string>246DE37ED43B6540665CF372695BED35</string>
+				<string>FE6F928B47E8686A9533CC00F1CDD2DE</string>
+				<string>199DC7458D50D62CE17F0E8C18FA4782</string>
+				<string>BCB3E15B032582D55750A3B5FFB5B971</string>
+				<string>7D9819E5C9B46273EEB24694785495AE</string>
+				<string>D1A9CE4EFD41D28DDF63DE02F537646C</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Support Files</string>
+			<string>EggsBenedict</string>
 			<key>path</key>
-			<string>../Target Support Files/iRate</string>
+			<string>EggsBenedict</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E07B5099BFB77DC11049ECD90DBE0457</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6EF4CFD517214100C084F5823734C7BB</string>
+				<string>6E285D663CE7177FC4D5FEDECA9E76EA</string>
+				<string>F766D4CAFE157DBD275964CA21126F3D</string>
+				<string>4930A4C7F6F2DEC9016726A61E2ABC50</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iRate</string>
+			<key>path</key>
+			<string>iRate</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1466,21 +1471,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E9BFBE33309A4D71D2715482DE7A7B31</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>SharingFlow.swift</string>
-			<key>path</key>
-			<string>EggsBenedict/SharingFlow.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EA300B8020BCE3AD246C98519D952749</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -1494,6 +1484,17 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>EB3B64D580DB37B50D8B744BDE41793D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>EggsBenedict.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>EBB7C15C4C119C439B1DF12370AD9A02</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -1506,6 +1507,32 @@
 			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
+		</dict>
+		<key>F3CE831BB1E684CDA76863CC84AB19A2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>iRate-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F766D4CAFE157DBD275964CA21126F3D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>19350E368542908F8B70C9848C2B7F3D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F77C020435DC5054C2644F1E6A589800</key>
 		<dict>
@@ -1521,7 +1548,7 @@
 		<key>FA5703878DE683FF30865BAA5C4E545C</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>31F1024A5FF43D8C9B46FBEF479800F9</string>
+			<string>6061D35EF6C6D3852883FFD4965BDF1D</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1660,9 +1687,24 @@
 		<key>FDBDC8B877290B2D770A59A361B7F420</key>
 		<dict>
 			<key>fileRef</key>
-			<string>40F2163225158C2369AB7B84025D8D18</string>
+			<string>7D9819E5C9B46273EEB24694785495AE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>FE6F928B47E8686A9533CC00F1CDD2DE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SharingFlow.swift</string>
+			<key>path</key>
+			<string>EggsBenedict/SharingFlow.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
