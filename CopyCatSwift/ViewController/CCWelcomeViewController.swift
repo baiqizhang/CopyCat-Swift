@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Gecco
 //import CoreData
 
 
@@ -17,6 +18,7 @@ class CCWelcomeViewController: UIViewController {
     private var inspireButton = UIButton()
     private var instagramLoingButton = UIButton()
     private var profileButton = UIButton()
+    private var guideButton = UIButton()
 
     func openGallery(){
         let controller = CCCategoryViewController()
@@ -65,6 +67,12 @@ class CCWelcomeViewController: UIViewController {
         profileButton.setImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: UIControlState.Normal)
         profileButton.contentEdgeInsets = inset
     }
+    
+    func userGuide() {
+        let ccGuide = CCGuideViewController()
+        self.presentViewController(ccGuide, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,7 +102,14 @@ class CCWelcomeViewController: UIViewController {
         inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
         inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
-
+        
+        guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 500 , 50, 50)
+        guideButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
+        guideButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
+        guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
+        self.view!.addSubview(guideButton)
+        
+        
         //instagram
         instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
         self.view!.addSubview(instagramLoingButton)
@@ -143,7 +158,6 @@ class CCWelcomeViewController: UIViewController {
             self.placeHolderImageView.image = UIImage(named: "LaunchImage_1x.png")
         }
         self.view!.addSubview(self.placeHolderImageView)
-
     }
 
     override func didReceiveMemoryWarning() {
