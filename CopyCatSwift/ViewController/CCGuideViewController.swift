@@ -36,22 +36,22 @@ class CCGuideViewController: SpotlightViewController {
             offset = 75.0
         }
         
-        let cameraLabel: UILabel = UILabel(frame: CGRectMake(105, 400 - offset, 80, 15))
-        cameraLabel.textAlignment = .Left
-        cameraLabel.text = NSLocalizedString("Open Camera", comment: "Open Camera")
-        cameraLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
-        cameraLabel.alpha = 0
-        self.view!.addSubview(cameraLabel)
+//        let cameraLabel: UILabel = UILabel(frame: CGRectMake(105, 400 - offset, 80, 15))
+//        cameraLabel.textAlignment = .Left
+//        cameraLabel.text = NSLocalizedString("Open Camera", comment: "Open Camera")
+//        cameraLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
+//        cameraLabel.alpha = 0
+//        self.view!.addSubview(cameraLabel)
         
-        let imageLabel: UILabel = UILabel(frame: CGRectMake(screenSize.width - 115 + 25, 400 - offset, 80, 15))
-        imageLabel.textAlignment = .Left
-        imageLabel.text = NSLocalizedString("Open Inspiration", comment: "Open Inspiration")
-        imageLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
-        imageLabel.alpha = 0
-        self.view!.addSubview(imageLabel)
+//        let imageLabel: UILabel = UILabel(frame: CGRectMake(screenSize.width - 115 + 25, 400 - offset, 80, 15))
+//        imageLabel.textAlignment = .Left
+//        imageLabel.text = NSLocalizedString("Open Inspiration", comment: "Open Inspiration")
+//        imageLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
+//        imageLabel.alpha = 0
+//        self.view!.addSubview(imageLabel)
         
-        guideLabelViews.append(cameraLabel)
-        guideLabelViews.append(imageLabel)
+//        guideLabelViews.append(cameraLabel)
+//        guideLabelViews.append(imageLabel)
         
     }
     

@@ -103,16 +103,15 @@ class CCWelcomeViewController: UIViewController {
         inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
         
-        guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 500 , 50, 50)
-        guideButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
-        guideButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
+        guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
+        guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
         guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
         self.view!.addSubview(guideButton)
         
         
         //instagram
-        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
-        self.view!.addSubview(instagramLoingButton)
+//        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+//        self.view!.addSubview(instagramLoingButton)
         
         //Button Labels
         let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))
@@ -171,6 +170,7 @@ class CCWelcomeViewController: UIViewController {
          
             
         }
+        
         UIView.animateWithDuration(0.1) { () -> Void in
             self.placeHolderImageView.alpha = 0;
             self.backgroundImageView.alpha = 1;
