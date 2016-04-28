@@ -79,6 +79,18 @@ import CoreData
         }
     }
     
+    static var guideCheck : Bool{
+        set{
+            self.userDefault.setBool(Bool(newValue), forKey: "willGuide")
+        }
+        get{
+            return self.userDefault.boolForKey("willGuide")
+        }
+    }
+    
+    static func didGuide(){
+        self.userDefault.setBool(Bool(false), forKey: "willGuide")
+    }
     
     static func prepare(){
         if let _ = userDefault.stringForKey("initialized"){
@@ -98,6 +110,7 @@ import CoreData
             userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
             userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
             userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
+            userDefault.setBool(Bool(true), forKey: "willGuide")
             
             userDefault.setInteger(Int(0), forKey: "categoryCount")
             var category : CCCategory

@@ -167,8 +167,11 @@ class CCWelcomeViewController: UIViewController {
     //Fading
     override func viewDidAppear(animated: Bool) {
         if CCCoreUtil.userType > 0 {
-         
-            
+        }
+        
+        if CCCoreUtil.guideCheck {
+            userGuide()
+            CCCoreUtil.didGuide()
         }
         
         UIView.animateWithDuration(0.1) { () -> Void in
