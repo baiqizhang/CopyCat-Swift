@@ -63,7 +63,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         instaButton.frame = CGRectMake(self.view.frame.size.width - 40, 5, 30, 30)
         instaButton.setBackgroundImage(UIImage(named: "instagram.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
         instaButton.addTarget(self, action: "instaAction", forControlEvents: .TouchUpInside)
-        self.view!.addSubview(instaButton)
+//        self.view!.addSubview(instaButton)
         
         // google ad banner
         banner.frame = CGRectMake(0, self.view.frame.size.height - 50, 320, 50)
@@ -72,6 +72,5 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         banner.rootViewController = self
         banner.loadRequest(GADRequest())
         self.view!.addSubview(banner)
-        
-}
+    }
 }
