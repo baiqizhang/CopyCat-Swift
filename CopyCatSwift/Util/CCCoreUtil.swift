@@ -79,24 +79,37 @@ import CoreData
         }
     }
     
-    static var guideCheck : Bool{
+    static var welcomeGuide : Bool{
         set{
-            self.userDefault.setBool(Bool(newValue), forKey: "willGuide")
+            self.userDefault.setBool(Bool(newValue), forKey: "welcomeGuide")
         }
         get{
-            return self.userDefault.boolForKey("willGuide")
+            return self.userDefault.boolForKey("welcomeGuide")
         }
     }
     
-    static func didGuide(){
-        self.userDefault.setBool(Bool(false), forKey: "willGuide")
+    static func didWelcomeGuide(){
+        self.userDefault.setBool(Bool(true), forKey: "welcomeGuide")
+    }
+    
+    static var cameraGuide : Bool{
+        set{
+            self.userDefault.setBool(Bool(newValue), forKey: "cameraGuide")
+        }
+        get{
+            return self.userDefault.boolForKey("cameraGuide")
+        }
+    }
+    
+    static func didCameraGuide(){
+        self.userDefault.setBool(Bool(true), forKey: "cameraGuide")
     }
     
     static func prepare(){
         if let _ = userDefault.stringForKey("initialized"){
             //Creating entries
             let categoriesFetch = NSFetchRequest(entityName: "Category")
-            
+
             do{
                 let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
                 NSLog("categoryList:%@\ncount:%d", list, list.count)
@@ -107,10 +120,12 @@ import CoreData
         } else {
             userDefault.setObject(true, forKey: "initialized")
             
+            userDefault.setBool(Bool(false), forKey: "welcomeGuide")
+            userDefault.setBool(Bool(false), forKey: "cameraGuide")
+            
             userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
             userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
             userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
-            userDefault.setBool(Bool(true), forKey: "willGuide")
             
             userDefault.setInteger(Int(0), forKey: "categoryCount")
             var category : CCCategory

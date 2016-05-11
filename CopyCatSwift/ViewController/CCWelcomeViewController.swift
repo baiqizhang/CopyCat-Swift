@@ -169,9 +169,9 @@ class CCWelcomeViewController: UIViewController {
         if CCCoreUtil.userType > 0 {
         }
         
-        if CCCoreUtil.guideCheck {
+        if (CCCoreUtil.welcomeGuide == false) {
             userGuide()
-            CCCoreUtil.didGuide()
+            CCCoreUtil.didWelcomeGuide()
         }
         
         UIView.animateWithDuration(0.1) { () -> Void in
