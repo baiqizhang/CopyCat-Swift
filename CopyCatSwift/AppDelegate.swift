@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import Fabric
+import Crashlytics
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UILabel.appearance().textColor = UIColor.whiteColor()
         UILabel.appearance().textAlignment = .Center
         
+        Fabric.with([Crashlytics.self])
         return true
     }
 

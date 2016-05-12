@@ -6,6 +6,8 @@ target 'CopyCatSwift' do
     pod 'EggsBenedict', '~> 0.9.9'
     pod 'Google-Mobile-Ads-SDK', '~> 7.0'
     pod 'Gecco'
+    pod 'Fabric'
+    pod 'Crashlytics'
     
     use_frameworks!
 end
