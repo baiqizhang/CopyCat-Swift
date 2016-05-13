@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class CCInspireTableViewCell : UITableViewCell {
     // Image
     private var count = 0
@@ -17,7 +18,7 @@ class CCInspireTableViewCell : UITableViewCell {
             self.myImageView.image = nil
             self.myImageView.alpha = 0
             count++
-            myImageView.frame=CGRectMake(0,0, self.frame.size.width, self.frame.size.height - 40);
+            myImageView.frame=CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 40);
             myImageView.contentMode = .ScaleAspectFill
             myImageView.clipsToBounds = true
             
@@ -60,7 +61,7 @@ class CCInspireTableViewCell : UITableViewCell {
         set{
             usernameLabel.frame=CGRectMake(40,self.frame.size.height - 35, self.frame.size.width, 15)
             usernameLabel.text = newValue
-            usernameLabel.textColor = .whiteColor()
+            usernameLabel.textColor = .blueColor()
             usernameLabel.font = UIFont.systemFontOfSize(10.5)
             usernameLabel.textAlignment = .Left
         }
@@ -90,7 +91,7 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60/60/24/365/12) + " months ago"
             }
             
-            timestampLabel.textColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.75)
+            timestampLabel.textColor = .blueColor()
             timestampLabel.textAlignment = .Left
             timestampLabel.font = UIFont.systemFontOfSize(10.5)
         }
@@ -158,13 +159,13 @@ class CCInspireTableViewCell : UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .blackColor()
-        
+        self.backgroundColor = .whiteColor()
+
         myImageView.alpha = 0.0
         self.addSubview(usernameLabel)
         self.addSubview(myImageView)
         self.addSubview(timestampLabel)
-        
+
         // User ImageView
         let padding : CGFloat = -7.0
         let image = UIImage(named: "AppIcon.png")?.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
@@ -185,7 +186,7 @@ class CCInspireTableViewCell : UITableViewCell {
         likeButton.setBackgroundImage(UIImage(named: "like2.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         likeButton.setBackgroundImage(UIImage(named: "like2_highlight.png"), forState: .Highlighted)
         likeButton.addTarget(self, action: "likeAction", forControlEvents: .TouchUpInside)
-        likeButton.alpha=0
+        //likeButton.alpha=0
         self.addSubview(likeButton)
 
         // Pin button
@@ -195,15 +196,15 @@ class CCInspireTableViewCell : UITableViewCell {
         self.addSubview(pinButton)
         
         // Like count
-        likeCountLabel.textColor = .whiteColor()
+        likeCountLabel.textColor = .blueColor()
         likeCountLabel.textAlignment = .Left
-        likeCountLabel.alpha = 0
+        //likeCountLabel.alpha = 0
         self.addSubview(likeCountLabel)
         
         // Pin count
-        pinCountLabel.textColor = .whiteColor()
+        pinCountLabel.textColor = .blueColor()
         pinCountLabel.textAlignment = .Left
-        pinCountLabel.alpha=0
+        //pinCountLabel.alpha=0
         self.addSubview(pinCountLabel)
 
         
@@ -277,4 +278,24 @@ class CCInspireTableViewCell : UITableViewCell {
         delegate?.likeAction()
     }
 
+
+    /*
+        make the cell as CardView. https://github.com/aclissold/CardView
+    */
+    @IBInspectable var cornerRadius: CGFloat = 2
+    @IBInspectable var shadowOffsetWidth: Int = 0
+    @IBInspectable var shadowOffsetHeight: Int = 3
+    @IBInspectable var shadowColor: UIColor? = UIColor.blackColor()
+    @IBInspectable var shadowOpacity: Float = 0.5
+
+    override func layoutSubviews() {
+        layer.cornerRadius = cornerRadius
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor?.CGColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.CGPath
+    }
 }

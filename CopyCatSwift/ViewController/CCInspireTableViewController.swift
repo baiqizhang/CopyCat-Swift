@@ -17,9 +17,9 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Style
-        view.backgroundColor = .blackColor()
+        view.backgroundColor = .grayColor()
         tableView.separatorStyle = .None
-        tableView.backgroundColor = .blackColor()
+        tableView.backgroundColor = .grayColor()
         tableView.registerClass(CCInspireTableViewCell.self, forCellReuseIdentifier: "cell")
 
         tableView.allowsSelection = false
@@ -86,14 +86,28 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             }
         }
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        // separate cells with empty cellView
+        let CELL_EMPTY = "EMPTY_CELL"
+        if indexPath.row % 2 == 1 {
+            var cell = tableView.dequeueReusableCellWithIdentifier(CELL_EMPTY)
+            if cell == nil {
+                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CELL_EMPTY)
+                cell!.contentView.alpha = 0
+                cell!.backgroundColor = .clearColor()
+                cell!.userInteractionEnabled = false
+            }
+            return cell!
+        }
+
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! CCInspireTableViewCell
-        
+
         if indexPath.row>=postList.count{
             return cell
         }
-        
+
         let post = postList[indexPath.row]
         
         let uri = post.photoURI!//CCNetUtil.host + post.photoURI!
@@ -197,16 +211,22 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         if indexPath.row>=postList.count{
             return 200
         }
-        
+
+        // separate cells with empty cellView
+        if indexPath.row % 2 == 1 {
+            return 10
+        }
+
+        let postIndex = indexPath.row / 2
         guard
-            let height = postList[indexPath.row].photoHeight,
-            let width = postList[indexPath.row].photoWidth
+            let height = postList[postIndex].photoHeight,
+            let width = postList[postIndex].photoWidth
             where height > 0 && width > 0
             else {
                 return 200.0
             }        
         let viewWidth = tableView.frame.width
-        let newHeight : CGFloat = CGFloat(height) / CGFloat(width) * viewWidth
+        let newHeight : CGFloat = CGFloat(height) / CGFloat(width) * viewWidth + 10
         return newHeight
     }
     
