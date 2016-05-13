@@ -104,11 +104,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! CCInspireTableViewCell
 
-        if indexPath.row>=postList.count{
+        if indexPath.row >= postList.count * 2 - 1{
             return cell
         }
 
-        let post = postList[indexPath.row]
+        let post = postList[indexPath.row / 2]
         
         let uri = post.photoURI!//CCNetUtil.host + post.photoURI!
         
@@ -132,10 +132,35 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
         return cell
     }
-    
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        NSLog("rows: %d of %d",indexPath.row,postList.count)
+        // synchronization problem
+        if indexPath.row >= postList.count * 2 - 1 {
+            return 200
+        }
+
+        // separate cells with empty cellView
+        if indexPath.row % 2 == 1 {
+            return 10
+        }
+
+        let postIndex = indexPath.row / 2
+        guard
+        let height = postList[postIndex].photoHeight,
+        let width = postList[postIndex].photoWidth
+        where height > 0 && width > 0
+        else {
+            return 200.0
+        }
+        let viewWidth = tableView.frame.width
+        let newHeight : CGFloat = CGFloat(height) / CGFloat(width) * viewWidth + 10
+        return newHeight
+    }
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         NSLog("rows:%d",postList.count)
-        return postList.count
+        return postList.count * 2 - 1
     }
     
     
@@ -183,6 +208,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             completion(false, nil,false)
             return
         }
+        NSLog("loading more")
         CCNetUtil.loadMoreFeedForCurrentUser(self.postList.last!.id!, completion: { (posts) -> Void in
             var indexArray = [NSIndexPath]()
             var i = self.postList.count
@@ -204,31 +230,6 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         })
     }
     
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        NSLog("rows: %d of %d",indexPath.row,postList.count)
-        // synchronization problem
-        if indexPath.row>=postList.count{
-            return 200
-        }
-
-        // separate cells with empty cellView
-        if indexPath.row % 2 == 1 {
-            return 10
-        }
-
-        let postIndex = indexPath.row / 2
-        guard
-            let height = postList[postIndex].photoHeight,
-            let width = postList[postIndex].photoWidth
-            where height > 0 && width > 0
-            else {
-                return 200.0
-            }        
-        let viewWidth = tableView.frame.width
-        let newHeight : CGFloat = CGFloat(height) / CGFloat(width) * viewWidth + 10
-        return newHeight
-    }
     
     // MARK: UI Action
     func pinAction(image : UIImage){
