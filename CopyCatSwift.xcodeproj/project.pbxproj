@@ -220,7 +220,7 @@
 		1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPreviewViewController.swift; sourceTree = "<group>"; };
 		1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOverlayView.swift; sourceTree = "<group>"; };
 		1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramLoginViewController.swift; sourceTree = "<group>"; };
-		1AAD32131C64495F009D1DA7 /* CCUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserManager.swift; sourceTree = "<group>"; };
+		1AAD32131C64495F009D1DA7 /* CCUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCUserManager.swift; path = ../Model/CCUserManager.swift; sourceTree = "<group>"; };
 		44E8B4CE334F19FC16EDAF08 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
@@ -867,7 +867,6 @@
 		97F6DFD91C23A54700707180 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1AAD32131C64495F009D1DA7 /* CCUserManager.swift */,
 				97254FBB1C29EB780047968A /* CCPhoto+CoreDataProperties.swift */,
 				97254FBC1C29EB780047968A /* CCPhoto.swift */,
 				97254FBD1C29EB780047968A /* CCUser+CoreDataProperties.swift */,
@@ -884,6 +883,7 @@
 		97F6DFDC1C23A54700707180 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				1AAD32131C64495F009D1DA7 /* CCUserManager.swift */,
 				9727B0DD1C35D3C2005E9D12 /* CCNetUtil.swift */,
 				9740C9731C2D45F80023FE2C /* CCCoreUtil.swift */,
 				9740C8E81C2B78FB0023FE2C /* Localizable.strings */,

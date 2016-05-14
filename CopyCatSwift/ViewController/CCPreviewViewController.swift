@@ -9,6 +9,8 @@
 import UIKit
 import CoreMotion
 import AssetsLibrary
+import Fabric
+import Crashlytics
 
 class CCPreviewViewController : UIViewController {
     
@@ -96,6 +98,14 @@ class CCPreviewViewController : UIViewController {
     }
     
     override func viewDidLoad() {
+        //Logging
+        Answers.logContentViewWithName("Camera",
+                                       contentType: "TakePhoto",
+                                       contentId: nil,
+                                       customAttributes: nil)
+
+        
+        
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
         

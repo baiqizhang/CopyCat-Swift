@@ -24,7 +24,11 @@ class CCGuideViewController: SpotlightViewController {
     
     let screenSize = UIScreen.mainScreen().bounds.size
     var offset : CGFloat = 0.0
-    
+   
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

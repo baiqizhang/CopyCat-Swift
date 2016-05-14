@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
+
 
 class CCInspireTableViewController : SKStatefulTableViewController {
     private var postList = [CCPost]()
@@ -163,8 +166,13 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         return postList.count * 2 - 1
     }
     
-    
+    // Load for the 1st time
     override func statefulTableViewControllerWillBeginInitialLoad(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!) -> Void)!) {
+        //Logging
+        Answers.logContentViewWithName("Inspire",
+                                       contentType: "ViewPage",
+                                       contentId: nil,
+                                       customAttributes: nil)
         CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
             for post in posts{
                 NSLog("uri:" + post.photoURI!);
@@ -204,6 +212,12 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     override func statefulTableViewControllerWillBeginLoadingMore(tvc: SKStatefulTableViewController!, completion: ((Bool, NSError!, Bool) -> Void)!) {
+        //Logging
+        Answers.logContentViewWithName("Inspire",
+                                       contentType: "LoadMore",
+                                       contentId: nil,
+                                       customAttributes: nil)
+
         if usingInstagram {
             completion(false, nil,false)
             return

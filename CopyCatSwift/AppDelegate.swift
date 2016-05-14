@@ -27,12 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CCCoreUtil.prepare()
         
         //apparances
-//        CCFramedButton.appearance().titleLabel?.font! = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
         CCFramedButton.appearance().backgroundColor = UIColor(white: 0, alpha: 0.5)
         UILabel.appearance().textColor = UIColor.whiteColor()
         UILabel.appearance().textAlignment = .Center
         
         Fabric.with([Crashlytics.self])
+        
+        // Track the user action that is important for you.
+        Answers.logCustomEventWithName("OpenPage", customAttributes: ["debug":"true"])
+
         return true
     }
 

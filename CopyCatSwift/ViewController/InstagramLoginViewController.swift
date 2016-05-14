@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
     private let closeButton = UIButton()
@@ -59,8 +61,20 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
             NSLog("token = "+token)
             self.dismissViewControllerAnimated(true, completion: { })
             CCUserManager.instagramUserInfo = json;
+            
+            // logging Success using Answers
+            Answers.logLoginWithMethod("Instagram",
+                                       success: true,
+                                       customAttributes: ["error_message":"\(a["error_message"])"])
+            
         } else if let code = a["code"].int32 {
             webView.loadHTMLString("<html></html>", baseURL: nil)
+            
+            // logging Failure using Answers
+            Answers.logLoginWithMethod("Instagram",
+                                       success: false,
+                                       customAttributes: ["error_message":"\(a["error_message"])"])
+            
             // alert
             let alertController = UIAlertController(
                 title: "Error \(code)",

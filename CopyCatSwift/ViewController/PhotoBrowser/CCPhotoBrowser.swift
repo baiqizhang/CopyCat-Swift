@@ -9,6 +9,9 @@
 import UIKit
 import AssetsLibrary
 import EggsBenedict
+import Fabric
+import Crashlytics
+
 
 @objc class CCPhotoBrowser: UIViewController {
     let toolbar = UIToolbar()
@@ -171,6 +174,12 @@ import EggsBenedict
     
     
     func checkAction() {
+        //Logging
+        Answers.logContentViewWithName("Camera",
+                                       contentType: "OpenCamera",
+                                       contentId: nil,
+                                       customAttributes: nil)
+
         self.dismissViewControllerAnimated(true, completion: {() -> Void in
             if (self.delegate is CCGalleryViewController) {
                 NSLog("%@", self.currentCell!.image!)
