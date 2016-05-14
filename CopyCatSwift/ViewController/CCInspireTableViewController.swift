@@ -211,12 +211,14 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         NSLog("loading more")
         CCNetUtil.loadMoreFeedForCurrentUser(self.postList.last!.id!, completion: { (posts) -> Void in
             var indexArray = [NSIndexPath]()
-            var i = self.postList.count
+            var i = self.postList.count * 2 - 1
             
             for post in posts{
                 NSLog("uri:" + post.photoURI!);
                 indexArray.append(NSIndexPath(forRow: i, inSection: 0))
-                i++
+                i += 1
+                indexArray.append(NSIndexPath(forRow: i, inSection: 0))
+                i += 1
             }
             self.postList += posts
             NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
