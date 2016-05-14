@@ -38,6 +38,7 @@ import CoreData
                 post.pinCount = 0//subJson["pinCount"].int
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
+                post.userName = subJson["ownerId"]["name"].string
 
                 if let date = subJson["time"].string {
                     let dateFormatter = NSDateFormatter()
