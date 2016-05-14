@@ -39,6 +39,7 @@ import CoreData
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
                 post.userName = subJson["ownerId"]["name"].string
+                post.userProfileImage = subJson["ownerId"]["profilePictureUrl"].string
 
                 if let date = subJson["time"].string {
                     let dateFormatter = NSDateFormatter()
