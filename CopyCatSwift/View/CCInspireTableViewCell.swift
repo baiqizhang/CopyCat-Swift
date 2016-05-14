@@ -190,7 +190,7 @@ class CCInspireTableViewCell : UITableViewCell {
         self.addSubview(likeButton)
 
         // Pin button
-        pinButton.setBackgroundImage(UIImage(named: "pin.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
+        pinButton.setBackgroundImage(UIImage(named: "pin_highlight.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         pinButton.setBackgroundImage(UIImage(named: "pin_highlight.png"), forState: .Highlighted)
         pinButton.addTarget(self, action: "pinAction", forControlEvents: .TouchUpInside)
         self.addSubview(pinButton)
