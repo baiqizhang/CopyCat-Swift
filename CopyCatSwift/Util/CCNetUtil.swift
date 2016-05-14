@@ -141,6 +141,7 @@ import CoreData
         json["width"] = image.size.width
         json["height"] = image.size.height
 
+        json["ownerId"] = CCUserManager.instagramUserInfo["cc_id"].string
 
         do{
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())

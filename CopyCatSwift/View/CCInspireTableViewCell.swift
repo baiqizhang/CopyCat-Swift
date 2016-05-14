@@ -17,7 +17,7 @@ class CCInspireTableViewCell : UITableViewCell {
         set{
             self.myImageView.image = nil
             self.myImageView.alpha = 0
-            count++
+            count += 1
             myImageView.frame=CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 40);
             myImageView.contentMode = .ScaleAspectFill
             myImageView.clipsToBounds = true

@@ -58,7 +58,7 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
             webView.loadHTMLString("<html></html>", baseURL: nil)
             NSLog("token = "+token)
             self.dismissViewControllerAnimated(true, completion: { })
-            CCUserManager.instagramUserInfo = a;
+            CCUserManager.instagramUserInfo = json;
         } else if let code = a["code"].int32 {
             webView.loadHTMLString("<html></html>", baseURL: nil)
             // alert
