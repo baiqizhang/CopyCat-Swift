@@ -141,7 +141,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         
         
         //Settings
-        settingsButton = UIButton(frame: CGRectMake(0, 0, 40, 40))
+        settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
         settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
         settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
         settingsButton.addTarget(self, action: "openSettings", forControlEvents: .TouchUpInside)
@@ -156,7 +156,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         self.view!.addSubview(titleLabel)
         
         //Close
-        closeButton.frame = CGRectMake(view.frame.size.width - 45, 0, 40, 40)
+        closeButton.frame = CGRectMake(0, 0, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)

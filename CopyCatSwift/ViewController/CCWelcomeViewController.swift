@@ -106,7 +106,7 @@ class CCWelcomeViewController: UIViewController {
         guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
         guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
         guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
-        self.view!.addSubview(guideButton)
+//        self.view!.addSubview(guideButton)
         
         
         //instagram
