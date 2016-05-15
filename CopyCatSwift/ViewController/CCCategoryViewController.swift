@@ -84,7 +84,7 @@ class CCCategoryViewController: UIViewController {
             
             let name = category.name!
             let nameLabel: CCLabel = CCLabel(frame: CGRectMake(0, CGFloat(k) * height + height / 2 - 25, width, 20))
-            nameLabel.text = name
+            nameLabel.text = NSLocalizedString(name.uppercaseString, comment: name) // localization
             nameLabel.textColor = UIColor.whiteColor()
             nameLabel.font = UIFont(name: NSLocalizedString("Font", comment: "Georgia"), size: 17.0)
             self.scrollView.addSubview(nameLabel)

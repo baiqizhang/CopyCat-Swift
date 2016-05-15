@@ -20,7 +20,7 @@
 "NATURE" = "NATURE";
 "FOOD" = "FOOD";
 "LIFESTYLE" = "LIFESTYLE";
-"MISCELLEANOUS" = "MISCELLEANOUS";
+"MISC" = "MISCELLEANOUS";
 
 
 "SETTINGS" = "SETTINGS";
@@ -35,3 +35,21 @@
 "PREVIEW AFTER PHOTO TAKEN: OFF" = "PREVIEW AFTER PHOTO TAKEN: OFF";
 
 "Photo saved" = "Saved to camera roll";
+
+"PROFILE" = "Profile";
+"POSTS" = "Posts";
+"PINS" = "Pins";
+
+"SECOND" = "s";
+"MINUTE" = "m";
+"HOUR" = "h";
+"DAY" = "days";
+"MONTH" = "months";
+"AGO" = " ago";
+
+"ADDTOCATEGORY" = "Add to Category";
+
+"INS_LOGOUT_TITLE" = "Logout";
+"INS_LOGOUT_ALERT" = "You will no longer be able to sync instagram likes.";
+"OK" = "Ok";
+"CANCEL" = "Cancel";

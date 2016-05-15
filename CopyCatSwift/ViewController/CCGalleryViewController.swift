@@ -57,7 +57,8 @@ import AssetsLibrary
         
         //Title
         let titleLabel: CCLabel = CCLabel(frame: CGRectMake(50, -1, self.view.frame.size.width - 100, 40))
-        titleLabel.text = category?.name
+        let titleText = category?.name
+        titleLabel.text = NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
         titleLabel.font = UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
         titleLabel.textAlignment = .Center

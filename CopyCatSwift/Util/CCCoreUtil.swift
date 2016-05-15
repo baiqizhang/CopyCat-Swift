@@ -172,7 +172,7 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
             
-            category = CCCoreUtil.addCategory("Miscelleanouos",bannerURI:"banner5.png")
+            category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")

@@ -73,7 +73,7 @@ class CCAlertViewController : UIViewController {
             view.addSubview(titleBackground)
 
             let titleLable = UILabel()
-            titleLable.text = "Add to Category"
+            titleLable.text = NSLocalizedString("ADDTOCATEGORY", comment: "Add to Category")
             titleLable.textColor = .whiteColor()
             view.addSubview(titleLable)
 
@@ -156,7 +156,8 @@ extension CCAlertViewController:UITableViewDataSource{
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.textLabel?.text = CCCoreUtil.categories[indexPath.row+1].name
+        let cellTitle = CCCoreUtil.categories[indexPath.row+1].name!
+        cell.textLabel?.text = NSLocalizedString((cellTitle.uppercaseString), comment: cellTitle)
         return cell
     }
 }

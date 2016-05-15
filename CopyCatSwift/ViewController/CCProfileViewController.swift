@@ -35,16 +35,16 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         vc.modalTransitionStyle = .CrossDissolve
         presentViewController(vc, animated: true, completion: nil)
     }
-    
+
     func onTapUser() {
         if CCCoreUtil.userType != 1{
             let vc = InstagramLoginViewController()
             vc.modalTransitionStyle = .CrossDissolve
             self.presentViewController(vc, animated: true, completion: nil)
         } else {
-            let refreshAlert = UIAlertController(title: "Logout", message: "You will no longer be able to sync instagram likes.", preferredStyle: UIAlertControllerStyle.Alert)
+            let refreshAlert = UIAlertController(title: NSLocalizedString("INS_LOGOUT_TITLE", comment: "Logout"), message: NSLocalizedString("INS_LOGOUT_ALERT", comment: "You will no longer be able to sync instagram likes."), preferredStyle: UIAlertControllerStyle.Alert)
             
-            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Logout"), style: .Default, handler: { (action: UIAlertAction!) in
                 CCUserManager.instagramUserInfo = nil
                 let url = NSURL(string: "http://instagram.com/accounts/logout")
                 
@@ -56,7 +56,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
                 self.viewWillAppear(false)
             }))
             
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: NSLocalizedString("CANCEL", comment: "Logout"), style: .Default, handler: { (action: UIAlertAction!) in
                 refreshAlert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
@@ -125,7 +125,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view.addSubview(posts)
         
         let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        postsLabel.text = "Posts"
+        postsLabel.text = NSLocalizedString("POSTS", comment: "Posts")
         postsLabel.textColor = .whiteColor()
         view.addSubview(postsLabel)
 
@@ -135,7 +135,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view.addSubview(pins)
         
         let pinsLabel = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        pinsLabel.text = "Pins"
+        pinsLabel.text = NSLocalizedString("PINS", comment: "Pins")
         pinsLabel.textColor = .whiteColor()
         view.addSubview(pinsLabel)
         
@@ -149,7 +149,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         
         //Title
         let titleLabel: CCLabel = CCLabel(frame: CGRectMake(50, -1, self.view.frame.size.width - 100, 40))
-        titleLabel.text = "Gallery"//category?.name
+        titleLabel.text = NSLocalizedString("PROFILE", comment: "Profile")
         titleLabel.font = UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
         titleLabel.textAlignment = .Center

@@ -79,16 +79,18 @@ class CCInspireTableViewCell : UITableViewCell {
             
             timestampLabel.frame=CGRectMake(40,self.frame.size.height - 20, self.frame.size.width, 15)
             
+            let agoString = NSLocalizedString("AGO", comment: " ago")
+            
             if now<60{
-                timestampLabel.text = String(now) + "s ago"
+                timestampLabel.text = String(now) + NSLocalizedString("SECOND", comment: "s") + agoString
             } else if now < 60*60{
-                timestampLabel.text = String(now/60) + "m ago"
+                timestampLabel.text = String(now/60) + NSLocalizedString("MINUTE", comment: "min") + agoString
             } else if now < 60*60*24{
-                timestampLabel.text = String(now/60/60) + "h ago"
+                timestampLabel.text = String(now/60/60) + NSLocalizedString("HOUR", comment: "h") + agoString
             } else if now < 60*60*24*365{
-                timestampLabel.text = String(now/60/60/24) + " days ago"
+                timestampLabel.text = String(now/60/60/24) + NSLocalizedString("DAY", comment: "days") + agoString
             } else {
-                timestampLabel.text = String(now/60/60/24/365/12) + " months ago"
+                timestampLabel.text = String(now/60/60/24/365/12) + NSLocalizedString("MONTH", comment: "m") + agoString
             }
             
             timestampLabel.textColor = .blueColor()
