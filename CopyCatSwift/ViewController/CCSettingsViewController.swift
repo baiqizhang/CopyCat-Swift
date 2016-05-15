@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class CCSettingsViewController: UIViewController {
     private let strUsingBackgrondMode = NSLocalizedString("OVERLAY MODE: BACKGROUND",comment: "")
@@ -161,20 +162,12 @@ class CCSettingsViewController: UIViewController {
 extension CCSettingsViewController : YIPopupTextViewDelegate{
     func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
         if !cancelled {
-            let url: NSURL = NSURL(string: "http://1.copykat.sinaapp.com/upload_quote.php")!
-            let request: NSMutableURLRequest = NSMutableURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 10)
-            request.HTTPMethod = "POST"
-            var str: String = "UID=0&Text="
-            str = str.stringByAppendingString(textView.text!)
-            let data: NSData = str.dataUsingEncoding(NSUTF8StringEncoding)!
-            request.HTTPBody = data
-            do{
-                let received: NSData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
-                let str1 = String(data: received, encoding: NSUTF8StringEncoding)
-                NSLog("http:%@", str1!)
-            }catch{
-                
-            }
+            let str = textView.text!
+            CCNetUtil.sendFeedback(str, completion: { (error) in
+                if let err = error{
+                    Crashlytics.logEvent(err)
+                }
+            })
         }
         self.setNeedsStatusBarAppearanceUpdate()
     }

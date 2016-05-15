@@ -166,6 +166,38 @@ import CoreData
         }
     }
 
+    static func sendFeedback(content:String,completion:(error:String?) -> Void) -> Void{
+        
+        var json = [String: AnyObject]()
+        let _ = String(NSDate())
+        json["contact"] = "\"test\",<test@test.com>"
+        json["subject"] = "feedback"
+        json["text"] = content
+        
+        do{
+            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
+            //           HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) ->
+            HTTPPostJSON(host + "feedback", data: data, callback: { (response, error) -> Void in
+                if let _ = error {
+                    completion(error: "Connection Failed")
+                    return
+                }
+                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+                    NSLog("response:%@", datastring)
+                    if datastring.containsString("OK"){
+                        completion( error: nil)
+                    } else {
+                        completion( error: datastring)
+                    }
+                    
+                }
+            })
+        } catch{
+            
+        }
+    }
+
+    
 
     //MARK: Get Helpers
 
