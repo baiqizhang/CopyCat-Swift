@@ -20,6 +20,7 @@
 		1AAD32141C64495F009D1DA7 /* CCUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD32131C64495F009D1DA7 /* CCUserManager.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
 		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
+		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
 		9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1551C21FC4800A48C5F /* AppDelegate.swift */; };
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
 		9704E1791C21FC4800A48C5F /* CopyCatSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1781C21FC4800A48C5F /* CopyCatSwiftUITests.swift */; };
@@ -211,6 +212,7 @@
 		44E8B4CE334F19FC16EDAF08 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
+		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
 		8DE14FC3F36FA2FFF2732A06 /* Pods_CopyCatSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCatSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1521C21FC4800A48C5F /* CopyCatSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CopyCatSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1551C21FC4800A48C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				9740CA4E1C2FE8770023FE2C /* AVCamViewController.m */,
 				1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */,
 				1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */,
+				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1233,6 +1236,7 @@
 				9740CA7C1C2FE8B30023FE2C /* DNAlbumTableViewController.m in Sources */,
 				9740CA831C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				9740CA891C2FE8B30023FE2C /* DNAssetsViewCell.m in Sources */,
+				72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */,
 				9740CA7D1C2FE8B30023FE2C /* DNAsset.m in Sources */,
 				9740CA901C2FE8B30023FE2C /* MWTapDetectingImageView.m in Sources */,
 				9740C9741C2D45F80023FE2C /* CCCoreUtil.swift in Sources */,

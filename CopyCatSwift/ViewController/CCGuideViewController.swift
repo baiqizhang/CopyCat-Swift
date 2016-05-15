@@ -6,13 +6,6 @@
 //  Copyright © 2016 Baiqi Zhang. All rights reserved.
 //
 
-//
-//  AnnotationViewController.swift
-//  Gecco
-//
-//  Created by yukiasai on 2016/01/19.
-//  Copyright (c) 2016 yukiasai. All rights reserved.
-//
 import UIKit
 import Gecco
 

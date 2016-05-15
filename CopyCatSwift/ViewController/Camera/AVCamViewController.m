@@ -320,6 +320,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 -(void)viewDidAppear:(BOOL)animated{
     CCOverlayView *overlayView=self.overlayView;
     [overlayView prepareAnimation];
+    if ([CCCoreUtil cameraGuide] == false){
+        
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -695,6 +698,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			});
 		}
 	}];
+}
+
+- (void)cameraGuide
+{
 }
 
 @end
