@@ -47,10 +47,10 @@ class CCUserManager: NSObject {
             if self.userDefault.valueForKey("usertype") as! Int == 1 {
                 let a = JSON([
                         "access_token": self.userDefault.valueForKey("access_token")!,
-                        "profile_picture": self.userDefault.valueForKey("profile_picture")!,
-                        "user": self.userDefault.valueForKey("user")!,
-                        "user_id": self.userDefault.valueForKey("user_id")!,
-                        "cc_id": self.userDefault.valueForKey("cc_id")!
+                        "profile_picture": self.userDefault.valueForKey("profile_picture") ?? "",
+                        "user": self.userDefault.valueForKey("user") ?? "",
+                        "user_id": self.userDefault.valueForKey("user_id") ?? "",
+                        "cc_id": self.userDefault.valueForKey("cc_id") ?? ""
                 ])
                 return a
             } else {
