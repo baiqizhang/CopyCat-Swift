@@ -139,6 +139,10 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_6.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_7.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_8.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_9.jpg")
 
             category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -147,6 +151,7 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_5.jpg")
 
             category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -156,6 +161,8 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_6.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_7.jpg")
 
             category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -171,6 +178,7 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_6.jpg")
             
             category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
