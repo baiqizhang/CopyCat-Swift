@@ -109,6 +109,8 @@ class CCCollectionViewCell: UICollectionViewCell {
             let tmImage = self.tmImage()
             dispatch_async(dispatch_get_main_queue(), {
                 self.imageView!.image = tmImage!
+                self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+                self.imageView!.clipsToBounds = true
                 UIView.animateWithDuration(0.3, animations: {
                     self.imageView!.alpha = 1
                 })

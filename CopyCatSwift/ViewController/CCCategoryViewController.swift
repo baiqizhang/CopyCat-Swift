@@ -58,6 +58,13 @@ class CCCategoryViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        // show animation each time user re-enter categoryview
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        userDefault.removeObjectForKey("isFirstTimeUser")
+        userDefault.synchronize()
+        
+        
+        //grab categories
         let list = CCCoreUtil.categories
         NSLog("%@", list)
 

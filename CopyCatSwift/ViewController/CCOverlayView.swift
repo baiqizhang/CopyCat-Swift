@@ -41,14 +41,14 @@ class CCOverlayView: UIView {
     
     
     func prepareAnimation() {
-//        let userDefault = NSUserDefaults.standardUserDefaults()
-//        let number = userDefault.objectForKey("isFirstTimeUser")
-//        if number != nil {
-//            return
-//        }
-//        
-//        userDefault.setValue(Int(0), forKey: "isFirstTimeUser")
-//        userDefault.synchronize()
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        let number = userDefault.objectForKey("isFirstTimeUser")
+        if number != nil {
+            return
+        }
+        
+        userDefault.setValue(Int(0), forKey: "isFirstTimeUser")
+        userDefault.synchronize()
         
         UIView.animateWithDuration(0.1, animations: {
             self.fadeView?.alpha = 1
