@@ -27,12 +27,6 @@ class CCCameraGuideViewController: SpotlightViewController {
         
         delegate = self
         
-        if screenSize.height == 568 {
-            offset = 0.0
-        } else {
-            offset = 75.0
-        }
-        
         //        let cameraLabel: UILabel = UILabel(frame: CGRectMake(105, 400 - offset, 80, 15))
         //        cameraLabel.textAlignment = .Left
         //        cameraLabel.text = NSLocalizedString("Open Camera", comment: "Open Camera")
@@ -54,10 +48,6 @@ class CCCameraGuideViewController: SpotlightViewController {
     
     func next(labelAnimated: Bool) {
         updateAnnotationView(labelAnimated)
-        
-        // Category 80, 340.0 - offset, 50
-        // Inspire self.view.frame.size.width - 115, 340 - offset, 50, 50
-        // Instagram self.view.frame.size.width - 115, 340 - offset - 60, 50, 50
         
         switch stepIndex {
         case 0:
