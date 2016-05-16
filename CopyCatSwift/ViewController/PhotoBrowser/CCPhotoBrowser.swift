@@ -123,21 +123,34 @@ import Crashlytics
             view!.addSubview(bg)
             
             //close
-            let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 4 - 23, view.frame.size.height - 50, 50, 50))
+            let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
             closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
             closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
             closeButton.addTarget(self, action: "cancelAction", forControlEvents: .TouchUpInside)
             view!.addSubview(closeButton)
             
             //check
-            let checkButton: UIButton = UIButton(frame: CGRectMake(3 * view.frame.size.width / 4 - 23, view.frame.size.height - 50, 50, 50))
+            let checkButton: UIButton = UIButton(frame: CGRectMake(5 * view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
             checkButton.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
             checkButton.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
             checkButton.addTarget(self, action: "checkAction", forControlEvents: .TouchUpInside)
             view!.addSubview(checkButton)
-            let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 2, view.frame.size.height - 37.5, 1, 25))
-            bar.backgroundColor = UIColor(white: 0.13, alpha: 1)
+            
+            //share
+            shareButton.frame = CGRectMake(3 * view.frame.size.width / 6 - 22, view.frame.size.height - 47.5, 45, 45)
+            shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
+            shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
+            shareButton.addTarget(self, action: "shareAction", forControlEvents: .TouchUpInside)
+            view!.addSubview(shareButton)
+            
+            //dark split bar
+            let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
+            bar.backgroundColor = UIColor(white: 0.16, alpha: 1)
             view!.addSubview(bar)
+            
+            let bar2: UIView = UIView(frame: CGRectMake(2*view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
+            bar2.backgroundColor = UIColor(white: 0.16, alpha: 1)
+            view!.addSubview(bar2)
         }
         
         currentCell = collectionView(browserCollectionView!, cellForItemAtIndexPath: NSIndexPath(forRow: currentIndex, inSection: 0)) as! CCBrowserCell
