@@ -132,7 +132,17 @@ import CoreData
 
     // new post
     static func newPost(image:UIImage,completion:(error: String?) -> Void){
-        let imageData = UIImageJPEGRepresentation(image,0.8)//.resizeWithFactor(0.01), 0.8)
+        //resize before sending
+        let maxdim = max(image.size.width, image.size.height)
+        let mindim = min(image.size.width, image.size.height)
+        var resizedImage = image
+        if maxdim > 800 && mindim > 400{
+            let ratio = Float(800.0 / maxdim)
+            resizedImage = image.resizeWithFactor(ratio)
+        }
+        
+        //base64 encoding
+        let imageData = UIImageJPEGRepresentation(resizedImage,0.8)
         let base64String = imageData!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
 
         var json = [String: AnyObject]()
