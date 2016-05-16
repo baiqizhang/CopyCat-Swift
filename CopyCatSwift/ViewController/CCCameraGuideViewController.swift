@@ -16,7 +16,6 @@ class CCCameraGuideViewController: SpotlightViewController {
     var stepIndex: Int = 0
     
     let screenSize = UIScreen.mainScreen().bounds.size
-    var offset : CGFloat = 0.0
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -51,17 +50,17 @@ class CCCameraGuideViewController: SpotlightViewController {
         
         switch stepIndex {
         case 0:
-            spotlightView.appear(Spotlight.Oval(center: CGPointMake(screenSize.width/2 - 37, screenSize.height - 80), diameter: 80))
+            spotlightView.appear(Spotlight.Oval(center: CGPointMake(screenSize.width/2.0 + 4 , screenSize.height - 46), diameter: 80))
         case 1:
-            spotlightView.move(Spotlight.Oval(center: CGPointMake(30, screenSize.height - 67.5), diameter: 45))
+            spotlightView.move(Spotlight.Oval(center: CGPointMake(52.5, screenSize.height - 45), diameter: 60))
         case 2:
-            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 80, screenSize.height - 70), diameter: 50))
+            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 56, screenSize.height - 43), diameter: 54))
         case 3:
-            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 50, 1), diameter: 37), moveType: .Disappear)
+            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 82, 20), diameter: 37), moveType: .Disappear)
         case 4:
-            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 100,  0), diameter: 40))
+            spotlightView.move(Spotlight.Oval(center: CGPointMake(screenSize.width - 32,  20), diameter: 37))
         case 5:
-            spotlightView.move(Spotlight.Oval(center: CGPointMake(0, -5), diameter: 50))
+            spotlightView.move(Spotlight.Oval(center: CGPointMake(25, 20), diameter: 37))
         case 6:
             dismissViewControllerAnimated(true, completion: nil)
         default:
