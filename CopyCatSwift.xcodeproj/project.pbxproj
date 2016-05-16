@@ -905,7 +905,8 @@
 				9704E1501C21FC4800A48C5F /* Resources */,
 				454B24639015B6D03F4788BA /* Embed Pods Frameworks */,
 				88FB2B6B955424148FE83E28 /* Copy Pods Resources */,
-				97723C431CE455B00073DC0F /* ShellScript */,
+				97723C431CE455B00073DC0F /* Run Fabric Script */,
+				97FCBB841CE979E0003734DA /* Run Increment Build Number Script */,
 			);
 			buildRules = (
 			);
@@ -1155,18 +1156,33 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97723C431CE455B00073DC0F /* ShellScript */ = {
+		97723C431CE455B00073DC0F /* Run Fabric Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Fabric Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" c9f85e9f382d67ba16ef17ac9a108474eeb0329e eead5513728c3a426a964a17a9dd330c0d980da4059a9438866e8801bff975ee";
+		};
+		97FCBB841CE979E0003734DA /* Run Increment Build Number Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Increment Build Number Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n";
 		};
 		DC4A9BFB831F5F1788080D7A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
