@@ -319,11 +319,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 -(void)viewDidAppear:(BOOL)animated{
     CCOverlayView *overlayView=self.overlayView;
-    [overlayView prepareAnimation];
+    
     // TODO: call cameraGuide function, and set CCCoreUtil cameraGuide to true
-    if ([CCCoreUtil cameraGuide] == false){
-        
-    }
+//    if ([CCCoreUtil cameraGuide] == false){
+//        
+//    }
+    [self cameraGuide];
+//    [overlayView prepareAnimation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -701,9 +703,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 	}];
 }
 
-// TODO: Add CCCameraGuideView as subview
 - (void)cameraGuide
 {
+    CCCameraGuideViewController *vc = [[CCCameraGuideViewController alloc]init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end
