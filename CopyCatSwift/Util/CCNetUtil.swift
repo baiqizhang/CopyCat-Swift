@@ -35,7 +35,7 @@ import CoreData
                     }
                 }
 
-                post.pinCount = 0//subJson["pinCount"].int
+                post.pinCount = subJson["pinCount"] as? Int
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
                 post.userName = subJson["ownerId"]["name"].string
@@ -141,6 +141,7 @@ import CoreData
         json["width"] = image.size.width
         json["height"] = image.size.height
 
+        
         json["ownerId"] = CCUserManager.instagramUserInfo["cc_id"].string
 
         do{

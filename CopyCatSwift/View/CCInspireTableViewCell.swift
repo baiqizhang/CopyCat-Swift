@@ -61,7 +61,7 @@ class CCInspireTableViewCell : UITableViewCell {
         set{
             usernameLabel.frame=CGRectMake(40,self.frame.size.height - 35, self.frame.size.width, 15)
             usernameLabel.text = newValue
-            usernameLabel.textColor = .blueColor()
+            usernameLabel.textColor = UIColor.init(red: 0, green: 122/255, blue: 1, alpha: 1)
             usernameLabel.font = UIFont.systemFontOfSize(10.5)
             usernameLabel.textAlignment = .Left
         }
@@ -93,7 +93,7 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60/60/24/365/12) + NSLocalizedString("MONTH", comment: "m") + agoString
             }
             
-            timestampLabel.textColor = .blueColor()
+            timestampLabel.textColor = UIColor.init(red: 0, green: 122/255, blue: 1, alpha: 1)
             timestampLabel.textAlignment = .Left
             timestampLabel.font = UIFont.systemFontOfSize(10.5)
         }
@@ -114,12 +114,17 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     private let pinCountLabel = UILabel()
+    var pcount: Int = 0
     var pinCount : Int{
         set{
             pinCountLabel.text = String(newValue)
+            if newValue > 0 {
+                pinCountLabel.alpha = 1
+            }
+            pcount = newValue
         }
         get{
-            return self.pinCount
+            return pcount
         }
     }
 
@@ -206,7 +211,8 @@ class CCInspireTableViewCell : UITableViewCell {
         // Pin count
         pinCountLabel.textColor = .blueColor()
         pinCountLabel.textAlignment = .Left
-        pinCountLabel.alpha=0
+        pinCountLabel.font.fontWithSize(20)
+        pinCountLabel.alpha = 0
         self.addSubview(pinCountLabel)
 
         
