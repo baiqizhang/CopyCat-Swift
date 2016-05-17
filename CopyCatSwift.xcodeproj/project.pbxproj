@@ -177,6 +177,7 @@
 		97FCBB7F1CE90760003734DA /* 5_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB591CE90760003734DA /* 5_1.jpg */; };
 		97FCBB801CE90760003734DA /* 5_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB5A1CE90760003734DA /* 5_2.jpg */; };
 		97FCBB811CE90760003734DA /* 5_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB5B1CE90760003734DA /* 5_3.jpg */; };
+		97FCBB831CE95D30003734DA /* pin_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB821CE95D30003734DA /* pin_black.png */; };
 		E66DEDBEA7BE1AAA00A5F25D /* Pods_CopyCatSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE14FC3F36FA2FFF2732A06 /* Pods_CopyCatSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -405,6 +406,7 @@
 		97FCBB591CE90760003734DA /* 5_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_1.jpg; sourceTree = "<group>"; };
 		97FCBB5A1CE90760003734DA /* 5_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_2.jpg; sourceTree = "<group>"; };
 		97FCBB5B1CE90760003734DA /* 5_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_3.jpg; sourceTree = "<group>"; };
+		97FCBB821CE95D30003734DA /* pin_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_black.png; sourceTree = "<group>"; };
 		E9AE196F830AA6F778B0E454 /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -696,6 +698,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				97FCBB821CE95D30003734DA /* pin_black.png */,
 				72AEAD0C1CD2B548000B65BF /* help.png */,
 				973E94771CC83B9D0030AB7C /* instagram_slim.png */,
 				97C4F33E1C9FAA07003934BB /* instagram.png */,
@@ -902,7 +905,8 @@
 				9704E1501C21FC4800A48C5F /* Resources */,
 				454B24639015B6D03F4788BA /* Embed Pods Frameworks */,
 				88FB2B6B955424148FE83E28 /* Copy Pods Resources */,
-				97723C431CE455B00073DC0F /* ShellScript */,
+				97723C431CE455B00073DC0F /* Run Fabric Script */,
+				97FCBB841CE979E0003734DA /* Run Increment Build Number Script */,
 			);
 			buildRules = (
 			);
@@ -1052,6 +1056,7 @@
 				97F6DFBA1C23A1C300707180 /* close_highlight.png in Resources */,
 				97F6DFB91C23A1C300707180 /* close.png in Resources */,
 				97F6DFC81C23A1C300707180 /* photo.png in Resources */,
+				97FCBB831CE95D30003734DA /* pin_black.png in Resources */,
 				97F6DFE91C23A5AC00707180 /* Info.plist in Resources */,
 				97F6DFB81C23A1C300707180 /* check_highlight.png in Resources */,
 				978656C31C3FA1C500617669 /* circleuser.png in Resources */,
@@ -1151,18 +1156,33 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97723C431CE455B00073DC0F /* ShellScript */ = {
+		97723C431CE455B00073DC0F /* Run Fabric Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Fabric Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" c9f85e9f382d67ba16ef17ac9a108474eeb0329e eead5513728c3a426a964a17a9dd330c0d980da4059a9438866e8801bff975ee";
+		};
+		97FCBB841CE979E0003734DA /* Run Increment Build Number Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Increment Build Number Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n";
 		};
 		DC4A9BFB831F5F1788080D7A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1428,12 +1448,12 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCatSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CopyCatSwift/View/CopyCatSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1475,11 +1495,11 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCatSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = baiqizhang.CopyCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CopyCatSwift/View/CopyCatSwift-Bridging-Header.h";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

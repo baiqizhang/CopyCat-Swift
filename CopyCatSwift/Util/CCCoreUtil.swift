@@ -195,10 +195,10 @@ import CoreData
     static func addCategory(name: String, bannerURI : String) -> CCCategory{
         let category = NSEntityDescription.insertNewObjectForEntityForName("Category",
             inManagedObjectContext: CCCoreUtil.managedObjectContext) as! CCCategory
+        category.id = categoryCount-1
         categoryCount = categoryCount + 1
         category.name = name
         category.photoCount = 0
-        category.id = categoryCount
         category.bannerURI = bannerURI
         CCCoreUtil.categories.addObject(category)
         

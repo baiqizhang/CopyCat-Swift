@@ -52,6 +52,7 @@ class CCOverlayView: UIView {
         
         UIView.animateWithDuration(0.1, animations: {
             self.fadeView?.alpha = 1
+            self.swipeView?.alpha = 1
             }, completion: { _ in
                 self.playAnimation()
         })
@@ -194,7 +195,6 @@ class CCOverlayView: UIView {
         let height = frame.size.height - 140
         let width = frame.size.width
         self.frame_bg = CGRectMake(0, 40, width, height)
-        let ratio = width / height
         let thumbnailSize : CGFloat = 150
 
         if image.size.width > image.size.height {
@@ -208,51 +208,17 @@ class CCOverlayView: UIView {
         self.addSubview(self.transparencyButton!)
         self.transparencyButton?.addTarget(self, action: "onPress", forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
-        
-        var CGImage: CGImageRef
-        if image.size.width > image.size.height {
-            if image.size.width * ratio > image.size.height {
-                CGImage = CGImageCreateWithImageInRect(image.CGImage, CGRectMake((image.size.width-image.size.height/ratio)/2.0, 0,  image.size.height/ratio,image.size.height))!
-            } else {
 
-             CGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, (image.size.height-image.size.width*ratio)/2.0, image.size.width, image.size.width*ratio))!
-            }
-         }
-         else
-         {
-            if image.size.height * ratio > image.size.width {
-                CGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0,(image.size.height-image.size.width/ratio)/2.0,image.size.width, image.size.width/ratio))!
-            }
-            
-            else {
-             CGImage=CGImageCreateWithImageInRect(image.CGImage, CGRectMake((image.size.width-image.size.height*ratio)/2.0, 0, image.size.height*ratio, image.size.height))!
-            }
-        }
-        
+        //rotate if width > height
         if image.size.width > image.size.height {
-             let frame = self.frame_bg;
-             UIGraphicsBeginImageContext(frame.size)
-             let context = UIGraphicsGetCurrentContext()
-             CGContextRotateCTM(context, 90.0/180.0*3.1415926)
-             CGContextScaleCTM(context, 1.0,-1.0)
-             CGContextDrawImage(context, CGRectMake(0, 0, frame.size.height, frame.size.width),CGImage)
-             image = UIGraphicsGetImageFromCurrentImageContext()
-             UIGraphicsEndImageContext();
-         } else {
-             frame=self.frame_bg;
-             UIGraphicsBeginImageContext(frame.size);
-             let context = UIGraphicsGetCurrentContext();
-             CGContextScaleCTM(context, 1.0,-1.0);
-             CGContextTranslateCTM(context, 0.0, -frame.size.height);
-             CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),CGImage);
-             image = UIGraphicsGetImageFromCurrentImageContext();
-             UIGraphicsEndImageContext();
-         }
-        
-         self.image=image;
-         self.imageView = UIImageView.init(image: image)
-         self.imageView!.userInteractionEnabled = true;
-        
+            image = image.rotateInDegrees(-90.0)
+        }
+        self.image=image;
+        self.imageView = UIImageView.init(image: image)
+        self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        self.imageView!.clipsToBounds = true
+        self.imageView!.userInteractionEnabled = true;
+
         self.addSubview(self.imageView!)
         
         self.fakeView = UIView.init(frame:self.frame_bg)

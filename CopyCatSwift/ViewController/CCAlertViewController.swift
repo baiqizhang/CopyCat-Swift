@@ -158,6 +158,7 @@ extension CCAlertViewController:UITableViewDataSource{
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         let cellTitle = CCCoreUtil.categories[indexPath.row+1].name!
         cell.textLabel?.text = NSLocalizedString((cellTitle.uppercaseString), comment: cellTitle)
+        cell.textLabel?.font = UIFont.systemFontOfSize(14.5)
         return cell
     }
 }

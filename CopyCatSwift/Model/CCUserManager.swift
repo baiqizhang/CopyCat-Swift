@@ -44,6 +44,12 @@ class CCUserManager: NSObject {
             NSLog("set Instagram user info = \(self.userDefault.valueForKey("profile_picture"))")
         }
         get {
+            // first time user
+            guard let _ = self.userDefault.valueForKey("usertype")
+                else {
+                    return JSON([])
+                }
+            
             if self.userDefault.valueForKey("usertype") as! Int == 1 {
                 let a = JSON([
                         "access_token": self.userDefault.valueForKey("access_token")!,

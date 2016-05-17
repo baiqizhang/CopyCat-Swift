@@ -59,10 +59,10 @@ class CCInspireTableViewCell : UITableViewCell {
     private let usernameLabel = UILabel()
     var username : String{
         set{
-            usernameLabel.frame=CGRectMake(40,self.frame.size.height - 35, self.frame.size.width, 15)
+            usernameLabel.frame=CGRectMake(40,self.frame.size.height - 33.5, self.frame.size.width, 15)
             usernameLabel.text = newValue
-            usernameLabel.textColor = UIColor.init(red: 0, green: 122/255, blue: 1, alpha: 1)
-            usernameLabel.font = UIFont.systemFontOfSize(10.5)
+            usernameLabel.textColor = .blackColor()//.blueColor()
+            usernameLabel.font = UIFont.systemFontOfSize(13)
             usernameLabel.textAlignment = .Left
         }
         get{
@@ -93,9 +93,9 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60/60/24/365/12) + NSLocalizedString("MONTH", comment: "m") + agoString
             }
             
-            timestampLabel.textColor = UIColor.init(red: 0, green: 122/255, blue: 1, alpha: 1)
+            timestampLabel.textColor = .blackColor()//.blueColor()
             timestampLabel.textAlignment = .Left
-            timestampLabel.font = UIFont.systemFontOfSize(10.5)
+            timestampLabel.font = UIFont.systemFontOfSize(9)
         }
         get{
             return self.timestamp
@@ -197,19 +197,19 @@ class CCInspireTableViewCell : UITableViewCell {
         self.addSubview(likeButton)
 
         // Pin button
-        pinButton.setBackgroundImage(UIImage(named: "pin_highlight.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
+        pinButton.setBackgroundImage(UIImage(named: "pin_black")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         pinButton.setBackgroundImage(UIImage(named: "pin_highlight.png"), forState: .Highlighted)
         pinButton.addTarget(self, action: "pinAction", forControlEvents: .TouchUpInside)
         self.addSubview(pinButton)
         
         // Like count
-        likeCountLabel.textColor = .blueColor()
+        likeCountLabel.textColor = .blackColor()//.blueColor()
         likeCountLabel.textAlignment = .Left
         likeCountLabel.alpha = 0
         self.addSubview(likeCountLabel)
         
         // Pin count
-        pinCountLabel.textColor = .blueColor()
+        pinCountLabel.textColor = .blackColor()//.blueColor()
         pinCountLabel.textAlignment = .Left
         pinCountLabel.font.fontWithSize(20)
         pinCountLabel.alpha = 0
