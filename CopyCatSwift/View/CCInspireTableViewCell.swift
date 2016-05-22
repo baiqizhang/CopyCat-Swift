@@ -13,8 +13,12 @@ class CCInspireTableViewCell : UITableViewCell {
     // Image
     private var count = 0
     let myImageView = UIImageView()
+    
+    private var _myImageURI = ""
     var myImageURI : String{
         set{
+            _myImageURI = newValue
+            
             self.myImageView.image = nil
             self.myImageView.alpha = 0
             count += 1
@@ -51,14 +55,16 @@ class CCInspireTableViewCell : UITableViewCell {
             }
         }
         get{
-            return self.myImageURI
+            return _myImageURI
         }
     }
     
     // Username
     private let usernameLabel = UILabel()
+    private var _username = ""
     var username : String{
         set{
+            _username = newValue
             usernameLabel.frame=CGRectMake(40,self.frame.size.height - 33.5, self.frame.size.width, 15)
             usernameLabel.text = newValue
             usernameLabel.textColor = .blackColor()//.blueColor()
@@ -66,7 +72,7 @@ class CCInspireTableViewCell : UITableViewCell {
             usernameLabel.textAlignment = .Left
         }
         get{
-            return self.username
+            return _username
         }
     }
     
@@ -98,6 +104,7 @@ class CCInspireTableViewCell : UITableViewCell {
             timestampLabel.font = UIFont.systemFontOfSize(9)
         }
         get{
+            //TODO fix
             return self.timestamp
         }
     }
@@ -109,6 +116,7 @@ class CCInspireTableViewCell : UITableViewCell {
             likeCountLabel.text = String(newValue)
         }
         get{
+            //TODO fix
             return self.likeCount
         }
     }
@@ -124,6 +132,7 @@ class CCInspireTableViewCell : UITableViewCell {
             pcount = newValue
         }
         get{
+            //TODO fix
             return pcount
         }
     }
@@ -153,6 +162,7 @@ class CCInspireTableViewCell : UITableViewCell {
             }
         }
         get{
+            //TODO fix
             return self.userImageURI
         }
     }
@@ -280,7 +290,7 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     func moreAction(){
-        delegate?.moreAction()
+        delegate?.moreAction(self.myImageURI)
     }
 
     /*

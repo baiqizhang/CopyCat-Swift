@@ -17,6 +17,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     private var usingInstagram = false
     private var loading = false
     
+    private var reportURI = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Style
@@ -280,7 +282,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     func likeAction(){
     }
     
-    func moreAction(){
+    func moreAction(reportImageURI:String){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
@@ -292,6 +294,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             popupTextView.caretShiftGestureEnabled = true
             // default = NO
             popupTextView.text = ""
+            
+            self.reportURI = reportImageURI
             popupTextView.showInViewController(self)
         })
         
@@ -311,6 +315,7 @@ extension CCInspireTableViewController : YIPopupTextViewDelegate{
     func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
         if !cancelled {
             let str = textView.text!
+            print(self.reportURI)
             print(str)
         }
         self.setNeedsStatusBarAppearanceUpdate()
