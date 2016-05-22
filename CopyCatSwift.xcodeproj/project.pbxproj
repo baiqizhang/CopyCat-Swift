@@ -178,6 +178,7 @@
 		97FCBB801CE90760003734DA /* 5_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB5A1CE90760003734DA /* 5_2.jpg */; };
 		97FCBB811CE90760003734DA /* 5_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB5B1CE90760003734DA /* 5_3.jpg */; };
 		97FCBB831CE95D30003734DA /* pin_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB821CE95D30003734DA /* pin_black.png */; };
+		97FCBB861CF18738003734DA /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB851CF18738003734DA /* more.png */; };
 		E66DEDBEA7BE1AAA00A5F25D /* Pods_CopyCatSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE14FC3F36FA2FFF2732A06 /* Pods_CopyCatSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -407,6 +408,7 @@
 		97FCBB5A1CE90760003734DA /* 5_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_2.jpg; sourceTree = "<group>"; };
 		97FCBB5B1CE90760003734DA /* 5_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5_3.jpg; sourceTree = "<group>"; };
 		97FCBB821CE95D30003734DA /* pin_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_black.png; sourceTree = "<group>"; };
+		97FCBB851CF18738003734DA /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
 		E9AE196F830AA6F778B0E454 /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -698,6 +700,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				97FCBB851CF18738003734DA /* more.png */,
 				97FCBB821CE95D30003734DA /* pin_black.png */,
 				72AEAD0C1CD2B548000B65BF /* help.png */,
 				973E94771CC83B9D0030AB7C /* instagram_slim.png */,
@@ -1017,6 +1020,7 @@
 				9740C96B1C2BB9210023FE2C /* banner0.png in Resources */,
 				97FCBB641CE90760003734DA /* 0_8.jpg in Resources */,
 				72AEAD0D1CD2B548000B65BF /* help.png in Resources */,
+				97FCBB861CF18738003734DA /* more.png in Resources */,
 				97F6DFED1C250F9100707180 /* LaunchImage_2x_faded.png in Resources */,
 				97FCBB811CE90760003734DA /* 5_3.jpg in Resources */,
 				97FCBB661CE90760003734DA /* 1_0.jpg in Resources */,

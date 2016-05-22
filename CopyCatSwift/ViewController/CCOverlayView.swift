@@ -203,7 +203,7 @@ class CCOverlayView: UIView {
             self.frame_tm = CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2 - image.size.height / image.size.width * thumbnailSize / 2, thumbnailSize, image.size.height / image.size.width * thumbnailSize)
         }
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundCsolor = UIColor.clearColor()
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
         self.addSubview(self.transparencyButton!)
         self.transparencyButton?.addTarget(self, action: "onPress", forControlEvents: .TouchUpInside)

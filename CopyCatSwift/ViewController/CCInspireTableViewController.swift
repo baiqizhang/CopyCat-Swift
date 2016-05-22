@@ -128,7 +128,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         cell.delegate = self
         cell.myImageURI = uri
         
-        cell.pinCount = post.pinCount?.integerValue ?? 0
+        cell.pinCount = 14//post.pinCount?.integerValue ?? 0
         cell.likeCount = post.likeCount?.integerValue ?? 0
         
         cell.timestamp = post.timestamp!
@@ -280,5 +280,39 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     func likeAction(){
     }
     
+    func moreAction(){
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            // NOTE: maxCount = 0 to hide count
+            let popupTextView = YIPopupTextView(placeHolder: "Please provide the reason for reporting the content.", maxCount: 500, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
+            popupTextView.delegate = self
+            popupTextView.caretShiftGestureEnabled = true
+            // default = NO
+            popupTextView.text = ""
+            popupTextView.showInViewController(self)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        //show Menu
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+}
 
+
+extension CCInspireTableViewController : YIPopupTextViewDelegate{
+    func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
+        if !cancelled {
+            let str = textView.text!
+            print(str)
+        }
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
 }

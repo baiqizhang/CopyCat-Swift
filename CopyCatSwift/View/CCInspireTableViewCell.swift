@@ -88,9 +88,9 @@ class CCInspireTableViewCell : UITableViewCell {
             } else if now < 60*60*24{
                 timestampLabel.text = String(now/60/60) + NSLocalizedString("HOUR", comment: "h") + agoString
             } else if now < 60*60*24*365{
-                timestampLabel.text = String(now/60/60/24) + NSLocalizedString("DAY", comment: "days") + agoString
+                timestampLabel.text = String(now/60/60/24) + " " + NSLocalizedString("DAY", comment: "days") + agoString
             } else {
-                timestampLabel.text = String(now/60/60/24/365/12) + NSLocalizedString("MONTH", comment: "m") + agoString
+                timestampLabel.text = String(now/60/60/24/365/12) + " " + NSLocalizedString("MONTH", comment: "m") + agoString
             }
             
             timestampLabel.textColor = .blackColor()//.blueColor()
@@ -119,7 +119,7 @@ class CCInspireTableViewCell : UITableViewCell {
         set{
             pinCountLabel.text = String(newValue)
             if newValue > 0 {
-                pinCountLabel.alpha = 1
+                pinCountLabel.alpha = 0.9
             }
             pcount = newValue
         }
@@ -160,6 +160,7 @@ class CCInspireTableViewCell : UITableViewCell {
     
     
     private let likeButton = UIButton()
+    private let moreButton = UIButton()
     private let pinButton = UIButton()
     
     var delegate : CCInspireTableViewController?
@@ -192,57 +193,49 @@ class CCInspireTableViewCell : UITableViewCell {
         // Like button
         likeButton.setBackgroundImage(UIImage(named: "like2.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         likeButton.setBackgroundImage(UIImage(named: "like2_highlight.png"), forState: .Highlighted)
-        likeButton.addTarget(self, action: "likeAction", forControlEvents: .TouchUpInside)
-        likeButton.alpha=0
-        self.addSubview(likeButton)
+        likeButton.addTarget(self, action: #selector(CCInspireTableViewCell.likeAction), forControlEvents: .TouchUpInside)
+        //self.addSubview(likeButton)
 
+        // More button
+        moreButton.setBackgroundImage(UIImage(named: "more.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
+        moreButton.setBackgroundImage(UIImage(named: "more.png"), forState: .Highlighted)
+        moreButton.addTarget(self, action: #selector(CCInspireTableViewCell.moreAction), forControlEvents: .TouchUpInside)
+        self.addSubview(moreButton)
+        
         // Pin button
         pinButton.setBackgroundImage(UIImage(named: "pin_black")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         pinButton.setBackgroundImage(UIImage(named: "pin_highlight.png"), forState: .Highlighted)
-        pinButton.addTarget(self, action: "pinAction", forControlEvents: .TouchUpInside)
+        pinButton.addTarget(self, action: #selector(CCInspireTableViewCell.pinAction), forControlEvents: .TouchUpInside)
         self.addSubview(pinButton)
         
         // Like count
         likeCountLabel.textColor = .blackColor()//.blueColor()
         likeCountLabel.textAlignment = .Left
-        likeCountLabel.alpha = 0
-        self.addSubview(likeCountLabel)
+        likeCountLabel.font = UIFont.systemFontOfSize(10.5)
+//        self.addSubview(likeCountLabel)
         
         // Pin count
         pinCountLabel.textColor = .blackColor()//.blueColor()
         pinCountLabel.textAlignment = .Left
-        pinCountLabel.font.fontWithSize(20)
+        pinCountLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 16.0)
         pinCountLabel.alpha = 0
         self.addSubview(pinCountLabel)
 
         
         // Like button constraint
-        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: likeButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -40))
-    
-        addConstraint(NSLayoutConstraint(item: likeButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -15))
         
-        addConstraint(NSLayoutConstraint(item: likeButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
+        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
-        addConstraint(NSLayoutConstraint(item: likeButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
+        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
         
-        // Like Count Label constraint
-        likeCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: likeCountLabel, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: likeButton, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
         
-        addConstraint(NSLayoutConstraint(item: likeCountLabel, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
-        
-        addConstraint(NSLayoutConstraint(item: likeCountLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
-        
-        addConstraint(NSLayoutConstraint(item: likeCountLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
-
         // Pin button constraint
         pinButton.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -15))
+        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: moreButton, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: -15))
 
-//        pinButton.translatesAutoresizingMaskIntoConstraints = false
-//        addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: likeButton, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: -30))
-//        
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
@@ -251,13 +244,13 @@ class CCInspireTableViewCell : UITableViewCell {
         
         // Pin Count Label constraint
         pinCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: pinButton, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: pinButton, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -5))
         
         addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
         addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
         
-        addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
+        addConstraint(NSLayoutConstraint(item: pinCountLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 37.5))
         
         // User Image constraint
         userImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -285,7 +278,10 @@ class CCInspireTableViewCell : UITableViewCell {
     func likeAction(){
         delegate?.likeAction()
     }
-
+    
+    func moreAction(){
+        delegate?.moreAction()
+    }
 
     /*
         make the cell as CardView. https://github.com/aclissold/CardView
