@@ -290,7 +290,7 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     func moreAction(){
-        delegate?.moreAction(self.myImageURI)
+        delegate?.moreAction(self.myImageURI, reporterName: self.username)
     }
 
     /*

@@ -177,8 +177,7 @@ import CoreData
         }
     }
 
-    static func sendFeedback(content:String,completion:(error:String?) -> Void) -> Void{
-        
+    static func sendFeedback(content:String, completion:(error:String?) -> Void) -> Void{
         var json = [String: AnyObject]()
         let _ = String(NSDate())
         json["contact"] = "\"test\",<test@test.com>"
@@ -187,8 +186,50 @@ import CoreData
         
         do{
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
-            //           HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) ->
-            HTTPPostJSON(host + "feedback", data: data, callback: { (response, error) -> Void in
+            HTTPPostJSON(host + "report", data: data, callback: { (response, error) -> Void in
+                if let _ = error {
+                    completion(error: "Connection Failed")
+                    return
+                }
+                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+                    NSLog("response:%@", datastring)
+                    if datastring.containsString("OK"){
+                        completion( error: nil)
+                    } else {
+                        completion( error: datastring)
+                    }
+                    
+                }
+            })
+        } catch{
+            
+        }
+    }
+    
+    static func sendReport(imageId:String, userId:String, content:String, completion:(error:String?) -> Void) -> Void {
+        
+        var json = [String: AnyObject]()
+        let _ = String(NSDate())
+        
+        var content = [String: AnyObject]()
+        content["reportType"] = ""
+        content["contentType"] = "photo"
+        content["contentId"] = imageId
+        json["content"] = content
+        
+        var reporter = [String: AnyObject]()
+        reporter["ownerId"] = userId
+        reporter["reporterEmail"] = ""
+        json["reporter"] = reporter
+        
+        json["time"] = ""
+        json["status"] = ""
+        
+        print(json)
+        
+        do{
+            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
+            HTTPPostJSON(host + "reports", data: data, callback: { (response, error) -> Void in
                 if let _ = error {
                     completion(error: "Connection Failed")
                     return

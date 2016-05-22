@@ -18,6 +18,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     private var loading = false
     
     private var reportURI = ""
+    private var reporterName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -282,7 +283,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     func likeAction(){
     }
     
-    func moreAction(reportImageURI:String){
+    func moreAction(reportImageURI:String, reporterName:String){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
@@ -296,6 +297,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             popupTextView.text = ""
             
             self.reportURI = reportImageURI
+            self.reporterName = reporterName
             popupTextView.showInViewController(self)
         })
         
@@ -314,9 +316,20 @@ class CCInspireTableViewController : SKStatefulTableViewController {
 extension CCInspireTableViewController : YIPopupTextViewDelegate{
     func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
         if !cancelled {
-            let str = textView.text!
-            print(self.reportURI)
-            print(str)
+            let reportContent = textView.text!
+            
+            if let range = self.reportURI.rangeOfString("com/") {
+                let pos = range.endIndex
+                let photoId = self.reportURI.substringFromIndex(pos)
+                CCNetUtil.sendReport(photoId, userId: self.reporterName, content: reportContent, completion: {(error: String?) in
+                    if (error != nil) {
+                        print(error)
+                    } else {
+                        print("succeess")
+                    }
+                    
+                })
+            }
         }
         self.setNeedsStatusBarAppearanceUpdate()
     }
