@@ -38,6 +38,7 @@ import CoreData
                 post.pinCount = subJson["pinCount"] as? Int
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
+                post.userID = subJson["ownerId"]["_id"].string
                 post.userName = subJson["ownerId"]["name"].string
                 post.userProfileImage = subJson["ownerId"]["profilePictureUrl"].string
 
@@ -136,8 +137,8 @@ import CoreData
         let maxdim = max(image.size.width, image.size.height)
         let mindim = min(image.size.width, image.size.height)
         var resizedImage = image
-        if maxdim > 800 && mindim > 400{
-            let ratio = Float(800.0 / maxdim)
+        if maxdim > 720 && mindim > 360{
+            let ratio = Float(720.0 / maxdim)
             resizedImage = image.resizeWithFactor(ratio)
         }
         
@@ -186,7 +187,7 @@ import CoreData
         
         do{
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
-            HTTPPostJSON(host + "report", data: data, callback: { (response, error) -> Void in
+            HTTPPostJSON(host + "feedback", data: data, callback: { (response, error) -> Void in
                 if let _ = error {
                     completion(error: "Connection Failed")
                     return
@@ -222,9 +223,6 @@ import CoreData
         reporter["reporterEmail"] = ""
         json["reporter"] = reporter
         
-        json["time"] = ""
-        json["status"] = ""
-        
         print(json)
         
         do{
@@ -236,7 +234,7 @@ import CoreData
                 }
                 if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
                     NSLog("response:%@", datastring)
-                    if datastring.containsString("OK"){
+                    if datastring.containsString("Issued"){
                         completion( error: nil)
                     } else {
                         completion( error: datastring)

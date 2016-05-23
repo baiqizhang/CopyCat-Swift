@@ -18,7 +18,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     private var loading = false
     
     private var reportURI = ""
-    private var reporterName = ""
+    private var reporterID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,9 +131,10 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         cell.delegate = self
         cell.myImageURI = uri
         
-        cell.pinCount = 14//post.pinCount?.integerValue ?? 0
+        cell.pinCount = post.pinCount?.integerValue ?? 0
         cell.likeCount = post.likeCount?.integerValue ?? 0
         
+        cell.userID = post.userID ?? "0"
         cell.timestamp = post.timestamp!
         
         return cell
@@ -283,7 +284,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     func likeAction(){
     }
     
-    func moreAction(reportImageURI:String, reporterName:String){
+    func moreAction(reportImageURI:String, reporterID:String){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
@@ -297,7 +298,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             popupTextView.text = ""
             
             self.reportURI = reportImageURI
-            self.reporterName = reporterName
+            self.reporterID = reporterID
             popupTextView.showInViewController(self)
         })
         
@@ -321,12 +322,32 @@ extension CCInspireTableViewController : YIPopupTextViewDelegate{
             if let range = self.reportURI.rangeOfString("com/") {
                 let pos = range.endIndex
                 let photoId = self.reportURI.substringFromIndex(pos)
-                CCNetUtil.sendReport(photoId, userId: self.reporterName, content: reportContent, completion: {(error: String?) in
-                    if (error != nil) {
-                        print(error)
-                    } else {
-                        print("succeess")
-                    }
+                CCNetUtil.sendReport(photoId, userId: self.reporterID, content: reportContent, completion: {(error: String?) in
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
+                        notifyLabel.textColor = UIColor.whiteColor()
+                        notifyLabel.backgroundColor = UIColor.blackColor()
+                        notifyLabel.alpha = 0
+                        self.parentViewController!.view!.addSubview(notifyLabel)
+                        
+                        if (error != nil) {
+                            notifyLabel.text = "Network failure"
+                        } else {
+                            notifyLabel.text = "Content reported"
+                        }
+                        
+                        UIView.animateWithDuration(0.3, animations: {() -> Void in
+                            notifyLabel.alpha = 1
+                            }, completion: {(finished: Bool) -> Void in
+                                UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
+                                    notifyLabel.alpha = 0
+                                    }, completion: {(finished: Bool) -> Void in
+                                        notifyLabel.removeFromSuperview()
+                                })
+                        })
+                    })
                     
                 })
             }

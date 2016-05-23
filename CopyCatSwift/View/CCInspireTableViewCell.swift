@@ -10,6 +10,8 @@ import UIKit
 
 @IBDesignable
 class CCInspireTableViewCell : UITableViewCell {
+    var userID = ""
+    
     // Image
     private var count = 0
     let myImageView = UIImageView()
@@ -232,9 +234,9 @@ class CCInspireTableViewCell : UITableViewCell {
         self.addSubview(pinCountLabel)
 
         
-        // Like button constraint
+        // More button constraint
         moreButton.translatesAutoresizingMaskIntoConstraints = false
-        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -15))
+        addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: -5))
         
         addConstraint(NSLayoutConstraint(item: moreButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
@@ -290,7 +292,7 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     func moreAction(){
-        delegate?.moreAction(self.myImageURI, reporterName: self.username)
+        delegate?.moreAction(self.myImageURI, reporterID: self.userID)
     }
 
     /*
