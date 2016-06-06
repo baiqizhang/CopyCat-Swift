@@ -6,4 +6,10 @@
 //  Copyright © 2016 Baiqi Zhang. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+import UIKit
+
+class CCCategoryCollectionCell: UICollectionViewCell {
+    var categoryName = UILabel()
+}

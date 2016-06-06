@@ -8,16 +8,16 @@
 
 import UIKit
 
-class CCTemplateViewController: UIViewController {
+class CCTemplateViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private var closeButton = UIButton()
     private var templateCol = UICollectionView()
+    private var categoryCol = UICollectionView()
+    let templateIdentifier = "templateCell"
+    let categoryIdentifier = "categoryCell"
     
-    func closeView() {
-        self.dismissViewControllerAnimated(true, completion: {_ in})
-    }
-    
-    
+    var cateList = ["A", "B", "C"]
+    var tempList = ["A", "B", "C"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,5 +28,45 @@ class CCTemplateViewController: UIViewController {
         view!.addSubview(closeButton)
         
         
+    }
+    
+    // Collection View part
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if (collectionView == templateCol){
+            return 1
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        if (collectionView == templateCol){
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(templateIdentifier, forIndexPath: indexPath) as! CCTemplateCollectionCell
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionCell
+            return cell
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // handle tap events
+        if (collectionView == templateCol){
+        } else {
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = self.view.frame.size.width
+        if (collectionView == templateCol){
+            return CGSize(width: screenWidth/3-10, height: screenWidth/3-10)
+        } else {
+            return CGSize(width: screenWidth/3-10, height: 10)
+        }
+    }
+    
+    // Close Button Function
+    func closeView() {
+        self.dismissViewControllerAnimated(true, completion: {_ in})
     }
 }
