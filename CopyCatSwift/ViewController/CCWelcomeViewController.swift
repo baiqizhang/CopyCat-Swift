@@ -21,7 +21,7 @@ class CCWelcomeViewController: UIViewController {
     private var guideButton = UIButton()
 
     func openGallery(){
-        let controller = CCCategoryViewController()
+        let controller = CCTemplateViewController()
         controller.modalTransitionStyle = .CrossDissolve
         self.presentViewController(controller, animated: true, completion: nil)
     }

@@ -17,6 +17,9 @@
 		1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */; };
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
 		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
+		722F68F91D04FA3A00160F20 /* CCTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */; };
+		726AAA791D052F87005E2899 /* CCCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726AAA781D052F87005E2899 /* CCCategoryCollectionCell.swift */; };
+		727B72F31D0501F30053944E /* CCTemplateCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727B72F21D0501F30053944E /* CCTemplateCollectionCell.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
 		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
 		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
@@ -211,6 +214,9 @@
 		1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOverlayView.swift; sourceTree = "<group>"; };
 		1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramLoginViewController.swift; sourceTree = "<group>"; };
 		44E8B4CE334F19FC16EDAF08 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCTemplateViewController.swift; sourceTree = "<group>"; };
+		726AAA781D052F87005E2899 /* CCCategoryCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCategoryCollectionCell.swift; sourceTree = "<group>"; };
+		727B72F21D0501F30053944E /* CCTemplateCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCTemplateCollectionCell.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
 		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
@@ -578,6 +584,9 @@
 				1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */,
 				1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */,
 				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
+				722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */,
+				727B72F21D0501F30053944E /* CCTemplateCollectionCell.swift */,
+				726AAA781D052F87005E2899 /* CCCategoryCollectionCell.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1224,6 +1233,7 @@
 				97254F901C2955EF0047968A /* CCCategoryViewController.swift in Sources */,
 				97FCBB9D1CF2AFDC003734DA /* CCUser+CoreDataProperties.swift in Sources */,
 				1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */,
+				727B72F31D0501F30053944E /* CCTemplateCollectionCell.swift in Sources */,
 				97FCBB9C1CF2AFDC003734DA /* CCUser.swift in Sources */,
 				1A4DF1F21C508380001A4775 /* CCLabel.swift in Sources */,
 				97F6DFE11C23A54700707180 /* CopyCatSwift.xcdatamodeld in Sources */,
@@ -1260,6 +1270,7 @@
 				9740CA7C1C2FE8B30023FE2C /* DNAlbumTableViewController.m in Sources */,
 				9740CA831C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				9740CA891C2FE8B30023FE2C /* DNAssetsViewCell.m in Sources */,
+				722F68F91D04FA3A00160F20 /* CCTemplateViewController.swift in Sources */,
 				72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */,
 				9740CA7D1C2FE8B30023FE2C /* DNAsset.m in Sources */,
 				9740CA901C2FE8B30023FE2C /* MWTapDetectingImageView.m in Sources */,
@@ -1269,6 +1280,7 @@
 				9740CA9E1C30AA280023FE2C /* YIPopupTextView.m in Sources */,
 				1A4DF1F01C508380001A4775 /* CCCollectionViewCell.swift in Sources */,
 				9727B0DC1C35CCCC005E9D12 /* CCInspireViewController.swift in Sources */,
+				726AAA791D052F87005E2899 /* CCCategoryCollectionCell.swift in Sources */,
 				9740C9721C2BE9960023FE2C /* CCSettingsViewController.swift in Sources */,
 				9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */,
 				97C4F3411C9FB316003934BB /* UIImageWithInsets.swift in Sources */,
