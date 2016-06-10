@@ -246,6 +246,18 @@ import CoreData
             
         }
     }
+    
+    static func loadPostByUsername(username:String, completion:(images:[String]) -> Void) {
+        let url = host + "users/" + username + "/photos"
+        getJSONFromURL(url, completion: {(json:JSON) -> Void in
+            let posts = self.parsePostFromJson(json)
+            var arr = [String]()
+            for ccpost in posts {
+                arr.append(ccpost.photoURI!)
+            }
+            completion(images: arr)
+        })
+    }
 
     
 

@@ -38,11 +38,11 @@ class CCInspireTableViewCell : UITableViewCell {
                     NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
                         guard
                             let data = data where error == nil,
-                            var image = UIImage(data: data)
+                            let image = UIImage(data: data)
                             else { return }
 //                        image = image.resizeWithFactor(0.3)
                         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                            self.count--
+                            self.count -= 1
                             if self.count != 0 {
                                 return
                             }
@@ -196,6 +196,9 @@ class CCInspireTableViewCell : UITableViewCell {
         userImageView.layer.cornerRadius = 20 + padding
         userImageView.clipsToBounds = true
         userImageView.backgroundColor = UIColor.blackColor()
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CCInspireTableViewCell.showProfileAction))
+        userImageView.userInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGestureRecognizer)
         self.addSubview(userImageView)
 
         // Button Inset
@@ -293,6 +296,10 @@ class CCInspireTableViewCell : UITableViewCell {
     
     func moreAction(){
         delegate?.moreAction(self.myImageURI, reporterID: self.userID)
+    }
+    
+    func showProfileAction() {
+        delegate?.showProfileAction(self.userID, self._username)
     }
 
     /*

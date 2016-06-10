@@ -311,6 +311,13 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
+    
+    func showProfileAction(userId: String, _ userName: String) {
+        let otherProfile = CCOthersProfileViewController()
+        otherProfile.userID = userId
+        otherProfile.userName = userName
+        self.presentViewController(otherProfile, animated: true, completion: nil)
+    }
 }
 
 
