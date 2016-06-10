@@ -11,6 +11,7 @@ import UIKit
 class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate {
     var userID = ""
     var userName = ""
+    var avatar = ""
     internal var category : CCCategory?
     let userImageView = UIImageView()
     private let closeButton = UIButton()
@@ -29,7 +30,6 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View Did Load")
         
         //Background
         view!.backgroundColor = .blackColor()
@@ -119,12 +119,25 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
     
     override func viewWillAppear(animated: Bool) {
         
-        print("view will Appear")
         print(self.userID)
         print(self.userName)
         
+        CCNetUtil.loadImage(self.avatar) { (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else {
+                    print(error)
+                    return
+                }
+                self.userImageView.image = UIImage(data: data)
+
+                UIView.animateWithDuration(0.3, animations: {
+                    self.userImageView.alpha = 1
+                })
+                
+            }
+        }
+        
         CCNetUtil.loadPostByUsername(self.userName, completion: {(images:[String]) -> Void in
-            print("Fetch Done!")
             self.postImageUrls = images
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.collectionView?.reloadData()
@@ -140,7 +153,6 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
 extension CCOthersProfileViewController:UICollectionViewDataSource{
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Return count:" + String(postImageUrls.count))
         return postImageUrls.count
     }
     

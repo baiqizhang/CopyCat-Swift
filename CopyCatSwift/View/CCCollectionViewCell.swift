@@ -76,28 +76,19 @@ class CCCollectionViewCell: UICollectionViewCell {
         return nil
     }
     
-    func loadImage(completion: (data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void) {
-        let url = NSURL(string: self.imagePath!)!
-        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
-            print("Image downloaded..")
-            completion(data: data, response: response, error: error)
-        }.resume()
-    }
-    
     func initWithNetworkUrl(url: String) {
         self.deleteFlag = 0
         self.imagePath = url
         
         initImage()
         
-        self.loadImage() { (data, response, error) in
+        CCNetUtil.loadImage(self.imagePath!) { (data, response, error) in
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 guard let data = data where error == nil else {
                     print(error)
                     return
                 }
                 self.imageView!.image = UIImage(data: data)
-                print("Image set!")
                 self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
                 self.imageView!.clipsToBounds = true
                 UIView.animateWithDuration(0.3, animations: {

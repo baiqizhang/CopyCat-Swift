@@ -141,8 +141,10 @@ class CCInspireTableViewCell : UITableViewCell {
 
     
     private let userImageView = UIImageView()
+    private var _userImageURI = ""
     var userImageURI : String{
         set{
+            _userImageURI = newValue
             dispatch_async(dispatch_get_global_queue(0, 0)) { () -> Void in
                 guard
                     let url = NSURL(string: newValue)
@@ -165,7 +167,7 @@ class CCInspireTableViewCell : UITableViewCell {
         }
         get{
             //TODO fix
-            return self.userImageURI
+            return self._userImageURI
         }
     }
 
@@ -180,6 +182,8 @@ class CCInspireTableViewCell : UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .whiteColor()
+        
+        self.userImageURI = ""
 
         myImageView.alpha = 0.0
         self.addSubview(usernameLabel)
@@ -299,7 +303,7 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     func showProfileAction() {
-        delegate?.showProfileAction(self.userID, self._username)
+        delegate?.showProfileAction(self.userID, self._username, self.userImageURI)
     }
 
     /*

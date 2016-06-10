@@ -272,7 +272,13 @@ import CoreData
             }
         })
     }
-
+    
+    static func loadImage(rawUrl:String, completion: (data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void) {
+        let url = NSURL(string: rawUrl)!
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
+    }
 
     static func loadDataFromURL(url: NSURL, completion:(response: NSData?, error: NSError?) -> Void) {
         let session = NSURLSession.sharedSession()
