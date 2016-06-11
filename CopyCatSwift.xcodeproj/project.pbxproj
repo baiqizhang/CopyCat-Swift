@@ -180,6 +180,7 @@
 		97FCBB9C1CF2AFDC003734DA /* CCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FCBB931CF2AFDC003734DA /* CCUser.swift */; };
 		97FCBB9D1CF2AFDC003734DA /* CCUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FCBB941CF2AFDC003734DA /* CCUser+CoreDataProperties.swift */; };
 		97FCBBA01CF2B021003734DA /* CCUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FCBB9F1CF2B021003734DA /* CCUserManager.swift */; };
+		97FCBBA41D0B6F02003734DA /* CCURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FCBBA31D0B6F02003734DA /* CCURLProtocol.swift */; };
 		E66DEDBEA7BE1AAA00A5F25D /* Pods_CopyCatSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE14FC3F36FA2FFF2732A06 /* Pods_CopyCatSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -411,6 +412,7 @@
 		97FCBB931CF2AFDC003734DA /* CCUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUser.swift; sourceTree = "<group>"; };
 		97FCBB941CF2AFDC003734DA /* CCUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CCUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		97FCBB9F1CF2B021003734DA /* CCUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserManager.swift; sourceTree = "<group>"; };
+		97FCBBA31D0B6F02003734DA /* CCURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCURLProtocol.swift; sourceTree = "<group>"; };
 		E9AE196F830AA6F778B0E454 /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -775,6 +777,7 @@
 				97FCBB9F1CF2B021003734DA /* CCUserManager.swift */,
 				9727B0DD1C35D3C2005E9D12 /* CCNetUtil.swift */,
 				9740C9731C2D45F80023FE2C /* CCCoreUtil.swift */,
+				97FCBBA31D0B6F02003734DA /* CCURLProtocol.swift */,
 				9740C8E81C2B78FB0023FE2C /* Localizable.strings */,
 			);
 			path = Util;
@@ -805,9 +808,9 @@
 				9740CAA51C32432A0023FE2C /* PhotoBrowser */,
 				9740C9711C2BE9960023FE2C /* CCSettingsViewController.swift */,
 				9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */,
+				86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */,
 				97254F8E1C2955EF0047968A /* CCGalleryViewController.swift */,
 				97254F8D1C2955EF0047968A /* CCCategoryViewController.swift */,
-				86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */,
 				1A4DF1E81C5082D4001A4775 /* CCPhotoCollectionManipulation.swift */,
 				9727B0DB1C35CCCC005E9D12 /* CCInspireViewController.swift */,
 				9717A5411C38A57B002AB0C6 /* CCInspireTableViewController.swift */,
@@ -1267,6 +1270,7 @@
 				72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */,
 				9740CA7D1C2FE8B30023FE2C /* DNAsset.m in Sources */,
 				9740CA901C2FE8B30023FE2C /* MWTapDetectingImageView.m in Sources */,
+				97FCBBA41D0B6F02003734DA /* CCURLProtocol.swift in Sources */,
 				9740C9741C2D45F80023FE2C /* CCCoreUtil.swift in Sources */,
 				1A4DF1F31C508380001A4775 /* CCOverlayFrameView.swift in Sources */,
 				9740CA501C2FE8770023FE2C /* AVCamViewController.m in Sources */,
