@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        //register custom URL Protocol
+        NSURLProtocol.registerClass(CCURLProtocol)
+        
         //Start VC
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = CCWelcomeViewController()

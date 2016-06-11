@@ -178,6 +178,20 @@ class CCWelcomeViewController: UIViewController {
             self.placeHolderImageView.alpha = 0;
             self.backgroundImageView.alpha = 1;
         }
+
+        
+//        //Close
+//        closeButton.frame = CGRectMake(5, -5, 40, 40)
+//        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
+//        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+//        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+//        view!.addSubview(closeButton)
+//        
+//        let webView:UIWebView = UIWebView(frame: CGRectMake(0, 30, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+//        let authorize_url = "https://www.instagram.com"
+//        print(authorize_url)
+//        webView.loadRequest(NSURLRequest(URL: NSURL(string: authorize_url)!))
+//        self.view.addSubview(webView)
     }
     
 }
