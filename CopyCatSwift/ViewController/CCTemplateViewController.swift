@@ -11,6 +11,8 @@ import UIKit
 class CCTemplateViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private var closeButton = UIButton()
+    private var templateLayout = UICollectionViewFlowLayout()
+    private var categoryLayout = UICollectionViewFlowLayout()
     private var templateCol = UICollectionView()
     private var categoryCol = UICollectionView()
     let templateIdentifier = "templateCell"
@@ -27,6 +29,7 @@ class CCTemplateViewController: UIViewController, UICollectionViewDelegate, UICo
         closeButton.addTarget(self, action: "closeView", forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
+        templateCol = UICollectionView(frame: CGRectMake(0, 0, self.view.frame.size.width, 400), collectionViewLayout: templateLayout)
         
     }
     
