@@ -119,7 +119,7 @@ import CoreData
                 RFC3339DateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
                 RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
                 RFC3339DateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-                
+            
                 post.timestamp = RFC3339DateFormatter.dateFromString(date)
             } else {
                 post.timestamp = NSDate()
@@ -131,6 +131,46 @@ import CoreData
         return result
     }
 
+    static func parsePostFromFlickrJson(json:JSON) -> [CCPost]{
+        var result = [CCPost]()
+        for (_, subJson) in json["photos"]["photo"]{
+            let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
+            let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
+            
+            
+            let id = subJson["id"].stringValue
+            let secret = subJson["secret"].stringValue
+            let server = subJson["server"].stringValue
+            let farm = subJson["farm"].stringValue
+            
+            post.photoURI = "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_c.jpg"
+            
+            post.userName = "Flickr"
+            post.userProfileImage = "https://lh5.ggpht.com/JNba5eiZjaaS7SxI3uBoEnW9PQtD5paoHest5KO2KW2GDHIaEqaUPvFsuylTNxkeeA=w300"
+            
+            
+            post.photoWidth = 1
+            post.photoHeight = 1
+            
+            post.pinCount = 0//subJson["pinCount"].int
+            post.likeCount = 0//subJson["likeCount"].int
+            post.id = "nil"
+            
+            
+            //parse timestamp
+            let RFC3339DateFormatter = NSDateFormatter()
+            RFC3339DateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+            RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            RFC3339DateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+
+            post.timestamp = RFC3339DateFormatter.dateFromString("2013-12-06T07:28:13-05:00")
+            
+            result.append(post)
+        }
+        
+        return result
+    }
+    
     // MARK: Getting data
     static func getFeedForCurrentUser(completion:(posts:[CCPost]) -> Void) -> Void{
         CCNetUtil.getJSONFromURL(host+"timeline") { (json:JSON) -> Void in
@@ -170,7 +210,7 @@ import CoreData
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=25&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=20&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromUnsplashJson(json)
@@ -178,6 +218,17 @@ import CoreData
         }
     }
     
+    
+    static func searchGPS(lat:Float,lon:Float,completion:(posts:[CCPost]) -> Void) -> Void{
+//        let lat = 37.7749
+//        let lon = 122.41
+        let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad98a3bb98a239f7d719a419d3e528e7&lat=\(lat)&lon=\(lon)&radius=0.2&format=json&nojsoncallback=1"
+        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+            let result = parsePostFromFlickrJson(json)
+            completion(posts: result)
+        }
+    }
 
     
     //MARK: Posting data

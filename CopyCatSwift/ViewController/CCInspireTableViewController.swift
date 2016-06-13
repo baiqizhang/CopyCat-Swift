@@ -105,7 +105,75 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
     }
     
+    
+    //geo search
     internal func instaAction(){
+        let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
+        
+        let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
+            let latTextField = alertController.textFields![0] as UITextField
+            let lonTextField = alertController.textFields![1] as UITextField
+            print(lonTextField.text)
+            print(latTextField.text)
+            
+            let numberFormatter = NSNumberFormatter()
+            var number = numberFormatter.numberFromString(lonTextField.text!)
+            let lon = number!.floatValue
+            
+            number = numberFormatter.numberFromString(latTextField.text!)
+            let lat=number!.floatValue
+            
+            CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
+                print(posts)
+                
+                self.postList = []
+                for post in posts{
+                    NSLog("uri:" + post.photoURI!);
+                }
+                self.postList = posts
+                self.loading = false
+                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                })
+                
+            })
+        }
+        searchAction.enabled = true
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        //enable search only if tag is present
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.text = "37.8148907"
+            textField.textAlignment=NSTextAlignment.Left;
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                searchAction.enabled = textField.text != ""
+            }
+        }
+        
+        //enable search only if tag is present
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.text = "-122.4819685"
+            textField.textAlignment=NSTextAlignment.Left;
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                searchAction.enabled = textField.text != ""
+            }
+        }
+        
+        alertController.addAction(searchAction)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true) {
+            
+        }
+    }
+
+    
+    //image search
+    internal func instaAction_image(){
         let alertController = UIAlertController(title: "Search Image", message: "", preferredStyle: .Alert)
 
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
@@ -113,6 +181,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             print(tagTextField.text)
             
             CCNetUtil.searchUnsplash(tagTextField.text!, completion: { (posts) in
+//            CCNetUtil.searchGPS({ (posts) in
                 print(posts)
 
                 self.postList = []
