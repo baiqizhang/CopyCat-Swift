@@ -111,6 +111,26 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
             let tagTextField = alertController.textFields![0] as UITextField
             print(tagTextField.text)
+            
+            CCNetUtil.searchUnsplash(tagTextField.text!, completion: { (posts) in
+                print(posts)
+
+                self.postList = []
+                CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
+                    for post in posts{
+                        NSLog("uri:" + post.photoURI!);
+                    }
+                    self.postList = posts
+                    self.loading = false
+                    NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.tableView.reloadData()
+                    })
+                }
+            
+            })
         }
         searchAction.enabled = false
         
@@ -118,7 +138,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
         //enable search only if tag is present
         alertController.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "e.g. woman people sea"
+            textField.placeholder = "e.g. sea shore"
             
             NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
                 searchAction.enabled = textField.text != ""
