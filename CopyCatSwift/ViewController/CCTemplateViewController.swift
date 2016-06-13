@@ -8,68 +8,75 @@
 
 import UIKit
 
-class CCTemplateViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CCTemplateViewController: UIViewController {
+  @IBOutlet weak var photoCollectionView: UICollectionView!
+  @IBOutlet weak var cateCollectionView: UICollectionView!
+  
+  var cates = ["a", "b", "c", "d"]
+  var photos = [
+    "a": ["1", "2", "3", "4"],
+    "b": ["1", "2", "4"],
+    "c": ["1", "3", "4"],
+    "d": ["2", "3", "4"],
+  ]
+  var currentCate = "a"
 
-    private var closeButton = UIButton()
-    private var templateLayout = UICollectionViewFlowLayout()
-    private var categoryLayout = UICollectionViewFlowLayout()
-    private var templateCol = UICollectionView()
-    private var categoryCol = UICollectionView()
-    let templateIdentifier = "templateCell"
-    let categoryIdentifier = "categoryCell"
-    
-    var cateList = ["A", "B", "C"]
-    var tempList = ["A", "B", "C"]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        closeButton.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height-45, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeView", forControlEvents: .TouchUpInside)
-        view!.addSubview(closeButton)
-        
-        templateCol = UICollectionView(frame: CGRectMake(0, 0, self.view.frame.size.width, 400), collectionViewLayout: templateLayout)
-        
+  static func loadVC() -> CCTemplateViewController {
+    return UIStoryboard(name: "CameraTemplate", bundle: nil).instantiateInitialViewController() as! CCTemplateViewController
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+  
+  @IBAction func closeVC(sender: AnyObject) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
+}
+
+extension CCTemplateViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    return 1
+  }
+
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if collectionView == photoCollectionView {
+      return photos[currentCate]?.count ?? 0
+    }
+
+    return cates.count
+  }
+  
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    if collectionView == photoCollectionView {
+      let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photoCell", forIndexPath: indexPath)
+      
+      return cell
     }
     
-    // Collection View part
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if (collectionView == templateCol){
-            return 1
-        } else {
-            return 0
-        }
-    }
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cateCell", forIndexPath: indexPath)
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if (collectionView == templateCol){
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(templateIdentifier, forIndexPath: indexPath) as! CCTemplateCollectionCell
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionCell
-            return cell
-        }
+    return cell
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    if collectionView == photoCollectionView {
+      let width = UIScreen.mainScreen().bounds.width / 3
+      return CGSize(width: width, height: width)
     }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // handle tap events
-        if (collectionView == templateCol){
-        } else {
-        }
+    return CGSize(width: 80, height: 80)
+  }
+  
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    if collectionView == photoCollectionView {
+      debugPrint("You press photo at \(indexPath.row)")
+      return
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let screenWidth = self.view.frame.size.width
-        if (collectionView == templateCol){
-            return CGSize(width: screenWidth/3-10, height: screenWidth/3-10)
-        } else {
-            return CGSize(width: screenWidth/3-10, height: 10)
-        }
-    }
-    
-    // Close Button Function
-    func closeView() {
-        self.dismissViewControllerAnimated(true, completion: {_ in})
-    }
+    currentCate = cates[indexPath.row]
+    photoCollectionView.reloadData()
+  }
 }

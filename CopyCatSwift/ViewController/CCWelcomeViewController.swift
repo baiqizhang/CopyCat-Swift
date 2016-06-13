@@ -22,7 +22,7 @@ class CCWelcomeViewController: UIViewController {
 
     // Actions
     func openGallery(){
-        let controller = CCTemplateViewController()
+        let controller = CCTemplateViewController.loadVC()
         controller.modalTransitionStyle = .CrossDissolve
         self.presentViewController(controller, animated: true, completion: nil)
     }
