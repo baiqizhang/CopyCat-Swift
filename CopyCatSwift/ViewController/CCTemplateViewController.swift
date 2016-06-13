@@ -56,11 +56,17 @@ extension CCTemplateViewController: UICollectionViewDelegate, UICollectionViewDa
       let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
       cell.label.text = photos[currentCate]?[indexPath.row] ?? ""
       return cell
+    } else {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cateCell", forIndexPath: indexPath) as! CategoryCollectionViewCell
+        
+        cell.label.text = cates[indexPath.row] ?? ""
+        
+        return cell
     }
     
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cateCell", forIndexPath: indexPath)
     
-    return cell
+    
+    
   }
   
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

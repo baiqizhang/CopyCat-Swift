@@ -18,6 +18,7 @@
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
 		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
 		722F68F91D04FA3A00160F20 /* CCTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */; };
+		7284ABE01D0E95AB007C9525 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284ABDF1D0E95AB007C9525 /* CategoryCollectionViewCell.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
 		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
 		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
@@ -218,6 +219,7 @@
 		1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramLoginViewController.swift; sourceTree = "<group>"; };
 		44E8B4CE334F19FC16EDAF08 /* Pods-CopyCatSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCTemplateViewController.swift; sourceTree = "<group>"; };
+		7284ABDF1D0E95AB007C9525 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Camera/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
 		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
@@ -591,6 +593,7 @@
 				1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */,
 				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
 				722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */,
+				7284ABDF1D0E95AB007C9525 /* CategoryCollectionViewCell.swift */,
 				8C81E4AC1D0E869100D19DAA /* CameraTemplate.storyboard */,
 				8C951FE81D0E928F00BB3753 /* PhotoCollectionViewCell.swift */,
 			);
@@ -1256,6 +1259,7 @@
 				97FCBB961CF2AFDC003734DA /* CCCategory.swift in Sources */,
 				97FCBB991CF2AFDC003734DA /* CCPhoto+CoreDataProperties.swift in Sources */,
 				86E6FB061D04F712009FDC98 /* CCOthersProfileViewController.swift in Sources */,
+				7284ABE01D0E95AB007C9525 /* CategoryCollectionViewCell.swift in Sources */,
 				9740CA2F1C2F5A7B0023FE2C /* UIImage+fixOrientation.m in Sources */,
 				9740CA491C2FDF7E0023FE2C /* CCPhotoBrowser.swift in Sources */,
 				9740CA851C2FE8B30023FE2C /* UIView+DNImagePicker.m in Sources */,
