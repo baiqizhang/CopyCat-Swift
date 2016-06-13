@@ -20,6 +20,7 @@ class CCWelcomeViewController: UIViewController {
     private var profileButton = UIButton()
     private var guideButton = UIButton()
 
+    // Actions
     func openGallery(){
         let controller = CCCategoryViewController()
         controller.modalTransitionStyle = .CrossDissolve
@@ -38,16 +39,24 @@ class CCWelcomeViewController: UIViewController {
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    func userGuide() {
+        let ccGuide = CCGuideViewController()
+        self.presentViewController(ccGuide, animated: true, completion: nil)
+    }
+
+    
     func openInstagramLogin() {
         let vc = InstagramLoginViewController()
         vc.modalTransitionStyle = .CrossDissolve
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     override func viewWillAppear(animated: Bool) {
+        
 //        NSLog("user type = \(CCCoreUtil.userType)")
 //        switch CCCoreUtil.userType {
 //        case 1:
@@ -68,10 +77,6 @@ class CCWelcomeViewController: UIViewController {
         profileButton.contentEdgeInsets = inset
     }
     
-    func userGuide() {
-        let ccGuide = CCGuideViewController()
-        self.presentViewController(ccGuide, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,12 +111,12 @@ class CCWelcomeViewController: UIViewController {
         guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
         guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
         guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(guideButton)
         
-        
-        //instagram
-//        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+        instagramLoingButton.addTarget(self, action: #selector(openInstagramLogin), forControlEvents: UIControlEvents.TouchUpInside)
 //        self.view!.addSubview(instagramLoingButton)
+        
+        
         
         //Button Labels
         let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))

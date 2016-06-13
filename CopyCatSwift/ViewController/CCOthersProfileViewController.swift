@@ -79,26 +79,32 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
         // User Info
         let labelHeight : CGFloat = 11
         let offset : CGFloat = -2
+        let fontSize:CGFloat = 12.0
         
         let posts = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         posts.text = CCUserManager.postCount.stringValue
         posts.textColor = .whiteColor()
+        posts.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(posts)
         
         let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         postsLabel.text = NSLocalizedString("POSTS", comment: "Posts")
         postsLabel.textColor = .whiteColor()
+        postsLabel.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(postsLabel)
-
+        
         let pins = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pins.text = CCUserManager.pinCount.stringValue
         pins.textColor = .whiteColor()
+        pins.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(pins)
         
         let pinsLabel = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pinsLabel.text = NSLocalizedString("PINS", comment: "Pins")
         pinsLabel.textColor = .whiteColor()
+        pinsLabel.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(pinsLabel)
+
         
         //Title
         let titleLabel: CCLabel = CCLabel(frame: CGRectMake(50, -1, self.view.frame.size.width - 100, 40))
