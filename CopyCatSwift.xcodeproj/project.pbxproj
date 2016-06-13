@@ -23,6 +23,7 @@
 		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
 		86E6FB061D04F712009FDC98 /* CCOthersProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */; };
 		8C81E4AD1D0E869100D19DAA /* CameraTemplate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C81E4AC1D0E869100D19DAA /* CameraTemplate.storyboard */; };
+		8C951FE91D0E928F00BB3753 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C951FE81D0E928F00BB3753 /* PhotoCollectionViewCell.swift */; };
 		9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1551C21FC4800A48C5F /* AppDelegate.swift */; };
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
 		9704E1791C21FC4800A48C5F /* CopyCatSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1781C21FC4800A48C5F /* CopyCatSwiftUITests.swift */; };
@@ -222,6 +223,7 @@
 		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
 		86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOthersProfileViewController.swift; sourceTree = "<group>"; };
 		8C81E4AC1D0E869100D19DAA /* CameraTemplate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CameraTemplate.storyboard; path = Camera/CameraTemplate.storyboard; sourceTree = "<group>"; };
+		8C951FE81D0E928F00BB3753 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoCollectionViewCell.swift; path = Camera/PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DE14FC3F36FA2FFF2732A06 /* Pods_CopyCatSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCatSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1521C21FC4800A48C5F /* CopyCatSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CopyCatSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1551C21FC4800A48C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -590,6 +592,7 @@
 				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
 				722F68F81D04FA3A00160F20 /* CCTemplateViewController.swift */,
 				8C81E4AC1D0E869100D19DAA /* CameraTemplate.storyboard */,
+				8C951FE81D0E928F00BB3753 /* PhotoCollectionViewCell.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1259,6 +1262,7 @@
 				9740CA8D1C2FE8B30023FE2C /* DNSendButton.m in Sources */,
 				1A4DF1E91C5082D4001A4775 /* CCPhotoCollectionManipulation.swift in Sources */,
 				1A4DF1F51C5083AE001A4775 /* CCBrowserCell.swift in Sources */,
+				8C951FE91D0E928F00BB3753 /* PhotoCollectionViewCell.swift in Sources */,
 				9740CA301C2F5A7B0023FE2C /* UIImage+ImageEffects.m in Sources */,
 				9740CA7F1C2FE8B30023FE2C /* DNImagePickerController.m in Sources */,
 				9740CA8F1C2FE8B30023FE2C /* JKPromptView.m in Sources */,
