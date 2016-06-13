@@ -116,19 +116,17 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 print(posts)
 
                 self.postList = []
-                CCNetUtil.getFeedForCurrentUser { (posts) -> Void in
-                    for post in posts{
-                        NSLog("uri:" + post.photoURI!);
-                    }
-                    self.postList = posts
-                    self.loading = false
-                    NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.tableView.reloadData()
-                    })
+                for post in posts{
+                    NSLog("uri:" + post.photoURI!);
                 }
+                self.postList = posts
+                self.loading = false
+                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                })
             
             })
         }

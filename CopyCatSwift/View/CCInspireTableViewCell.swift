@@ -97,8 +97,10 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60/60) + NSLocalizedString("HOUR", comment: "h") + agoString
             } else if now < 60*60*24*365{
                 timestampLabel.text = String(now/60/60/24) + " " + NSLocalizedString("DAY", comment: "days") + agoString
-            } else {
-                timestampLabel.text = String(now/60/60/24/365/12) + " " + NSLocalizedString("MONTH", comment: "m") + agoString
+            } else if now < 60*60*24*365*12{
+                timestampLabel.text = String(now/60/60/24/365) + " " + NSLocalizedString("MONTH", comment: "m") + agoString
+            } else{
+                timestampLabel.text = String(now/60/60/24/365/12) + " " + NSLocalizedString("YEAR", comment: "y") + agoString
             }
             
             timestampLabel.textColor = .blackColor()//.blueColor()
@@ -157,7 +159,7 @@ class CCInspireTableViewCell : UITableViewCell {
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         let padding : CGFloat = -7.0
                         self.userImageView.image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
-                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                        UIView.animateWithDuration(0.1, animations: { () -> Void in
                             self.userImageView.alpha = 1
                         })
                         

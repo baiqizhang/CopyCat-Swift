@@ -103,23 +103,22 @@ import CoreData
             post.userName = subJson["user"]["name"].stringValue
             post.userProfileImage = subJson["user"]["profile_image"]["small"].stringValue
             
-            post.photoURI = subJson["urls"]["thumb"].string
+            post.photoURI = subJson["urls"]["regular"].string
             
             post.photoWidth = 1
             post.photoHeight = 1
             
             post.pinCount = 0//subJson["pinCount"].int
             post.likeCount = 0//subJson["likeCount"].int
-            post.id = "aaa"
+            post.id = "nil"
             
             
+            //parse timestamp
             if let date = subJson["created_at"].string {
                 let RFC3339DateFormatter = NSDateFormatter()
                 RFC3339DateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
                 RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
                 RFC3339DateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-                
-                /* 39 minutes and 57 seconds after the 16th hour of December 19th, 1996 with an offset of -08:00 from UTC (Pacific Standard Time) */
                 
                 post.timestamp = RFC3339DateFormatter.dateFromString(date)
             } else {
@@ -171,7 +170,7 @@ import CoreData
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "https://api.unsplash.com/photos/search?query="+tag+"&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=25&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromUnsplashJson(json)

@@ -44,6 +44,7 @@
 "HOUR" = "小时";
 "DAY" = "天";
 "MONTH" = "月";
+"YEAR" = "年";
 "AGO" = "前";
 
 "ADDTOCATEGORY" = "添加收藏";

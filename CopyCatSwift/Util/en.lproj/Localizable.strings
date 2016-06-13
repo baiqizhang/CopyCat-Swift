@@ -44,6 +44,7 @@
 "HOUR" = "h";
 "DAY" = "days";
 "MONTH" = "months";
+"YEAR" = "years";
 "AGO" = " ago";
 
 "ADDTOCATEGORY" = "Add to Category";
