@@ -77,6 +77,7 @@
 		9740CAA01C30AA280023FE2C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9740CA9D1C30AA280023FE2C /* README.md */; };
 		9740CAA21C3111F30023FE2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740CAA11C3111F30023FE2C /* AVFoundation.framework */; };
 		9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */; };
+		9748750D1D0E39A20089C385 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9748750C1D0E39A20089C385 /* search.png */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
 		9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */; };
@@ -309,6 +310,7 @@
 		9740CA9D1C30AA280023FE2C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9740CAA11C3111F30023FE2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCProfileViewController.swift; sourceTree = "<group>"; };
+		9748750C1D0E39A20089C385 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
 		9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCAlertViewController.swift; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9748750C1D0E39A20089C385 /* search.png */,
 				97FCBB851CF18738003734DA /* more.png */,
 				97FCBB821CE95D30003734DA /* pin_black.png */,
 				72AEAD0C1CD2B548000B65BF /* help.png */,
@@ -1022,6 +1025,7 @@
 				9740CA881C2FE8B30023FE2C /* ImagesPicker.xcassets in Resources */,
 				97F6DFCC1C23A1C300707180 /* save.png in Resources */,
 				97FCBB671CE90760003734DA /* 1_1.jpg in Resources */,
+				9748750D1D0E39A20089C385 /* search.png in Resources */,
 				97F6DFD11C23A1C300707180 /* settings2.png in Resources */,
 				9740C96B1C2BB9210023FE2C /* banner0.png in Resources */,
 				97FCBB641CE90760003734DA /* 0_8.jpg in Resources */,

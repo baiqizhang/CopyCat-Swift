@@ -20,34 +20,119 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     private var reportURI = ""
     private var reporterID = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Style
-        view.backgroundColor = .grayColor()
-        tableView.separatorStyle = .None
-        tableView.backgroundColor = .grayColor()
-        tableView.registerClass(CCInspireTableViewCell.self, forCellReuseIdentifier: "cell")
-
-        tableView.allowsSelection = false
-        // Load data
-        triggerInitialLoad()
+    // MARK: UI Action
+    func pinAction(image : UIImage){
+        let alertVC = CCAlertViewController(style: .CategoryList)
+        alertVC.image = image
+        alertVC.modalPresentationStyle = .OverCurrentContext
+        alertVC.modalTransitionStyle = .CrossDissolve
+        
+        alertVC.parent = self
+        presentViewController(alertVC, animated: true, completion: nil)
     }
     
+    func pinCompleted(){
+        CCUserManager.pinCount = CCUserManager.pinCount.integerValue + 1
+        let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
+        notifyLabel.text = "Photo pinned"
+        notifyLabel.textColor = UIColor.whiteColor()
+        notifyLabel.backgroundColor = UIColor.blackColor()
+        notifyLabel.alpha = 0
+        self.parentViewController!.view!.addSubview(notifyLabel)
+        UIView.animateWithDuration(0.3, animations: {() -> Void in
+            notifyLabel.alpha = 1
+            }, completion: {(finished: Bool) -> Void in
+                UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
+                    notifyLabel.alpha = 0
+                    }, completion: {(finished: Bool) -> Void in
+                        notifyLabel.removeFromSuperview()
+                })
+        })
+    }
+    
+    func likeAction(){
+    }
+    
+    func moreAction(reportImageURI:String, reporterID:String){
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            // NOTE: maxCount = 0 to hide count
+            let popupTextView = YIPopupTextView(placeHolder: "Please provide the reason for reporting the content.", maxCount: 500, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
+            popupTextView.delegate = self
+            popupTextView.caretShiftGestureEnabled = true
+            // default = NO
+            popupTextView.text = ""
+            
+            self.reportURI = reportImageURI
+            self.reporterID = reporterID
+            popupTextView.showInViewController(self)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        //show Menu
+        optionMenu.addAction(deleteAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+    
+    func showProfileAction(userId: String, _ userName: String, _ avatar: String) {
+        let otherProfile = CCOthersProfileViewController()
+        otherProfile.userID = userId
+        otherProfile.userName = userName
+        otherProfile.avatar = avatar
+        self.presentViewController(otherProfile, animated: true, completion: nil)
+    }
+
     func loadInstagramLikes(){
         CCNetUtil.loadInstagramLikes() { (posts) -> Void in
             self.postList = posts
             self.loading = false
             NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
-
+            
             self.usingInstagram = true
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
                 self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top); // scroll to top
-
+                
             })
         }
         
     }
+    
+    internal func instaAction(){
+        let alertController = UIAlertController(title: "Search Image", message: "", preferredStyle: .Alert)
+
+        let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
+            let tagTextField = alertController.textFields![0] as UITextField
+            print(tagTextField.text)
+        }
+        searchAction.enabled = false
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        //enable search only if tag is present
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "e.g. woman people sea"
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                searchAction.enabled = textField.text != ""
+            }
+        }
+        
+        alertController.addAction(searchAction)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true) {
+            
+        }
+    }
+    /*
     internal func instaAction(){
         if CCCoreUtil.userType != 1{
             let refreshAlert = UIAlertController(title: "Login", message: "Please login via Instagram to sync instagram likes.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -56,11 +141,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 let vc = InstagramLoginViewController()
                 vc.modalTransitionStyle = .CrossDissolve
                 self.presentViewController(vc, animated: true, completion: nil)
-//                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+                //                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
             refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
-//                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
+                //                refreshAlert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
             presentViewController(refreshAlert, animated: true, completion: nil)
@@ -72,7 +157,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         }
         usingInstagram = !usingInstagram
         loading = true
-
+        
         if usingInstagram{
             loadInstagramLikes()
         } else {
@@ -91,8 +176,24 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 })
             }
         }
-    }
+    }*/
 
+    // MARK: UI Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Style
+        view.backgroundColor = .grayColor()
+        tableView.separatorStyle = .None
+        tableView.backgroundColor = .grayColor()
+        tableView.registerClass(CCInspireTableViewCell.self, forCellReuseIdentifier: "cell")
+
+        tableView.allowsSelection = false
+        // Load data
+        triggerInitialLoad()
+    }
+    
+    // MARK: TableView delegate
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         // separate cells with empty cellView
@@ -251,74 +352,6 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     }
     
     
-    // MARK: UI Action
-    func pinAction(image : UIImage){
-        let alertVC = CCAlertViewController(style: .CategoryList)
-        alertVC.image = image
-        alertVC.modalPresentationStyle = .OverCurrentContext
-        alertVC.modalTransitionStyle = .CrossDissolve
-
-        alertVC.parent = self
-        presentViewController(alertVC, animated: true, completion: nil)
-    }
-    
-    func pinCompleted(){
-        CCUserManager.pinCount = CCUserManager.pinCount.integerValue + 1
-        let notifyLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width / 2 - 100, self.view.frame.size.height / 2 + 150, 200, 30))
-        notifyLabel.text = "Photo pinned"
-        notifyLabel.textColor = UIColor.whiteColor()
-        notifyLabel.backgroundColor = UIColor.blackColor()
-        notifyLabel.alpha = 0
-        self.parentViewController!.view!.addSubview(notifyLabel)
-        UIView.animateWithDuration(0.3, animations: {() -> Void in
-            notifyLabel.alpha = 1
-            }, completion: {(finished: Bool) -> Void in
-                UIView.animateWithDuration(0.3, delay: 1, options: .BeginFromCurrentState, animations: {() -> Void in
-                    notifyLabel.alpha = 0
-                    }, completion: {(finished: Bool) -> Void in
-                        notifyLabel.removeFromSuperview()
-                })
-        })
-    }
-    
-    func likeAction(){
-    }
-    
-    func moreAction(reportImageURI:String, reporterID:String){
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        let deleteAction = UIAlertAction(title: "Report", style: .Destructive, handler: {
-            (alert: UIAlertAction!) -> Void in
-            
-            // NOTE: maxCount = 0 to hide count
-            let popupTextView = YIPopupTextView(placeHolder: "Please provide the reason for reporting the content.", maxCount: 500, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
-            popupTextView.delegate = self
-            popupTextView.caretShiftGestureEnabled = true
-            // default = NO
-            popupTextView.text = ""
-            
-            self.reportURI = reportImageURI
-            self.reporterID = reporterID
-            popupTextView.showInViewController(self)
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
-        
-        //show Menu
-        optionMenu.addAction(deleteAction)
-        optionMenu.addAction(cancelAction)
-        self.presentViewController(optionMenu, animated: true, completion: nil)
-    }
-    
-    func showProfileAction(userId: String, _ userName: String, _ avatar: String) {
-        let otherProfile = CCOthersProfileViewController()
-        otherProfile.userID = userId
-        otherProfile.userName = userName
-        otherProfile.avatar = avatar
-        self.presentViewController(otherProfile, animated: true, completion: nil)
-    }
 }
 
 
@@ -361,5 +394,13 @@ extension CCInspireTableViewController : YIPopupTextViewDelegate{
             }
         }
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+
+
+extension CCInspireTableViewController : UIAlertViewDelegate{
+    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
+        print(buttonIndex)
     }
 }
