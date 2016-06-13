@@ -231,7 +231,7 @@ class CCBrowserCell: UICollectionViewCell, UIScrollViewDelegate, MWTapDetectingI
     
 
     func handleSingleTap(touchPoint: CGPoint) {
-        self.photoBrowser!.performSelector("toggleControls", withObject: nil, afterDelay: 0.2)
+        self.photoBrowser!.performSelector(Selector("toggleControls"), withObject: nil, afterDelay: 0.2)
     }
 
     func handleDoubleTap(touchPoint: CGPoint) {

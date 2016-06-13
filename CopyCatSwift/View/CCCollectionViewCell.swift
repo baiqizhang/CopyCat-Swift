@@ -107,7 +107,7 @@ class CCCollectionViewCell: UICollectionViewCell {
         initImage()
         
         if self.longPress == nil {
-            self.longPress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+            self.longPress = UILongPressGestureRecognizer(target: self, action: #selector(CCCollectionViewCell.handleLongPress(_:)))
             self.longPress!.minimumPressDuration = 0.5
             self.addGestureRecognizer(self.longPress!)
         }

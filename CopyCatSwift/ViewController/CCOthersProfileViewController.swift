@@ -59,7 +59,7 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
         collectionView!.dataSource = self
         self.view!.addSubview(self.collectionView!)
         
-        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "closeAction")
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(CCOthersProfileViewController.closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
         
@@ -118,7 +118,7 @@ class CCOthersProfileViewController: UIViewController, UICollectionViewDelegate 
         closeButton.frame = CGRectMake(0, 0, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCOthersProfileViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
 
     }

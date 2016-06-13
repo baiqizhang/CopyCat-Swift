@@ -33,7 +33,7 @@ class InstagramLoginViewController: UIViewController, UIWebViewDelegate {
         closeButton.frame = CGRectMake(5, -5, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(InstagramLoginViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
         

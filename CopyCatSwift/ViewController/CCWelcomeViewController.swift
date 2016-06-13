@@ -99,18 +99,18 @@ class CCWelcomeViewController: UIViewController {
         categoryButton.frame = CGRectMake(80, 340.0 - offset, 50, 50)
         categoryButton.setBackgroundImage(UIImage(named: "photo.png"), forState: .Normal)
         categoryButton.setBackgroundImage(UIImage(named: "photo_highlight.png"), forState: .Highlighted)
-        categoryButton.addTarget(self, action: "openGallery", forControlEvents: .TouchUpInside)
+        categoryButton.addTarget(self, action: #selector(CCWelcomeViewController.openGallery), forControlEvents: .TouchUpInside)
         self.view!.addSubview(categoryButton)
         
         inspireButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset, 50, 50)
         inspireButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
         inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
-        inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
+        inspireButton.addTarget(self, action: #selector(CCWelcomeViewController.openInspire), forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
         
         guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
         guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
-        guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
+        guideButton.addTarget(self, action: #selector(CCWelcomeViewController.userGuide), forControlEvents: .TouchUpInside)
         
         instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
         instagramLoingButton.addTarget(self, action: #selector(openInstagramLogin), forControlEvents: UIControlEvents.TouchUpInside)
@@ -133,7 +133,7 @@ class CCWelcomeViewController: UIViewController {
         
         
 
-        let singleTap = UITapGestureRecognizer.init(target: self, action: "openProfile")
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(CCWelcomeViewController.openProfile))
         
         profileButton.addGestureRecognizer(singleTap)
         profileButton.userInteractionEnabled = true

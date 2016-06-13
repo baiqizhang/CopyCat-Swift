@@ -101,7 +101,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         collectionView!.dataSource = self
         self.view!.addSubview(self.collectionView!)
         
-        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "closeAction")
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(CCProfileViewController.closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
         
@@ -119,7 +119,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view!.addSubview(userImageView)
         
         userImageView.userInteractionEnabled = true
-        userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "onTapUser"))
+        userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(CCProfileViewController.onTapUser)))
 
         // User Info
         let labelHeight : CGFloat = 11
@@ -155,7 +155,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
         settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
         settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
-        settingsButton.addTarget(self, action: "openSettings", forControlEvents: .TouchUpInside)
+        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
         view.addSubview(self.settingsButton)
         
         //Title
@@ -170,20 +170,20 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         closeButton.frame = CGRectMake(0, 0, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCProfileViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
         //Deleting
         cancelButton.frame = CGRectMake(0, -5, 50, 50)
         cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        cancelButton.addTarget(self, action: "finishDelete", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(CCProfileViewController.finishDelete), forControlEvents: .TouchUpInside)
         view!.addSubview(cancelButton)
         
         deleteButton.frame = CGRectMake(view.frame.size.width - 45, 0, 40, 40)
         deleteButton.setBackgroundImage(UIImage(named: "delete.png"), forState: .Normal)
         deleteButton.setBackgroundImage(UIImage(named: "delete_highlight.png"), forState: .Highlighted)
-        deleteButton.addTarget(self, action: "performDelete", forControlEvents: .TouchUpInside)
+        deleteButton.addTarget(self, action: #selector(CCProfileViewController.performDelete), forControlEvents: .TouchUpInside)
         view!.addSubview(deleteButton)
         
         cancelButton.alpha = 0

@@ -35,7 +35,7 @@ import CoreData
                     }
                 }
 
-                post.pinCount = subJson["pinCount"] as? Int
+                post.pinCount = subJson["pinCount"].int
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
                 post.userID = subJson["ownerId"]["_id"].string

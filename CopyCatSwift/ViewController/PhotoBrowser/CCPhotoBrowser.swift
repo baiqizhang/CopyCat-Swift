@@ -87,7 +87,7 @@ import Crashlytics
             view!.addSubview(bgView)
             
             cancelButton.frame =  CGRectMake(8, view.frame.size.height - 65, 55, 55)
-            cancelButton.addTarget(self, action: "cancelAction", forControlEvents: .TouchUpInside)
+            cancelButton.addTarget(self, action: #selector(CCPhotoBrowser.cancelAction), forControlEvents: .TouchUpInside)
             cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
             cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
             view!.addSubview(cancelButton)
@@ -95,25 +95,25 @@ import Crashlytics
             saveButton.frame = CGRectMake(view.frame.size.width / 2 - 87, view.frame.size.height - 62, 50, 50)
             saveButton.setBackgroundImage(UIImage(named: "save2.png"), forState: .Normal)
             saveButton.setBackgroundImage(UIImage(named: "save2_highlight.png"), forState: .Highlighted)
-            saveButton.addTarget(self, action: "saveAction", forControlEvents: .TouchUpInside)
+            saveButton.addTarget(self, action: #selector(CCPhotoBrowser.saveAction), forControlEvents: .TouchUpInside)
             view!.addSubview(saveButton)
             
             shareButton.frame = CGRectMake(view.frame.size.width/2 - 22.5, view.frame.size.height - 60, 45, 45)
             shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
             shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
-            shareButton.addTarget(self, action: "shareAction", forControlEvents: .TouchUpInside)
+            shareButton.addTarget(self, action: #selector(CCPhotoBrowser.shareAction), forControlEvents: .TouchUpInside)
             view!.addSubview(shareButton)
             
             flipButton.frame = CGRectMake(view.frame.size.width / 2 + 40, view.frame.size.height - 59, 44, 44)
             flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
             flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Highlighted)
-            flipButton.addTarget(self, action: "flipAction", forControlEvents: .TouchUpInside)
+            flipButton.addTarget(self, action: #selector(CCPhotoBrowser.flipAction), forControlEvents: .TouchUpInside)
             view!.addSubview(flipButton)
             
             deleteButton.frame = CGRectMake(view.frame.size.width - 60, view.frame.size.height - 60, 45, 45)
             deleteButton.setBackgroundImage(UIImage(named: "delete.png"), forState: .Normal)
             deleteButton.setBackgroundImage(UIImage(named: "delete_highlight.png"), forState: .Highlighted)
-            deleteButton.addTarget(self, action: "deleteAction", forControlEvents: .TouchUpInside)
+            deleteButton.addTarget(self, action: #selector(CCPhotoBrowser.deleteAction), forControlEvents: .TouchUpInside)
             view!.addSubview(deleteButton)
             
         }
@@ -126,21 +126,21 @@ import Crashlytics
             let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
             closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
             closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-            closeButton.addTarget(self, action: "cancelAction", forControlEvents: .TouchUpInside)
+            closeButton.addTarget(self, action: #selector(CCPhotoBrowser.cancelAction), forControlEvents: .TouchUpInside)
             view!.addSubview(closeButton)
             
             //check
             let checkButton: UIButton = UIButton(frame: CGRectMake(5 * view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
             checkButton.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
             checkButton.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
-            checkButton.addTarget(self, action: "checkAction", forControlEvents: .TouchUpInside)
+            checkButton.addTarget(self, action: #selector(CCPhotoBrowser.checkAction), forControlEvents: .TouchUpInside)
             view!.addSubview(checkButton)
             
             //share
             shareButton.frame = CGRectMake(3 * view.frame.size.width / 6 - 22, view.frame.size.height - 47.5, 45, 45)
             shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
             shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
-            shareButton.addTarget(self, action: "shareAction", forControlEvents: .TouchUpInside)
+            shareButton.addTarget(self, action: #selector(CCPhotoBrowser.shareAction), forControlEvents: .TouchUpInside)
             view!.addSubview(shareButton)
             
             //dark split bar

@@ -297,6 +297,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         self.refreshControl?.endRefreshing()
         completion(false, nil)
         return
+        
+        // no longer use instagram like sync
         if usingInstagram {
             completion(false, nil)
             return

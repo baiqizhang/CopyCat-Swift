@@ -52,7 +52,7 @@ class CCSettingsViewController: UIViewController {
         // Buttons
         closeButton.frame = CGRectMake(0, 1, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCSettingsViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(self.closeButton)
         
         // Items
@@ -68,7 +68,7 @@ class CCSettingsViewController: UIViewController {
             overlayModeButton.setTitle(strUsingHoverMode, forState: .Normal)
         }
         self.view!.addSubview(overlayModeButton)
-        overlayModeButton.addTarget(self, action: "overlayAction:", forControlEvents: .TouchUpInside)
+        overlayModeButton.addTarget(self, action: #selector(CCSettingsViewController.overlayAction(_:)), forControlEvents: .TouchUpInside)
         overlayModeButton.titleLabel?.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
         
         // item: autosave
@@ -80,7 +80,7 @@ class CCSettingsViewController: UIViewController {
             autoSaveButton.setTitle(strNotSaveToCameraRoll, forState: .Normal)
         }
         self.view!.addSubview(autoSaveButton)
-        autoSaveButton.addTarget(self, action: "autosaveAction:", forControlEvents: .TouchUpInside)
+        autoSaveButton.addTarget(self, action: #selector(CCSettingsViewController.autosaveAction(_:)), forControlEvents: .TouchUpInside)
         autoSaveButton.titleLabel?.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
         
         // item: preview
@@ -92,7 +92,7 @@ class CCSettingsViewController: UIViewController {
             previewButton.setTitle(strNotPreviewAfterPhotoTaken, forState: .Normal)
         }
         self.view!.addSubview(previewButton)
-        previewButton.addTarget(self, action: "previewAction:", forControlEvents: .TouchUpInside)
+        previewButton.addTarget(self, action: #selector(CCSettingsViewController.previewAction(_:)), forControlEvents: .TouchUpInside)
         previewButton.titleLabel?.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
 
 
@@ -100,7 +100,7 @@ class CCSettingsViewController: UIViewController {
         feedbackButton.frame = CGRectMake(-1, 90 + 2 * height + spacing, self.view.frame.size.width + 2, height)
         feedbackButton.setTitle(NSLocalizedString("SEND FEEDBACK", comment: "SEND FEEDBACK"), forState: .Normal)
         self.view!.addSubview(feedbackButton)
-        feedbackButton.addTarget(self, action: "feedbackAction", forControlEvents: .TouchUpInside)
+        feedbackButton.addTarget(self, action: #selector(CCSettingsViewController.feedbackAction), forControlEvents: .TouchUpInside)
         feedbackButton.titleLabel?.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
 
         // item: rate
