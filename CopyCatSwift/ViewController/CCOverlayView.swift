@@ -36,8 +36,9 @@ class CCOverlayView: UIView {
     var stopAnimation = false
     
     let marginFactor: CGFloat = 60.0
-    let zoomFactor: CGFloat = 10.0
-    let sizeFactor: CGFloat = 45.0
+    let zoomFactor: CGFloat = 15.0
+    let sizeFactor: CGFloat = 55.0
+    let positionFactor : CGFloat = 0.5
     
     
     func prepareAnimation() {
@@ -74,7 +75,7 @@ class CCOverlayView: UIView {
         }
         
         UIView.animateWithDuration(0.3, delay: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut , UIViewAnimationOptions.BeginFromCurrentState], animations: {
-            self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height / 3.0 * 2, self.sizeFactor, self.sizeFactor)
+            self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height * self.positionFactor, self.sizeFactor, self.sizeFactor)
             self.dot?.alpha = 1
             }, completion: { finished in
                 //2
@@ -82,7 +83,7 @@ class CCOverlayView: UIView {
                     return
                 }
                 UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
-                    self.dot?.frame = CGRectMake(320 - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height / 3.0 * 2 - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
+                    self.dot?.frame = CGRectMake(320 - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
                     self.dot?.alpha = 0
                     }, completion: { finished in
                         // 4
@@ -91,7 +92,7 @@ class CCOverlayView: UIView {
                         }
                         UIView.animateWithDuration(1, delay: 0, options: [], animations: {}, completion: {
                             finished in
-                            self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height / 3.0 * 2, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
+                            self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
                             if self.stopAnimation {
                                 return
                             }
@@ -248,11 +249,12 @@ class CCOverlayView: UIView {
         self.fadeView?.alpha = 0
         self.addSubview(self.fadeView!)
         
-        self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2, self.frame.size.height/3.0*2+sizeFactor+5,60, 17.5))
+        self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
         self.swipeView?.image = UIImage(named: "swipe.png")
         self.swipeView?.alpha = 0
         self.addSubview(self.swipeView!)
-        self.dot = UIImageView.init(frame: CGRectMake(marginFactor-zoomFactor/2, self.frame.size.height/3.0*2-zoomFactor/2, sizeFactor+zoomFactor, sizeFactor+zoomFactor))
+        
+        self.dot = UIImageView.init(frame: CGRectMake(marginFactor-zoomFactor/2, self.frame.size.height * self.positionFactor-zoomFactor/2, sizeFactor+zoomFactor, sizeFactor+zoomFactor))
         self.dot?.image = UIImage(named: "whitedot.png")
         self.dot?.alpha=0;
         self.addSubview(self.dot!)

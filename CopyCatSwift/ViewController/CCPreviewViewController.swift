@@ -155,7 +155,7 @@ class CCPreviewViewController : UIViewController {
             switch self.imageOrientation {
             case -1:
                 self.orientation = -1
-                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_2_PI))
+//                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_2_PI))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 
@@ -164,7 +164,7 @@ class CCPreviewViewController : UIViewController {
                 break
             case 1:
                 self.orientation = 1
-                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 

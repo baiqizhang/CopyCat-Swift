@@ -107,7 +107,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     
     //geo search
-    internal func instaAction(){
+    internal func instaAction_geo(){
         let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
         
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
@@ -173,7 +173,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
 
     
     //image search
-    internal func instaAction_image(){
+    internal func instaAction(){
         let alertController = UIAlertController(title: "Search Image", message: "", preferredStyle: .Alert)
 
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
@@ -181,7 +181,6 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             print(tagTextField.text)
             
             CCNetUtil.searchUnsplash(tagTextField.text!, completion: { (posts) in
-//            CCNetUtil.searchGPS({ (posts) in
                 print(posts)
 
                 self.postList = []
@@ -190,9 +189,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 }
                 self.postList = posts
                 self.loading = false
-                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
-                
-                
+
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.tableView.reloadData()
                 })

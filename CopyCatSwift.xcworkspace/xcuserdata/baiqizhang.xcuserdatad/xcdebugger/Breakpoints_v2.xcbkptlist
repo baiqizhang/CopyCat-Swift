@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CopyCatSwift/ViewController/CCInspireTableViewController.swift"
-            timestampString = "487488625.821015"
+            timestampString = "487490013.929152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CopyCatSwift/ViewController/Camera/AVCamViewController.m"
-            timestampString = "482548296.491081"
+            timestampString = "487490981.921554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "-showLibraryDetail"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CopyCatSwift/ViewController/Camera/AVCamViewController.m"
-            timestampString = "482548530.825624"
+            timestampString = "487490981.921554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CopyCatSwift/ViewController/Camera/AVCamViewController.m"
-            timestampString = "482548521.941961"
+            timestampString = "487490981.921554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "@implementation AVCamViewController"
             landmarkType = "3">
          </BreakpointContent>

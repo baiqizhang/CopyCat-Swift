@@ -93,8 +93,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(0);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(0);
         self.cameraButton.transform=CGAffineTransformMakeRotation(0);
+        
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(0);
+        overlayView.swipeView.transform=CGAffineTransformMakeRotation(0);
     }];
     self.orientation=0;
 }
@@ -110,8 +112,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         self.cameraButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
+        
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
+        overlayView.swipeView.transform=CGAffineTransformMakeRotation(-M_PI_2);
     }];
     self.orientation=1;
 }
@@ -127,8 +131,10 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         self.cameraButton.transform=CGAffineTransformMakeRotation(M_PI_2);
+        
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(M_PI_2);
+        overlayView.swipeView.transform=CGAffineTransformMakeRotation(M_PI_2);
     }];
     self.orientation=-1;
 }
@@ -282,7 +288,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             [self rotateLeft];
         else if (motion.gravity.x<-0.5f)
             [self rotateRight];
-        else if (motion.gravity.x>-0.3f&&motion.gravity.x<0.3f)
+        else if (motion.gravity.x>-0.45f&&motion.gravity.x<0.45f)
             [self rotateUpright];
             
     }];
