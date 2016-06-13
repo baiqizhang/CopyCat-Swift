@@ -115,18 +115,18 @@ class CCPreviewViewController : UIViewController {
         self.orientation = 0
         
         self.acceptButton = UIButton(frame: CGRectMake(self.view.frame.size.width / 2 - 40, self.view.frame.size.height - 85, 80, 80))
-        self.acceptButton?.addTarget(self, action:"saveImage", forControlEvents:.TouchUpInside)
+        self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
         
         self.acceptButton?.setBackgroundImage(UIImage(named: "save.png"), forState: .Normal)
         self.view.addSubview(self.acceptButton!)
         self.cancelButton = UIButton(frame: CGRectMake(40, self.view.frame.size.height - 70, 55, 55))
         
-        self.cancelButton?.addTarget(self, action: "dismissSelf", forControlEvents: .TouchUpInside)
+        self.cancelButton?.addTarget(self, action: #selector(CCPreviewViewController.dismissSelf), forControlEvents: .TouchUpInside)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.cancelButton!)
         self.flipButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 55, 55))
-        self.flipButton?.addTarget(self, action: "onFlipPress", forControlEvents: .TouchUpInside)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchUpInside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.flipButton!)

@@ -20,6 +20,7 @@ class CCWelcomeViewController: UIViewController {
     private var profileButton = UIButton()
     private var guideButton = UIButton()
 
+    // Actions
     func openGallery(){
         let controller = CCTemplateViewController()
         controller.modalTransitionStyle = .CrossDissolve
@@ -38,16 +39,24 @@ class CCWelcomeViewController: UIViewController {
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    func userGuide() {
+        let ccGuide = CCGuideViewController()
+        self.presentViewController(ccGuide, animated: true, completion: nil)
+    }
+
+    
     func openInstagramLogin() {
         let vc = InstagramLoginViewController()
         vc.modalTransitionStyle = .CrossDissolve
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     override func viewWillAppear(animated: Bool) {
+        
 //        NSLog("user type = \(CCCoreUtil.userType)")
 //        switch CCCoreUtil.userType {
 //        case 1:
@@ -68,10 +77,6 @@ class CCWelcomeViewController: UIViewController {
         profileButton.contentEdgeInsets = inset
     }
     
-    func userGuide() {
-        let ccGuide = CCGuideViewController()
-        self.presentViewController(ccGuide, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,24 +99,24 @@ class CCWelcomeViewController: UIViewController {
         categoryButton.frame = CGRectMake(80, 340.0 - offset, 50, 50)
         categoryButton.setBackgroundImage(UIImage(named: "photo.png"), forState: .Normal)
         categoryButton.setBackgroundImage(UIImage(named: "photo_highlight.png"), forState: .Highlighted)
-        categoryButton.addTarget(self, action: "openGallery", forControlEvents: .TouchUpInside)
+        categoryButton.addTarget(self, action: #selector(CCWelcomeViewController.openGallery), forControlEvents: .TouchUpInside)
         self.view!.addSubview(categoryButton)
         
         inspireButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset, 50, 50)
         inspireButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
         inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
-        inspireButton.addTarget(self, action: "openInspire", forControlEvents: .TouchUpInside)
+        inspireButton.addTarget(self, action: #selector(CCWelcomeViewController.openInspire), forControlEvents: .TouchUpInside)
         self.view!.addSubview(inspireButton)
         
         guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
         guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
-        guideButton.addTarget(self, action: "userGuide", forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(guideButton)
+        guideButton.addTarget(self, action: #selector(CCWelcomeViewController.userGuide), forControlEvents: .TouchUpInside)
         
-        
-        //instagram
-//        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+        instagramLoingButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset - 60, 50, 50)
+        instagramLoingButton.addTarget(self, action: #selector(openInstagramLogin), forControlEvents: UIControlEvents.TouchUpInside)
 //        self.view!.addSubview(instagramLoingButton)
+        
+        
         
         //Button Labels
         let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))
@@ -128,7 +133,7 @@ class CCWelcomeViewController: UIViewController {
         
         
 
-        let singleTap = UITapGestureRecognizer.init(target: self, action: "openProfile")
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(CCWelcomeViewController.openProfile))
         
         profileButton.addGestureRecognizer(singleTap)
         profileButton.userInteractionEnabled = true
@@ -178,6 +183,20 @@ class CCWelcomeViewController: UIViewController {
             self.placeHolderImageView.alpha = 0;
             self.backgroundImageView.alpha = 1;
         }
+
+        
+//        //Close
+//        closeButton.frame = CGRectMake(5, -5, 40, 40)
+//        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
+//        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+//        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+//        view!.addSubview(closeButton)
+//        
+//        let webView:UIWebView = UIWebView(frame: CGRectMake(0, 30, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+//        let authorize_url = "https://www.instagram.com"
+//        print(authorize_url)
+//        webView.loadRequest(NSURLRequest(URL: NSURL(string: authorize_url)!))
+//        self.view.addSubview(webView)
     }
     
 }

@@ -17,6 +17,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
     private let tableViewController = CCInspireTableViewController()
     private var banner = GADBannerView()
     
+    //MARK: UI Actions
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
@@ -25,6 +26,8 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         tableViewController.instaAction()
     }
 
+    
+    //MARK: UI Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -33,7 +36,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
         
         self.view!.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
-        let swipe = UISwipeGestureRecognizer(target: self, action: "closeAction")
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(CCInspireViewController.closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
 
@@ -55,15 +58,15 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         closeButton.frame = CGRectMake(0, 1, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCInspireViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
 
     
-        //instagram
+        //Instagram
         instaButton.frame = CGRectMake(self.view.frame.size.width - 40, 5, 30, 30)
-        instaButton.setBackgroundImage(UIImage(named: "instagram.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
-        instaButton.addTarget(self, action: "instaAction", forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(instaButton)
+        instaButton.setBackgroundImage(UIImage(named: "search.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        instaButton.addTarget(self, action: #selector(CCInspireTableViewController.instaAction), forControlEvents: .TouchUpInside)
+        self.view!.addSubview(instaButton)
         
         // google ad banner
         banner.frame = CGRectMake(0, self.view.frame.size.height - 50, 320, 50)

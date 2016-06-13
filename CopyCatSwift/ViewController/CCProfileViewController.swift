@@ -9,18 +9,24 @@
 import UIKit
 
 class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
+    //data
     internal var category : CCCategory?
+    
+    //Buttons
     let userImageView = UIImageView()
     private let closeButton = UIButton()
     private let cancelButton = UIButton()
     private let deleteButton = UIButton()
+    private var settingsButton = UIButton()
+    let infoTextLabel = UILabel()
+    
+    //Layout
     private let flowLayout = UICollectionViewFlowLayout()
     private var collectionView : CCCollectionView?
+    
+    //Delete
     private var deleting = false
     private var photosToDelete = NSMutableArray()
-
-    //Delete
-    private var settingsButton = UIButton()
 
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -95,7 +101,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         collectionView!.dataSource = self
         self.view!.addSubview(self.collectionView!)
         
-        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "closeAction")
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(CCProfileViewController.closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
         
@@ -113,30 +119,35 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view!.addSubview(userImageView)
         
         userImageView.userInteractionEnabled = true
-        userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: "onTapUser"))
+        userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(CCProfileViewController.onTapUser)))
 
         // User Info
         let labelHeight : CGFloat = 11
         let offset : CGFloat = -2
+        let fontSize:CGFloat = 12.0
         
         let posts = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         posts.text = CCUserManager.postCount.stringValue
         posts.textColor = .whiteColor()
+        posts.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(posts)
         
         let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         postsLabel.text = NSLocalizedString("POSTS", comment: "Posts")
         postsLabel.textColor = .whiteColor()
+        postsLabel.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(postsLabel)
 
         let pins = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pins.text = CCUserManager.pinCount.stringValue
         pins.textColor = .whiteColor()
+        pins.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(pins)
         
         let pinsLabel = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pinsLabel.text = NSLocalizedString("PINS", comment: "Pins")
         pinsLabel.textColor = .whiteColor()
+        pinsLabel.font = UIFont.systemFontOfSize(fontSize)
         view.addSubview(pinsLabel)
         
         
@@ -144,7 +155,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
         settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
         settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
-        settingsButton.addTarget(self, action: "openSettings", forControlEvents: .TouchUpInside)
+        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
         view.addSubview(self.settingsButton)
         
         //Title
@@ -159,28 +170,38 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         closeButton.frame = CGRectMake(0, 0, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCProfileViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
         //Deleting
         cancelButton.frame = CGRectMake(0, -5, 50, 50)
         cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        cancelButton.addTarget(self, action: "finishDelete", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(CCProfileViewController.finishDelete), forControlEvents: .TouchUpInside)
         view!.addSubview(cancelButton)
         
         deleteButton.frame = CGRectMake(view.frame.size.width - 45, 0, 40, 40)
         deleteButton.setBackgroundImage(UIImage(named: "delete.png"), forState: .Normal)
         deleteButton.setBackgroundImage(UIImage(named: "delete_highlight.png"), forState: .Highlighted)
-        deleteButton.addTarget(self, action: "performDelete", forControlEvents: .TouchUpInside)
+        deleteButton.addTarget(self, action: #selector(CCProfileViewController.performDelete), forControlEvents: .TouchUpInside)
         view!.addSubview(deleteButton)
         
         cancelButton.alpha = 0
         deleteButton.alpha = 0
+        
+        //info label
+        infoTextLabel.frame = CGRectMake(0, view.frame.size.height/2-100, view.frame.size.width, 200)
+        infoTextLabel.textAlignment = .Center
+        infoTextLabel.textColor = UIColor.whiteColor()
+        infoTextLabel.font = UIFont.systemFontOfSize(14)
+        infoTextLabel.numberOfLines = 0
+        infoTextLabel.text = "Press CopyCat logo to login with Instagram\n\nNo photo in your album\n"
+        view!.addSubview(infoTextLabel)
+
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        // load profile image
         NSLog("user type = \(CCCoreUtil.userType)")
         switch CCCoreUtil.userType {
         case 1:
@@ -189,10 +210,18 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         default:
             userImageView.image = UIImage(named: "AppIcon.png")
         }
-
         
+        // load user data
         category = CCCoreUtil.categories[0] as? CCCategory
         collectionView?.reloadData()
+        
+        // show hint text
+        if category == nil || category!.photoList == nil || category!.photoList!.count == 0{
+            infoTextLabel.alpha = 1
+        } else {
+            infoTextLabel.alpha = 0
+        }
+
     }
     
     // MARK: Delete

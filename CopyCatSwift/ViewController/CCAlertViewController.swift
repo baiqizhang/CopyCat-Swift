@@ -65,7 +65,7 @@ class CCAlertViewController : UIViewController {
         view.addSubview(background)
 
         if (style == Style.CategoryList){
-            background.addTarget(self, action: "closeAction", forControlEvents: .AllTouchEvents)
+            background.addTarget(self, action: #selector(CCAlertViewController.closeAction), forControlEvents: .AllTouchEvents)
 
             // Title View
             let titleBackground = UIView()
@@ -115,7 +115,7 @@ class CCAlertViewController : UIViewController {
             self.view.addConstraint(NSLayoutConstraint(item: titleLable, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
         }
         if (style == Style.ProgressBar){
-            background.addTarget(self, action: "testAction", forControlEvents: .AllTouchEvents)
+            background.addTarget(self, action: #selector(CCAlertViewController.testAction), forControlEvents: .AllTouchEvents)
 
             let titleHeight : CGFloat = 30.0
             let height : CGFloat = 45.0

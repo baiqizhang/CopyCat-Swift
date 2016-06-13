@@ -36,7 +36,7 @@ class CCCategoryViewController: UIViewController {
         super.viewDidLoad()
         
         self.view!.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
-        let swipe = UISwipeGestureRecognizer(target: self, action: "closeAction")
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(CCCategoryViewController.closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
         
@@ -52,7 +52,7 @@ class CCCategoryViewController: UIViewController {
         closeButton.frame = CGRectMake(0, 1, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
         
     }
@@ -86,7 +86,7 @@ class CCCategoryViewController: UIViewController {
             let item = UIButton(frame: CGRectMake(0, CGFloat(k) * height, width, height))
             item.tag = Int(k)
             item.setBackgroundImage(UIImage(named: uri), forState: .Normal)
-            item.addTarget(self, action: "categoryButtonPressedWithID:", forControlEvents: .TouchUpInside)
+            item.addTarget(self, action: #selector(CCCategoryViewController.categoryButtonPressedWithID(_:)), forControlEvents: .TouchUpInside)
             self.scrollView.addSubview(item)
             
             let name = category.name!

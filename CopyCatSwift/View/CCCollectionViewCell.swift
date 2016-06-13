@@ -75,10 +75,64 @@ class CCCollectionViewCell: UICollectionViewCell {
         }
         return nil
     }
+    
+    func initWithNetworkUrl(url: String) {
+        self.deleteFlag = 0
+        self.imagePath = url
+        
+        initImage()
+        
+        CCNetUtil.loadImage(self.imagePath!) { (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else {
+                    print(error)
+                    return
+                }
+                self.imageView!.image = UIImage(data: data)
+                self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+                self.imageView!.clipsToBounds = true
+                UIView.animateWithDuration(0.3, animations: {
+                    self.imageView!.alpha = 1
+                })
+        
+            }
+        }
+
+    }
 
     func initWithImagePath(imagePath: String, deleteFlag: Int) {
         self.deleteFlag = deleteFlag
         self.imagePath = imagePath
+        
+        initImage()
+        
+        if self.longPress == nil {
+            self.longPress = UILongPressGestureRecognizer(target: self, action: #selector(CCCollectionViewCell.handleLongPress(_:)))
+            self.longPress!.minimumPressDuration = 0.5
+            self.addGestureRecognizer(self.longPress!)
+        }
+        
+
+        dispatch_async(dispatch_get_global_queue(0, 0), {
+            let tmImage = self.tmImage()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView!.image = tmImage!
+                self.imageView!.contentMode = .ScaleAspectFill
+                self.imageView!.clipsToBounds = true
+                UIView.animateWithDuration(0.3, animations: {
+                    self.imageView!.alpha = 1
+                })
+                if self.deleteFlag! == 1 {
+                    self.overlayView?.alpha = 1
+                    self.imageView?.alpha = 0.5
+                }
+                
+            })
+        })
+
+    }
+    
+    private func initImage() {
         if self.imageView == nil {
             self.imageView = UIImageView()
             self.addSubview(self.imageView!)
@@ -97,31 +151,12 @@ class CCCollectionViewCell: UICollectionViewCell {
         self.overlayView?.alpha = 0
         
         self.backgroundColor = UIColor(white: 0.1, alpha: 1)
-        
-        if self.longPress == nil {
-            self.longPress = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
-            self.longPress!.minimumPressDuration = 0.5
-            self.addGestureRecognizer(self.longPress!)
-        }
-        
-
-        dispatch_async(dispatch_get_global_queue(0, 0), {
-            let tmImage = self.tmImage()
-            dispatch_async(dispatch_get_main_queue(), {
-                self.imageView!.image = tmImage!
-                self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
-                self.imageView!.clipsToBounds = true
-                UIView.animateWithDuration(0.3, animations: {
-                    self.imageView!.alpha = 1
-                })
-                if self.deleteFlag! == 1 {
-                    self.overlayView?.alpha = 1
-                    self.imageView?.alpha = 0.5
-                }
-                
-            })
-        })
-
+    }
+    
+    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
     }
     
 }

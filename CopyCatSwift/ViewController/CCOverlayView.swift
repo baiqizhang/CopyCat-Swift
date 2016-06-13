@@ -188,7 +188,7 @@ class CCOverlayView: UIView {
         }
     }
     
-    convenience init(var frame: CGRect, var image: UIImage) {
+    convenience init( frame: CGRect, var image: UIImage) {
         self.init(frame: frame)
         
         self.overlayState = 1
@@ -206,7 +206,7 @@ class CCOverlayView: UIView {
         self.backgroundColor = UIColor.clearColor()
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
         self.addSubview(self.transparencyButton!)
-        self.transparencyButton?.addTarget(self, action: "onPress", forControlEvents: .TouchUpInside)
+        self.transparencyButton?.addTarget(self, action: #selector(CCOverlayView.onPress), forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
 
         //rotate if width > height
@@ -228,16 +228,16 @@ class CCOverlayView: UIView {
         self.onSegChanged()
         
         
-        let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: "handlePan:")
-        let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: "handlePinch:")
-        let overlayTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: "handleOverlayTap:")
+        let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePinch(_:)))
+        let overlayTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handleOverlayTap(_:)))
         self.imageView!.addGestureRecognizer(panGestureRecognizer)
         self.imageView?.addGestureRecognizer(pinchGestureRecognizer)
         self.imageView?.addGestureRecognizer(overlayTapGestureRecognizer)
         
-        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: "handleTap:")
-        let panLRGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: "handlePanLR:")
-        let cameraPinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: "handleCameraPinch:")
+        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handleTap(_:)))
+        let panLRGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePanLR(_:)))
+        let cameraPinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handleCameraPinch(_:)))
         self.fakeView?.addGestureRecognizer(panLRGestureRecognizer)
         self.fakeView?.addGestureRecognizer(tapGestureRecognizer)
         self.fakeView?.addGestureRecognizer(cameraPinchGestureRecognizer)

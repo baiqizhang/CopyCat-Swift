@@ -38,11 +38,11 @@ class CCInspireTableViewCell : UITableViewCell {
                     NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
                         guard
                             let data = data where error == nil,
-                            var image = UIImage(data: data)
+                            let image = UIImage(data: data)
                             else { return }
 //                        image = image.resizeWithFactor(0.3)
                         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                            self.count--
+                            self.count -= 1
                             if self.count != 0 {
                                 return
                             }
@@ -97,8 +97,10 @@ class CCInspireTableViewCell : UITableViewCell {
                 timestampLabel.text = String(now/60/60) + NSLocalizedString("HOUR", comment: "h") + agoString
             } else if now < 60*60*24*365{
                 timestampLabel.text = String(now/60/60/24) + " " + NSLocalizedString("DAY", comment: "days") + agoString
-            } else {
-                timestampLabel.text = String(now/60/60/24/365/12) + " " + NSLocalizedString("MONTH", comment: "m") + agoString
+            } else if now < 60*60*24*365*12{
+                timestampLabel.text = String(now/60/60/24/365) + " " + NSLocalizedString("MONTH", comment: "m") + agoString
+            } else{
+                timestampLabel.text = String(now/60/60/24/365/12) + " " + NSLocalizedString("YEAR", comment: "y") + agoString
             }
             
             timestampLabel.textColor = .blackColor()//.blueColor()
@@ -141,8 +143,10 @@ class CCInspireTableViewCell : UITableViewCell {
 
     
     private let userImageView = UIImageView()
+    private var _userImageURI = ""
     var userImageURI : String{
         set{
+            _userImageURI = newValue
             dispatch_async(dispatch_get_global_queue(0, 0)) { () -> Void in
                 guard
                     let url = NSURL(string: newValue)
@@ -155,7 +159,7 @@ class CCInspireTableViewCell : UITableViewCell {
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         let padding : CGFloat = -7.0
                         self.userImageView.image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
-                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                        UIView.animateWithDuration(0.1, animations: { () -> Void in
                             self.userImageView.alpha = 1
                         })
                         
@@ -165,7 +169,7 @@ class CCInspireTableViewCell : UITableViewCell {
         }
         get{
             //TODO fix
-            return self.userImageURI
+            return self._userImageURI
         }
     }
 
@@ -180,6 +184,8 @@ class CCInspireTableViewCell : UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .whiteColor()
+        
+        self.userImageURI = ""
 
         myImageView.alpha = 0.0
         self.addSubview(usernameLabel)
@@ -196,6 +202,9 @@ class CCInspireTableViewCell : UITableViewCell {
         userImageView.layer.cornerRadius = 20 + padding
         userImageView.clipsToBounds = true
         userImageView.backgroundColor = UIColor.blackColor()
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CCInspireTableViewCell.showProfileAction))
+        userImageView.userInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGestureRecognizer)
         self.addSubview(userImageView)
 
         // Button Inset
@@ -293,6 +302,10 @@ class CCInspireTableViewCell : UITableViewCell {
     
     func moreAction(){
         delegate?.moreAction(self.myImageURI, reporterID: self.userID)
+    }
+    
+    func showProfileAction() {
+        delegate?.showProfileAction(self.userID, self._username, self.userImageURI)
     }
 
     /*

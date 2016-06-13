@@ -15,7 +15,7 @@ import CoreData
 //    static let host = "http://54.84.135.175:3000/api/v0/"
     static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
 
-    // MARK: User Feed
+    // MARK: Parsing User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
         var result = [CCPost]()
         for (_, subJson) in json {
@@ -35,7 +35,7 @@ import CoreData
                     }
                 }
 
-                post.pinCount = subJson["pinCount"] as? Int
+                post.pinCount = subJson["pinCount"].int
                 post.likeCount = 0//subJson["likeCount"].int
                 post.id = subJson["_id"].string
                 post.userID = subJson["ownerId"]["_id"].string
@@ -80,8 +80,8 @@ import CoreData
                 }
             }
 
-            post.pinCount = 0//subJson["pinCount"].int
-            post.likeCount = 0//subJson["likeCount"].int
+            post.pinCount = 0
+            post.likeCount = 0
             post.id = "aaa"
 
             post.timestamp = NSDate(timeIntervalSince1970: subJson["caption"]["created_time"].doubleValue)
@@ -91,9 +91,48 @@ import CoreData
 
         return result
     }
+    
+    
+    
+    static func parsePostFromUnsplashJson(json:JSON) -> [CCPost]{
+        var result = [CCPost]()
+        for (_, subJson) in json{
+            let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
+            let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
+            
+            post.userName = subJson["user"]["name"].stringValue
+            post.userProfileImage = subJson["user"]["profile_image"]["small"].stringValue
+            
+            post.photoURI = subJson["urls"]["regular"].string
+            
+            post.photoWidth = 1
+            post.photoHeight = 1
+            
+            post.pinCount = 0//subJson["pinCount"].int
+            post.likeCount = 0//subJson["likeCount"].int
+            post.id = "nil"
+            
+            
+            //parse timestamp
+            if let date = subJson["created_at"].string {
+                let RFC3339DateFormatter = NSDateFormatter()
+                RFC3339DateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+                RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                RFC3339DateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+                
+                post.timestamp = RFC3339DateFormatter.dateFromString(date)
+            } else {
+                post.timestamp = NSDate()
+            }
 
+            result.append(post)
+        }
+        
+        return result
+    }
+
+    // MARK: Getting data
     static func getFeedForCurrentUser(completion:(posts:[CCPost]) -> Void) -> Void{
-//        CCNetUtil.getJSONFromURL(host+"/api/post") { (json:JSON) -> Void in
         CCNetUtil.getJSONFromURL(host+"timeline") { (json:JSON) -> Void in
             let result = parsePostFromJson(json)
             completion(posts: result)
@@ -129,9 +168,19 @@ import CoreData
             }
         }
     }
+    
+    static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
+        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=25&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+            let result = parsePostFromUnsplashJson(json)
+            completion(posts: result)
+        }
+    }
+    
 
-
-    // new post
+    
+    //MARK: Posting data
     static func newPost(image:UIImage,completion:(error: String?) -> Void){
         //resize before sending
         let maxdim = max(image.size.width, image.size.height)
@@ -246,10 +295,22 @@ import CoreData
             
         }
     }
+    
+    static func loadPostByUsername(username:String, completion:(images:[String]) -> Void) {
+        let url = host + "users/" + username + "/photos"
+        getJSONFromURL(url, completion: {(json:JSON) -> Void in
+            let posts = self.parsePostFromJson(json)
+            var arr = [String]()
+            for ccpost in posts {
+                arr.append(ccpost.photoURI!)
+            }
+            completion(images: arr)
+        })
+    }
 
     
 
-    //MARK: Get Helpers
+    //MARK: HTTP Get Helpers
 
     static func getJSONFromURL(url: String,completion:(json:JSON) -> Void){
         loadDataFromURL(NSURL(string: url)!, completion:{(data: NSData?, error: NSError?) -> Void in
@@ -260,7 +321,13 @@ import CoreData
             }
         })
     }
-
+    
+    static func loadImage(rawUrl:String, completion: (data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void) {
+        let url = NSURL(string: rawUrl)!
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
+    }
 
     static func loadDataFromURL(url: NSURL, completion:(response: NSData?, error: NSError?) -> Void) {
         let session = NSURLSession.sharedSession()
@@ -282,7 +349,7 @@ import CoreData
         loadDataTask.resume()
     }
 
-    //MARK: Post Helpers
+    //MARK: HTTP Post Helpers
 
     static func HTTPsendRequest(request: NSMutableURLRequest, callback: (response:NSData?, error:NSError?) -> Void) {
         let task = NSURLSession.sharedSession()
