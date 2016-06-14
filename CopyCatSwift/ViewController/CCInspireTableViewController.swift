@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import Fabric
 import Crashlytics
 
@@ -19,6 +20,43 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     private var reportURI = ""
     private var reporterID = ""
+    
+    private let locationManager = CLLocationManager()
+    private var locationFound = false
+    var indicatorView = UIView()
+    
+    func startIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            // You only need to adjust this frame to move it anywhere you want
+            self.indicatorView = UIView(frame: CGRect(x: self.view.frame.midX - 90, y: self.view.frame.midY - 25, width: 180, height: 50))
+            self.indicatorView.backgroundColor = UIColor.whiteColor()
+            self.indicatorView.alpha = 0.8
+            self.indicatorView.layer.cornerRadius = 10
+            
+            //Here the spinnier is initialized
+            let activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            activityView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            activityView.startAnimating()
+            
+            let textLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 200, height: 50))
+            textLabel.textColor = UIColor.grayColor()
+            textLabel.text = "Searching"
+            textLabel.textAlignment = .Left
+            
+            self.indicatorView.addSubview(activityView)
+            self.indicatorView.addSubview(textLabel)
+            
+            self.view.addSubview(self.indicatorView)
+        }
+        
+    }
+    
+    func stopIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.indicatorView.removeFromSuperview()
+        }
+    }
+    
     
     // MARK: UI Action
     func pinAction(image : UIImage){
@@ -98,8 +136,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
             self.usingInstagram = true
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
-                self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top); // scroll to top
-                
+                // scroll to top
+                self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top);
             })
         }
         
@@ -107,93 +145,106 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     
     //geo search
-    internal func instaAction_geo(){
+    internal func gpsAction(){
         let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
         
-        let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
-            let latTextField = alertController.textFields![0] as UITextField
-            let lonTextField = alertController.textFields![1] as UITextField
-            print(lonTextField.text)
-            print(latTextField.text)
+        let searchMyLocAction = UIAlertAction(title: "Search Nearby", style: .Default) { (_) in
+            self.startIndicator()
+
+            //start tracking gps
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.startUpdatingLocation()
+            self.locationFound = false
             
-            let numberFormatter = NSNumberFormatter()
-            var number = numberFormatter.numberFromString(lonTextField.text!)
-            let lon = number!.floatValue
+        }
+        
+        let searchByAddrAction = UIAlertAction(title: "Search By Address", style: .Default) { (_) in
+            self.startIndicator()
+
             
-            number = numberFormatter.numberFromString(latTextField.text!)
-            let lat=number!.floatValue
-            
-            CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
+            let addrTextField = alertController.textFields![0] as UITextField
+            CCNetUtil.searchGPSByAddressString(addrTextField.text!, completion: { (posts) in
                 print(posts)
+                self.stopIndicator()
                 
-                self.postList = []
-                for post in posts{
-                    NSLog("uri:" + post.photoURI!);
+                if posts.isEmpty{
+                    let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        alert.show()
+                    })
+                } else {
+                    self.postList = []
+                    for post in posts{
+                        NSLog("uri:" + post.photoURI!);
+                    }
+                    self.postList = posts
+                    self.loading = false
+                    NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.tableView.reloadData()
+                        // scroll to top
+                        self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top);
+                    })
                 }
-                self.postList = posts
-                self.loading = false
-                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
-                
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.tableView.reloadData()
-                })
-                
             })
         }
-        searchAction.enabled = true
+        searchByAddrAction.enabled = false
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
-        //enable search only if tag is present
         alertController.addTextFieldWithConfigurationHandler { (textField) in
-            textField.text = "37.8148907"
+            textField.placeholder = "Golden Gate Bridge"
             textField.textAlignment=NSTextAlignment.Left;
             NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
-                searchAction.enabled = textField.text != ""
+                searchByAddrAction.enabled = textField.text != ""
             }
         }
         
-        //enable search only if tag is present
-        alertController.addTextFieldWithConfigurationHandler { (textField) in
-            textField.text = "-122.4819685"
-            textField.textAlignment=NSTextAlignment.Left;
-            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
-                searchAction.enabled = textField.text != ""
-            }
-        }
         
-        alertController.addAction(searchAction)
+        alertController.addAction(searchByAddrAction)
+        alertController.addAction(searchMyLocAction)
         alertController.addAction(cancelAction)
         
-        presentViewController(alertController, animated: true) {
-            
-        }
+        presentViewController(alertController, animated: true) {}
     }
 
     
     //image search
-    internal func instaAction(){
+    internal func searchAction(){
         let alertController = UIAlertController(title: "Search Image", message: "", preferredStyle: .Alert)
 
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
             let tagTextField = alertController.textFields![0] as UITextField
             print(tagTextField.text)
+            self.startIndicator()
+            
             
             CCNetUtil.searchUnsplash(tagTextField.text!, completion: { (posts) in
                 print(posts)
+                self.stopIndicator()
 
-                self.postList = []
-                for post in posts{
-                    NSLog("uri:" + post.photoURI!);
+                if posts.isEmpty{
+                    let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        alert.show()
+                    })
+                } else {
+                    self.postList = []
+                    
+                    for post in posts{
+                        NSLog("uri:" + post.photoURI!);
+                    }
+                    self.postList = posts
+                    self.loading = false
+
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.tableView.reloadData()
+                    })
                 }
-                self.postList = posts
-                self.loading = false
-
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.tableView.reloadData()
-                })
-            
             })
         }
         searchAction.enabled = false
@@ -488,5 +539,52 @@ extension CCInspireTableViewController : YIPopupTextViewDelegate{
 extension CCInspireTableViewController : UIAlertViewDelegate{
     func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
         print(buttonIndex)
+    }
+}
+
+
+extension CCInspireTableViewController: CLLocationManagerDelegate{
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locationFound {
+            return
+        }
+        guard let location = locations.first
+        else {
+            let alert = UIAlertView(title: "Error", message: "Failed to get location", delegate: self, cancelButtonTitle: "OK")
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                alert.show()
+            })
+            return
+        }
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        locationFound = true
+        
+        CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
+            if posts.isEmpty{
+                let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    alert.show()
+                })
+            } else {
+                self.postList = []
+                for post in posts{
+                    NSLog("uri:" + post.photoURI!);
+                }
+                self.postList = posts
+                self.loading = false
+                NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
+                
+                
+                self.stopIndicator()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                    // scroll to top
+                    self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top);
+                })
+            }
+        })
+        // Stop location updates
+        self.locationManager.stopUpdatingLocation()
     }
 }

@@ -14,6 +14,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
     private var titleLabel = CCLabel()
     private let closeButton = UIButton()
     private let instaButton = UIButton()
+    private let gpsButton = UIButton()
     private let tableViewController = CCInspireTableViewController()
     private var banner = GADBannerView()
     
@@ -22,15 +23,19 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
 
-    func instaAction() {
-        tableViewController.instaAction()
+    func gpsAction(){
+        tableViewController.gpsAction()
     }
-
+    
+    func searchAction(){
+        tableViewController.searchAction()
+    }
     
     //MARK: UI Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +52,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         tableViewController.didMoveToParentViewController(self)
         
         //Title
-        titleLabel.frame = CGRectMake(50, -1, self.view.frame.size.width - 100, 40)
+        titleLabel.frame = CGRectMake(50, -1, self.view.frame.size.width - 120, 40)
         titleLabel.text = NSLocalizedString("GALLERY", comment: "INSPIRE")
         titleLabel.font = UIFont(name: NSLocalizedString("Font", comment: "Georgia"), size: 20)
         titleLabel.textColor = UIColor.whiteColor()
@@ -65,9 +70,16 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         //Instagram
         instaButton.frame = CGRectMake(self.view.frame.size.width - 40, 5, 30, 30)
         instaButton.setBackgroundImage(UIImage(named: "search.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
-        instaButton.addTarget(self, action: #selector(CCInspireTableViewController.instaAction), forControlEvents: .TouchUpInside)
+        instaButton.addTarget(self, action: #selector(CCInspireViewController.searchAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(instaButton)
+
         
+        //GPS
+        gpsButton.frame = CGRectMake(self.view.frame.size.width - 40 - 30 - 20, 5, 30, 30)
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        gpsButton.addTarget(self, action: #selector(CCInspireViewController.gpsAction), forControlEvents: .TouchUpInside)
+        self.view!.addSubview(gpsButton)
+
         // google ad banner
         banner.frame = CGRectMake(0, self.view.frame.size.height - 50, 320, 50)
         banner.delegate = self

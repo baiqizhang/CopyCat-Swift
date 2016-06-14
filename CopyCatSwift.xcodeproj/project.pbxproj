@@ -78,6 +78,7 @@
 		9740CAA21C3111F30023FE2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740CAA11C3111F30023FE2C /* AVFoundation.framework */; };
 		9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */; };
 		9748750D1D0E39A20089C385 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9748750C1D0E39A20089C385 /* search.png */; };
+		974875191D10B32D0089C385 /* geofence.png in Resources */ = {isa = PBXBuildFile; fileRef = 974875181D10B32D0089C385 /* geofence.png */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
 		9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */; };
@@ -311,6 +312,7 @@
 		9740CAA11C3111F30023FE2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCProfileViewController.swift; sourceTree = "<group>"; };
 		9748750C1D0E39A20089C385 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		974875181D10B32D0089C385 /* geofence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geofence.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
 		9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCAlertViewController.swift; sourceTree = "<group>"; };
@@ -706,6 +708,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				974875181D10B32D0089C385 /* geofence.png */,
 				9748750C1D0E39A20089C385 /* search.png */,
 				97FCBB851CF18738003734DA /* more.png */,
 				97FCBB821CE95D30003734DA /* pin_black.png */,
@@ -1070,6 +1073,7 @@
 				97F6DFBA1C23A1C300707180 /* close_highlight.png in Resources */,
 				97F6DFB91C23A1C300707180 /* close.png in Resources */,
 				97F6DFC81C23A1C300707180 /* photo.png in Resources */,
+				974875191D10B32D0089C385 /* geofence.png in Resources */,
 				97FCBB831CE95D30003734DA /* pin_black.png in Resources */,
 				97F6DFE91C23A5AC00707180 /* Info.plist in Resources */,
 				97F6DFB81C23A1C300707180 /* check_highlight.png in Resources */,

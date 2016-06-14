@@ -210,7 +210,7 @@ import CoreData
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=20&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromUnsplashJson(json)
@@ -219,16 +219,43 @@ import CoreData
     }
     
     
-    static func searchGPS(lat:Float,lon:Float,completion:(posts:[CCPost]) -> Void) -> Void{
+    static func searchGPS(lat:Double,lon:Double,completion:(posts:[CCPost]) -> Void) -> Void{
 //        let lat = 37.7749
 //        let lon = 122.41
-        let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad98a3bb98a239f7d719a419d3e528e7&lat=\(lat)&lon=\(lon)&radius=0.2&format=json&nojsoncallback=1"
+        let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f91a179a286be8256e0ca7624f254642&lat=\(lat)&lon=\(lon)&radius=0.2&format=json&nojsoncallback=1"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromFlickrJson(json)
             completion(posts: result)
         }
     }
+    
+    
+    static func searchGPSByAddressString(addressStr: String,completion:(posts:[CCPost]) -> Void) -> Void{
+        let url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=\(addressStr)"
+        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+            for (_, subJson) in json["results"]{
+                guard let lat = subJson["geometry"]["location"]["lat"].double else {
+                    completion(posts: [])
+                    return
+                }
+                guard let lon = subJson["geometry"]["location"]["lng"].double else {
+                    completion(posts: [])
+                    return
+                }
+                let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f91a179a286be8256e0ca7624f254642&lat=\(lat)&lon=\(lon)&radius=0.2&format=json&nojsoncallback=1"
+                let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+                CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+                    let result = parsePostFromFlickrJson(json)
+                    completion(posts: result)
+                }
+                break
+            }
+        }
+        
+    }
+
 
     
     //MARK: Posting data
