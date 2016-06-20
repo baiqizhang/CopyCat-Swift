@@ -11,6 +11,10 @@ import MapKit
 import Fabric
 import Crashlytics
 
+internal protocol TableDelegate {
+    func startIndicator()
+    func stopIndicator()
+}
 
 class CCInspireTableViewController : SKStatefulTableViewController {
     private var postList = [CCPost]()
@@ -25,39 +29,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     private let locationManager = CLLocationManager()
     private var locationFound = false
-    var indicatorView = UIView()
-    
-    func startIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
-            // You only need to adjust this frame to move it anywhere you want
-            self.indicatorView = UIView(frame: CGRect(x: self.view.frame.midX - 90, y: self.view.frame.midY - 25, width: 180, height: 50))
-            self.indicatorView.backgroundColor = UIColor.whiteColor()
-            self.indicatorView.alpha = 0.8
-            self.indicatorView.layer.cornerRadius = 10
-            
-            //Here the spinnier is initialized
-            let activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-            activityView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-            activityView.startAnimating()
-            
-            let textLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 200, height: 50))
-            textLabel.textColor = UIColor.grayColor()
-            textLabel.text = "Searching"
-            textLabel.textAlignment = .Left
-            
-            self.indicatorView.addSubview(activityView)
-            self.indicatorView.addSubview(textLabel)
-            
-            self.view.addSubview(self.indicatorView)
-        }
-        
-    }
-    
-    func stopIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.indicatorView.removeFromSuperview()
-        }
-    }
+    var delegate : TableDelegate?
     
     
     // MARK: UI Action
@@ -154,7 +126,9 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
         
         let searchMyLocAction = UIAlertAction(title: "Search Nearby", style: .Default) { (_) in
-            self.startIndicator()
+            if let inspireView = self.delegate {
+                inspireView.startIndicator()
+            }
 
             //start tracking gps
             self.locationManager.delegate = self
@@ -166,13 +140,15 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         }
         
         let searchByAddrAction = UIAlertAction(title: "Search By Address", style: .Default) { (_) in
-            self.startIndicator()
-
+            if let inspireView = self.delegate {
+                inspireView.stopIndicator()
+            }
             
             let addrTextField = alertController.textFields![0] as UITextField
             CCNetUtil.searchGPSByAddressString(addrTextField.text!, completion: { (posts) in
-                print(posts)
-                self.stopIndicator()
+                if let inspireView = self.delegate {
+                    inspireView.stopIndicator()
+                }
                 
                 if posts.isEmpty{
                     let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
@@ -225,12 +201,15 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         let searchAction = UIAlertAction(title: "Search", style: .Default) { (_) in
             let tagTextField = alertController.textFields![0] as UITextField
             print(tagTextField.text)
-            self.startIndicator()
+            if let inspireView = self.delegate {
+                inspireView.startIndicator()
+            }
             
             
             CCNetUtil.searchUnsplash(tagTextField.text!, completion: { (posts) in
-                print(posts)
-                self.stopIndicator()
+                if let inspireView = self.delegate {
+                    inspireView.stopIndicator()
+                }
 
                 if posts.isEmpty{
                     let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
@@ -581,8 +560,11 @@ extension CCInspireTableViewController: CLLocationManagerDelegate{
                 self.loading = false
                 NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
                 
+            
+                if let inspireView = self.delegate {
+                    inspireView.stopIndicator()
+                }
                 
-                self.stopIndicator()
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.tableView.reloadData()
                     // scroll to top
