@@ -189,6 +189,23 @@ class CCOverlayView: UIView {
         }
     }
     
+    
+    func setOverlayImage(var image:UIImage){
+        let thumbnailSize : CGFloat = 150
+
+        if image.size.width > image.size.height {
+            self.frame_tm = CGRectMake(self.frame.size.width / 2 - image.size.height / image.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image.size.height / image.size.width * thumbnailSize, thumbnailSize)
+        } else {
+            self.frame_tm = CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2 - image.size.height / image.size.width * thumbnailSize / 2, thumbnailSize, image.size.height / image.size.width * thumbnailSize)
+        }
+        //rotate if width > height
+        if image.size.width > image.size.height {
+            image = image.rotateInDegrees(-90.0)
+        }
+        self.image=image;
+        self.imageView?.image = image
+    }
+    
     convenience init( frame: CGRect, var image: UIImage) {
         self.init(frame: frame)
         
@@ -206,10 +223,10 @@ class CCOverlayView: UIView {
         
         self.backgroundColor = UIColor.clearColor()
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
-        self.addSubview(self.transparencyButton!)
         self.transparencyButton?.addTarget(self, action: #selector(CCOverlayView.onPress), forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
-
+//        self.addSubview(self.transparencyButton!)
+        
         //rotate if width > height
         if image.size.width > image.size.height {
             image = image.rotateInDegrees(-90.0)
@@ -236,6 +253,7 @@ class CCOverlayView: UIView {
         self.imageView?.addGestureRecognizer(pinchGestureRecognizer)
         self.imageView?.addGestureRecognizer(overlayTapGestureRecognizer)
         
+        //gesture receiver
         let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handleTap(_:)))
         let panLRGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePanLR(_:)))
         let cameraPinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handleCameraPinch(_:)))
@@ -243,6 +261,8 @@ class CCOverlayView: UIView {
         self.fakeView?.addGestureRecognizer(tapGestureRecognizer)
         self.fakeView?.addGestureRecognizer(cameraPinchGestureRecognizer)
 
+        
+        //for animation
         self.fadeView = UIView.init(frame: self.frame)
         self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.75)
         self.fadeView?.userInteractionEnabled = false

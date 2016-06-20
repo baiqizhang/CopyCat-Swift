@@ -29,9 +29,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 // For use in the storyboards.
 @property (nonatomic, strong) AVCamPreviewView *previewView;
 @property (strong,nonatomic) UIImageView *focusView;
-@property (nonatomic, strong) id overlayView;
 @property (nonatomic, strong) UIButton *cameraButton;
-@property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 
 
@@ -221,6 +219,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
     [self.libraryButton setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.libraryButton];
+
+    
+    UIButton * transparencyButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)];
+    [transparencyButton addTarget:self action:@selector(setRefImage) forControlEvents:UIControlEventTouchUpInside];
+    [transparencyButton setTitle:@"SetRef" forState:UIControlStateNormal];
+    [self.view addSubview:transparencyButton];
     
     self.flashMode=AVCaptureFlashModeOff;
     
@@ -384,6 +388,15 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 #pragma mark Actions
+-(void)setRefImage{
+    [self.overlayView setAlpha:0];
+    [self.cancelButton setAlpha:0];
+    
+    CCPickOverleyViewController * vc = [[CCPickOverleyViewController alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    vc.delegate = self;
+    [self presentViewController:vc animated:NO completion:nil];
+}
 
 - (void)cameraZoom:(float)scale {
     CGAffineTransform transform = CGAffineTransformScale(self.previewView.transform, scale, scale);

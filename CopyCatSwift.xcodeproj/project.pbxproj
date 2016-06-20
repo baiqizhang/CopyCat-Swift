@@ -79,6 +79,8 @@
 		9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */; };
 		9748750D1D0E39A20089C385 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9748750C1D0E39A20089C385 /* search.png */; };
 		974875191D10B32D0089C385 /* geofence.png in Resources */ = {isa = PBXBuildFile; fileRef = 974875181D10B32D0089C385 /* geofence.png */; };
+		9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */; };
+		9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
 		9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */; };
@@ -313,6 +315,8 @@
 		9740CAA31C3242E80023FE2C /* CCProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCProfileViewController.swift; sourceTree = "<group>"; };
 		9748750C1D0E39A20089C385 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		974875181D10B32D0089C385 /* geofence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geofence.png; sourceTree = "<group>"; };
+		9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCPickOverlayViewController.swift; path = Camera/CCPickOverlayViewController.swift; sourceTree = "<group>"; };
+		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
 		9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCAlertViewController.swift; sourceTree = "<group>"; };
@@ -579,6 +583,7 @@
 		9740CA4A1C2FE8570023FE2C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */,
 				9740CA4B1C2FE8770023FE2C /* AVCamPreviewView.h */,
 				9740CA4C1C2FE8770023FE2C /* AVCamPreviewView.m */,
 				9740CA4D1C2FE8770023FE2C /* AVCamViewController.h */,
@@ -798,6 +803,7 @@
 				1A4DF1ED1C508380001A4775 /* CCLabel.swift */,
 				1A4DF1EE1C508380001A4775 /* CCOverlayFrameView.swift */,
 				9717A5431C38EC39002AB0C6 /* CCInspireTableViewCell.swift */,
+				9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */,
 				9740CA971C30AA280023FE2C /* YIPopupTextView */,
 				9740CA371C2F5CAB0023FE2C /* UIImageHelper */,
 			);
@@ -1238,6 +1244,7 @@
 				97254F901C2955EF0047968A /* CCCategoryViewController.swift in Sources */,
 				97FCBB9D1CF2AFDC003734DA /* CCUser+CoreDataProperties.swift in Sources */,
 				1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */,
+				9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */,
 				97FCBB9C1CF2AFDC003734DA /* CCUser.swift in Sources */,
 				1A4DF1F21C508380001A4775 /* CCLabel.swift in Sources */,
 				97F6DFE11C23A54700707180 /* CopyCatSwift.xcdatamodeld in Sources */,
@@ -1281,6 +1288,7 @@
 				97FCBBA41D0B6F02003734DA /* CCURLProtocol.swift in Sources */,
 				9740C9741C2D45F80023FE2C /* CCCoreUtil.swift in Sources */,
 				1A4DF1F31C508380001A4775 /* CCOverlayFrameView.swift in Sources */,
+				9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */,
 				9740CA501C2FE8770023FE2C /* AVCamViewController.m in Sources */,
 				9740CA9E1C30AA280023FE2C /* YIPopupTextView.m in Sources */,
 				1A4DF1F01C508380001A4775 /* CCCollectionViewCell.swift in Sources */,
