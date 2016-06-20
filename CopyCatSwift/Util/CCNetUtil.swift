@@ -210,7 +210,8 @@ import CoreData
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let url = "http://ec2-52-90-75-183.compute-1.amazonaws.com:3000/api/v0/search?labels=\(tag)"
+//        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromUnsplashJson(json)
