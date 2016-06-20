@@ -1,4 +1,5 @@
 Pods
 *.xcuserdatad
 .idea
+.DS_Store
 
