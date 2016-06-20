@@ -241,7 +241,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                     self.postList = []
                     
                     for post in posts{
-                        NSLog("uri:" + post.photoURI!);
+                        let uri = post.photoURI! as String
+                        print("uri:" + uri);
                     }
                     self.postList = posts
                     self.loading = false
