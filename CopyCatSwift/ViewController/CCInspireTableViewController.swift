@@ -90,7 +90,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 })
         })
         // notify server througn POST: /photo/like {photoId, userId}CC
-        CCNetUtil.sendPin(CCCoreUtil.userDefault.stringForKey("cc_id")!, imageId: self.pinedId)
+        CCNetUtil.sendPin(CCCoreUtil.userDefault.stringForKey("cc_id"), imageId: self.pinedId)
     }
     
     func likeAction(){

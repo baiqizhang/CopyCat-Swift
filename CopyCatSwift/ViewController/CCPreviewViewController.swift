@@ -84,15 +84,15 @@ class CCPreviewViewController : UIViewController {
         })
     }
     
-
+    
     init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int) {
         super.init(nibName: nil, bundle: nil)
-     
-            self.image = image
-            self.refImage = refImage
-            self.imageOrientation = orientation
+        
+        self.image = image
+        self.refImage = refImage
+        self.imageOrientation = orientation
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -103,7 +103,7 @@ class CCPreviewViewController : UIViewController {
                                        contentType: "TakePhoto",
                                        contentId: nil,
                                        customAttributes: nil)
-
+        
         
         
         super.viewDidLoad()
@@ -116,20 +116,24 @@ class CCPreviewViewController : UIViewController {
         
         self.acceptButton = UIButton(frame: CGRectMake(self.view.frame.size.width / 2 - 40, self.view.frame.size.height - 85, 80, 80))
         self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
-        
         self.acceptButton?.setBackgroundImage(UIImage(named: "save.png"), forState: .Normal)
         self.view.addSubview(self.acceptButton!)
-        self.cancelButton = UIButton(frame: CGRectMake(40, self.view.frame.size.height - 70, 55, 55))
         
+        self.cancelButton = UIButton(frame: CGRectMake(40, self.view.frame.size.height - 70, 55, 55))
         self.cancelButton?.addTarget(self, action: #selector(CCPreviewViewController.dismissSelf), forControlEvents: .TouchUpInside)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.cancelButton!)
+        
         self.flipButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 55, 55))
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchUpInside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.flipButton!)
+        
+        // Share checkbox
+        
+        
         self.isShowingRef = true
         let height = self.view.frame.size.height - 140
         let width = self.view.frame.width
@@ -147,15 +151,15 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(self.refImageView!)
         if self.imageView?.image?.size.width > self.imageView?.image?.size.height {
             self.imageView?.frame = CGRectMake(frame_bg.origin.x + frame_bg.size.width / 2 - frame_bg.size.height / 2,
-                                                frame_bg.origin.y + frame_bg.size.height / 2 - frame_bg.size.width / 2,
-                                                    frame_bg.size.height,
-                                                    frame_bg.size.width)
+                                               frame_bg.origin.y + frame_bg.size.height / 2 - frame_bg.size.width / 2,
+                                               frame_bg.size.height,
+                                               frame_bg.size.width)
             self.ratio1 = (self.imageView?.frame.size.height)! / (self.imageView?.frame.size.width)!
             self.ratio2 = 1
             switch self.imageOrientation {
             case -1:
                 self.orientation = -1
-//                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_2_PI))
+                // self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_2_PI))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 
@@ -164,7 +168,7 @@ class CCPreviewViewController : UIViewController {
                 break
             case 1:
                 self.orientation = 1
-//                self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+                // self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 
@@ -210,28 +214,28 @@ class CCPreviewViewController : UIViewController {
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 0:
-            transform=CGAffineTransformMakeRotation(0)
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-            break
+                transform=CGAffineTransformMakeRotation(0)
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+                break
             case -1:
-            transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+                break
             case 1:
-            transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+                break
             default:
-            break
+                break
             }
             
-            })
+        })
         self.orientation = 0
     }
     
     func rotateLeft() {
         if (self.orientation==1){
-        return
+            return
         }
         UIView.animateWithDuration(0.3, animations:{
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
@@ -240,28 +244,28 @@ class CCPreviewViewController : UIViewController {
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 1:
-            transform=CGAffineTransformMakeRotation(0)
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-            break
+                transform=CGAffineTransformMakeRotation(0)
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+                break
             case 0:
-            transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+                break
             case -1:
-            transform=CGAffineTransformMakeRotation(CGFloat(-M_PI))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+                break
             default:
-            break
+                break
             }
             
-            })
+        })
         self.orientation=1
     }
     
     func rotateRight() {
         if (self.orientation == -1){
-        return
+            return
         }
         UIView.animateWithDuration(0.3, animations: {
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
@@ -270,22 +274,22 @@ class CCPreviewViewController : UIViewController {
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case -1:
-            transform=CGAffineTransformMakeRotation(0)
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-            break
+                transform=CGAffineTransformMakeRotation(0)
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+                break
             case 0:
-            transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+                break
             case 1:
-            transform=CGAffineTransformMakeRotation(CGFloat(M_PI))
-            self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-            break
+                transform=CGAffineTransformMakeRotation(CGFloat(M_PI))
+                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+                break
             default:
-            break
+                break
             }
             
-            })
+        })
         self.orientation = -1
         
     }
