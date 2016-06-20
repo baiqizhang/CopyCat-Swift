@@ -90,7 +90,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 })
         })
         // notify server througn POST: /photo/like {photoId, userId}CC
-        CCNetUtil.sendPin(CCCoreUtil.userDefault.stringForKey("cc_id")!, imageId: self.pinedId)
+        CCNetUtil.sendPin(CCCoreUtil.userDefault.stringForKey("cc_id"), imageId: self.pinedId)
     }
     
     func likeAction(){
@@ -241,7 +241,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                     self.postList = []
                     
                     for post in posts{
-                        NSLog("uri:" + post.photoURI!);
+                        let uri = post.photoURI! as String
+                        print("uri:" + uri);
                     }
                     self.postList = posts
                     self.loading = false
