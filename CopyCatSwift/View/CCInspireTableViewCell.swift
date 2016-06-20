@@ -239,7 +239,7 @@ class CCInspireTableViewCell : UITableViewCell {
         pinCountLabel.textColor = .blackColor()//.blueColor()
         pinCountLabel.textAlignment = .Left
         pinCountLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 16.0)
-        pinCountLabel.alpha = 0
+        pinCountLabel.alpha = 1.0
         self.addSubview(pinCountLabel)
 
         
@@ -292,7 +292,8 @@ class CCInspireTableViewCell : UITableViewCell {
     // MARK: UI Action
     func pinAction(){
         if let image = myImageView.image{
-            delegate?.pinAction(image)
+            delegate?.pinAction(image, self.myImageURI)
+            pinCount = pinCount + 1
         }
     }
 

@@ -20,6 +20,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     private var reportURI = ""
     private var reporterID = ""
+        
+    private var pinedId = ""
     
     private let locationManager = CLLocationManager()
     private var locationFound = false
@@ -59,7 +61,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     
     // MARK: UI Action
-    func pinAction(image : UIImage){
+    func pinAction(image : UIImage, _ imageUri: String){
         let alertVC = CCAlertViewController(style: .CategoryList)
         alertVC.image = image
         alertVC.modalPresentationStyle = .OverCurrentContext
@@ -67,6 +69,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
         
         alertVC.parent = self
         presentViewController(alertVC, animated: true, completion: nil)
+        self.pinedId = imageUri.substringFromIndex((imageUri.rangeOfString("com/")?.endIndex)!)
     }
     
     func pinCompleted(){
@@ -86,6 +89,8 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                         notifyLabel.removeFromSuperview()
                 })
         })
+        // notify server througn POST: /photo/like {photoId, userId}CC
+        CCNetUtil.sendPin(CCCoreUtil.userDefault.stringForKey("cc_id")!, imageId: self.pinedId)
     }
     
     func likeAction(){

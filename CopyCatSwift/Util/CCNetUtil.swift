@@ -35,8 +35,8 @@ import CoreData
                     }
                 }
 
-                post.pinCount = subJson["pinCount"].int
-                post.likeCount = 0//subJson["likeCount"].int
+                post.pinCount = subJson["like"].int
+                post.likeCount = subJson["like"].int
                 post.id = subJson["_id"].string
                 post.userID = subJson["ownerId"]["_id"].string
                 post.userName = subJson["ownerId"]["name"].string
@@ -302,6 +302,35 @@ import CoreData
             })
         } catch{
 
+        }
+    }
+    
+    static func sendPin(userId: String, imageId: String) {
+        var json = [String: AnyObject]()
+        json["userId"] = userId
+        json["photoId"] = imageId
+        NSLog("Posting user:%@, photo: %@", userId, imageId)
+        do {
+            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
+            HTTPPostJSON(host + "photos/like", data: data, callback: {(response, error) -> Void in
+                if let _ = error {
+                    NSLog("Pin Failed!")
+                    return
+                }
+
+                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+                    NSLog("response:%@", datastring)
+                    if datastring.containsString("OK"){
+                        NSLog("Pined!!!!")
+                    } else {
+                        NSLog("Not OK!!!")
+                        NSLog(datastring)
+                    }
+                    
+                }
+            })
+        } catch {
+            
         }
     }
 
