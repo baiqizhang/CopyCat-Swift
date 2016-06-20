@@ -10,14 +10,14 @@ import UIKit
 import GoogleMobileAds
 
 
-class CCInspireViewController : UIViewController, GADBannerViewDelegate {
+class CCInspireViewController : UIViewController, GADBannerViewDelegate, TableDelegate {
     private var titleLabel = CCLabel()
     private let closeButton = UIButton()
     private let instaButton = UIButton()
     private let gpsButton = UIButton()
     private let tableViewController = CCInspireTableViewController()
     private var banner = GADBannerView()
-    
+    var indicatorView = UIView()
     //MARK: UI Actions
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
@@ -36,6 +36,38 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         return true
     }
     
+    func startIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            // You only need to adjust this frame to move it anywhere you want
+            self.indicatorView = UIView(frame: CGRect(x: self.view.frame.midX - 90, y: self.view.frame.midY - 25, width: 180, height: 50))
+            NSLog(self)
+            self.indicatorView.backgroundColor = UIColor.whiteColor()
+            self.indicatorView.alpha = 0.8
+            self.indicatorView.layer.cornerRadius = 10
+            
+            //Here the spinnier is initialized
+            let activityView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            activityView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            activityView.startAnimating()
+            
+            let textLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 200, height: 50))
+            textLabel.textColor = UIColor.grayColor()
+            textLabel.text = "Searching"
+            textLabel.textAlignment = .Left
+            
+            self.indicatorView.addSubview(activityView)
+            self.indicatorView.addSubview(textLabel)
+            
+            self.view.addSubview(self.indicatorView)
+        }
+        
+    }
+    
+    func stopIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.indicatorView.removeFromSuperview()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +78,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate {
         self.view!.addGestureRecognizer(swipe)
 
         //Child VC
+        tableViewController.delegate = self
         addChildViewController(tableViewController)
         tableViewController.view.frame = CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 90);
         view.addSubview(tableViewController.view)
