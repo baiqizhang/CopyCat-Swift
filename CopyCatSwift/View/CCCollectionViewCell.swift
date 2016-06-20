@@ -69,7 +69,7 @@ class CCCollectionViewCell: UICollectionViewCell {
                 let imgData = UIImageJPEGRepresentation(tmImage, 0.5)
                 // TODO cannot save image
                 let writeFlag = imgData?.writeToFile(path, atomically: true)
-                NSLog("file saved: \(writeFlag)")
+                //NSLog("file saved: \(writeFlag)")
                 return tmImage
             }
         }

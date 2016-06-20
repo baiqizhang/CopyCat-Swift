@@ -22,9 +22,24 @@ class CCWelcomeViewController: UIViewController {
 
     // Actions
     func openGallery(){
-        let controller = CCCategoryViewController()
-        controller.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(controller, animated: true, completion: nil)
+        // show animation each time user re-enter categoryview
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        userDefault.removeObjectForKey("isFirstTimeUser")
+        userDefault.synchronize()
+        
+        //create overlay view
+        let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        let overlayView = CCOverlayView(frame: frame, image: UIImage(named: "0_0.jpg")!)
+        
+        //open camera
+        let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+        overlayView.delegate = AVCVC
+        self.presentViewController(AVCVC, animated: true, completion: { _ in })
+        
+//      old style  
+//        let controller = CCPickOverleyViewController()//CCCategoryViewController()
+//        controller.modalTransitionStyle = .CrossDissolve
+//        self.presentViewController(controller, animated: true, completion: nil)
     }
     
     func openProfile() {
