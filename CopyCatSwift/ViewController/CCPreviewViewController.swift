@@ -278,7 +278,7 @@ class CCPreviewViewController : UIViewController {
                 self.rotateLeft()
             } else if motion!.gravity.x < -0.5 {
                 self.rotateRight()
-            } else if motion!.gravity.y > -0.3 && motion!.gravity.x < 0.3 {
+            } else if motion!.gravity.y < -0.3 && abs(motion!.gravity.x) < 0.3 {
                 self.rotateUpright()
             }
             
