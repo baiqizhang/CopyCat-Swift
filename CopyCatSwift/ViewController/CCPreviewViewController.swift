@@ -22,9 +22,55 @@ class CCPreviewViewController : UIViewController {
     
     var isShowingRef: Bool = false
     
+    enum ToggleButton {
+        case SharingOrigin
+        case SharingToken
+    }
+    
     var acceptButton: UIButton?
     var cancelButton: UIButton?
     var flipButton: UIButton?
+    var shareTaken: UIButton?
+    var shareOrigin: UIButton?
+    
+    var _sharingOrigin = true
+    var sharingOrigin: Bool {
+        set{
+            
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                if newValue {
+                    self.shareOrigin?.backgroundColor = UIColor.whiteColor()
+                    self.shareOrigin?.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                } else {
+                    self.shareOrigin?.backgroundColor = UIColor.grayColor()
+                    self.shareOrigin?.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                }
+            }
+            self._sharingOrigin = newValue
+        }
+        get{
+            return self._sharingOrigin
+        }
+    }
+    
+    var _sharingTaken = true
+    var sharingTaken: Bool {
+        set{
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                if newValue {
+                    self.shareTaken?.backgroundColor = UIColor.whiteColor()
+                    self.shareTaken?.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                } else {
+                    self.shareTaken?.backgroundColor = UIColor.grayColor()
+                    self.shareTaken?.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                }
+            }
+            self._sharingTaken = newValue
+        }
+        get{
+            return self._sharingTaken
+        }
+    }
     
     var motionManager: CMMotionManager?
     var imageOrientation = 0
@@ -34,6 +80,13 @@ class CCPreviewViewController : UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func toggleSharingOrigin() {
+        self.sharingOrigin = !self.sharingOrigin
+    }
+    func toggleSharingToken() {
+        self.sharingTaken = !self.sharingTaken
     }
     
     func saveImage() {
@@ -60,6 +113,23 @@ class CCPreviewViewController : UIViewController {
                 vc.stillButton.enabled = true
             })
         })
+        
+        // TODO: Share Image
+        if sharingTaken {
+            CCNetUtil.newPost(self.image!, completion: { (error:String?) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    print("Original Image Uploaded")
+                })
+            })
+        }
+        
+        if sharingOrigin {
+            CCNetUtil.newPost(self.refImage!, completion: { (error:String?) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    print("Token Image Uploaded")
+                })
+            })
+        }
         
         self.dismissSelf()
     }
@@ -132,7 +202,23 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(self.flipButton!)
         
         // Share checkbox
+        self.shareOrigin = UIButton(frame: CGRectMake(40, 3, 120, 34))
+        self.shareOrigin!.setTitle("Original", forState: .Normal)
+        self.shareOrigin!.addTarget(self, action: #selector(CCPreviewViewController.toggleSharingOrigin), forControlEvents: .TouchUpInside)
+        self.shareOrigin!.layer.cornerRadius = 5
+        self.shareOrigin!.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.shareOrigin!.backgroundColor = UIColor.whiteColor()
+        self.shareOrigin!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
+        self.view.addSubview(self.shareOrigin!)
         
+        self.shareTaken = UIButton(frame: CGRectMake(180, 3, 120, 34))
+        self.shareTaken!.setTitle("Current One", forState: .Normal)
+        self.shareTaken!.addTarget(self, action: #selector(CCPreviewViewController.toggleSharingToken), forControlEvents: .TouchUpInside)
+        self.shareTaken!.layer.cornerRadius = 5
+        self.shareTaken!.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.shareTaken!.backgroundColor = UIColor.whiteColor()
+        self.shareTaken!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
+        self.view.addSubview(self.shareTaken!)
         
         self.isShowingRef = true
         let height = self.view.frame.size.height - 140
