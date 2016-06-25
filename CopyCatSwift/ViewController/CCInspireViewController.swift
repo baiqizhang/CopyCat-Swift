@@ -40,7 +40,7 @@ class CCInspireViewController : UIViewController, GADBannerViewDelegate, TableDe
         dispatch_async(dispatch_get_main_queue()) {
             // You only need to adjust this frame to move it anywhere you want
             self.indicatorView = UIView(frame: CGRect(x: self.view.frame.midX - 90, y: self.view.frame.midY - 25, width: 180, height: 50))
-            NSLog(self)
+            
             self.indicatorView.backgroundColor = UIColor.whiteColor()
             self.indicatorView.alpha = 0.8
             self.indicatorView.layer.cornerRadius = 10

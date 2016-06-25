@@ -81,6 +81,7 @@
 		974875191D10B32D0089C385 /* geofence.png in Resources */ = {isa = PBXBuildFile; fileRef = 974875181D10B32D0089C385 /* geofence.png */; };
 		9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */; };
 		9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */; };
+		97636E091D1F39F00073D9EA /* lucky.png in Resources */ = {isa = PBXBuildFile; fileRef = 97636E081D1F39F00073D9EA /* lucky.png */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
 		9792C94E1C423A9300EF63BC /* CCAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */; };
@@ -320,6 +321,7 @@
 		974875181D10B32D0089C385 /* geofence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geofence.png; sourceTree = "<group>"; };
 		9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCPickOverlayViewController.swift; path = Camera/CCPickOverlayViewController.swift; sourceTree = "<group>"; };
 		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		97636E081D1F39F00073D9EA /* lucky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lucky.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
 		9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCAlertViewController.swift; sourceTree = "<group>"; };
@@ -729,6 +731,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				97636E081D1F39F00073D9EA /* lucky.png */,
 				974875181D10B32D0089C385 /* geofence.png */,
 				9748750C1D0E39A20089C385 /* search.png */,
 				97FCBB851CF18738003734DA /* more.png */,
@@ -1129,6 +1132,7 @@
 				97FCBB7F1CE90760003734DA /* 5_1.jpg in Resources */,
 				97F6DFBC1C23A1C300707180 /* delete_highlight.png in Resources */,
 				97FCBB6F1CE90760003734DA /* 2_3.jpg in Resources */,
+				97636E091D1F39F00073D9EA /* lucky.png in Resources */,
 				97FCBB7C1CE90760003734DA /* 4_5.jpg in Resources */,
 				97F6DFEC1C250F9100707180 /* LaunchImage_1x_faded.png in Resources */,
 				9727B0DA1C34F29C005E9D12 /* AppIcon.png in Resources */,

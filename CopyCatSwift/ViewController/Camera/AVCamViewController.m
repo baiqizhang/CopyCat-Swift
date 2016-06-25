@@ -31,6 +31,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @property (strong,nonatomic) UIImageView *focusView;
 @property (nonatomic, strong) UIButton *cameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
+@property (nonatomic, strong) UIButton *luckyButton;
 
 
 - (void)changeCamera:(id)sender;
@@ -191,7 +192,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
     [self.view addSubview:self.overlayView];
 
-    // Buttons
+    // upper portion Buttons
     self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(0,-5, 50, 50)];//CGRectMake(40, self.view.frame.size.height-70, 40, 40)];
     [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
@@ -210,6 +211,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.flashModeButton setBackgroundImage:[UIImage imageNamed:@"flashOff_highlight.png"] forState:UIControlStateHighlighted];
     [self.view addSubview:self.flashModeButton];
     
+    self.luckyButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-150, 10, 22, 22)];
+    [self.luckyButton addTarget:self action:@selector(feelLucky) forControlEvents:UIControlEventTouchUpInside];
+    [self.luckyButton setBackgroundImage:[UIImage imageNamed:@"lucky.png"] forState:UIControlStateNormal];
+    [self.luckyButton setBackgroundImage:[UIImage imageNamed:@"lucky.png"] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.luckyButton];
+    
+    //lower portion Buttons
     self.stillButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-37, self.view.frame.size.height-85, 80, 80)];
     [self.stillButton addTarget:self action:@selector(snapStillImage:) forControlEvents:UIControlEventTouchUpInside];
     [self.stillButton setBackgroundImage:[UIImage imageNamed:@"shutter.png"] forState:UIControlStateNormal];
@@ -507,12 +515,55 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 	});
 }
 
+-(void)feelLucky{
+    dispatch_async([self sessionQueue], ^{
+        // Update the orientation on the still image output video connection before capturing.
+        [AVCamViewController setFlashMode:self.flashMode forDevice:[[self videoDeviceInput] device]];
+        
+        // Capture a still image.
+        [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            
+            if (imageDataSampleBuffer)
+            {
+                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                UIImage *image = [[UIImage alloc] initWithData:imageData];
+                
+                image=[image fixOrientation];
+                
+                if (self.fliped){
+                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
+                    
+                    UIGraphicsBeginImageContext(frame.size);
+                    CGContextRef context = UIGraphicsGetCurrentContext();
+                    
+                    CGContextScaleCTM(context, -1, -1);
+                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
+                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
+                    
+                    image = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
+                }
+                
+                if (self.zoomingScale!=1)
+                    image=[image zoomWithFactor:self.zoomingScale];
+                
+                
+                CCOverlayView *overlayView=self.overlayView;
+                
+                [CCNetUtil feelLucky:image completion:^(NSString * _Nullable reply) {
+                    NSLog(@"%@",reply);                    
+                }];
+            }
+        }];
+    });
+    
+    
+}
+
 - (void)snapStillImage:(id)sender
 {
 	dispatch_async([self sessionQueue], ^{
 		// Update the orientation on the still image output video connection before capturing.
-//		[[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
-		
 	 	[AVCamViewController setFlashMode:self.flashMode forDevice:[[self videoDeviceInput] device]];
 		
 		// Capture a still image.
@@ -544,6 +595,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
                 
                 CCOverlayView *overlayView=self.overlayView;
+                
                 
                 if ([CCCoreUtil isPreviewAfterPhotoTaken]){
                     CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation];

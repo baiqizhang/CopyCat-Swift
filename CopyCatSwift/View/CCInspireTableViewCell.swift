@@ -306,7 +306,9 @@ class CCInspireTableViewCell : UITableViewCell {
     }
     
     func showProfileAction() {
-        delegate?.showProfileAction(self.userID, self._username, self.userImageURI)
+        if self.userID != "0" && self.userID != "nil"  {
+            delegate?.showProfileAction(self.userID, self._username, self.userImageURI)
+        }
     }
 
     /*
