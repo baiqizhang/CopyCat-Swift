@@ -106,7 +106,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         if (collectionView == imageCollectionView) {
             return self.userAlbums[currentIndex].photoList!.count
         } else {
-            return self.userAlbums.count
+            return self.userAlbums.count - 1
         }
     }
     
@@ -136,7 +136,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryReuseIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionViewCell
-            cell.categoryText.text = self.userAlbums[indexPath.row].name
+            cell.categoryText.text = self.userAlbums[indexPath.row+1].name
             return cell
         }
     }
@@ -146,7 +146,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         if collectionView == self.categoryCollectionView{
-            currentIndex = indexPath.item
+            currentIndex = indexPath.item+1
             self.imageCollectionView!.reloadData()
         } else {
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CCCollectionViewCell

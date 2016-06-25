@@ -36,8 +36,8 @@ class CCWelcomeViewController: UIViewController {
         overlayView.delegate = AVCVC
         self.presentViewController(AVCVC, animated: true, completion: { _ in })
         
-//      old style  
-//        let controller = CCPickOverleyViewController()//CCCategoryViewController()
+////      old style  
+//        let controller = CCCategoryViewController()
 //        controller.modalTransitionStyle = .CrossDissolve
 //        self.presentViewController(controller, animated: true, completion: nil)
     }

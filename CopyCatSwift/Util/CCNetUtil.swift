@@ -82,7 +82,7 @@ import CoreData
 
             post.pinCount = 0
             post.likeCount = 0
-            post.id = "aaa"
+            post.id = "nil"
 
             post.timestamp = NSDate(timeIntervalSince1970: subJson["caption"]["created_time"].doubleValue)
 
@@ -210,7 +210,7 @@ import CoreData
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "http://ec2-52-90-75-183.compute-1.amazonaws.com:3000/api/v0/search?labels=\(tag)"
+        let url = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
 //        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
@@ -260,6 +260,49 @@ import CoreData
 
     
     //MARK: Posting data
+    
+    static func feelLucky(image:UIImage,completion:(error: String?) -> Void){
+        //resize before sending
+        let maxdim = max(image.size.width, image.size.height)
+        let mindim = min(image.size.width, image.size.height)
+        var resizedImage = image
+        if maxdim > 320 && mindim > 120{
+            let ratio = Float(720.0 / maxdim)
+            resizedImage = image.resizeWithFactor(ratio)
+        }
+        
+        //base64 encoding
+        let imageData = UIImageJPEGRepresentation(resizedImage,0.8)
+        let base64String = imageData!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        
+        var json = [String: AnyObject]()
+        let _ = String(NSDate())
+        json["data"] = base64String
+        
+        do{
+            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
+            //           HTTPPostJSON(host + "/api/post", data: data, callback: { (response, error) ->
+            HTTPPostJSON(host + "smart", data: data, callback: { (response, error) -> Void in
+                if let _ = error {
+                    completion(error: "Connection Failed")
+                    return
+                }
+                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+                    NSLog("response:%@", datastring)
+                    let json = JSON.parse(datastring)
+                    if let _ = json["labels"].array{
+                        completion( error: nil)
+                    } else{
+                        completion(error: "Connection Failed")
+                    }
+                }
+            })
+        } catch{
+            
+        }
+    }
+    
+    
     static func newPost(image:UIImage,completion:(error: String?) -> Void){
         //resize before sending
         let maxdim = max(image.size.width, image.size.height)
