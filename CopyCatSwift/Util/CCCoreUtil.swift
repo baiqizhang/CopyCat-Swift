@@ -232,7 +232,11 @@ import CoreData
         photo.photoURI = photoURI
 
         category.photoCount = category.photoCount!.integerValue + 1
-        category.mutableOrderedSetValueForKey("photoList").addObject(photo)
+        if category.mutableOrderedSetValueForKey("photoList").count == 0 {
+            category.mutableOrderedSetValueForKey("photoList").addObject(photo)
+        } else {
+            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)//.addObject(photo)
+        }
         
         do{
             try CCCoreUtil.managedObjectContext.save()

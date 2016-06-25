@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import AssetsLibrary
 
-class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,DNImagePickerControllerDelegate{
     
     var imageCollectionView : UICollectionView?
     var categoryCollectionView : UICollectionView?
@@ -26,6 +27,12 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     var currentIndex = 0
     var currentImageIndex = 0
     var currentImage = UIImage(named: "AppIcon.png")
+    
+    
+    //Add image
+    var waitingAssetsCount: Int?
+    var waitingAssetsCountTotal: Int?
+    
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -52,7 +59,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         else {
             height = self.view.frame.size.height - 140
             width = self.view.frame.size.width
-            frame_gallery = CGRectMake(0, 40, width, height-40)
+            frame_gallery = CGRectMake(0, 45, width, height-50)
             frame_category = CGRectMake(0, 40 + height - 40, width, 40)
         }
         
@@ -67,8 +74,8 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
-
- 
+        
+        
         //Collection
         let imageFlowLayout = UICollectionViewFlowLayout()
         imageFlowLayout.minimumInteritemSpacing = 0
@@ -79,7 +86,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         imageCollectionView!.delegate = self
         imageCollectionView!.dataSource = self
         self.view!.addSubview(self.imageCollectionView!)
-
+        
         let categoryFlowLayout = UICollectionViewFlowLayout()
         categoryFlowLayout.minimumInteritemSpacing = 0
         categoryFlowLayout.minimumLineSpacing = 1
@@ -102,15 +109,76 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.delegate?.cancelButton.alpha=1
     }
     
+    
+    // MARK: Add Image
+    
+    func addFromGallery() {
+        if let count = waitingAssetsCount{
+            if count != 0{
+                return
+            }
+        }
+        let imagePicker: DNImagePickerController = DNImagePickerController()
+        imagePicker.imagePickerDelegate = self
+        self.presentViewController(imagePicker, animated: true, completion: { _ in })
+    }
+    
+    func dnImagePickerController(imagePicker: DNImagePickerController!, sendImages imageAssets: [AnyObject]!, isFullImage fullImage: Bool) {
+        waitingAssetsCount = imageAssets.count
+        waitingAssetsCountTotal = self.waitingAssetsCount
+        
+        imagePicker.dismissViewControllerAnimated(true) { () -> Void in
+            let alertVC = CCAlertViewController(style: .ProgressBar)
+            alertVC.modalPresentationStyle = .OverCurrentContext
+            alertVC.modalTransitionStyle = .CrossDissolve
+            
+            self.presentViewController(alertVC, animated: true, completion: nil)
+            
+            for item in imageAssets{
+                let dnasset = item as! DNAsset
+                let lib: ALAssetsLibrary = ALAssetsLibrary()
+                lib.assetForURL(dnasset.url, resultBlock: { (asset : ALAsset!) -> Void in
+                    let assetRep: ALAssetRepresentation = asset.defaultRepresentation()
+                    
+                    let orientValueFromImage = asset.valueForProperty("ALAssetPropertyOrientation") as! NSNumber
+                    let imageOrientation = UIImageOrientation(rawValue: orientValueFromImage.integerValue)!
+                    
+                    
+                    let iref = assetRep.fullResolutionImage().takeUnretainedValue()
+                    let image = UIImage(CGImage: iref, scale: 1, orientation: imageOrientation)
+                    
+                    self.waitingAssetsCount = self.waitingAssetsCount! - 1
+                    
+                    CCCoreUtil.addPhotoForCategory(self.userAlbums[self.currentIndex], image: image)
+                    
+                    alertVC.progress = CGFloat(self.waitingAssetsCountTotal! - self.waitingAssetsCount!) / CGFloat(self.waitingAssetsCountTotal!)
+                    NSRunLoop.mainRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.01))
+                    if self.waitingAssetsCount == 0 {
+                        self.imageCollectionView!.reloadData()
+                        alertVC.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    }, failureBlock: { (error:NSError!) -> Void in
+                        NSLog("%@",error)
+                })
+            }
+        }
+    }
+    
+    func dnImagePickerControllerDidCancel(imagePicker: DNImagePickerController) {
+        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: CollectionView
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == imageCollectionView) {
             return self.userAlbums[currentIndex].photoList!.count
         } else {
-            return self.userAlbums.count - 1
+            return self.userAlbums.count
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        //upper collection view
         if (collectionView == imageCollectionView){
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(galleryReuseIdentifier, forIndexPath: indexPath) as! CCCollectionViewCell
             
@@ -125,18 +193,15 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             if indexPath.item == currentImageIndex{
                 currentImage = cell.image()
             }
-
+            
             cell.alpha = 0.8
-//            if (indexPath.item==self.currentImageIndex){
-//                cell.backgroundColor = UIColor.blackColor()
-//            } else {
-                cell.backgroundColor = UIColor.clearColor()
-//            }
+            cell.backgroundColor = UIColor.clearColor()
             
             return cell
+        //lower collection view
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryReuseIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionViewCell
-            cell.categoryText.text = self.userAlbums[indexPath.row+1].name
+            cell.categoryText.text = self.userAlbums[indexPath.row].name
             return cell
         }
     }
@@ -146,21 +211,25 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         if collectionView == self.categoryCollectionView{
-            currentIndex = indexPath.item+1
+            currentIndex = indexPath.item
             self.imageCollectionView!.reloadData()
         } else {
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CCCollectionViewCell
-            
-            let image : UIImage = cell.image()!
-            currentImageIndex = indexPath.item
-            currentImage = image
-            
-//            cell.flip()
-            //self.imageCollectionView!.reloadData()
-            closeAction()
+            if indexPath.row == 0 {
+                self.addFromGallery()
+            } else {
+                let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CCCollectionViewCell
+                
+                let image : UIImage = cell.image()!
+                currentImageIndex = indexPath.item
+                currentImage = image
+                
+                //            cell.flip()
+                //self.imageCollectionView!.reloadData()
+                closeAction()
+            }
         }
     }
- 
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = imageCollectionView!.bounds.width
         if (collectionView == imageCollectionView){
