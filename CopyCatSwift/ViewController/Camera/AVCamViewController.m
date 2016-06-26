@@ -102,6 +102,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(0);
         overlayView.swipeView.transform=CGAffineTransformMakeRotation(0);
+        
+        [self.overlayPicker rotateUpright];
     }];
     self.orientation=0;
 }
@@ -123,6 +125,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         overlayView.swipeView.transform=CGAffineTransformMakeRotation(-M_PI_2);
+        
+        [self.overlayPicker rotateLeft];
     }];
     self.orientation=1;
 }
@@ -144,6 +148,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         overlayView.swipeView.transform=CGAffineTransformMakeRotation(M_PI_2);
+        
+        [self.overlayPicker rotateRight];
     }];
     self.orientation=-1;
 }

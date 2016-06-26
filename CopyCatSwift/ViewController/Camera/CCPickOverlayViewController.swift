@@ -38,6 +38,59 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         return true
     }
     
+    func rotateLeft(){
+        guard self.imageCollectionView != nil
+            else{
+                return
+            }
+        
+        let height = self.view.frame.size.height - 140
+        let width = self.view.frame.size.width
+
+        self.imageCollectionView?.transform = CGAffineTransformIdentity
+        self.imageCollectionView?.frame = CGRectMake(-25, 120, height-10,width-55)
+        self.imageCollectionView!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
+        
+        self.categoryCollectionView?.transform = CGAffineTransformIdentity
+        self.categoryCollectionView?.frame = CGRectMake(-width/2-25, 22+height/2.0, height-10,40)
+        self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(-M_PI_2));
+    }
+    
+    func rotateRight(){
+        guard self.imageCollectionView != nil
+            else{
+                return
+        }
+        let height = self.view.frame.size.height - 140
+        let width = self.view.frame.size.width
+        
+        self.imageCollectionView?.transform = CGAffineTransformIdentity
+        self.imageCollectionView?.frame = CGRectMake(-25, 120, height-10,width-55)
+        self.imageCollectionView?.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2));
+        
+        
+        self.categoryCollectionView?.transform = CGAffineTransformIdentity
+        self.categoryCollectionView?.frame = CGRectMake(-width/2-25, 20+height/2.0, height-10,40)
+        self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(M_PI_2));
+    }
+    func rotateUpright(){
+        guard self.imageCollectionView != nil
+            else{
+                return
+        }
+        
+        let height = self.view.frame.size.height - 140
+        let width = self.view.frame.size.width
+        
+        self.imageCollectionView?.transform = CGAffineTransformIdentity
+        self.imageCollectionView?.frame = CGRectMake(0, 45, width, height-50)
+        self.imageCollectionView?.transform=CGAffineTransformMakeRotation(0);
+        
+        self.categoryCollectionView?.transform = CGAffineTransformIdentity
+        self.categoryCollectionView?.frame = CGRectMake(0, 40 + height - 40, width, 40)
+        self.categoryCollectionView?.transform=CGAffineTransformMakeRotation (0.0);
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,6 +116,9 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             frame_category = CGRectMake(0, 40 + height - 40, width, 40)
         }
         
+        let bgView = UIView(frame: CGRectMake(0, 40, width, height))
+        bgView.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.5)
+        view.addSubview(bgView)
         
         //grab categories
         userAlbums = CCCoreUtil.categories as NSArray as! [CCCategory]
@@ -194,7 +250,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
                 currentImage = cell.image()
             }
             
-            cell.alpha = 0.8
+            cell.alpha = 0.9
             cell.backgroundColor = UIColor.clearColor()
             
             return cell
@@ -233,7 +289,11 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = imageCollectionView!.bounds.width
         if (collectionView == imageCollectionView){
-            return CGSize(width: screenWidth/3-3, height: screenWidth/3-3)
+            if collectionView.frame.width == self.view.frame.width{
+                return CGSize(width: screenWidth/3-3, height: screenWidth/3-3)
+            } else {
+                return CGSize(width: collectionView.frame.height/4-4, height: collectionView.frame.height/4-4)
+            }
         } else {
             return CGSize(width: screenWidth/4-1, height: 40)
         }
