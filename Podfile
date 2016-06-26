@@ -8,7 +8,9 @@ target 'CopyCatSwift' do
     pod 'Gecco'
     pod 'Fabric'
     pod 'Crashlytics'
-    
+    source 'https://github.com/CocoaPods/Specs.git'
+    platform :ios, '8.0'
+    pod 'Kingfisher', '~> 2.4'
     use_frameworks!
 end
 
