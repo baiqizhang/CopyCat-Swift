@@ -40,6 +40,8 @@ class CCOverlayView: UIView {
     let sizeFactor: CGFloat = 55.0
     let positionFactor : CGFloat = 0.5
     
+    var refOrientation = 0.0
+    
     
     func prepareAnimation() {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -67,7 +69,6 @@ class CCOverlayView: UIView {
         })
         self.stopAnimation = true
     }
-    
     
     func playAnimation(){
         if self.stopAnimation {
@@ -201,6 +202,11 @@ class CCOverlayView: UIView {
         //rotate if width > height
         if image.size.width > image.size.height {
             image = image.rotateInDegrees(-90.0)
+            self.refOrientation = -90
+            print("RefOrientation!!!!!!!", refOrientation)
+        } else {
+            self.refOrientation = 0
+            print("RefOrientation!!!!!!!", refOrientation)
         }
         self.image=image;
         self.imageView?.image = image
@@ -230,6 +236,7 @@ class CCOverlayView: UIView {
         //rotate if width > height
         if image.size.width > image.size.height {
             image = image.rotateInDegrees(-90.0)
+            self.refOrientation = -90
         }
         self.image=image;
         self.imageView = UIImageView.init(image: image)
