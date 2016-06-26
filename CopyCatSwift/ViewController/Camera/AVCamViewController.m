@@ -32,6 +32,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @property (nonatomic, strong) UIButton *cameraButton;
 @property (nonatomic, strong) UIButton *flashModeButton;
 @property (nonatomic, strong) UIButton *luckyButton;
+@property (nonatomic, strong) UIButton *setRefButton;
 
 
 - (void)changeCamera:(id)sender;
@@ -58,6 +59,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 // Rotation
 @property(nonatomic,strong) CMMotionManager * motionManager;
 @property(nonatomic) NSInteger orientation;
+
+
+@property(nonatomic,strong) CCPickOverleyViewController * overlayPicker;
 
 @end
 
@@ -92,6 +96,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(0);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(0);
         self.cameraButton.transform=CGAffineTransformMakeRotation(0);
+        self.luckyButton.transform=CGAffineTransformMakeRotation(0);
+        self.setRefButton.transform=CGAffineTransformMakeRotation(0);
         
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(0);
@@ -111,6 +117,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         self.cameraButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
+        self.luckyButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
+        self.setRefButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
         
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(-M_PI_2);
@@ -130,6 +138,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         self.cancelButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         self.flashModeButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         self.cameraButton.transform=CGAffineTransformMakeRotation(M_PI_2);
+        self.luckyButton.transform=CGAffineTransformMakeRotation(M_PI_2);
+        self.setRefButton.transform=CGAffineTransformMakeRotation(M_PI_2);
         
         CCOverlayView * overlayView=self.overlayView;
         overlayView.transparencyButton.transform=CGAffineTransformMakeRotation(M_PI_2);
@@ -227,12 +237,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
     [self.libraryButton setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.libraryButton];
-
     
-    UIButton * transparencyButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)];
-    [transparencyButton addTarget:self action:@selector(setRefImage) forControlEvents:UIControlEventTouchUpInside];
-    [transparencyButton setTitle:@"SetRef" forState:UIControlStateNormal];
-    [self.view addSubview:transparencyButton];
+    self.setRefButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)];
+    [self.setRefButton addTarget:self action:@selector(setRefImage) forControlEvents:UIControlEventTouchUpInside];
+    [self.setRefButton setTitle:@"SetRef" forState:UIControlStateNormal];
+    [self.view addSubview:self.setRefButton];
+    
+    self.overlayPicker = [[CCPickOverleyViewController alloc]init];
     
     self.flashMode=AVCaptureFlashModeOff;
     
@@ -400,10 +411,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.overlayView setAlpha:0];
     [self.cancelButton setAlpha:0];
     
-    CCPickOverleyViewController * vc = [[CCPickOverleyViewController alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    vc.delegate = self;
-    [self presentViewController:vc animated:NO completion:nil];
+    self.overlayPicker.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    self.overlayPicker.delegate = self;
+    [self presentViewController:self.overlayPicker animated:NO completion:nil];
 }
 
 - (void)cameraZoom:(float)scale {
