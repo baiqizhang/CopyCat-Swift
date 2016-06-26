@@ -127,6 +127,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         
         //grab categories
         userAlbums = CCCoreUtil.categories as NSArray as! [CCCategory]
+        userAlbums.removeAtIndex(0)
         // userAlbums[0] = mergePhotoCategories(userAlbums) // deprecated
         NSLog("%@", userAlbums)
         
