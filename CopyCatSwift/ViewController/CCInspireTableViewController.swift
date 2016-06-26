@@ -228,6 +228,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
 
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.tableView.reloadData()
+                        self.tableView.setContentOffset(CGPointZero, animated: true)
                     })
                 }
             })
