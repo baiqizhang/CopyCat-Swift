@@ -203,10 +203,8 @@ class CCOverlayView: UIView {
         if image.size.width > image.size.height {
             image = image.rotateInDegrees(-90.0)
             self.refOrientation = -90
-            print("RefOrientation!!!!!!!", refOrientation)
         } else {
             self.refOrientation = 0
-            print("RefOrientation!!!!!!!", refOrientation)
         }
         self.image=image;
         self.imageView?.image = image
