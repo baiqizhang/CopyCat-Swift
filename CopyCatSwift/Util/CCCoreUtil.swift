@@ -112,7 +112,7 @@ import CoreData
         
         // Core data version number. should not be decreased.
         // version 1: 06/25/2016
-        let newestVersion = 2
+        let newestVersion = 1
         
         if let _ = userDefault.stringForKey("initialized"){
             
