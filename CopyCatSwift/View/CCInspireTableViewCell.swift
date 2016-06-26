@@ -7,52 +7,49 @@
 //
 
 import UIKit
+import Kingfisher
 
 @IBDesignable
 class CCInspireTableViewCell : UITableViewCell {
     var userID = ""
-    
+    let myCache = ImageCache(name: "all_image_cache")
+    let imageDownloader = ImageDownloader(name: "user_profile_downloader")
+    let padding : CGFloat = -7.0
     // Image
     private var count = 0
     let myImageView = UIImageView()
-    
     private var _myImageURI = ""
     var myImageURI : String{
         set{
             _myImageURI = newValue
             
             self.myImageView.image = nil
+            self.myImageView.kf_showIndicatorWhenLoading = true
             self.myImageView.alpha = 0
             count += 1
             myImageView.frame=CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 40);
             myImageView.contentMode = .ScaleAspectFill
             myImageView.clipsToBounds = true
-            
             dispatch_async(dispatch_get_global_queue(0, 0)) { () -> Void in
                 if let image = UIImage(named: newValue){
                     self.myImageView.image = image
                 } else {
                     guard
-                        let url = NSURL(string: newValue)
-                        else {return}
-                    NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
-                        guard
-                            let data = data where error == nil,
-                            let image = UIImage(data: data)
-                            else { return }
-//                        image = image.resizeWithFactor(0.3)
-                        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                            self.count -= 1
-                            if self.count != 0 {
-                                return
-                            }
-                            self.myImageView.image = image
-                            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                                self.myImageView.alpha = 1
-                            })
-                            
-                        }
-                    }).resume()
+                        let url = NSURL(string: newValue) else {return}
+                    let isImageCached = self.myCache.isImageCachedForKey(newValue).cached
+
+                    self.myImageView.kf_setImageWithURL(url, optionsInfo: [.TargetCache(self.myCache)])
+                    if (!isImageCached) {
+                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                            self.myImageView.alpha = 1
+                        })
+                    } else {
+                        self.myImageView.alpha = 1
+                    }
+                    self.count -= 1
+                    if self.count != 0 {
+                        return
+                    }
                 }
             }
         }
@@ -112,7 +109,7 @@ class CCInspireTableViewCell : UITableViewCell {
             return self.timestamp
         }
     }
-
+    
     // Counts
     private let likeCountLabel = UILabel()
     var likeCount : Int{
@@ -140,7 +137,7 @@ class CCInspireTableViewCell : UITableViewCell {
             return pcount
         }
     }
-
+    
     
     private let userImageView = UIImageView()
     private var _userImageURI = ""
@@ -151,20 +148,32 @@ class CCInspireTableViewCell : UITableViewCell {
                 guard
                     let url = NSURL(string: newValue)
                     else {return}
-                NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
+                
+                /*NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, _, error) -> Void in
                     guard
                         let data = data where error == nil,
                         let image = UIImage(data: data)
                         else { return }
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        let padding : CGFloat = -7.0
+                        
                         self.userImageView.image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
                         UIView.animateWithDuration(0.1, animations: { () -> Void in
                             self.userImageView.alpha = 1
                         })
                         
                     }
-                }).resume()
+                }).resume()*/
+                self.imageDownloader.downloadImageWithURL(url,
+                                                          options: [.TargetCache(self.myCache)],
+                                                          progressBlock: nil,
+                                                          completionHandler: { (image, error, cacheType, imageURL) -> () in
+                                                            if let img = image {
+                                                                self.userImageView.image = img.imageWithAlignmentRectInsets(UIEdgeInsetsMake(self.padding, self.padding, self.padding, self.padding))
+                                                                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                                                                    self.myImageView.alpha = 1
+                                                                })
+                                                            }
+                })
             }
         }
         get{
@@ -172,7 +181,7 @@ class CCInspireTableViewCell : UITableViewCell {
             return self._userImageURI
         }
     }
-
+    
     
     
     private let likeButton = UIButton()
@@ -186,12 +195,12 @@ class CCInspireTableViewCell : UITableViewCell {
         self.backgroundColor = .whiteColor()
         
         self.userImageURI = ""
-
+        
         myImageView.alpha = 0.0
         self.addSubview(usernameLabel)
         self.addSubview(myImageView)
         self.addSubview(timestampLabel)
-
+        
         // User ImageView
         let padding : CGFloat = -7.0
         let image = UIImage(named: "AppIcon.png")?.imageWithAlignmentRectInsets(UIEdgeInsetsMake(padding, padding, padding, padding))
@@ -206,7 +215,7 @@ class CCInspireTableViewCell : UITableViewCell {
         userImageView.userInteractionEnabled = true
         userImageView.addGestureRecognizer(tapGestureRecognizer)
         self.addSubview(userImageView)
-
+        
         // Button Inset
         let buttonPadding : CGFloat = -10.0
         let inset = UIEdgeInsetsMake(buttonPadding, buttonPadding, buttonPadding, buttonPadding)
@@ -216,7 +225,7 @@ class CCInspireTableViewCell : UITableViewCell {
         likeButton.setBackgroundImage(UIImage(named: "like2_highlight.png"), forState: .Highlighted)
         likeButton.addTarget(self, action: #selector(CCInspireTableViewCell.likeAction), forControlEvents: .TouchUpInside)
         //self.addSubview(likeButton)
-
+        
         // More button
         moreButton.setBackgroundImage(UIImage(named: "more.png")?.imageWithAlignmentRectInsets(inset), forState: .Normal)
         moreButton.setBackgroundImage(UIImage(named: "more.png"), forState: .Highlighted)
@@ -233,7 +242,7 @@ class CCInspireTableViewCell : UITableViewCell {
         likeCountLabel.textColor = .blackColor()//.blueColor()
         likeCountLabel.textAlignment = .Left
         likeCountLabel.font = UIFont.systemFontOfSize(10.5)
-//        self.addSubview(likeCountLabel)
+        //        self.addSubview(likeCountLabel)
         
         // Pin count
         pinCountLabel.textColor = .blackColor()//.blueColor()
@@ -241,7 +250,7 @@ class CCInspireTableViewCell : UITableViewCell {
         pinCountLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 16.0)
         pinCountLabel.alpha = 1.0
         self.addSubview(pinCountLabel)
-
+        
         
         // More button constraint
         moreButton.translatesAutoresizingMaskIntoConstraints = false
@@ -256,7 +265,7 @@ class CCInspireTableViewCell : UITableViewCell {
         // Pin button constraint
         pinButton.translatesAutoresizingMaskIntoConstraints = false
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: moreButton, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: -15))
-
+        
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
         addConstraint(NSLayoutConstraint(item: pinButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
@@ -282,9 +291,9 @@ class CCInspireTableViewCell : UITableViewCell {
         addConstraint(NSLayoutConstraint(item: userImageView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
         
         addConstraint(NSLayoutConstraint(item: userImageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40))
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -296,7 +305,7 @@ class CCInspireTableViewCell : UITableViewCell {
             pinCount = pinCount + 1
         }
     }
-
+    
     func likeAction(){
         delegate?.likeAction()
     }
@@ -310,20 +319,20 @@ class CCInspireTableViewCell : UITableViewCell {
             delegate?.showProfileAction(self.userID, self._username, self.userImageURI)
         }
     }
-
+    
     /*
-        make the cell as CardView. https://github.com/aclissold/CardView
-    */
+     make the cell as CardView. https://github.com/aclissold/CardView
+     */
     @IBInspectable var cornerRadius: CGFloat = 2
     @IBInspectable var shadowOffsetWidth: Int = 0
     @IBInspectable var shadowOffsetHeight: Int = 3
     @IBInspectable var shadowColor: UIColor? = UIColor.blackColor()
     @IBInspectable var shadowOpacity: Float = 0.5
-
+    
     override func layoutSubviews() {
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-
+        
         layer.masksToBounds = false
         layer.shadowColor = shadowColor?.CGColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);

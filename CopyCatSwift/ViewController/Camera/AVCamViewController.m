@@ -614,7 +614,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 
                 
                 if ([CCCoreUtil isPreviewAfterPhotoTaken]){
-                    CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation];
+                    CCOverlayView* ovlv = (CCOverlayView*) self.overlayView;
+                    CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation refOrientation:ovlv.refOrientation];
                     pvc.delegate=self;
                     [self presentViewController:pvc animated:NO completion:nil];
                 } else{
