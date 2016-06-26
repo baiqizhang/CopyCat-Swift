@@ -14,6 +14,8 @@ import CoreData
     static let userDefault = NSUserDefaults.standardUserDefaults()
     static let VERSION_KEY = "core_version"
     
+    static var initializing = true
+    
     // MARK: Settings
     static var isUsingBackgrondMode : Int {
         set{
@@ -144,6 +146,8 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+                // TODO: migrate old photos
+                
                 userDefault.setInteger(coreVersion, forKey: VERSION_KEY)
             }
             //Creating entries
@@ -238,8 +242,9 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
-
+            userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
         }
+        initializing = false
     }
     
     //MARK: Create
@@ -279,6 +284,7 @@ import CoreData
         }catch{
             
         }
+        
         return addPhotoForCategory(category, photoURI:uri)
     }
     
@@ -299,6 +305,11 @@ import CoreData
         }catch{
             NSLog("Save error!")
         }
+        
+        if let name = category.name where name != "All" && !initializing {
+            addPhotoForCategory(self.categories[1] as! CCCategory, photoURI: photoURI)
+        }
+        
         return photo
     }
     
