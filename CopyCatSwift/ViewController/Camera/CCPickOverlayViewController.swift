@@ -309,7 +309,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
                 return CGSize(width: collectionView.frame.height/4-4, height: collectionView.frame.height/4-4)
             }
         } else {
-            return CGSize(width: screenWidth/4-1, height: 40)
+            return CGSize(width: 80, height: 40)
         }
     }
 }
