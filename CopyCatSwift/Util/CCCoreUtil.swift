@@ -12,6 +12,9 @@ import CoreData
     // MARK: Persistance
     static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     static let userDefault = NSUserDefaults.standardUserDefaults()
+    static let VERSION_KEY = "core_version"
+    
+    static var initializing = true
     
     // MARK: Settings
     static var isUsingBackgrondMode : Int {
@@ -106,7 +109,47 @@ import CoreData
     }
     
     static func prepare(){
+        
+        // Core data version number. should not be decreased.
+        // version 1: 06/25/2016
+        let newestVersion = 1
+        
         if let _ = userDefault.stringForKey("initialized"){
+            
+            // Version Check
+            var coreVersion = userDefault.integerForKey(VERSION_KEY)
+            
+            if coreVersion > 0 {
+                
+                // check if core data is new
+                if coreVersion < newestVersion {
+                    
+                    // Do some migration here
+                    // ...
+                    
+                    coreVersion = newestVersion
+                }
+                
+                // make sure version is set
+                userDefault.setInteger(coreVersion, forKey: VERSION_KEY)
+                
+            } else {
+                // old age version, add All category
+                let category = CCCoreUtil.addCategory("All", bannerURI:"banner0.png", position: 1)
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+                // TODO: migrate old photos
+                
+                userDefault.setInteger(coreVersion, forKey: VERSION_KEY)
+            }
             //Creating entries
             let categoriesFetch = NSFetchRequest(entityName: "Category")
 
@@ -118,6 +161,7 @@ import CoreData
                 NSLog("Not found")
             }
         } else {
+            // Initialization
             userDefault.setObject(true, forKey: "initialized")
             
             userDefault.setBool(Bool(false), forKey: "welcomeGuide")
@@ -130,6 +174,18 @@ import CoreData
             userDefault.setInteger(Int(0), forKey: "categoryCount")
             var category : CCCategory
             category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
+            
+            category = CCCoreUtil.addCategory("All",bannerURI:"banner0.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
 
             category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -186,13 +242,14 @@ import CoreData
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
-
+            userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
         }
+        initializing = false
     }
     
     //MARK: Create
     
-    static func addCategory(name: String, bannerURI : String) -> CCCategory{
+    static func addCategory(name: String, bannerURI: String, position: Int = -1) -> CCCategory{
         let category = NSEntityDescription.insertNewObjectForEntityForName("Category",
             inManagedObjectContext: CCCoreUtil.managedObjectContext) as! CCCategory
         category.id = categoryCount-1
@@ -200,7 +257,11 @@ import CoreData
         category.name = name
         category.photoCount = 0
         category.bannerURI = bannerURI
-        CCCoreUtil.categories.addObject(category)
+        if position == -1 {
+            CCCoreUtil.categories.addObject(category)
+        } else {
+            CCCoreUtil.categories.insertObject(category, atIndex: position)
+        }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
@@ -223,6 +284,7 @@ import CoreData
         }catch{
             
         }
+        
         return addPhotoForCategory(category, photoURI:uri)
     }
     
@@ -243,6 +305,11 @@ import CoreData
         }catch{
             NSLog("Save error!")
         }
+        
+        if let name = category.name where name != "All" && !initializing {
+            addPhotoForCategory(self.categories[1] as! CCCategory, photoURI: photoURI)
+        }
+        
         return photo
     }
     
