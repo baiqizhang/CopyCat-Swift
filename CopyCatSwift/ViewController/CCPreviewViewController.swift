@@ -32,6 +32,7 @@ class CCPreviewViewController : UIViewController {
     var flipButton: UIButton?
     var shareTaken: UIButton?
     var shareOrigin: UIButton?
+    var refOrientation: Float = 0
     
     var _sharingOrigin = true
     var sharingOrigin: Bool {
@@ -114,19 +115,19 @@ class CCPreviewViewController : UIViewController {
             })
         })
         
-        // TODO: Share Image
         if sharingTaken {
             CCNetUtil.newPost(self.image!, completion: { (error:String?) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    print("Original Image Uploaded")
+                    print("Token Image Uploaded")
                 })
             })
         }
         
         if sharingOrigin {
-            CCNetUtil.newPost(self.refImage!, completion: { (error:String?) -> Void in
+            let resetImage = self.refImage!.rotateInDegrees(-self.refOrientation)
+            CCNetUtil.newPost(resetImage, completion: { (error:String?) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    print("Token Image Uploaded")
+                    print("Origin Image Uploaded")
                 })
             })
         }
@@ -155,9 +156,9 @@ class CCPreviewViewController : UIViewController {
     }
     
     
-    init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int) {
+    init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int, refOrientation: Float) {
         super.init(nibName: nil, bundle: nil)
-        
+        self.refOrientation = refOrientation
         self.image = image
         self.refImage = refImage
         self.imageOrientation = orientation
