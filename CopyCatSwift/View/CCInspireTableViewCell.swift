@@ -15,6 +15,7 @@ class CCInspireTableViewCell : UITableViewCell {
     let myCache = ImageCache(name: "all_image_cache")
     let imageDownloader = ImageDownloader(name: "user_profile_downloader")
     let padding : CGFloat = -7.0
+    
     // Image
     private var count = 0
     let myImageView = UIImageView()

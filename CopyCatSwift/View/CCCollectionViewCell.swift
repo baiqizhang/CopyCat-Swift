@@ -31,6 +31,17 @@ class CCCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func pick(){
+        if self.deleteFlag! == 0
+        {
+            self.overlayView!.alpha=1
+            self.deleteFlag = 1 - self.deleteFlag!
+        }else{
+            self.overlayView!.alpha=0
+            self.deleteFlag = 1 - self.deleteFlag!
+        }
+    }
+    
     func flip() -> Bool {
         if self.deleteFlag! == 0
         {

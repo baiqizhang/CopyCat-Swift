@@ -24,8 +24,9 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     internal var delegate : AVCamViewController?
     
     var userAlbums : [CCCategory] = []
-    var currentIndex = 0
-    var currentImageIndex = 0
+    static var lastIndex = 0
+    static var lastImageIndex = 1
+    static var currentIndex = 0
     var currentImage = UIImage(named: "AppIcon.png")
     
     
@@ -89,6 +90,10 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
         self.categoryCollectionView?.frame = CGRectMake(0, 40 + height - 40, width, 40)
         self.categoryCollectionView?.transform=CGAffineTransformMakeRotation (0.0);
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.imageCollectionView?.reloadData()
     }
     
     override func viewDidLoad() {
@@ -205,7 +210,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
                     
                     self.waitingAssetsCount = self.waitingAssetsCount! - 1
                     
-                    CCCoreUtil.addPhotoForCategory(self.userAlbums[self.currentIndex], image: image)
+                    CCCoreUtil.addPhotoForCategory(self.userAlbums[CCPickOverleyViewController.currentIndex], image: image)
                     
                     alertVC.progress = CGFloat(self.waitingAssetsCountTotal! - self.waitingAssetsCount!) / CGFloat(self.waitingAssetsCountTotal!)
                     NSRunLoop.mainRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.01))
@@ -227,7 +232,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     //MARK: CollectionView
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == imageCollectionView) {
-            return self.userAlbums[currentIndex].photoList!.count
+            return self.userAlbums[CCPickOverleyViewController.currentIndex].photoList!.count
         } else {
             return self.userAlbums.count
         }
@@ -238,7 +243,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         if (collectionView == imageCollectionView){
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(galleryReuseIdentifier, forIndexPath: indexPath) as! CCCollectionViewCell
             
-            let photo = self.userAlbums[currentIndex].photoList![indexPath.row] as! CCPhoto
+            let photo = self.userAlbums[CCPickOverleyViewController.currentIndex].photoList![indexPath.row] as! CCPhoto
             
             cell.backgroundColor = .whiteColor()
             
@@ -246,18 +251,26 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             cell.delegate = self
             cell.coreData = photo
             
-            if indexPath.item == currentImageIndex{
-                currentImage = cell.image()
-            }
-            
             cell.alpha = 0.9
             cell.backgroundColor = UIColor.clearColor()
             
+            // highlight
+            if indexPath.item == CCPickOverleyViewController.lastImageIndex &&
+            CCPickOverleyViewController.currentIndex == CCPickOverleyViewController.lastIndex{
+                currentImage = cell.image()
+                cell.pick()
+            }
+
             return cell
         //lower collection view
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryReuseIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionViewCell
             cell.categoryText.text = self.userAlbums[indexPath.row].name
+            if indexPath.row == CCPickOverleyViewController.currentIndex{
+                cell.categoryText.textColor = UIColor(red: 65.0/255, green: 175.0/255, blue: 1, alpha: 1)
+            } else {
+                cell.categoryText.textColor = UIColor.whiteColor()
+            }
             return cell
         }
     }
@@ -266,9 +279,12 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
+        //category
         if collectionView == self.categoryCollectionView{
-            currentIndex = indexPath.item
+            CCPickOverleyViewController.currentIndex = indexPath.item
             self.imageCollectionView!.reloadData()
+            self.categoryCollectionView!.reloadData()
+        //image
         } else {
             if indexPath.row == 0 {
                 self.addFromGallery()
@@ -276,11 +292,9 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
                 let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CCCollectionViewCell
                 
                 let image : UIImage = cell.image()!
-                currentImageIndex = indexPath.item
+                CCPickOverleyViewController.lastImageIndex = indexPath.item
+                CCPickOverleyViewController.lastIndex = CCPickOverleyViewController.currentIndex
                 currentImage = image
-                
-                //            cell.flip()
-                //self.imageCollectionView!.reloadData()
                 closeAction()
             }
         }
