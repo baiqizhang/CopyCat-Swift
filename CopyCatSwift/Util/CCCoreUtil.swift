@@ -116,24 +116,35 @@ import CoreData
         
         if let _ = userDefault.stringForKey("initialized"){
             
+            //Creating entries
+            let categoriesFetch = NSFetchRequest(entityName: "Category")
+
+            do{
+                let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+                NSLog("categoryList:%@\ncount:%d", list, list.count)
+                self.categories = list.mutableCopy() as! NSMutableArray
+            }catch{
+                NSLog("Not found")
+            }
+            
             // Version Check
-            var coreVersion = userDefault.integerForKey(VERSION_KEY)
+            let coreVersion = userDefault.integerForKey(VERSION_KEY)
             
             if coreVersion > 0 {
+                // Yeah, Version Controlled Core
+                print("Version Controlled!!!!", coreVersion)
                 
                 // check if core data is new
                 if coreVersion < newestVersion {
-                    
+                    print("Old Version")
                     // Do some migration here
                     // ...
                     
-                    coreVersion = newestVersion
                 }
                 
-                // make sure version is set
-                userDefault.setInteger(coreVersion, forKey: VERSION_KEY)
-                
             } else {
+                print("Old Age!!!")
+                
                 // old age version, add All category
                 let category = CCCoreUtil.addCategory("All", bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -147,18 +158,6 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
                 // TODO: migrate old photos
-                
-                userDefault.setInteger(coreVersion, forKey: VERSION_KEY)
-            }
-            //Creating entries
-            let categoriesFetch = NSFetchRequest(entityName: "Category")
-
-            do{
-                let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
-                NSLog("categoryList:%@\ncount:%d", list, list.count)
-                self.categories = list.mutableCopy() as! NSMutableArray
-            }catch{
-                NSLog("Not found")
             }
         } else {
             // Initialization
@@ -260,6 +259,7 @@ import CoreData
         if position == -1 {
             CCCoreUtil.categories.addObject(category)
         } else {
+            print("There!!!!!!!!", name)
             CCCoreUtil.categories.insertObject(category, atIndex: position)
         }
         
