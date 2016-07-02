@@ -294,6 +294,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryReuseIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionViewCell
             cell.categoryText.text = self.userAlbums[indexPath.row].name
+            cell.categoryText.textAlignment = .Center
             if indexPath.row == CCPickOverleyViewController.currentIndex{
                 cell.categoryText.textColor = UIColor(red: 65.0/255, green: 175.0/255, blue: 1, alpha: 1)
             } else {

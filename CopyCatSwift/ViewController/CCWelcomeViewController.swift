@@ -24,7 +24,7 @@ class CCWelcomeViewController: UIViewController {
     private var toShow : [UIView] = []
 
     // Actions
-    func openGallery(){
+    func openGalleryWithImage(image:UIImage){
         // show animation each time user re-enter categoryview
         let userDefault = NSUserDefaults.standardUserDefaults()
         userDefault.removeObjectForKey("isFirstTimeUser")
@@ -32,7 +32,7 @@ class CCWelcomeViewController: UIViewController {
         
         //create overlay view
         let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        let overlayView = CCOverlayView(frame: frame, image: UIImage(named: "0_0.jpg")!)
+        let overlayView = CCOverlayView(frame: frame, image: image)
         
         //open camera
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
@@ -61,14 +61,6 @@ class CCWelcomeViewController: UIViewController {
         let ccGuide = CCGuideViewController()
         self.presentViewController(ccGuide, animated: true, completion: nil)
     }
-
-    
-    func openInstagramLogin() {
-        let vc = InstagramLoginViewController()
-        vc.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-
     
     func getStarted() {
         UIView.animateWithDuration(0.3) { () -> Void in
@@ -82,29 +74,20 @@ class CCWelcomeViewController: UIViewController {
             }
         }
     }
-
+    func pickImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+//        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .PhotoLibrary
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
     // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     override func viewWillAppear(animated: Bool) {
-        
-//        NSLog("user type = \(CCCoreUtil.userType)")
-//        switch CCCoreUtil.userType {
-//        case 1:
-//            instagramLoingButton.removeTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
-//            instagramLoingButton.alpha = 0
-//            break
-//        default:
-//            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
-//            instagramLoingButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
-//            instagramLoingButton.addTarget(self, action: "openInstagramLogin", forControlEvents: .TouchUpInside)
-//            instagramLoingButton.alpha = 1
-//        }
-        
-         let inset = UIEdgeInsetsMake(7.5, 7.5, 12.5, 12.5)
-
-        
+        let inset = UIEdgeInsetsMake(7.5, 7.5, 12.5, 12.5)
         profileButton.setImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: UIControlState.Normal)
         profileButton.contentEdgeInsets = inset
     }
@@ -158,9 +141,32 @@ class CCWelcomeViewController: UIViewController {
 //        libraryLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
 //        self.view!.addSubview(libraryLabel)
 
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(CCWelcomeViewController.openProfile))
+        
+        profileButton.addGestureRecognizer(singleTap)
+        profileButton.userInteractionEnabled = true
+        
+        profileButton.imageView?.layer.cornerRadius = 12
+        profileButton.imageView?.clipsToBounds = true
+        profileButton.imageView?.layer.borderWidth = 1
+        profileButton.imageView?.layer.borderColor = UIColor.whiteColor().CGColor
+        view!.addSubview(profileButton)
+        
+        profileButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
+        
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
+        
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
+        
+        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
         
         
-        let searchTextField = UITextField(frame: CGRectMake(self.view.frame.size.width/2 - 120, 300 , 250, 30))
+        
+        
+        
+        
+        let searchTextField = UITextField(frame: CGRectMake(self.view.frame.size.width/2 - 120, 300 , 250, 35))
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
         searchTextField.keyboardType = .ASCIICapable
@@ -175,9 +181,6 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.attributedPlaceholder = NSAttributedString(string:"What to capture today? e.g. coffee",
                                                                    attributes:[NSForegroundColorAttributeName: UIColor.grayColor()])
 
-//        let magnifyingGlass = UILabel()
-//        magnifyingGlass.text = " 🔍"
-//        magnifyingGlass.sizeToFit()
         
         let magnifyingGlass = UIImageView(frame: CGRectMake(5, 0, 20, 20))
         magnifyingGlass.image = UIImage(named: "search.png")
@@ -193,29 +196,26 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(searchTextField)
         
         
+        let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 90, 360 , 20, 35))
+        orView.text = "or"
+        orView.textColor = .whiteColor()
+        orView.font = UIFont.systemFontOfSize(14)
+        view.addSubview(orView)
+        
+        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, 360 , 130, 35))
+        library.setAttributedTitle(NSAttributedString(string:"Use my own photo",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
+        library.layer.borderColor = UIColor(hexNumber: 0x888888).CGColor
+        library.layer.borderWidth = 0.5
+        library.layer.cornerRadius = 10.0;
+        library.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.3)
+        library.addTarget(self, action: #selector(pickImage), forControlEvents: UIControlEvents.TouchUpInside)
+        view.addSubview(library)
+        
+        
         
 
-        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(CCWelcomeViewController.openProfile))
-        
-        profileButton.addGestureRecognizer(singleTap)
-        profileButton.userInteractionEnabled = true
-        
-        profileButton.imageView?.layer.cornerRadius = 12
-        profileButton.imageView?.clipsToBounds = true
-        profileButton.imageView?.layer.borderWidth = 1
-        profileButton.imageView?.layer.borderColor = UIColor.whiteColor().CGColor
-        view!.addSubview(profileButton)
-       
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
 
-        
         //Placeholder for Fading
         self.placeHolderImageView.frame = self.view.frame
         if self.view.frame.size.height == 568 {
@@ -261,53 +261,20 @@ class CCWelcomeViewController: UIViewController {
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         
+        
+        
         toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,profileButton]
+        toShow = [backgroundImageView,searchTextField,profileButton,library]
         for view in self.toShow{
             view.alpha = 0
             view.userInteractionEnabled = false
         }
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    //Fading
-    override func viewDidAppear(animated: Bool) {
-//        if CCCoreUtil.userType > 0 {
-//        }
-//        
-//        if (CCCoreUtil.welcomeGuide == false) {
-//            userGuide()
-//            CCCoreUtil.didWelcomeGuide()
-//        }
-        
-        
-
-        
-//        //Close
-//        closeButton.frame = CGRectMake(5, -5, 40, 40)
-//        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-//        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-//        closeButton.addTarget(self, action: "closeAction", forControlEvents: .TouchUpInside)
-//        view!.addSubview(closeButton)
-//        
-//        let webView:UIWebView = UIWebView(frame: CGRectMake(0, 30, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
-//        let authorize_url = "https://www.instagram.com"
-//        print(authorize_url)
-//        webView.loadRequest(NSURLRequest(URL: NSURL(string: authorize_url)!))
-//        self.view.addSubview(webView)
-    }
-    
 }
 
 extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-//        let alert = UIAlertView(title: "Search", message: textField.text, delegate: nil, cancelButtonTitle: "OK" )
-//        alert.show()
         let vc = CCInspireCollectionViewController(tag: textField.text!)
         vc.modalTransitionStyle = .CrossDissolve
         presentViewController(vc, animated: true, completion: nil)
@@ -317,3 +284,12 @@ extension CCWelcomeViewController:UITextFieldDelegate{
 
 
 
+extension CCWelcomeViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        dismissViewControllerAnimated(true) { 
+            if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                self.openGalleryWithImage(pickedImage)
+            }
+        }
+    }
+}
