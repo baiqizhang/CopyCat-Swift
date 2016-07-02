@@ -31,9 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //apparances
         CCFramedButton.appearance().backgroundColor = UIColor(white: 0, alpha: 0.5)
-        UILabel.appearance().textColor = UIColor.whiteColor()
-        UILabel.appearance().textAlignment = .Center
-        
+//        UILabel.appearance().textColor = UIColor.whiteColor()
+//        UILabel.appearance().textAlignment = .Center
+//        
         Fabric.with([Crashlytics.self])
         
         // Track the user action that is important for you.
