@@ -130,24 +130,28 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         posts.text = CCUserManager.postCount.stringValue
         posts.textColor = .whiteColor()
         posts.font = UIFont.systemFontOfSize(fontSize)
+        posts.textAlignment = .Center
         view.addSubview(posts)
         
         let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         postsLabel.text = NSLocalizedString("POSTS", comment: "Posts")
         postsLabel.textColor = .whiteColor()
         postsLabel.font = UIFont.systemFontOfSize(fontSize)
+        postsLabel.textAlignment = .Center
         view.addSubview(postsLabel)
 
         let pins = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pins.text = CCUserManager.pinCount.stringValue
         pins.textColor = .whiteColor()
         pins.font = UIFont.systemFontOfSize(fontSize)
+        pins.textAlignment = .Center
         view.addSubview(pins)
         
         let pinsLabel = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
         pinsLabel.text = NSLocalizedString("PINS", comment: "Pins")
         pinsLabel.textColor = .whiteColor()
         pinsLabel.font = UIFont.systemFontOfSize(fontSize)
+        pinsLabel.textAlignment = .Center
         view.addSubview(pinsLabel)
         
         
@@ -195,7 +199,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         infoTextLabel.textColor = UIColor.whiteColor()
         infoTextLabel.font = UIFont.systemFontOfSize(14)
         infoTextLabel.numberOfLines = 0
-        infoTextLabel.text = "Press CopyCat logo to login with Instagram\n\nNo photo in your album\n"
+        infoTextLabel.text = "No photo in your album"//"Press CopyCat logo to login with Instagram\n\nNo photo in your album\n"
         view!.addSubview(infoTextLabel)
 
     }

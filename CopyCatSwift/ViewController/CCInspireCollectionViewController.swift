@@ -87,7 +87,7 @@ class CCInspireCollectionViewController: UIViewController{
         titleLabel.textAlignment = .Center
         self.view!.addSubview(titleLabel)
         
-        //Close
+        //Back
         closeButton.frame = CGRectMake(0, 1, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)

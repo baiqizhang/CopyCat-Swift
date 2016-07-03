@@ -98,18 +98,26 @@ class CCWelcomeViewController: UIViewController {
         
         //Init offset and ImageView
         var offset : CGFloat = -100.0
-
-        //Background
-        self.backgroundImageView.frame = self.view.frame
         if self.view.frame.size.height == 568 {
-            self.backgroundImageView.image = UIImage(named: "LaunchImage_2x_faded.png")
         } else {
-            self.backgroundImageView.image = UIImage(named: "LaunchImage_1x_faded.png")
             offset = 75
         }
-        self.view!.addSubview(self.backgroundImageView)
-        self.backgroundImageView.alpha = 0
         
+        //Background and logo
+        self.placeHolderImageView.frame = self.view.frame
+        self.placeHolderImageView.backgroundColor = .blackColor()
+        self.view!.addSubview(self.placeHolderImageView)
+        
+        backgroundImageView.frame = self.view.frame
+        backgroundImageView.image = UIImage(named: "bg_welcome.png")
+        backgroundImageView.contentMode = .ScaleAspectFill
+        view!.addSubview(self.backgroundImageView)
+        
+        
+        let logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
+        logoImageView.image = UIImage(named: "cclogo.png")
+        view!.addSubview(logoImageView)
+
         //Buttons
 //        categoryButton.frame = CGRectMake(80, 340.0 - offset, 50, 50)
 //        categoryButton.setBackgroundImage(UIImage(named: "photo.png"), forState: .Normal)
@@ -165,8 +173,8 @@ class CCWelcomeViewController: UIViewController {
         
         
         
-        
-        let searchTextField = UITextField(frame: CGRectMake(self.view.frame.size.width/2 - 120, 300 , 250, 35))
+        //search bar
+        let searchTextField = UITextField(frame: CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35))
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
         searchTextField.keyboardType = .ASCIICapable
@@ -196,19 +204,19 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(searchTextField)
         
         
-        let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 90, 360 , 20, 35))
+        let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 80, view.frame.size.height/2, 20, 35))
         orView.text = "or"
         orView.textColor = .whiteColor()
         orView.font = UIFont.systemFontOfSize(14)
         view.addSubview(orView)
         
-        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, 360 , 130, 35))
+        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 130, 35))
         library.setAttributedTitle(NSAttributedString(string:"Use my own photo",
-            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
-        library.layer.borderColor = UIColor(hexNumber: 0x888888).CGColor
-        library.layer.borderWidth = 0.5
-        library.layer.cornerRadius = 10.0;
-        library.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.3)
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+        library.layer.borderWidth = 1
+        library.layer.cornerRadius = 17.0;
+        library.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)
         library.addTarget(self, action: #selector(pickImage), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(library)
         
@@ -216,38 +224,29 @@ class CCWelcomeViewController: UIViewController {
         
 
 
-        //Placeholder for Fading
-        self.placeHolderImageView.frame = self.view.frame
-        if self.view.frame.size.height == 568 {
-            self.placeHolderImageView.image = UIImage(named: "LaunchImage_2x.png")
-        } else {
-            self.placeHolderImageView.image = UIImage(named: "LaunchImage_1x.png")
-        }
-        self.view!.addSubview(self.placeHolderImageView)
         
-        
-        
+        // instructions
         let textWidth:CGFloat = 100.0
         
-        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 300 , textWidth*2, 35))
+        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 250 , textWidth*2, 35))
         step1.text = "1. Decide what to capture"
-        step1.textColor = UIColor(hexNumber: 0xDDDDDD)
+        step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
-        step1.userInteractionEnabled = false
+        step1.textAlignment = .Left
         view.addSubview(step1)
         
-        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 350 , textWidth*2, 35))
+        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 300 , textWidth*2, 35))
         step2.text = "2. Pick a reference photo"
-        step2.textColor = UIColor(hexNumber: 0xDDDDDD)
+        step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
-        step2.userInteractionEnabled = false
+        step2.textAlignment = .Left
         view.addSubview(step2)
         
-        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 400 , textWidth*2, 35))
+        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 350 , textWidth*2, 35))
         step3.text = "3. Swipe and snap!"
-        step3.textColor = UIColor(hexNumber: 0xDDDDDD)
+        step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)
-        step3.userInteractionEnabled = false
+        step3.textAlignment = .Left
         view.addSubview(step3)
         
         
@@ -255,16 +254,15 @@ class CCWelcomeViewController: UIViewController {
         let font = UIFont.systemFontOfSize(14)
         okay.setAttributedTitle(NSAttributedString(string:"Get Started",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
-        okay.layer.borderColor = UIColor(hexNumber: 0x888888).CGColor
-        okay.layer.borderWidth = 0.5
-        okay.backgroundColor = UIColor(hexNumber: 0x333333)
+        okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+        okay.layer.borderWidth = 1
+        okay.layer.cornerRadius = 15.0;
+        okay.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//UIColor(hexNumber: 0x333333)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         
-        
-        
         toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,profileButton,library]
+        toShow = [backgroundImageView,searchTextField,orView,library,profileButton]
         for view in self.toShow{
             view.alpha = 0
             view.userInteractionEnabled = false

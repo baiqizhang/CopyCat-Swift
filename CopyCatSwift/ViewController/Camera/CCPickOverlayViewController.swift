@@ -132,9 +132,9 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         NSLog("%@", userAlbums)
         
         //Close
-        closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)//CGRectMake(0, 1, 40, 40)
+//        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
+//        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
         

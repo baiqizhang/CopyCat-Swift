@@ -145,8 +145,8 @@ import CoreData
             } else {
                 print("Old Age!!!")
                 
-                // old age version, add All category
-                let category = CCCoreUtil.addCategory("All", bannerURI:"banner0.png", position: 1)
+                // old age version, add "All" category
+                let category = CCCoreUtil.addCategory("Saved", bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
@@ -157,7 +157,9 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+                
                 // TODO: migrate old photos
+                userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
             }
         } else {
             // Initialization

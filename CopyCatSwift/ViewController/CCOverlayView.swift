@@ -23,18 +23,19 @@ class CCOverlayView: UIView {
     var overlayState: CGFloat = 0
     var savedAlpha: CGFloat = 0.0
     
+    //overlay mode
     var frame_bg = CGRect()
     var frame_tm = CGRect()
     var lastPos: CGFloat = 0.0
-    
     var usingBackground = false
     
+    //animation
     var fadeView: UIView?
     var dot: UIImageView?
     var swipeView: UIImageView?
-    
     var stopAnimation = false
     
+    //constants
     let marginFactor: CGFloat = 60.0
     let zoomFactor: CGFloat = 15.0
     let sizeFactor: CGFloat = 55.0
