@@ -158,8 +158,11 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
                 
-                // TODO: migrate old photos
+                // temporarily set version number to newest to fix multiple "All" problem
                 userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+                
+                // TODO: migrate old photos
+                
             }
         } else {
             // Initialization
