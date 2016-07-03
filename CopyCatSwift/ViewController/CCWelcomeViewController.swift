@@ -275,7 +275,17 @@ extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         let vc = CCInspireCollectionViewController(tag: textField.text!)
         vc.modalTransitionStyle = .CrossDissolve
-        presentViewController(vc, animated: true, completion: nil)
+        
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        self.view.window!.layer.addAnimation(transition, forKey: nil)
+        
+//        self.presentViewController(localitiesView, animated: false, completion: { _ in })
+        
+        presentViewController(vc, animated: false, completion: nil)
         return true
     }
 }
