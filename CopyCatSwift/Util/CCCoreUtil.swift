@@ -13,6 +13,7 @@ import CoreData
     static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     static let userDefault = NSUserDefaults.standardUserDefaults()
     static let VERSION_KEY = "core_version"
+    static let kTopCategoryName = "Saved"
     
     static var initializing = true
     
@@ -146,7 +147,7 @@ import CoreData
                 print("Old Age!!!")
                 
                 // old age version, add "All" category
-                let category = CCCoreUtil.addCategory("Saved", bannerURI:"banner0.png", position: 1)
+                let category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
@@ -179,7 +180,7 @@ import CoreData
             var category : CCCategory
             category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
             
-            category = CCCoreUtil.addCategory("All",bannerURI:"banner0.png")
+            category = CCCoreUtil.addCategory(kTopCategoryName,bannerURI:"banner0.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
             CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
@@ -252,7 +253,6 @@ import CoreData
     }
     
     //MARK: Create
-    
     static func addCategory(name: String, bannerURI: String, position: Int = -1) -> CCCategory{
         let category = NSEntityDescription.insertNewObjectForEntityForName("Category",
             inManagedObjectContext: CCCoreUtil.managedObjectContext) as! CCCategory
@@ -274,6 +274,28 @@ import CoreData
             NSLog("Save error!")
         }
         return category
+    }
+    
+    static func addPhotoForTopCategory(image : UIImage){
+        for item in categories{
+            let category = item as! CCCategory
+            if category.name == kTopCategoryName{
+                let count = category.photoCount!.integerValue + 1
+                let uri = "\(category.id!)_\(count)"
+                let path = "\(NSHomeDirectory())/Documents/\(uri).jpg"
+                let tmpath = "\(NSHomeDirectory())/Documents/\(uri)_tm.jpg"
+                let imgData: NSData = UIImageJPEGRepresentation(image, 9)!
+                imgData.writeToFile(path, atomically: true)
+                do {
+                    try NSFileManager.defaultManager().removeItemAtPath(tmpath)
+                    //TODO: create thumbnail
+                }catch{
+                    
+                }
+                
+                addPhotoForCategory(category, photoURI:uri)
+            }
+        }
     }
     
     static func addPhotoForCategory(category: CCCategory, image : UIImage) -> CCPhoto {
@@ -311,7 +333,7 @@ import CoreData
             NSLog("Save error!")
         }
         
-        if let name = category.name where name != "All" && !initializing {
+        if let name = category.name where name != kTopCategoryName && !initializing {
             addPhotoForCategory(self.categories[1] as! CCCategory, photoURI: photoURI)
         }
         
@@ -345,4 +367,31 @@ import CoreData
             NSLog("Save error!")
         }
     }
+    
+    
+    //    // Deprecated
+    //    func mergePhotoCategories(categories: [CCCategory]) -> CCCategory {
+    //        let allPhotos = categories[0]
+    //        allPhotos.name = "All"
+    //        var count = 0
+    //        for catInd in 1...categories.count-1 {
+    //            print("Conting category", catInd)
+    //            count += categories[catInd].photoCount!.integerValue - 1
+    //        }
+    //        allPhotos.photoCount = count
+    //        allPhotos.bannerURI = ""
+    //
+    //        let newSet = NSMutableOrderedSet()
+    //        for catInd in 1...categories.count-1 {
+    //            let category = categories[catInd]
+    //            category.photoList?.enumerateObjectsUsingBlock({ (obj, index, pointer) in
+    //                if index > 1 {
+    //                    newSet.addObject(obj)
+    //                }
+    //            })
+    //        }
+    //        allPhotos.photoList = newSet
+    //        allPhotos.id = 0
+    //        return allPhotos
+    //    }
 }

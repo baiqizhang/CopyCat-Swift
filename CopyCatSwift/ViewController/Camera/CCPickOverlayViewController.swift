@@ -195,31 +195,6 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.presentViewController(imagePicker, animated: true, completion: { _ in })
     }
     
-    // Deprecated
-    func mergePhotoCategories(categories: [CCCategory]) -> CCCategory {
-        let allPhotos = categories[0]
-        allPhotos.name = "All"
-        var count = 0
-        for catInd in 1...categories.count-1 {
-            print("Conting category", catInd)
-            count += categories[catInd].photoCount!.integerValue - 1
-        }
-        allPhotos.photoCount = count
-        allPhotos.bannerURI = ""
-
-        let newSet = NSMutableOrderedSet()
-        for catInd in 1...categories.count-1 {
-            let category = categories[catInd]
-            category.photoList?.enumerateObjectsUsingBlock({ (obj, index, pointer) in
-                if index > 1 {
-                    newSet.addObject(obj)
-                }
-            })
-        }
-        allPhotos.photoList = newSet
-        allPhotos.id = 0
-        return allPhotos
-    }
     
     func dnImagePickerController(imagePicker: DNImagePickerController!, sendImages imageAssets: [AnyObject]!, isFullImage fullImage: Bool) {
         waitingAssetsCount = imageAssets.count

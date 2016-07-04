@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import AssetsLibrary
 
 class CCInspireCollectionViewController: UIViewController{
@@ -20,6 +21,9 @@ class CCInspireCollectionViewController: UIViewController{
     var indicatorView = UIView()
     var postList:[CCPost]?
     
+    private let locationManager = CLLocationManager()
+    private var locationFound = false
+    
     
     convenience init(tag : String){
         self.init()
@@ -30,6 +34,7 @@ class CCInspireCollectionViewController: UIViewController{
         return true
     }
     
+    // MARK: Actions
     func startIndicator() {
         dispatch_async(dispatch_get_main_queue()) {
             // You only need to adjust this frame to move it anywhere you want
@@ -66,6 +71,71 @@ class CCInspireCollectionViewController: UIViewController{
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
     
+    
+    //geo search
+    internal func gpsAction(){
+        let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
+        
+        let searchMyLocAction = UIAlertAction(title: "Search Nearby", style: .Default) { (_) in
+            self.startIndicator()
+            
+            //start tracking gps
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.startUpdatingLocation()
+            self.locationFound = false
+            
+        }
+        
+        let searchByAddrAction = UIAlertAction(title: "Search By Address", style: .Default) { (_) in
+            self.stopIndicator()
+            
+            let addrTextField = alertController.textFields![0] as UITextField
+            CCNetUtil.searchGPSByAddressString(addrTextField.text!, completion: { (posts) in
+                self.stopIndicator()
+                
+                if posts.isEmpty{
+                    let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        alert.show()
+                    })
+                } else {
+                    self.postList = []
+                    for post in posts{
+                        NSLog("uri:" + post.photoURI!);
+                    }
+                    self.postList = posts
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.collectionView!.reloadData()
+                        // scroll to top
+                        self.collectionView!.contentOffset = CGPointMake(0, 0 - self.collectionView!.contentInset.top);
+                    })
+                }
+            })
+        }
+        searchByAddrAction.enabled = false
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Golden Gate Bridge"
+            textField.textAlignment=NSTextAlignment.Left;
+            NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+                searchByAddrAction.enabled = textField.text != ""
+            }
+        }
+        
+        
+        alertController.addAction(searchByAddrAction)
+        alertController.addAction(searchMyLocAction)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true) {}
+    }
+
+    // MARK: VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,6 +163,14 @@ class CCInspireCollectionViewController: UIViewController{
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(CCGalleryViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
+        
+        
+        //GPS
+        let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        gpsButton.addTarget(self, action: #selector(CCInspireViewController.gpsAction), forControlEvents: .TouchUpInside)
+        self.view!.addSubview(gpsButton)
+
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0
@@ -142,16 +220,6 @@ class CCInspireCollectionViewController: UIViewController{
 
     }
     
-    // MARK: Show overlay
-    
-    func showOverlayViewWithImage(image: UIImage, isNewImage: Bool) {
-        let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        let overlayView = CCOverlayView(frame: frame, image: image)
-
-        let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
-        overlayView.delegate = AVCVC
-        self.presentViewController(AVCVC, animated: true, completion: { _ in })
-    }
 }
 
 
@@ -167,6 +235,9 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                     return
                 }
                 let overlayImage = UIImage(data: data)
+                
+                //Add to "Saved"
+                CCCoreUtil.addPhotoForTopCategory(overlayImage!)
                 
                 // show animation each time user re-enter categoryview
                 let userDefault = NSUserDefaults.standardUserDefaults()
@@ -217,5 +288,48 @@ extension CCInspireCollectionViewController:UICollectionViewDelegateFlowLayout{
         let len=(self.view.frame.size.width-4)/3.0;
         let retval = CGSizeMake(len, len);
         return retval;
+    }
+}
+
+
+
+extension CCInspireCollectionViewController: CLLocationManagerDelegate{
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locationFound {
+            return
+        }
+        guard let location = locations.first
+            else {
+                let alert = UIAlertView(title: "Error", message: "Failed to get location", delegate: self, cancelButtonTitle: "OK")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    alert.show()
+                })
+                return
+        }
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        locationFound = true
+        
+        CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
+            if posts.isEmpty{
+                let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    alert.show()
+                })
+            } else {
+                self.postList = []
+                for post in posts{
+                    NSLog("uri:" + post.photoURI!);
+                }
+                self.postList = posts
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.collectionView!.reloadData()
+                    // scroll to top
+                    self.collectionView!.contentOffset = CGPointMake(0, 0 - self.collectionView!.contentInset.top);
+                })            }
+        })
+        // Stop location updates
+        self.locationManager.stopUpdatingLocation()
     }
 }
