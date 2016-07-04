@@ -423,6 +423,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.overlayView setAlpha:0];
     [self.cancelButton setAlpha:0];
     
+    //set default image
+    CCOverlayView* overlayView = self.overlayView;
+    self.overlayPicker.currentImage = overlayView.image;
+    
+    //present
     self.overlayPicker.modalPresentationStyle = UIModalPresentationOverFullScreen;
     self.overlayPicker.delegate = self;
     [self presentViewController:self.overlayPicker animated:NO completion:nil];

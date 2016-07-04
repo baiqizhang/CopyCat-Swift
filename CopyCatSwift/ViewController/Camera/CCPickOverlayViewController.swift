@@ -27,17 +27,25 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     static var lastIndex = 0
     static var lastImageIndex = 1
     static var currentIndex = 0
-    var currentImage = UIImage(named: "AppIcon.png")
+    
+    
+    var currentImage : UIImage? //set when initialized
     
     
     //Add image
     var waitingAssetsCount: Int?
     var waitingAssetsCountTotal: Int?
     
+    convenience init(overlayImage:UIImage){
+        self.init()
+        currentImage = overlayImage
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    //MARK: Actions
     
     func rotateLeft(){
         guard self.imageCollectionView != nil
@@ -132,9 +140,10 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         NSLog("%@", userAlbums)
         
         //Close
-        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)//CGRectMake(0, 1, 40, 40)
-//        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-//        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)
+        closeButton.backgroundColor = UIColor(white: 0.13, alpha: 1)
+        closeButton.setTitle("Cancel", forState: .Normal)
+        closeButton.setTitleColor(.whiteColor(), forState: .Normal)
         closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
         
@@ -285,7 +294,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             // highlight
             if indexPath.item == CCPickOverleyViewController.lastImageIndex &&
             CCPickOverleyViewController.currentIndex == CCPickOverleyViewController.lastIndex{
-                currentImage = cell.image()
+//                currentImage = cell.image()
                 cell.pick()
             }
 
