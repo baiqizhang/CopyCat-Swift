@@ -239,9 +239,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.stillButton setBackgroundImage:[UIImage imageNamed:@"shutter.png"] forState:UIControlStateNormal];
     [self.view addSubview:self.stillButton];
 
-//    self.libraryButton=[[UIButton alloc]initWithFrame:CGRectMake(30, self.view.frame.size.height-67.5, 45, 45)];
-//    [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
-//    [self.libraryButton setBackgroundColor:[UIColor blackColor]];
+    self.libraryButton=[[UIButton alloc]initWithFrame:CGRectMake(30, self.view.frame.size.height-67.5, 45, 45)];
+    [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
+    [self.libraryButton setBackgroundColor:[UIColor blackColor]];
 //    [self.view addSubview:self.libraryButton];
     
     self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(25, self.view.frame.size.height-67.5, 80, 45)];
