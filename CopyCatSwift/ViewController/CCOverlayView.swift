@@ -23,18 +23,21 @@ class CCOverlayView: UIView {
     var overlayState: CGFloat = 0
     var savedAlpha: CGFloat = 0.0
     
+    //overlay mode
     var frame_bg = CGRect()
     var frame_tm = CGRect()
     var lastPos: CGFloat = 0.0
-    
     var usingBackground = false
     
+    //animation
     var fadeView: UIView?
     var dot: UIImageView?
     var swipeView: UIImageView?
-    
     var stopAnimation = false
+    let guideLabel1 = UILabel()
+    let guideLabel2 = UILabel()
     
+    //constants
     let marginFactor: CGFloat = 60.0
     let zoomFactor: CGFloat = 15.0
     let sizeFactor: CGFloat = 55.0
@@ -54,6 +57,8 @@ class CCOverlayView: UIView {
         userDefault.synchronize()
         
         UIView.animateWithDuration(0.1, animations: {
+            self.guideLabel1.alpha = 1
+            self.guideLabel2.alpha = 1
             self.fadeView?.alpha = 1
             self.swipeView?.alpha = 1
             }, completion: { _ in
@@ -63,6 +68,8 @@ class CCOverlayView: UIView {
     
     func finishAnimation() {
         UIView.animateWithDuration(0.3, animations: {
+            self.guideLabel1.alpha = 0
+            self.guideLabel2.alpha = 0
             self.dot?.alpha = 0
             self.fadeView?.alpha = 0
             self.swipeView?.alpha = 0
@@ -283,6 +290,22 @@ class CCOverlayView: UIView {
         self.dot?.image = UIImage(named: "whitedot.png")
         self.dot?.alpha=0;
         self.addSubview(self.dot!)
+        
+        guideLabel1.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-130,300, 40)
+        guideLabel1.text = "Swipe to adjust transparency" //and learn its composition
+        guideLabel1.textAlignment = .Center
+        guideLabel1.font = UIFont.systemFontOfSize(22)
+        guideLabel1.textColor = .whiteColor()
+        guideLabel1.alpha = 0
+        addSubview(guideLabel1)
+        
+        guideLabel2.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-80,300, 40)
+        guideLabel2.text = "and learn its composition"
+        guideLabel2.textAlignment = .Center
+        guideLabel2.font = UIFont.systemFontOfSize(19)
+        guideLabel2.textColor = .whiteColor()
+        guideLabel2.alpha = 0
+        addSubview(guideLabel2)
         
         self.stopAnimation = false
     }

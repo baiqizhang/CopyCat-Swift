@@ -209,11 +209,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.view addSubview:self.overlayView];
 
     // upper portion Buttons
-    self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(0,-5, 50, 50)];//CGRectMake(40, self.view.frame.size.height-70, 40, 40)];
-    [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
-    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"close_highlight.png"] forState:UIControlStateHighlighted];
-    [self.view addSubview:self.cancelButton];
+//    self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(0,-5, 50, 50)];//CGRectMake(40, self.view.frame.size.height-70, 40, 40)];
+//    [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
+//    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"close_highlight.png"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:self.cancelButton];
 
     self.cameraButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50, 1, 37, 37)];
     [self.cameraButton addTarget:self action:@selector(changeCamera:) forControlEvents:UIControlEventTouchUpInside];
@@ -231,7 +231,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.luckyButton addTarget:self action:@selector(feelLucky) forControlEvents:UIControlEventTouchUpInside];
     [self.luckyButton setBackgroundImage:[UIImage imageNamed:@"lucky.png"] forState:UIControlStateNormal];
     [self.luckyButton setBackgroundImage:[UIImage imageNamed:@"lucky.png"] forState:UIControlStateHighlighted];
-    [self.view addSubview:self.luckyButton];
+//    [self.view addSubview:self.luckyButton];
     
     //lower portion Buttons
     self.stillButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-37, self.view.frame.size.height-85, 80, 80)];
@@ -242,11 +242,17 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     self.libraryButton=[[UIButton alloc]initWithFrame:CGRectMake(30, self.view.frame.size.height-67.5, 45, 45)];
     [self.libraryButton addTarget:self action:@selector(showLibraryDetail) forControlEvents:UIControlEventTouchUpInside];
     [self.libraryButton setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:self.libraryButton];
+//    [self.view addSubview:self.libraryButton];
+    
+    self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(25, self.view.frame.size.height-67.5, 80, 45)];
+    [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [self.view addSubview:self.cancelButton];
+
     
     self.setRefButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)];
     [self.setRefButton addTarget:self action:@selector(setRefImage) forControlEvents:UIControlEventTouchUpInside];
-    [self.setRefButton setTitle:@"SetRef" forState:UIControlStateNormal];
+    [self.setRefButton setTitle:@"Library" forState:UIControlStateNormal];
     [self.view addSubview:self.setRefButton];
     
     self.overlayPicker = [[CCPickOverleyViewController alloc]init];
@@ -417,6 +423,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     [self.overlayView setAlpha:0];
     [self.cancelButton setAlpha:0];
     
+    //set default image
+    CCOverlayView* overlayView = self.overlayView;
+    self.overlayPicker.currentImage = overlayView.image;
+    
+    //present
     self.overlayPicker.modalPresentationStyle = UIModalPresentationOverFullScreen;
     self.overlayPicker.delegate = self;
     [self presentViewController:self.overlayPicker animated:NO completion:nil];

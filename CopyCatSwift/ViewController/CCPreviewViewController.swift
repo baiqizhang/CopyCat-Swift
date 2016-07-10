@@ -210,7 +210,7 @@ class CCPreviewViewController : UIViewController {
         self.shareOrigin!.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.shareOrigin!.backgroundColor = UIColor.whiteColor()
         self.shareOrigin!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
-        self.view.addSubview(self.shareOrigin!)
+//        self.view.addSubview(self.shareOrigin!)
         
         self.shareTaken = UIButton(frame: CGRectMake(180, 3, 120, 34))
         self.shareTaken!.setTitle("Current One", forState: .Normal)
@@ -219,7 +219,7 @@ class CCPreviewViewController : UIViewController {
         self.shareTaken!.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.shareTaken!.backgroundColor = UIColor.whiteColor()
         self.shareTaken!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
-        self.view.addSubview(self.shareTaken!)
+//        self.view.addSubview(self.shareTaken!)
         
         self.isShowingRef = true
         let height = self.view.frame.size.height - 140

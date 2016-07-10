@@ -27,17 +27,25 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     static var lastIndex = 0
     static var lastImageIndex = 1
     static var currentIndex = 0
-    var currentImage = UIImage(named: "AppIcon.png")
+    
+    
+    var currentImage : UIImage? //set when initialized
     
     
     //Add image
     var waitingAssetsCount: Int?
     var waitingAssetsCountTotal: Int?
     
+    convenience init(overlayImage:UIImage){
+        self.init()
+        currentImage = overlayImage
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    //MARK: Actions
     
     func rotateLeft(){
         guard self.imageCollectionView != nil
@@ -132,9 +140,10 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         NSLog("%@", userAlbums)
         
         //Close
-        closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)
+        closeButton.backgroundColor = UIColor(white: 0.13, alpha: 1)
+        closeButton.setTitle("Cancel", forState: .Normal)
+        closeButton.setTitleColor(.whiteColor(), forState: .Normal)
         closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
         
@@ -186,31 +195,6 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.presentViewController(imagePicker, animated: true, completion: { _ in })
     }
     
-    // Deprecated
-    func mergePhotoCategories(categories: [CCCategory]) -> CCCategory {
-        let allPhotos = categories[0]
-        allPhotos.name = "All"
-        var count = 0
-        for catInd in 1...categories.count-1 {
-            print("Conting category", catInd)
-            count += categories[catInd].photoCount!.integerValue - 1
-        }
-        allPhotos.photoCount = count
-        allPhotos.bannerURI = ""
-
-        let newSet = NSMutableOrderedSet()
-        for catInd in 1...categories.count-1 {
-            let category = categories[catInd]
-            category.photoList?.enumerateObjectsUsingBlock({ (obj, index, pointer) in
-                if index > 1 {
-                    newSet.addObject(obj)
-                }
-            })
-        }
-        allPhotos.photoList = newSet
-        allPhotos.id = 0
-        return allPhotos
-    }
     
     func dnImagePickerController(imagePicker: DNImagePickerController!, sendImages imageAssets: [AnyObject]!, isFullImage fullImage: Bool) {
         waitingAssetsCount = imageAssets.count
@@ -285,7 +269,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             // highlight
             if indexPath.item == CCPickOverleyViewController.lastImageIndex &&
             CCPickOverleyViewController.currentIndex == CCPickOverleyViewController.lastIndex{
-                currentImage = cell.image()
+//                currentImage = cell.image()
                 cell.pick()
             }
 
@@ -294,6 +278,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(categoryReuseIdentifier, forIndexPath: indexPath) as! CCCategoryCollectionViewCell
             cell.categoryText.text = self.userAlbums[indexPath.row].name
+            cell.categoryText.textAlignment = .Center
             if indexPath.row == CCPickOverleyViewController.currentIndex{
                 cell.categoryText.textColor = UIColor(red: 65.0/255, green: 175.0/255, blue: 1, alpha: 1)
             } else {
