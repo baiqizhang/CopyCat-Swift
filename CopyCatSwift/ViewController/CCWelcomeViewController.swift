@@ -20,9 +20,14 @@ class CCWelcomeViewController: UIViewController {
     private var profileButton = UIButton()
     private var guideButton = UIButton()
     
+    private var searchTextField = UITextField()
+    private var searchButton = UIButton()
+    
     private var toHide : [UIView] = []
     private var toShow : [UIView] = []
 
+    private var libraryViews : [UIView] = []
+    
     // Actions
     func openGalleryWithImage(image:UIImage){
         // show animation each time user re-enter categoryview
@@ -82,6 +87,12 @@ class CCWelcomeViewController: UIViewController {
         
         presentViewController(imagePicker, animated: true, completion: nil)
     }
+    
+    
+    func tapAction(){
+        searchTextField.resignFirstResponder()
+    }
+    
     // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -112,6 +123,9 @@ class CCWelcomeViewController: UIViewController {
         backgroundImageView.image = UIImage(named: "bg_welcome.png")
         backgroundImageView.contentMode = .ScaleAspectFill
         view!.addSubview(self.backgroundImageView)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CCWelcomeViewController.tapAction))
+        backgroundImageView.addGestureRecognizer(tapRecognizer)
         
         
         let logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
@@ -174,20 +188,32 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search bar
-        let searchTextField = UITextField(frame: CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35))
+        searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35)
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
         searchTextField.keyboardType = .ASCIICapable
         searchTextField.returnKeyType = .Search
         searchTextField.borderStyle = .RoundedRect
         searchTextField.backgroundColor = UIColor.whiteColor()
-        searchTextField.leftViewMode = .Never
         searchTextField.layer.borderWidth = 8.0;
-        searchTextField.layer.cornerRadius = 10.0;
+        searchTextField.layer.cornerRadius = 8.0;
         searchTextField.layer.borderColor = UIColor.clearColor().CGColor
 
         searchTextField.attributedPlaceholder = NSAttributedString(string:"What to capture today? e.g. coffee",
-                                                                   attributes:[NSForegroundColorAttributeName: UIColor.grayColor()])
+                                                                   attributes:[NSForegroundColorAttributeName:
+                                                                    UIColor.grayColor()])
+        
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.layer.borderWidth = 1.0;
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
+        searchButton.layer.cornerRadius = 8.0;
+        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
+            attributes:[NSForegroundColorAttributeName:
+                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        searchButton.alpha = 0
+        view.addSubview(searchButton)
+
 
         
         let magnifyingGlass = UIImageView(frame: CGRectMake(5, 0, 20, 20))
@@ -268,10 +294,39 @@ class CCWelcomeViewController: UIViewController {
             view.userInteractionEnabled = false
         }
         
+        libraryViews = [library,orView]
+        
     }
 }
 
 extension CCWelcomeViewController:UITextFieldDelegate{
+    func textFieldDidBeginEditing(textField: UITextField) {
+        UIView.animateWithDuration(0.15) {
+            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 205, 35)
+            self.searchButton.alpha = 1
+            self.searchTextField.leftViewMode = .Never
+            
+            for view in self.libraryViews{
+                view.alpha = 0
+                view.userInteractionEnabled = false
+            }
+        }
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        UIView.animateWithDuration(0.15) {
+            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 250, 35)
+            self.searchButton.alpha = 0
+            self.searchTextField.leftViewMode = .Always
+            
+            for view in self.libraryViews{
+                view.alpha = 1
+                view.userInteractionEnabled = true
+            }
+        }
+        return true
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         let vc = CCInspireCollectionViewController(tag: textField.text!)
         vc.modalTransitionStyle = .CrossDissolve
