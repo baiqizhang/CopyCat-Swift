@@ -11,7 +11,7 @@ import MapKit
 import Fabric
 import Crashlytics
 
-internal protocol TableDelegate {
+protocol TableDelegate: class {
     func startIndicator()
     func stopIndicator()
 }
@@ -29,7 +29,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
     
     private let locationManager = CLLocationManager()
     private var locationFound = false
-    var delegate : TableDelegate?
+    weak var delegate : TableDelegate?
     
     
     // MARK: UI Action
