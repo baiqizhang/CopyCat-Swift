@@ -20,6 +20,9 @@
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
 		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
 		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
+		86C7DCC11D331EF60055033D /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC01D331EF60055033D /* grid.png */; };
+		86C7DCC31D3330920055033D /* CCGridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7DCC21D3330920055033D /* CCGridOverlay.swift */; };
+		86C7DCC51D33440F0055033D /* grid_tint.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC41D33440F0055033D /* grid_tint.png */; };
 		86E6FB061D04F712009FDC98 /* CCOthersProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */; };
 		9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1551C21FC4800A48C5F /* AppDelegate.swift */; };
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
@@ -224,6 +227,9 @@
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
 		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
+		86C7DCC01D331EF60055033D /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		86C7DCC21D3330920055033D /* CCGridOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGridOverlay.swift; sourceTree = "<group>"; };
+		86C7DCC41D33440F0055033D /* grid_tint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_tint.png; sourceTree = "<group>"; };
 		86E6FB051D04F712009FDC98 /* CCOthersProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOthersProfileViewController.swift; sourceTree = "<group>"; };
 		9704E1521C21FC4800A48C5F /* CopyCatSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CopyCatSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9704E1551C21FC4800A48C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -615,6 +621,7 @@
 				1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */,
 				1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */,
 				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
+				86C7DCC21D3330920055033D /* CCGridOverlay.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -738,6 +745,8 @@
 				9792C9511C437E5400EF63BC /* pin_highlight.png */,
 				9792C9521C437E5400EF63BC /* pin.png */,
 				978656C01C3FA1C500617669 /* circleuser_highlight.png */,
+				86C7DCC01D331EF60055033D /* grid.png */,
+				86C7DCC41D33440F0055033D /* grid_tint.png */,
 				978656C11C3FA1C500617669 /* circleuser.png */,
 				97F6DF8E1C23A1C300707180 /* AddNew.png */,
 				97F6DF8F1C23A1C300707180 /* back.png */,
@@ -1059,6 +1068,7 @@
 				97FCBB671CE90760003734DA /* 1_1.jpg in Resources */,
 				9748750D1D0E39A20089C385 /* search.png in Resources */,
 				97F6DFD11C23A1C300707180 /* settings2.png in Resources */,
+				86C7DCC51D33440F0055033D /* grid_tint.png in Resources */,
 				9740C96B1C2BB9210023FE2C /* banner0.png in Resources */,
 				97FCBB641CE90760003734DA /* 0_8.jpg in Resources */,
 				72AEAD0D1CD2B548000B65BF /* help.png in Resources */,
@@ -1109,6 +1119,7 @@
 				97FCBB5E1CE90760003734DA /* 0_2.jpg in Resources */,
 				97F6DFB51C23A1C300707180 /* back.png in Resources */,
 				97F6DFD51C23A1C300707180 /* switchButton_highlight.png in Resources */,
+				86C7DCC11D331EF60055033D /* grid.png in Resources */,
 				9740C8E61C2B78FB0023FE2C /* Localizable.strings in Resources */,
 				97FCBB791CE90760003734DA /* 4_2.jpg in Resources */,
 				97F6DFB41C23A1C300707180 /* AddNew.png in Resources */,
@@ -1349,6 +1360,7 @@
 				9740CA841C2FE8B30023FE2C /* UIColor+Hex.m in Sources */,
 				1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */,
 				979A99321C391BBB00214E85 /* UIImageView+Download.swift in Sources */,
+				86C7DCC31D3330920055033D /* CCGridOverlay.swift in Sources */,
 				9740CAA41C3242E80023FE2C /* CCProfileViewController.swift in Sources */,
 				9740CA8A1C2FE8B30023FE2C /* DNBadgeLabel.m in Sources */,
 				1A4DF1F11C508380001A4775 /* CCFramedButton.swift in Sources */,
