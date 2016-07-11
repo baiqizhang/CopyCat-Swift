@@ -264,7 +264,21 @@ class CCOverlayView: UIView {
         }
         self.image=image;
         self.imageView = UIImageView.init(image: image)
-        self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        if image.size.width == image.size.height{
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
+            let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+            let upperBlurView = UIVisualEffectView(effect: darkBlur)
+            upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
+            
+            let lowerBlurView = UIVisualEffectView(effect: darkBlur)
+            lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
+            
+            self.addSubview(upperBlurView)
+            self.addSubview(lowerBlurView)
+        } else {
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        }
+        
         self.imageView!.clipsToBounds = true
         self.imageView!.userInteractionEnabled = true;
 
