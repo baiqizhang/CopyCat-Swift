@@ -14,6 +14,8 @@ import Gecco
 class CCWelcomeViewController: UIViewController {
     private var backgroundImageView = UIImageView()
     private var placeHolderImageView = UIImageView()
+    private var logoImageView = UIImageView()
+    
     private var categoryButton = UIButton()
     private var inspireButton = UIButton()
     private var instagramLoingButton = UIButton()
@@ -22,10 +24,11 @@ class CCWelcomeViewController: UIViewController {
     
     private var searchTextField = UITextField()
     private var searchButton = UIButton()
+    private var collectionView = UIView()
+    
     
     private var toHide : [UIView] = []
     private var toShow : [UIView] = []
-
     private var libraryViews : [UIView] = []
     
     // Actions
@@ -92,6 +95,20 @@ class CCWelcomeViewController: UIViewController {
     func tapAction(){
         searchTextField.resignFirstResponder()
     }
+    func searchAction(){
+        let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
+        vc.modalTransitionStyle = .CrossDissolve
+        
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        self.view.window!.layer.addAnimation(transition, forKey: nil)
+        
+        presentViewController(vc, animated: false, completion: nil)
+
+    }
     
     // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
@@ -128,7 +145,7 @@ class CCWelcomeViewController: UIViewController {
         backgroundImageView.addGestureRecognizer(tapRecognizer)
         
         
-        let logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
+        logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
         logoImageView.image = UIImage(named: "cclogo.png")
         view!.addSubview(logoImageView)
 
@@ -191,30 +208,22 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35)
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
-        searchTextField.keyboardType = .ASCIICapable
-        searchTextField.returnKeyType = .Search
         searchTextField.borderStyle = .RoundedRect
         searchTextField.backgroundColor = UIColor.whiteColor()
         searchTextField.layer.borderWidth = 8.0;
         searchTextField.layer.cornerRadius = 8.0;
         searchTextField.layer.borderColor = UIColor.clearColor().CGColor
 
+        searchTextField.autocorrectionType = .Default
+        searchTextField.spellCheckingType = .No
+        searchTextField.keyboardType = .ASCIICapable
+        searchTextField.returnKeyType = .Search
+        searchTextField.clearButtonMode = .WhileEditing
+        searchTextField.addTarget(self, action: #selector(CCWelcomeViewController.textFieldDidChange), forControlEvents: .EditingChanged)
         searchTextField.attributedPlaceholder = NSAttributedString(string:"What to capture today? e.g. coffee",
                                                                    attributes:[NSForegroundColorAttributeName:
                                                                     UIColor.grayColor()])
         
-        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
-        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
-        searchButton.layer.borderWidth = 1.0;
-        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
-        searchButton.layer.cornerRadius = 8.0;
-        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
-            attributes:[NSForegroundColorAttributeName:
-                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
-        searchButton.alpha = 0
-        view.addSubview(searchButton)
-
-
         
         let magnifyingGlass = UIImageView(frame: CGRectMake(5, 0, 20, 20))
         magnifyingGlass.image = UIImage(named: "search.png")
@@ -229,7 +238,25 @@ class CCWelcomeViewController: UIViewController {
         
         view.addSubview(searchTextField)
         
+        //search button
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.layer.borderWidth = 1.0;
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
+        searchButton.layer.cornerRadius = 8.0;
+        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
+            attributes:[NSForegroundColorAttributeName:
+                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        searchButton.alpha = 0
+        searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
+        view.addSubview(searchButton)
         
+        collectionView.frame = CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2 + 50 , 120, 50)
+        collectionView.backgroundColor = .whiteColor()
+        collectionView.alpha = 0
+        view.addSubview(collectionView)
+        
+        //or select from my
         let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 80, view.frame.size.height/2, 20, 35))
         orView.text = "or"
         orView.textColor = .whiteColor()
@@ -276,14 +303,14 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(step3)
         
         
-        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, 470 , 120, 30))
-        let font = UIFont.systemFontOfSize(14)
+        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, 450 , 170, 38))
+        let font = UIFont.systemFontOfSize(16)
         okay.setAttributedTitle(NSAttributedString(string:"Get Started",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
-        okay.layer.cornerRadius = 15.0;
-        okay.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//UIColor(hexNumber: 0x333333)
+        okay.layer.cornerRadius = 20.0;
+        okay.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 0.1)//UIColor(hexNumber: 0x333333)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         
@@ -306,6 +333,11 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             self.searchButton.alpha = 1
             self.searchTextField.leftViewMode = .Never
             
+//            if self.searchTextField.text!.isEmpty {
+//                self.searchTextField.autocorrectionType = .No
+//                self.collectionView.alpha = 1
+//            }
+            
             for view in self.libraryViews{
                 view.alpha = 0
                 view.userInteractionEnabled = false
@@ -327,21 +359,20 @@ extension CCWelcomeViewController:UITextFieldDelegate{
         return true
     }
     
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        let vc = CCInspireCollectionViewController(tag: textField.text!)
-        vc.modalTransitionStyle = .CrossDissolve
-        
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        self.view.window!.layer.addAnimation(transition, forKey: nil)
-        
-//        self.presentViewController(localitiesView, animated: false, completion: { _ in })
-        
-        presentViewController(vc, animated: false, completion: nil)
+        self.searchAction()
         return true
+    }
+    
+    func textFieldDidChange(){
+//        if self.searchTextField.text!.isEmpty {
+//            self.searchTextField.autocorrectionType = .No
+//            self.collectionView.alpha = 1
+//        } else {
+//            self.searchTextField.autocorrectionType = .Yes
+//            self.collectionView.alpha = 0
+//        }
     }
 }
 
