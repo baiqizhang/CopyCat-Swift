@@ -110,6 +110,10 @@ class CCWelcomeViewController: UIViewController {
 
     }
     
+    func feedbackAction(){
+        
+    }
+    
     // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -264,7 +268,7 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(orView)
         
         let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 130, 35))
-        library.setAttributedTitle(NSAttributedString(string:"Use my own photo",
+        library.setAttributedTitle(NSAttributedString(string:"Use my own template",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
         library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         library.layer.borderWidth = 1
@@ -273,9 +277,18 @@ class CCWelcomeViewController: UIViewController {
         library.addTarget(self, action: #selector(pickImage), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(library)
         
+        let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height-100, 120, 35))
+        feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        feedback.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+        feedback.layer.borderWidth = 1
+        feedback.layer.cornerRadius = 17.0;
+        feedback.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)
+        feedback.addTarget(self, action: #selector(feedbackAction), forControlEvents: UIControlEvents.TouchUpInside)
+        view.addSubview(feedback)
         
         
-
+        // ----- shown on guide page -----
 
         
         // instructions
@@ -310,7 +323,7 @@ class CCWelcomeViewController: UIViewController {
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
         okay.layer.cornerRadius = 20.0;
-        okay.backgroundColor = UIColor(hue: 1, saturation: 1, brightness: 1, alpha: 0.1)//UIColor(hexNumber: 0x333333)
+        okay.backgroundColor = UIColor(hexNumber: 0x181818)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         

@@ -155,12 +155,12 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view.addSubview(pinsLabel)
         
         
-        //Settings
-        settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
-        settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
-        settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
-        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
-        view.addSubview(self.settingsButton)
+//        //Settings
+//        settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
+//        settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
+//        settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
+//        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
+//        view.addSubview(self.settingsButton)
         
         //Title
         let titleLabel = UILabel(frame: CGRectMake(50, 0, self.view.frame.size.width - 100, 40))
