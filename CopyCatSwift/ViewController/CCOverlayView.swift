@@ -23,6 +23,9 @@ class CCOverlayView: UIView {
     var overlayState: CGFloat = 0
     var savedAlpha: CGFloat = 0.0
     
+    let upperBlurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
+    let lowerBlurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
+    
     //overlay mode
     var frame_bg = CGRect()
     var frame_tm = CGRect()
@@ -245,6 +248,19 @@ class CCOverlayView: UIView {
         }
         self.image=image;
         self.imageView?.image = image
+        
+        
+        //for square image
+        if image.size.width == image.size.height{
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
+            upperBlurView.alpha = 1
+            lowerBlurView.alpha = 1
+        } else {
+            upperBlurView.alpha = 0
+            lowerBlurView.alpha = 0
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        }
+
     }
     
     convenience init( frame: CGRect, var image: UIImage) {
@@ -275,20 +291,24 @@ class CCOverlayView: UIView {
         }
         self.image=image;
         self.imageView = UIImageView.init(image: image)
+        
+        //for square image
+        upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
+        lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
+        
+        self.addSubview(upperBlurView)
+        self.addSubview(lowerBlurView)
+        
         if image.size.width == image.size.height{
             self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
-            let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-            let upperBlurView = UIVisualEffectView(effect: darkBlur)
-            upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
-            
-            let lowerBlurView = UIVisualEffectView(effect: darkBlur)
-            lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
-            
-            self.addSubview(upperBlurView)
-            self.addSubview(lowerBlurView)
+            upperBlurView.alpha = 1
+            lowerBlurView.alpha = 1
         } else {
+            upperBlurView.alpha = 0
+            lowerBlurView.alpha = 0
             self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
         }
+        
         
         self.imageView!.clipsToBounds = true
         self.imageView!.userInteractionEnabled = true;
