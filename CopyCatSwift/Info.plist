@@ -30,11 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< b802a590ca9f14debf3f5565058070e906d022f6
 	<string>1499</string>
-=======
-	<string>1491</string>
->>>>>>> Feedback/Rate button in welcome page
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
