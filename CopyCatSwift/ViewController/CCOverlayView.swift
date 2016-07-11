@@ -45,6 +45,17 @@ class CCOverlayView: UIView {
     
     var refOrientation = 0.0
     
+    //slider
+    var slider: UISlider?
+    var overlayAlpha: CGFloat{
+        set {
+            self.imageView?.alpha = newValue
+            self.slider?.value = Float(newValue)
+        }
+        get {
+            return (self.imageView?.alpha)!
+        }
+    }
     
     func prepareAnimation() {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -115,14 +126,14 @@ class CCOverlayView: UIView {
     func onPress() {
         switch self.overlayState {
         case 0:
-            self.imageView?.alpha = self.savedAlpha
+            self.overlayAlpha = self.savedAlpha
             self.overlayState = 1
         case 1:
             self.savedAlpha = (self.imageView?.alpha)!
-            self.imageView?.alpha = 0
+            self.overlayAlpha = 0
             self.overlayState = 2
         default:
-            self.imageView?.alpha = 1
+            self.overlayAlpha = 1
             self.overlayState = 0
         }
     }
@@ -166,13 +177,21 @@ class CCOverlayView: UIView {
         let translation = recognizer.translationInView(self)
         if recognizer.state == .Began {
             self.lastPos = translation.x
-        } else {
-            self.imageView?.alpha += (translation.x - self.lastPos) / 255.0
-            if self.imageView?.alpha < 0 {
-                self.imageView?.alpha = 0
+            UIView.animateWithDuration(0.3, animations: {
+                self.slider?.alpha = 1.0
+            })
+        } else if recognizer.state == .Ended {
+            UIView.animateWithDuration(0.3, animations: {
+                self.slider?.alpha = 0.0
+            })
+        } else{
+            
+            self.overlayAlpha += (translation.x - self.lastPos) / 255.0
+            if self.overlayAlpha < 0 {
+                self.overlayAlpha = 0
             }
-            if self.imageView?.alpha > 1 {
-                self.imageView?.alpha = 1
+            if self.overlayAlpha > 1 {
+                self.overlayAlpha = 1
             }
             self.lastPos = translation.x
         }
@@ -186,12 +205,12 @@ class CCOverlayView: UIView {
     func onSegChanged() {
         if CCCoreUtil.isUsingBackgrondMode == 1{
             self.imageView?.frame = self.frame_bg
-            self.imageView?.alpha = 0.2
+            self.overlayAlpha = 0.2
             self.bringSubviewToFront(self.fakeView!)
             self.usingBackground = true
         } else {
             self.imageView?.frame = self.frame_tm
-            self.imageView?.alpha = 0.9
+            self.overlayAlpha = 0.9
             self.bringSubviewToFront(self.imageView! )
             self.usingBackground = false
         }
@@ -256,6 +275,18 @@ class CCOverlayView: UIView {
         self.addSubview(self.fakeView!)
         
         self.onSegChanged()
+        
+        //slider
+        self.slider = UISlider(frame: CGRectMake(30, 50, frame.size.width - 60, 50))
+        self.slider?.minimumValue = 0.0
+        self.slider?.maximumValue = 1.0
+        self.slider?.continuous = true
+        self.slider?.tintColor = UIColor.lightGrayColor()
+        self.slider?.maximumTrackTintColor = UIColor.whiteColor()
+        self.slider?.minimumTrackTintColor = UIColor.whiteColor()
+        self.slider?.value = Float(self.overlayAlpha)
+        self.slider?.alpha = 0
+        self.addSubview(self.slider!)
         
         
         let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
