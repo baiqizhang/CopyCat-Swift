@@ -97,18 +97,41 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.resignFirstResponder()
     }
     func searchAction(){
-        let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
-        vc.modalTransitionStyle = .CrossDissolve
-        
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        self.view.window!.layer.addAnimation(transition, forKey: nil)
-        
-        presentViewController(vc, animated: false, completion: nil)
-
+        if searchTextField.text == ""{
+            let overlayImage = UIImage(named: "4_0.jpg")
+            
+            //Add to "Saved"
+            CCCoreUtil.addPhotoForTopCategory(overlayImage!)
+            
+            // show animation each time user re-enter categoryview
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.removeObjectForKey("isFirstTimeUser")
+            userDefault.synchronize()
+            
+            //create overlay view
+            let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+            let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+            
+            //open camera
+            let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+            overlayView.delegate = AVCVC
+            self.presentViewController(AVCVC, animated: true, completion: {
+                AVCVC.setRefImage()
+            })
+            
+        } else {
+            let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
+            vc.modalTransitionStyle = .CrossDissolve
+            
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            self.view.window!.layer.addAnimation(transition, forKey: nil)
+            
+            presentViewController(vc, animated: false, completion: nil)
+        }
     }
     
     func feedbackAction(){

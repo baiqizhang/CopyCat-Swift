@@ -19,5 +19,5 @@
 -(instancetype)initWithOverlayView:(UIView*)overlayView;
 - (void)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer withFlag:(BOOL)flag;
 - (void)cameraZoom:(float)scale;
-
+-(void)setRefImage;
 @end

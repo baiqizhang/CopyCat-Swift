@@ -430,7 +430,16 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     //present
     self.overlayPicker.modalPresentationStyle = UIModalPresentationOverFullScreen;
     self.overlayPicker.delegate = self;
-    [self presentViewController:self.overlayPicker animated:NO completion:nil];
+    
+    
+    [self presentViewController:self.overlayPicker animated:NO completion:^{
+        if (self.orientation==1){
+            [self.overlayPicker rotateLeft];
+        }
+        if (self.orientation==-1){
+            [self.overlayPicker rotateRight];
+        }
+    }];
 }
 
 - (void)cameraZoom:(float)scale {
