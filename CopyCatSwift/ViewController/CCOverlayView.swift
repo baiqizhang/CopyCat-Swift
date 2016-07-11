@@ -130,6 +130,9 @@ class CCOverlayView: UIView {
         })
     }
     
+    func toggleGrid() {
+        self.gridOverlay?.changeToNextType()
+    }
     
     func onPress() {
         switch self.overlayState {
@@ -292,6 +295,8 @@ class CCOverlayView: UIView {
         //grid layout
         self.gridBtn = UIButton(frame: CGRectMake(10, 2, 35, 35))
         self.gridBtn?.setBackgroundImage(UIImage(named: "grid.png"), forState: .Normal)
+        self.gridBtn?.setBackgroundImage(UIImage(named: "grid_tint.png"), forState: .Highlighted)
+        self.gridBtn?.addTarget(self, action: #selector(CCOverlayView.toggleGrid), forControlEvents: .TouchUpInside)
         self.addSubview(self.gridBtn!)
         self.gridOverlay = CCGridOverlay(frame: CGRectMake(0, self.headerHeight, frame.width, frame.height-self.headerHeight-self.footerHeight))
         self.addSubview(self.gridOverlay!)
