@@ -155,17 +155,17 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         view.addSubview(pinsLabel)
         
         
-        //Settings
-        settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
-        settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
-        settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
-        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
-        view.addSubview(self.settingsButton)
+//        //Settings
+//        settingsButton = UIButton(frame: CGRectMake(view.frame.size.width - 45, 0, 40, 40))
+//        settingsButton.setBackgroundImage(UIImage(named: "settings2.png"), forState: .Normal)
+//        settingsButton.setBackgroundImage(UIImage(named: "settings2_highlight.png"), forState: .Highlighted)
+//        settingsButton.addTarget(self, action: #selector(CCProfileViewController.openSettings), forControlEvents: .TouchUpInside)
+//        view.addSubview(self.settingsButton)
         
         //Title
-        let titleLabel: CCLabel = CCLabel(frame: CGRectMake(50, -1, self.view.frame.size.width - 100, 40))
+        let titleLabel = UILabel(frame: CGRectMake(50, 0, self.view.frame.size.width - 100, 40))
         titleLabel.text = NSLocalizedString("PROFILE", comment: "Profile")
-        titleLabel.font = UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
+        titleLabel.font = UIFont.systemFontOfSize(17)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
         titleLabel.textAlignment = .Center
         self.view!.addSubview(titleLabel)

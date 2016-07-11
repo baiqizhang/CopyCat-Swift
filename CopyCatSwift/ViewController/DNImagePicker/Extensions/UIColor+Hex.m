@@ -56,4 +56,8 @@
     return [UIColor colorWithRed:r green:g blue:b alpha:1.0f];
 }
 
++ (UIColor *)colorWithHex:(NSUInteger)hexColor{
+    return [UIColor colorWithHexNumber:hexColor];
+}
+
 @end

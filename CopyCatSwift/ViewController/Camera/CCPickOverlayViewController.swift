@@ -57,12 +57,14 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         let width = self.view.frame.size.width
 
         self.imageCollectionView?.transform = CGAffineTransformIdentity
-        self.imageCollectionView?.frame = CGRectMake(-25, 120, height-10,width-55)
+        self.imageCollectionView?.frame = CGRectMake(-70, 120, height-10,width-55)
         self.imageCollectionView!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
         
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
-        self.categoryCollectionView?.frame = CGRectMake(-width/2-25, 22+height/2.0, height-10,40)
+        self.categoryCollectionView?.frame = CGRectMake(width/2-73, 22+height/2.0, height-10,40)
         self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(-M_PI_2));
+        
+        self.closeButton.transform=CGAffineTransformMakeRotation (CGFloat(-M_PI_2));
     }
     
     func rotateRight(){
@@ -81,6 +83,8 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
         self.categoryCollectionView?.frame = CGRectMake(-width/2-25, 20+height/2.0, height-10,40)
         self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(M_PI_2));
+        
+        self.closeButton.transform=CGAffineTransformMakeRotation (CGFloat(M_PI_2));
     }
     func rotateUpright(){
         guard self.imageCollectionView != nil
@@ -98,6 +102,8 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
         self.categoryCollectionView?.frame = CGRectMake(0, 40 + height - 40, width, 40)
         self.categoryCollectionView?.transform=CGAffineTransformMakeRotation (0.0);
+        
+        self.closeButton.transform=CGAffineTransformMakeRotation (CGFloat(0));
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -140,7 +146,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         NSLog("%@", userAlbums)
         
         //Close
-        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)
+        closeButton.frame = CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 80, 60, 70)
         closeButton.backgroundColor = UIColor(white: 0.13, alpha: 1)
         closeButton.setTitle("Cancel", forState: .Normal)
         closeButton.setTitleColor(.whiteColor(), forState: .Normal)

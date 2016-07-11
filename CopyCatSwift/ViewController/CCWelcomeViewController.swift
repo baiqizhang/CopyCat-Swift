@@ -8,12 +8,15 @@
 
 import UIKit
 import Gecco
+import Crashlytics
 //import CoreData
 
 
 class CCWelcomeViewController: UIViewController {
     private var backgroundImageView = UIImageView()
     private var placeHolderImageView = UIImageView()
+    private var logoImageView = UIImageView()
+    
     private var categoryButton = UIButton()
     private var inspireButton = UIButton()
     private var instagramLoingButton = UIButton()
@@ -22,10 +25,11 @@ class CCWelcomeViewController: UIViewController {
     
     private var searchTextField = UITextField()
     private var searchButton = UIButton()
+    private var collectionView = UIView()
+    
     
     private var toHide : [UIView] = []
     private var toShow : [UIView] = []
-
     private var libraryViews : [UIView] = []
     
     // Actions
@@ -92,6 +96,78 @@ class CCWelcomeViewController: UIViewController {
     func tapAction(){
         searchTextField.resignFirstResponder()
     }
+    func searchAction(){
+        if searchTextField.text == ""{
+            let overlayImage = UIImage(named: "4_0.jpg")
+            
+            //Add to "Saved"
+            CCCoreUtil.addPhotoForTopCategory(overlayImage!)
+            
+            // show animation each time user re-enter categoryview
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.removeObjectForKey("isFirstTimeUser")
+            userDefault.synchronize()
+            
+            //create overlay view
+            let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+            let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+            
+            //open camera
+            let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+            overlayView.delegate = AVCVC
+            self.presentViewController(AVCVC, animated: true, completion: {
+                AVCVC.setRefImage()
+            })
+            
+        } else {
+            let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
+            vc.modalTransitionStyle = .CrossDissolve
+            
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            self.view.window!.layer.addAnimation(transition, forKey: nil)
+            
+            presentViewController(vc, animated: false, completion: nil)
+        }
+    }
+    
+    func feedbackAction(){
+        let alertController = UIAlertController(title: "Quick Feedback", message: "Are you enjoying this App?", preferredStyle: .Alert)
+
+        let loveAction = UIAlertAction(title: "Yes, very much!", style: .Default) { (_) in
+            let alertController = UIAlertController(title: "That's nice. Thank you", message: "Can you help us by leaving a review on the AppStore?", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
+                iRate.sharedInstance().openRatingsPageInAppStore()
+            }
+            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true) {}
+        }
+        let hateAction = UIAlertAction(title: "Not really", style: .Cancel) { (_) in
+            let alertController = UIAlertController(title: "How can we improve?", message: "Do you want to tell us how to improve our app and make you happy?", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
+                // NOTE: maxCount = 0 to hide count
+                let popupTextView = YIPopupTextView(placeHolder: NSLocalizedString("The developer values your feedback.", comment: "Feedback"), maxCount: 1000, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
+                popupTextView.delegate = self
+                popupTextView.caretShiftGestureEnabled = true
+                // default = NO
+                popupTextView.text = ""
+                popupTextView.showInViewController(self)
+
+            }
+            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true) {}
+        }
+        alertController.addAction(loveAction)
+        alertController.addAction(hateAction)
+        presentViewController(alertController, animated: true) {}
+    }
     
     // Lifecycle
     override func prefersStatusBarHidden() -> Bool {
@@ -128,7 +204,7 @@ class CCWelcomeViewController: UIViewController {
         backgroundImageView.addGestureRecognizer(tapRecognizer)
         
         
-        let logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
+        logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
         logoImageView.image = UIImage(named: "cclogo.png")
         view!.addSubview(logoImageView)
 
@@ -191,30 +267,22 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35)
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
-        searchTextField.keyboardType = .ASCIICapable
-        searchTextField.returnKeyType = .Search
         searchTextField.borderStyle = .RoundedRect
         searchTextField.backgroundColor = UIColor.whiteColor()
         searchTextField.layer.borderWidth = 8.0;
         searchTextField.layer.cornerRadius = 8.0;
         searchTextField.layer.borderColor = UIColor.clearColor().CGColor
 
+        searchTextField.autocorrectionType = .Default
+        searchTextField.spellCheckingType = .No
+        searchTextField.keyboardType = .ASCIICapable
+        searchTextField.returnKeyType = .Search
+        searchTextField.clearButtonMode = .WhileEditing
+        searchTextField.addTarget(self, action: #selector(CCWelcomeViewController.textFieldDidChange), forControlEvents: .EditingChanged)
         searchTextField.attributedPlaceholder = NSAttributedString(string:"What to capture today? e.g. coffee",
                                                                    attributes:[NSForegroundColorAttributeName:
                                                                     UIColor.grayColor()])
         
-        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
-        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
-        searchButton.layer.borderWidth = 1.0;
-        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
-        searchButton.layer.cornerRadius = 8.0;
-        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
-            attributes:[NSForegroundColorAttributeName:
-                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
-        searchButton.alpha = 0
-        view.addSubview(searchButton)
-
-
         
         let magnifyingGlass = UIImageView(frame: CGRectMake(5, 0, 20, 20))
         magnifyingGlass.image = UIImage(named: "search.png")
@@ -229,16 +297,34 @@ class CCWelcomeViewController: UIViewController {
         
         view.addSubview(searchTextField)
         
+        //search button
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.layer.borderWidth = 1.0;
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
+        searchButton.layer.cornerRadius = 8.0;
+        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
+            attributes:[NSForegroundColorAttributeName:
+                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        searchButton.alpha = 0
+        searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
+        view.addSubview(searchButton)
         
+        collectionView.frame = CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2 + 50 , 120, 50)
+        collectionView.backgroundColor = .whiteColor()
+        collectionView.alpha = 0
+        view.addSubview(collectionView)
+        
+        //or select from my
         let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 80, view.frame.size.height/2, 20, 35))
         orView.text = "or"
         orView.textColor = .whiteColor()
         orView.font = UIFont.systemFontOfSize(14)
         view.addSubview(orView)
         
-        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 130, 35))
-        library.setAttributedTitle(NSAttributedString(string:"Use my own photo",
-            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 135, 35))
+        library.setAttributedTitle(NSAttributedString(string:"Use my own template",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
         library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         library.layer.borderWidth = 1
         library.layer.cornerRadius = 17.0;
@@ -246,9 +332,19 @@ class CCWelcomeViewController: UIViewController {
         library.addTarget(self, action: #selector(pickImage), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(library)
         
+        let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 40, view.frame.size.height-40, 80, 30))
+        feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Normal)
+        feedback.layer.borderColor = UIColor(hexNumber: 0x777777).CGColor
+        feedback.layer.borderWidth = 1
+        feedback.layer.cornerRadius = 15.0;
+        feedback.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)
+        feedback.alpha=0.8
+        feedback.addTarget(self, action: #selector(feedbackAction), forControlEvents: UIControlEvents.TouchUpInside)
+        view.addSubview(feedback)
         
         
-
+        // ----- shown on guide page -----
 
         
         // instructions
@@ -276,19 +372,19 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(step3)
         
         
-        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, 470 , 120, 30))
-        let font = UIFont.systemFontOfSize(14)
+        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, 450 , 170, 38))
+        let font = UIFont.systemFontOfSize(16)
         okay.setAttributedTitle(NSAttributedString(string:"Get Started",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
-        okay.layer.cornerRadius = 15.0;
-        okay.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//UIColor(hexNumber: 0x333333)
+        okay.layer.cornerRadius = 20.0;
+        okay.backgroundColor = UIColor(hexNumber: 0x181818)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         
         toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,orView,library,profileButton]
+        toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
         for view in self.toShow{
             view.alpha = 0
             view.userInteractionEnabled = false
@@ -305,6 +401,11 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 205, 35)
             self.searchButton.alpha = 1
             self.searchTextField.leftViewMode = .Never
+            
+//            if self.searchTextField.text!.isEmpty {
+//                self.searchTextField.autocorrectionType = .No
+//                self.collectionView.alpha = 1
+//            }
             
             for view in self.libraryViews{
                 view.alpha = 0
@@ -327,21 +428,20 @@ extension CCWelcomeViewController:UITextFieldDelegate{
         return true
     }
     
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        let vc = CCInspireCollectionViewController(tag: textField.text!)
-        vc.modalTransitionStyle = .CrossDissolve
-        
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        self.view.window!.layer.addAnimation(transition, forKey: nil)
-        
-//        self.presentViewController(localitiesView, animated: false, completion: { _ in })
-        
-        presentViewController(vc, animated: false, completion: nil)
+        self.searchAction()
         return true
+    }
+    
+    func textFieldDidChange(){
+//        if self.searchTextField.text!.isEmpty {
+//            self.searchTextField.autocorrectionType = .No
+//            self.collectionView.alpha = 1
+//        } else {
+//            self.searchTextField.autocorrectionType = .Yes
+//            self.collectionView.alpha = 0
+//        }
     }
 }
 
@@ -354,5 +454,20 @@ extension CCWelcomeViewController : UIImagePickerControllerDelegate,UINavigation
                 self.openGalleryWithImage(pickedImage)
             }
         }
+    }
+}
+
+
+extension CCWelcomeViewController : YIPopupTextViewDelegate{
+    func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
+        if !cancelled {
+            let str = textView.text!
+            CCNetUtil.sendFeedback(str, completion: { (error) in
+                if let err = error{
+                    Crashlytics.logEvent(err)
+                }
+            })
+        }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 }

@@ -42,10 +42,12 @@ class CCOverlayView: UIView {
     let zoomFactor: CGFloat = 15.0
     let sizeFactor: CGFloat = 55.0
     let positionFactor : CGFloat = 0.5
+    let headerHeight: CGFloat = 40
+    let footerHeight: CGFloat = 100
     
     var refOrientation = 0.0
     
-    //slider
+    //slider & alpha control
     var slider: UISlider?
     var overlayAlpha: CGFloat{
         set {
@@ -56,6 +58,12 @@ class CCOverlayView: UIView {
             return (self.imageView?.alpha)!
         }
     }
+    
+    // grid overlay
+    var gridBtn: UIButton?
+    var gridOverlay: CCGridOverlay?
+    
+    
     
     func prepareAnimation() {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -122,6 +130,9 @@ class CCOverlayView: UIView {
         })
     }
     
+    func toggleGrid() {
+        self.gridOverlay?.changeToNextType()
+    }
     
     func onPress() {
         switch self.overlayState {
@@ -219,7 +230,7 @@ class CCOverlayView: UIView {
     
     func setOverlayImage(var image:UIImage){
         let thumbnailSize : CGFloat = 150
-
+        
         if image.size.width > image.size.height {
             self.frame_tm = CGRectMake(self.frame.size.width / 2 - image.size.height / image.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image.size.height / image.size.width * thumbnailSize, thumbnailSize)
         } else {
@@ -244,7 +255,7 @@ class CCOverlayView: UIView {
         let width = frame.size.width
         self.frame_bg = CGRectMake(0, 40, width, height)
         let thumbnailSize : CGFloat = 150
-
+        
         if image.size.width > image.size.height {
             self.frame_tm = CGRectMake(self.frame.size.width / 2 - image.size.height / image.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image.size.height / image.size.width * thumbnailSize, thumbnailSize)
         } else {
@@ -255,7 +266,7 @@ class CCOverlayView: UIView {
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
         self.transparencyButton?.addTarget(self, action: #selector(CCOverlayView.onPress), forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
-//        self.addSubview(self.transparencyButton!)
+        //        self.addSubview(self.transparencyButton!)
         
         //rotate if width > height
         if image.size.width > image.size.height {
@@ -264,20 +275,27 @@ class CCOverlayView: UIView {
         }
         self.image=image;
         self.imageView = UIImageView.init(image: image)
-        self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        if image.size.width == image.size.height{
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
+            let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+            let upperBlurView = UIVisualEffectView(effect: darkBlur)
+            upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
+            
+            let lowerBlurView = UIVisualEffectView(effect: darkBlur)
+            lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
+            
+            self.addSubview(upperBlurView)
+            self.addSubview(lowerBlurView)
+        } else {
+            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        }
+        
         self.imageView!.clipsToBounds = true
         self.imageView!.userInteractionEnabled = true;
-
         self.addSubview(self.imageView!)
         
-        self.fakeView = UIView.init(frame:self.frame_bg)
-        self.fakeView!.userInteractionEnabled = true
-        self.addSubview(self.fakeView!)
-        
-        self.onSegChanged()
-        
         //slider
-        self.slider = UISlider(frame: CGRectMake(30, 50, frame.size.width - 60, 50))
+        self.slider = UISlider(frame: CGRectMake(30, 43, frame.size.width - 60, 50))
         self.slider?.minimumValue = 0.0
         self.slider?.maximumValue = 1.0
         self.slider?.continuous = true
@@ -288,6 +306,19 @@ class CCOverlayView: UIView {
         self.slider?.alpha = 0
         self.addSubview(self.slider!)
         
+        //grid layout
+        self.gridBtn = UIButton(frame: CGRectMake(10, 2, 35, 35))
+        self.gridBtn?.setBackgroundImage(UIImage(named: "grid.png"), forState: .Normal)
+        self.gridBtn?.setBackgroundImage(UIImage(named: "grid_tint.png"), forState: .Highlighted)
+        self.gridBtn?.addTarget(self, action: #selector(CCOverlayView.toggleGrid), forControlEvents: .TouchUpInside)
+        self.addSubview(self.gridBtn!)
+        self.gridOverlay = CCGridOverlay(frame: CGRectMake(0, self.headerHeight, frame.width, frame.height-self.headerHeight-self.footerHeight))
+        self.addSubview(self.gridOverlay!)
+        
+        self.fakeView = UIView.init(frame:self.frame_bg)
+        self.fakeView!.userInteractionEnabled = true
+        self.addSubview(self.fakeView!)
+        self.onSegChanged()
         
         let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePinch(_:)))
@@ -303,7 +334,7 @@ class CCOverlayView: UIView {
         self.fakeView?.addGestureRecognizer(panLRGestureRecognizer)
         self.fakeView?.addGestureRecognizer(tapGestureRecognizer)
         self.fakeView?.addGestureRecognizer(cameraPinchGestureRecognizer)
-
+        
         
         //for animation
         self.fadeView = UIView.init(frame: self.frame)
@@ -340,5 +371,7 @@ class CCOverlayView: UIView {
         
         self.stopAnimation = false
     }
-
+    
+    
+    
 }
