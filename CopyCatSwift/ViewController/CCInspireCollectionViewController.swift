@@ -245,13 +245,14 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 userDefault.synchronize()
                 
                 //create overlay view
-                let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-                let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+                //let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+                //let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
                 
                 //open camera
-                let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
-                overlayView.delegate = AVCVC
-                self.presentViewController(AVCVC, animated: true, completion: { _ in })
+                //let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+                //overlayView.delegate = AVCVC
+                let detailedView = CCInspireDetailViewController(image: overlayImage!)
+                self.presentViewController(detailedView, animated: true, completion: { _ in })
             }
         }
 

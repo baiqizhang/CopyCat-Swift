@@ -17,6 +17,7 @@
 		1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */; };
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
 		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
+		4673A9411D33412A00C1826C /* CCInspireDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
 		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
 		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
@@ -224,6 +225,7 @@
 		1DF5AA656029B580D8730DA9 /* Pods_CopyCatSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCatSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21DB380638D4E16A5A5481F7 /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
 		3DDD347E7527D428ACAC253B /* libPods-CopyCatSwiftTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CopyCatSwiftTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInspireDetailViewController.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
 		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
@@ -854,6 +856,7 @@
 				9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */,
 				97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */,
 				72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */,
+				4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1388,6 +1391,7 @@
 				1A4DF1E91C5082D4001A4775 /* CCPhotoCollectionManipulation.swift in Sources */,
 				1A4DF1F51C5083AE001A4775 /* CCBrowserCell.swift in Sources */,
 				9740CA301C2F5A7B0023FE2C /* UIImage+ImageEffects.m in Sources */,
+				4673A9411D33412A00C1826C /* CCInspireDetailViewController.swift in Sources */,
 				9740CA7F1C2FE8B30023FE2C /* DNImagePickerController.m in Sources */,
 				9740CA8F1C2FE8B30023FE2C /* JKPromptView.m in Sources */,
 				9704E1561C21FC4800A48C5F /* AppDelegate.swift in Sources */,
