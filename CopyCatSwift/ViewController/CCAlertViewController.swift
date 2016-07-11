@@ -123,7 +123,7 @@ class CCAlertViewController : UIViewController {
             // Alert Background View
             let alertBackground = UIView(frame: CGRectMake(50, view.frame.height/2 - 100 , view.frame.width-100, height + titleHeight))
             alertBackground.backgroundColor = .blackColor()
-            alertBackground.layer.borderColor = UIColor.hexStringToColor("#41AFFF").CGColor
+            alertBackground.layer.borderColor = UIColor(hex:0x41AFFF).CGColor
             alertBackground.layer.borderWidth = 0.5
             view.addSubview(alertBackground)
             
@@ -140,7 +140,7 @@ class CCAlertViewController : UIViewController {
 
             // Alert Background View
             progressBar.frame = CGRectMake(progressBarMargin, view.frame.height/2 - 100 + titleHeight + height/2 - 5, 0, 10)
-            progressBar.backgroundColor = UIColor.hexStringToColor("#41AFFF")
+            progressBar.backgroundColor = UIColor(hex:0x41AFFF)
             view.addSubview(progressBar)
 
         }

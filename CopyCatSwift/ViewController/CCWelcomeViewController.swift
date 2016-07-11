@@ -8,6 +8,7 @@
 
 import UIKit
 import Gecco
+import Crashlytics
 //import CoreData
 
 
@@ -111,7 +112,38 @@ class CCWelcomeViewController: UIViewController {
     }
     
     func feedbackAction(){
-        
+        let alertController = UIAlertController(title: "Quick Feedback", message: "Are you enjoying this App?", preferredStyle: .Alert)
+
+        let loveAction = UIAlertAction(title: "Yes, very much!", style: .Default) { (_) in
+            let alertController = UIAlertController(title: "That's nice. Thank you", message: "Can you help us by leaving a review on the AppStore?", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
+                iRate.sharedInstance().openRatingsPageInAppStore()
+            }
+            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true) {}
+        }
+        let hateAction = UIAlertAction(title: "Not really", style: .Cancel) { (_) in
+            let alertController = UIAlertController(title: "How can we improve?", message: "Do you want to tell us how to improve our app and make you happy?", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
+                // NOTE: maxCount = 0 to hide count
+                let popupTextView = YIPopupTextView(placeHolder: NSLocalizedString("The developer values your feedback.", comment: "Feedback"), maxCount: 1000, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
+                popupTextView.delegate = self
+                popupTextView.caretShiftGestureEnabled = true
+                // default = NO
+                popupTextView.text = ""
+                popupTextView.showInViewController(self)
+
+            }
+            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true) {}
+        }
+        alertController.addAction(loveAction)
+        alertController.addAction(hateAction)
+        presentViewController(alertController, animated: true) {}
     }
     
     // Lifecycle
@@ -267,9 +299,9 @@ class CCWelcomeViewController: UIViewController {
         orView.font = UIFont.systemFontOfSize(14)
         view.addSubview(orView)
         
-        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 130, 35))
+        let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 135, 35))
         library.setAttributedTitle(NSAttributedString(string:"Use my own template",
-            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
         library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         library.layer.borderWidth = 1
         library.layer.cornerRadius = 17.0;
@@ -277,13 +309,14 @@ class CCWelcomeViewController: UIViewController {
         library.addTarget(self, action: #selector(pickImage), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(library)
         
-        let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height-100, 120, 35))
+        let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 40, view.frame.size.height-40, 80, 30))
         feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
-            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
-        feedback.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Normal)
+        feedback.layer.borderColor = UIColor(hexNumber: 0x777777).CGColor
         feedback.layer.borderWidth = 1
-        feedback.layer.cornerRadius = 17.0;
+        feedback.layer.cornerRadius = 15.0;
         feedback.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)
+        feedback.alpha=0.8
         feedback.addTarget(self, action: #selector(feedbackAction), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(feedback)
         
@@ -328,7 +361,7 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(okay)
         
         toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,orView,library,profileButton]
+        toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
         for view in self.toShow{
             view.alpha = 0
             view.userInteractionEnabled = false
@@ -398,5 +431,20 @@ extension CCWelcomeViewController : UIImagePickerControllerDelegate,UINavigation
                 self.openGalleryWithImage(pickedImage)
             }
         }
+    }
+}
+
+
+extension CCWelcomeViewController : YIPopupTextViewDelegate{
+    func popupTextView(textView: YIPopupTextView, willDismissWithText text: String, cancelled: Bool) {
+        if !cancelled {
+            let str = textView.text!
+            CCNetUtil.sendFeedback(str, completion: { (error) in
+                if let err = error{
+                    Crashlytics.logEvent(err)
+                }
+            })
+        }
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 }

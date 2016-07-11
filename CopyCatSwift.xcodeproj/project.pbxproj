@@ -287,8 +287,8 @@
 		9740CA5E1C2FE8B30023FE2C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DNImagePicker.strings; sourceTree = "<group>"; };
 		9740CA601C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DNIMagePickerUrlEqual.h"; sourceTree = "<group>"; };
 		9740CA611C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DNIMagePickerUrlEqual.m"; sourceTree = "<group>"; };
-		9740CA621C2FE8B30023FE2C /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
-		9740CA631C2FE8B30023FE2C /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		9740CA621C2FE8B30023FE2C /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Hex.h"; path = "CopyCatSwift/ViewController/DNImagePicker/Extensions/UIColor+Hex.h"; sourceTree = SOURCE_ROOT; };
+		9740CA631C2FE8B30023FE2C /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Hex.m"; path = "CopyCatSwift/ViewController/DNImagePicker/Extensions/UIColor+Hex.m"; sourceTree = SOURCE_ROOT; };
 		9740CA641C2FE8B30023FE2C /* UIView+DNImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DNImagePicker.h"; sourceTree = "<group>"; };
 		9740CA651C2FE8B30023FE2C /* UIView+DNImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DNImagePicker.m"; sourceTree = "<group>"; };
 		9740CA661C2FE8B30023FE2C /* UIViewController+DNImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DNImagePicker.h"; sourceTree = "<group>"; };
@@ -647,8 +647,6 @@
 			children = (
 				9740CA601C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.h */,
 				9740CA611C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.m */,
-				9740CA621C2FE8B30023FE2C /* UIColor+Hex.h */,
-				9740CA631C2FE8B30023FE2C /* UIColor+Hex.m */,
 				9740CA641C2FE8B30023FE2C /* UIView+DNImagePicker.h */,
 				9740CA651C2FE8B30023FE2C /* UIView+DNImagePicker.m */,
 				9740CA661C2FE8B30023FE2C /* UIViewController+DNImagePicker.h */,
@@ -812,6 +810,8 @@
 		97F6DFDE1C23A54700707180 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9740CA621C2FE8B30023FE2C /* UIColor+Hex.h */,
+				9740CA631C2FE8B30023FE2C /* UIColor+Hex.m */,
 				1A4DF1EA1C508380001A4775 /* CCCollectionView.swift */,
 				1A4DF1EB1C508380001A4775 /* CCCollectionViewCell.swift */,
 				1A4DF1EC1C508380001A4775 /* CCFramedButton.swift */,
