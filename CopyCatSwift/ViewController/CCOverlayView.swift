@@ -295,7 +295,7 @@ class CCOverlayView: UIView {
         self.addSubview(self.imageView!)
         
         //slider
-        self.slider = UISlider(frame: CGRectMake(30, 50, frame.size.width - 60, 50))
+        self.slider = UISlider(frame: CGRectMake(30, 43, frame.size.width - 60, 50))
         self.slider?.minimumValue = 0.0
         self.slider?.maximumValue = 1.0
         self.slider?.continuous = true
