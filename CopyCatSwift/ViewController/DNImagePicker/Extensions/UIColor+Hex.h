@@ -12,5 +12,6 @@
 
 + (UIColor *)hexStringToColor:(NSString *)stringToConvert;
 + (UIColor *)colorWithHexNumber:(NSUInteger)hexColor;
++ (UIColor *)colorWithHex:(NSUInteger)hexColor;
 
 @end

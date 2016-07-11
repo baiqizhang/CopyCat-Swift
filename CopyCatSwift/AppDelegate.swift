@@ -32,13 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //apparances
         CCFramedButton.appearance().backgroundColor = UIColor(white: 0, alpha: 0.5)
         
-//        UILabel.appearance().textColor = UIColor.whiteColor()
-//
+
+        // MARK: Fabric
         Fabric.with([Crashlytics.self])
-        
-        // Track the user action that is important for you.
         Answers.logCustomEventWithName("OpenPage", customAttributes: ["debug":"true"])
 
+        
         return true
     }
 

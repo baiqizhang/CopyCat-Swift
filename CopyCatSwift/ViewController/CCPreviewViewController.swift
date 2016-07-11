@@ -209,7 +209,7 @@ class CCPreviewViewController : UIViewController {
         self.shareOrigin!.layer.cornerRadius = 5
         self.shareOrigin!.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.shareOrigin!.backgroundColor = UIColor.whiteColor()
-        self.shareOrigin!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
+        self.shareOrigin!.setTitleColor(UIColor(hex:0x1D62F0), forState: .Highlighted)
 //        self.view.addSubview(self.shareOrigin!)
         
         self.shareTaken = UIButton(frame: CGRectMake(180, 3, 120, 34))
@@ -218,7 +218,7 @@ class CCPreviewViewController : UIViewController {
         self.shareTaken!.layer.cornerRadius = 5
         self.shareTaken!.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.shareTaken!.backgroundColor = UIColor.whiteColor()
-        self.shareTaken!.setTitleColor(UIColor.hexStringToColor("#1D62F0"), forState: .Highlighted)
+        self.shareTaken!.setTitleColor(UIColor(hex:0x1D62F0), forState: .Highlighted)
 //        self.view.addSubview(self.shareTaken!)
         
         self.isShowingRef = true
