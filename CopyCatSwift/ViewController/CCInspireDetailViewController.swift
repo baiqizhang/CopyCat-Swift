@@ -11,9 +11,8 @@ import UIKit
 class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
 
     
-    private let closeButton = UIButton()
     private let cancelButton = UIButton()
-    private let deleteButton = UIButton()
+    private let okButton = UIButton()
     private let flowLayout = UICollectionViewFlowLayout()
     private var imageView : UIImageView!
     
@@ -55,7 +54,7 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         
         let scrollView = UIScrollView();
-        scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40)
+        scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 50)
         scrollView.contentSize = imageView.frame.size
         scrollView.delegate = self
         scrollView.maximumZoomScale = 4
@@ -71,26 +70,26 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         //imageViewTrailingConstraint.constant = xOffset
         
         //view.layoutIfNeeded()
+
         
-        //Close
-        closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
-        closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
+        //close
+        let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 4 - 23, view.frame.size.height - 50, 50, 50))
+        closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
+        closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(CCInspireDetailViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
-        //Deleting
-        cancelButton.frame = CGRectMake(0, self.view.frame.size.height - 50, 50, 50)
-        cancelButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-        cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        cancelButton.addTarget(self, action: #selector(CCInspireDetailViewController.closeAction), forControlEvents: .TouchUpInside)
-        view!.addSubview(cancelButton)
+        //check
+        let checkButton: UIButton = UIButton(frame: CGRectMake(3 * view.frame.size.width / 4 - 23, view.frame.size.height - 50, 50, 50))
+        checkButton.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
+        checkButton.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
+        checkButton.addTarget(self, action: #selector(CCInspireDetailViewController.okForUse), forControlEvents: .TouchUpInside)
+        view!.addSubview(checkButton)
         
-        deleteButton.frame = CGRectMake(view.frame.size.width - 45, self.view.frame.size.height - 50, 40, 40)
-        deleteButton.setBackgroundImage(UIImage(named: "save.png"), forState: .Normal)
-        deleteButton.setBackgroundImage(UIImage(named: "save_highlight.png"), forState: .Highlighted)
-        deleteButton.addTarget(self, action: #selector(CCInspireDetailViewController.okForUse), forControlEvents: .TouchUpInside)
-        view!.addSubview(deleteButton)
+        //dark split bar
+        let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 2, view.frame.size.height - 37.5, 1, 25))
+        bar.backgroundColor = UIColor(white: 0.16, alpha: 1)
+        view!.addSubview(bar)
         
     }
     
