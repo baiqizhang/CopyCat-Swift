@@ -83,13 +83,6 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         let lineWidth:CGFloat = 1
         let height:CGFloat = 80.0
         
-        let block1: UIView = UIView(frame: CGRectMake(0, 40 + 2 * lineWidth, self.view.frame.size.width/2 - lineWidth, height))
-        block1.backgroundColor = UIColor(white: 0.13, alpha: 0.8)
-        view!.addSubview(block1)
-
-        let block2: UIView = UIView(frame: CGRectMake(self.view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth, self.view.frame.size.width/2 - lineWidth, height))
-        block2.backgroundColor = UIColor(white: 0.13, alpha: 0.8)
-        view!.addSubview(block2)
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0
@@ -121,38 +114,7 @@ class CCProfileViewController: UIViewController, CCPhotoCollectionManipulation {
         userImageView.userInteractionEnabled = true
         userImageView.addGestureRecognizer(UITapGestureRecognizer(target:self, action: #selector(CCProfileViewController.onTapUser)))
 
-        // User Info
-        let labelHeight : CGFloat = 11
-        let offset : CGFloat = -2
-        let fontSize:CGFloat = 12.0
         
-        let posts = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        posts.text = CCUserManager.postCount.stringValue
-        posts.textColor = .whiteColor()
-        posts.font = UIFont.systemFontOfSize(fontSize)
-        posts.textAlignment = .Center
-        view.addSubview(posts)
-        
-        let postsLabel = UILabel(frame:  CGRectMake(0, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        postsLabel.text = NSLocalizedString("POSTS", comment: "Posts")
-        postsLabel.textColor = .whiteColor()
-        postsLabel.font = UIFont.systemFontOfSize(fontSize)
-        postsLabel.textAlignment = .Center
-        view.addSubview(postsLabel)
-
-        let pins = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 - labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        pins.text = CCUserManager.pinCount.stringValue
-        pins.textColor = .whiteColor()
-        pins.font = UIFont.systemFontOfSize(fontSize)
-        pins.textAlignment = .Center
-        view.addSubview(pins)
-        
-        let pinsLabel = UILabel(frame:  CGRectMake(view.frame.size.width/2 + lineWidth, 40 + 2 * lineWidth + height/2 + labelHeight + offset, view.frame.size.width/2 - lineWidth, labelHeight))
-        pinsLabel.text = NSLocalizedString("PINS", comment: "Pins")
-        pinsLabel.textColor = .whiteColor()
-        pinsLabel.font = UIFont.systemFontOfSize(fontSize)
-        pinsLabel.textAlignment = .Center
-        view.addSubview(pinsLabel)
         
         
 //        //Settings
