@@ -25,6 +25,7 @@ class CCWelcomeViewController: UIViewController {
     
     private var searchTextField = UITextField()
     private var searchButton = UIButton()
+    private var leftView = UIView()
     private var collectionView = UIView()
     
     
@@ -289,7 +290,7 @@ class CCWelcomeViewController: UIViewController {
         magnifyingGlass.image = magnifyingGlass.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         magnifyingGlass.tintColor = UIColor.grayColor()
         
-        let leftView = UIView(frame: CGRectMake(0, 0, 25, 20))
+        leftView = UIView(frame: CGRectMake(0, 0, 25, 20))
         leftView.addSubview(magnifyingGlass)
         
         searchTextField.leftView = leftView
@@ -403,14 +404,24 @@ extension CCWelcomeViewController:UITextFieldDelegate{
         UIView.animateWithDuration(0.2) {
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 140, 35, 235, 37)
             self.searchButton.alpha = 1
-            self.searchTextField.leftViewMode = .Never
             
             self.profileButton.alpha = 0
             self.logoImageView.alpha = 0
-//            if self.searchTextField.text!.isEmpty {
-//                self.searchTextField.autocorrectionType = .No
-//                self.collectionView.alpha = 1
-//            }
+            
+            let back = UIImageView(frame: CGRectMake(5, 0, 25, 25))
+            back.image = UIImage(named: "back.png")
+            back.tintColor = UIColor(hexNumber: 0xEEEEEE)
+            back.image = back.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            back.tintColor = UIColor.grayColor()
+            
+            let leftView = UIView(frame: CGRectMake(0, 0, 30, 25))
+            leftView.addSubview(back)
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(CCWelcomeViewController.tapAction))
+            leftView.addGestureRecognizer(tap)
+            
+            self.searchTextField.leftView = leftView
+
             
             for view in self.libraryViews{
                 view.alpha = 0
@@ -423,10 +434,13 @@ extension CCWelcomeViewController:UITextFieldDelegate{
         UIView.animateWithDuration(0.2) {
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 250, 35)
             self.searchButton.alpha = 0
-            self.searchTextField.leftViewMode = .Always
+            self.searchTextField.leftView = self.leftView
             
             self.profileButton.alpha = 1
             self.logoImageView.alpha = 1
+            
+            self.searchTextField.rightView = nil
+            //self.searchTextField.rightViewMode = .UnlessEditing
             
             for view in self.libraryViews{
                 view.alpha = 1
