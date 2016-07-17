@@ -295,17 +295,20 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.leftView = leftView
         searchTextField.leftViewMode = .Always
         
+        
         view.addSubview(searchTextField)
         
         //search button
-        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 90, view.frame.size.height/2 - 50 , 50, 35)
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 105, 35 , 37, 37)
         searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
+        searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         searchButton.layer.borderWidth = 1.0;
-        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor//UIColor.clearColor().CGColor
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         searchButton.layer.cornerRadius = 8.0;
-        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
-            attributes:[NSForegroundColorAttributeName:
-                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
+//        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
+//            attributes:[NSForegroundColorAttributeName:
+//                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
         searchButton.alpha = 0
         searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
         view.addSubview(searchButton)
@@ -379,7 +382,7 @@ class CCWelcomeViewController: UIViewController {
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
         okay.layer.cornerRadius = 20.0;
-        okay.backgroundColor = UIColor(hexNumber: 0x181818)
+        okay.backgroundColor = UIColor(hexNumber: 0x222222)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(okay)
         
@@ -397,11 +400,13 @@ class CCWelcomeViewController: UIViewController {
 
 extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(textField: UITextField) {
-        UIView.animateWithDuration(0.15) {
-            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 205, 35)
+        UIView.animateWithDuration(0.2) {
+            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 140, 35, 235, 37)
             self.searchButton.alpha = 1
             self.searchTextField.leftViewMode = .Never
             
+            self.profileButton.alpha = 0
+            self.logoImageView.alpha = 0
 //            if self.searchTextField.text!.isEmpty {
 //                self.searchTextField.autocorrectionType = .No
 //                self.collectionView.alpha = 1
@@ -415,10 +420,13 @@ extension CCWelcomeViewController:UITextFieldDelegate{
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        UIView.animateWithDuration(0.15) {
+        UIView.animateWithDuration(0.2) {
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 250, 35)
             self.searchButton.alpha = 0
             self.searchTextField.leftViewMode = .Always
+            
+            self.profileButton.alpha = 1
+            self.logoImageView.alpha = 1
             
             for view in self.libraryViews{
                 view.alpha = 1
