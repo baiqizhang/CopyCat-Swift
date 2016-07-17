@@ -109,11 +109,98 @@ import CoreData
         self.userDefault.setBool(Bool(true), forKey: "cameraGuide")
     }
     
+    // Initialization
+    static func initCoreData(newestVersion: Int) {
+
+        userDefault.setObject(true, forKey: "initialized")
+        
+        userDefault.setBool(Bool(false), forKey: "welcomeGuide")
+        userDefault.setBool(Bool(false), forKey: "cameraGuide")
+        
+        userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
+        userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
+        userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
+        
+        userDefault.setInteger(Int(0), forKey: "categoryCount")
+        var category : CCCategory
+        category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
+        
+        category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+        
+        category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_6.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_7.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_8.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_9.jpg")
+        
+        category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_5.jpg")
+        
+        category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_6.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_7.jpg")
+        
+        category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_2.jpg")
+        
+        category = CCCoreUtil.addCategory("Lifestyle",bannerURI:"banner4.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_6.jpg")
+        
+        category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
+        userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+    }
+    
     static func prepare(){
         
         // Core data version number. should not be decreased.
+        // version 2: 07/17/2016
         // version 1: 06/25/2016
-        let newestVersion = 1
+        let newestVersion = 2
         
         if let _ = userDefault.stringForKey("initialized"){
             
@@ -144,9 +231,9 @@ import CoreData
                 }
                 
             } else {
-                print("Old Age!!!")
+                print("Core Data Not Under Version Control")
                 
-                // old age version, add "All" category
+                // old age version, add "Saved" category
                 let category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
@@ -159,97 +246,16 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
                 
-                // temporarily set version number to newest to fix multiple "All" problem
-                userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
-                
                 // TODO: migrate old photos
                 
             }
         } else {
             // Initialization
-            userDefault.setObject(true, forKey: "initialized")
-            
-            userDefault.setBool(Bool(false), forKey: "welcomeGuide")
-            userDefault.setBool(Bool(false), forKey: "cameraGuide")
-            
-            userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
-            userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
-            userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
-            
-            userDefault.setInteger(Int(0), forKey: "categoryCount")
-            var category : CCCategory
-            category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
-            
-            category = CCCoreUtil.addCategory(kTopCategoryName,bannerURI:"banner0.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
-
-            category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_6.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_7.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_8.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_9.jpg")
-
-            category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_5.jpg")
-
-            category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_6.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_7.jpg")
-
-            category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_2.jpg")
-
-            category = CCCoreUtil.addCategory("Lifestyle",bannerURI:"banner4.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_6.jpg")
-            
-            category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
-            userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+            initCoreData(newestVersion)
         }
         initializing = false
+        // set version number to newest to fix multiple "All" problem
+        userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
     }
     
     //MARK: Create

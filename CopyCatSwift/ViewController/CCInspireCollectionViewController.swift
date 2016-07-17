@@ -236,9 +236,6 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 }
                 let overlayImage = UIImage(data: data)
                 
-                //Add to "Saved"
-                CCCoreUtil.addPhotoForTopCategory(overlayImage!)
-                
                 // show animation each time user re-enter categoryview
                 let userDefault = NSUserDefaults.standardUserDefaults()
                 userDefault.removeObjectForKey("isFirstTimeUser")
