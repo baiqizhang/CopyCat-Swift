@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import Kingfisher
 
 
 @objc class CCNetUtil:NSObject{
@@ -14,6 +15,8 @@ import CoreData
 //    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
 //    static let host = "http://54.84.135.175:3000/api/v0/"
     static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
+    static let myCache = ImageCache(name: "all_image_cache")
+    static let imageDownloader = ImageDownloader(name: "user_profile_downloader")
 
     // MARK: Parsing User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
@@ -479,6 +482,12 @@ import CoreData
         NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
             completion(data: data, response: response, error: error)
             }.resume()
+    }
+    
+    static func loadImageWithCache(rawUrl:String, myImageView: UIImageView) {
+        let url = NSURL(string: rawUrl)!
+        myImageView.kf_showIndicatorWhenLoading = true
+        myImageView.kf_setImageWithURL(url, optionsInfo: [.TargetCache(myCache)])
     }
 
     static func loadDataFromURL(url: NSURL, completion:(response: NSData?, error: NSError?) -> Void) {

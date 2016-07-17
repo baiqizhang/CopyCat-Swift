@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CCCollectionViewCell: UICollectionViewCell {
     
@@ -19,7 +20,6 @@ class CCCollectionViewCell: UICollectionViewCell {
     var overlayView: CCOverlayFrameView?
     var imageView: UIImageView?
     var longPress: UILongPressGestureRecognizer?
-    
     
     func handleLongPress(longPress: UILongPressGestureRecognizer!){
         if self.deleteFlag < 0 {return}
@@ -93,21 +93,13 @@ class CCCollectionViewCell: UICollectionViewCell {
         
         initImage()
         
-        CCNetUtil.loadImage(self.imagePath!) { (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                guard let data = data where error == nil else {
-                    print(error)
-                    return
-                }
-                self.imageView!.image = UIImage(data: data)
-                self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
-                self.imageView!.clipsToBounds = true
-                UIView.animateWithDuration(0.3, animations: {
-                    self.imageView!.alpha = 1
-                })
+        self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        self.imageView!.clipsToBounds = true
+        UIView.animateWithDuration(0.3, animations: {
+            self.imageView!.alpha = 1
+        })
         
-            }
-        }
+        CCNetUtil.loadImageWithCache(self.imagePath!, myImageView: self.imageView!)
 
     }
 
