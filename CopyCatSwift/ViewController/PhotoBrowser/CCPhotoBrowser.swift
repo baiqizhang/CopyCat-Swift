@@ -92,23 +92,21 @@ import Crashlytics
             cancelButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
             view!.addSubview(cancelButton)
             
-            saveButton.frame = CGRectMake(view.frame.size.width / 2 - 87, view.frame.size.height - 62, 50, 50)
-            saveButton.setBackgroundImage(UIImage(named: "save2.png"), forState: .Normal)
-            saveButton.setBackgroundImage(UIImage(named: "save2_highlight.png"), forState: .Highlighted)
-            saveButton.addTarget(self, action: #selector(CCPhotoBrowser.saveAction), forControlEvents: .TouchUpInside)
-            view!.addSubview(saveButton)
+            //dark split bar
+            let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 5 * 2, view.frame.size.height - 37.5, 1, 25))
+            bar.backgroundColor = UIColor(white: 0.16, alpha: 1)
+            view!.addSubview(bar)
             
-            shareButton.frame = CGRectMake(view.frame.size.width/2 - 22.5, view.frame.size.height - 60, 45, 45)
-            shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
-            shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
-            shareButton.addTarget(self, action: #selector(CCPhotoBrowser.shareAction), forControlEvents: .TouchUpInside)
-            view!.addSubview(shareButton)
-            
-            flipButton.frame = CGRectMake(view.frame.size.width / 2 + 40, view.frame.size.height - 59, 44, 44)
+            flipButton.frame = CGRectMake(view.frame.size.width/2 - 22.5, view.frame.size.height - 60, 45, 45)
             flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
             flipButton.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Highlighted)
             flipButton.addTarget(self, action: #selector(CCPhotoBrowser.flipAction), forControlEvents: .TouchUpInside)
             view!.addSubview(flipButton)
+            
+            //dark split bar
+            let bar2: UIView = UIView(frame: CGRectMake(view.frame.size.width / 5 * 4, view.frame.size.height - 37.5, 1, 25))
+            bar2.backgroundColor = UIColor(white: 0.16, alpha: 1)
+            view!.addSubview(bar2)
             
             deleteButton.frame = CGRectMake(view.frame.size.width - 60, view.frame.size.height - 60, 45, 45)
             deleteButton.setBackgroundImage(UIImage(named: "delete.png"), forState: .Normal)
