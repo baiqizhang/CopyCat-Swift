@@ -28,14 +28,18 @@ import CoreData
             return self.userDefault.integerForKey("isUsingBackgrondMode")
         }
     }
-    static var isSaveToCameraRoll : Int {
+    static var isSaveToCameraRoll = 1
+    /*
+    Int {
+        
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isSaveToCameraRoll")
         }
         get{
             return self.userDefault.integerForKey("isSaveToCameraRoll")
         }
-    }
+ 
+    }*/
     static var isPreviewAfterPhotoTaken : Int {
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isPreviewAfterPhotoTaken")
@@ -111,45 +115,170 @@ import CoreData
         self.userDefault.setBool(Bool(true), forKey: "cameraGuide")
     }
     
+    // Destory Core Data
+    static func destroyCoreData() {
+        userDefault.setObject(false, forKey: "initialized")
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            for category in list {
+                let categoryObject = category as! NSManagedObject
+                // delete
+                self.managedObjectContext.deleteObject(categoryObject)
+            }
+            try self.managedObjectContext.save()
+        }catch{
+            NSLog("Destory Error")
+        }
+        
+        // delete files in Documnets
+        let fileManager = NSFileManager.defaultManager()
+        let files = fileManager.enumeratorAtPath("\(NSHomeDirectory())/Documents/")
+        for filename in files! {
+            if filename.containsString(".jpg") {
+                do {
+                    try fileManager.removeItemAtPath("\(NSHomeDirectory())/Documents/\(filename)")
+                    print("delete \(filename)")
+                } catch {
+                    NSLog("Delete Error")
+                }
+            }
+        }
+    }
+    
+    // Initialization
+    static func initCoreData(newestVersion: Int) {
+
+        userDefault.setObject(true, forKey: "initialized")
+        
+        userDefault.setBool(Bool(false), forKey: "welcomeGuide")
+        userDefault.setBool(Bool(false), forKey: "cameraGuide")
+        
+        userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
+        userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
+        userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
+        
+        userDefault.setInteger(Int(0), forKey: "categoryCount")
+        var category : CCCategory
+        category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
+        
+        category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+        
+        category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_6.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_7.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_8.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_9.jpg")
+        
+        category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_5.jpg")
+        
+        category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_6.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_7.jpg")
+        
+        category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_2.jpg")
+        
+        category = CCCoreUtil.addCategory("Lifestyle",bannerURI:"banner4.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_6.jpg")
+        
+        category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
+        CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
+        
+        userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        userDefault.setObject(true, forKey: "initialized")
+    }
+    
+    static func loadCategories() {
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            NSLog("count:%d", list.count)
+            self.categories = list.mutableCopy() as! NSMutableArray
+        }catch{
+            NSLog("Not found")
+        }
+    }
+    
     static func prepare(){
         
+        
         // Core data version number. should not be decreased.
+        // version 2: 07/17/2016
         // version 1: 06/25/2016
-        let newestVersion = 1
+        let newestVersion = 2
         
         
         if let _ = userDefault.stringForKey("initialized"){
-            
-            //Creating entries
-            let categoriesFetch = NSFetchRequest(entityName: "Category")
 
-            do{
-                let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
-                NSLog("categoryList:%@\ncount:%d", list, list.count)
-                self.categories = list.mutableCopy() as! NSMutableArray
-            }catch{
-                NSLog("Not found")
-            }
+            loadCategories()
             
             // Version Check
             let coreVersion = userDefault.integerForKey(VERSION_KEY)
-            
+            print("Version Controlled!!!!", coreVersion)
             if coreVersion > 0 {
-                // Yeah, Version Controlled Core
-                print("Version Controlled!!!!", coreVersion)
                 
                 // check if core data is new
                 if coreVersion < newestVersion {
                     print("Old Version")
-                    // Do some migration here
-                    // ...
-                    
+                    // version 1, destory
+                    if coreVersion == 1 {
+                        destroyCoreData()
+                        initCoreData(newestVersion)
+                    }
                 }
                 
             } else {
-                print("Old Age!!!")
+                print("Core Data Not Under Version Control")
                 
-                // old age version, add "All" category
+                // old age version, add "Saved" category
                 let category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
@@ -162,97 +291,20 @@ import CoreData
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
                 
-                // temporarily set version number to newest to fix multiple "All" problem
-                userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
-                
                 // TODO: migrate old photos
                 
             }
         } else {
             // Initialization
-            userDefault.setObject(true, forKey: "initialized")
-            
-            userDefault.setBool(Bool(false), forKey: "welcomeGuide")
-            userDefault.setBool(Bool(false), forKey: "cameraGuide")
-            "Saved"
-            userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
-            userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
-            userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
-            
-            userDefault.setInteger(Int(0), forKey: "categoryCount")
-            var category : CCCategory
-            category = CCCoreUtil.addCategory("_User",bannerURI:"_User")
-            
-            category = CCCoreUtil.addCategory(kTopCategoryName,bannerURI:"banner0.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+            initCoreData(newestVersion)
 
-            category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_6.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_7.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_8.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "0_9.jpg")
-
-            category = CCCoreUtil.addCategory("Urban",bannerURI:"banner1.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "1_5.jpg")
-
-            category = CCCoreUtil.addCategory("Nature",bannerURI:"banner2.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_6.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "2_7.jpg")
-
-            category = CCCoreUtil.addCategory("Food",bannerURI:"banner3.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "3_2.jpg")
-
-            category = CCCoreUtil.addCategory("Lifestyle",bannerURI:"banner4.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_3.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_4.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_5.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "4_6.jpg")
-            
-            category = CCCoreUtil.addCategory("Misc",bannerURI:"banner5.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_0.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
-            CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
-            userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
         }
         initializing = false
+        
+        // set version number to newest to fix multiple "All" problem
+        userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        
+        loadCategories()
     }
     
     //MARK: Create
@@ -267,14 +319,13 @@ import CoreData
         if position == -1 {
             CCCoreUtil.categories.addObject(category)
         } else {
-            print("There!!!!!!!!", name)
             CCCoreUtil.categories.insertObject(category, atIndex: position)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addCategory Save error!")
         }
         return category
     }
@@ -334,13 +385,13 @@ import CoreData
         if category.mutableOrderedSetValueForKey("photoList").count == 0 {
             category.mutableOrderedSetValueForKey("photoList").addObject(photo)
         } else {
-            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)//.addObject(photo)
+            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addPhotoForCategory Save error!")
         }
         
         if let name = category.name where name != kTopCategoryName && !initializing {
@@ -362,7 +413,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addUserPhoto Save error!")
         }
 
     }
@@ -374,7 +425,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("removePhotoForCategory Save error!")
         }
     }
     
