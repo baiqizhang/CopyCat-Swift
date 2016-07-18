@@ -14,6 +14,7 @@ import CoreData
     static let userDefault = NSUserDefaults.standardUserDefaults()
     static let VERSION_KEY = "core_version"
     static let kTopCategoryName = "Saved"
+    static let kSearchHistory = "Search_history"
     
     static var initializing = true
     
@@ -373,31 +374,33 @@ import CoreData
             NSLog("Save error!")
         }
     }
+
+    //search history
+    static func getSearchHistory() -> [String]{
+        let obj = userDefault.objectForKey(kSearchHistory)
+        if obj != nil{
+            let array = obj as! [String]
+            return array
+        }
+        return []
+    }
     
-    
-    //    // Deprecated
-    //    func mergePhotoCategories(categories: [CCCategory]) -> CCCategory {
-    //        let allPhotos = categories[0]
-    //        allPhotos.name = "All"
-    //        var count = 0
-    //        for catInd in 1...categories.count-1 {
-    //            print("Conting category", catInd)
-    //            count += categories[catInd].photoCount!.integerValue - 1
-    //        }
-    //        allPhotos.photoCount = count
-    //        allPhotos.bannerURI = ""
-    //
-    //        let newSet = NSMutableOrderedSet()
-    //        for catInd in 1...categories.count-1 {
-    //            let category = categories[catInd]
-    //            category.photoList?.enumerateObjectsUsingBlock({ (obj, index, pointer) in
-    //                if index > 1 {
-    //                    newSet.addObject(obj)
-    //                }
-    //            })
-    //        }
-    //        allPhotos.photoList = newSet
-    //        allPhotos.id = 0
-    //        return allPhotos
-    //    }
+    //search history
+    static func addSearchHistory(str:String){
+        let obj = userDefault.objectForKey(kSearchHistory)
+        if obj != nil{
+            var array = obj as! [String]
+            if !array.contains(str){
+                array.insert(str, atIndex: 0)
+            } else {
+                let index = array.indexOf(str)
+                array.removeAtIndex(index!)
+                array.insert(str, atIndex: 0)
+            }
+            userDefault.setObject(array, forKey: kSearchHistory)
+        } else {
+            let array : [String] = [str]
+            userDefault.setObject(array, forKey: kSearchHistory)
+        }
+    }
 }

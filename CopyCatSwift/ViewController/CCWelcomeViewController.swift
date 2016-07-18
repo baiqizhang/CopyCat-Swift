@@ -30,6 +30,8 @@ class CCWelcomeViewController: UIViewController {
     
     private let tableView = UITableView()
     private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Woman","Macbook","Sign","Grassland"]
+    private var history : [String] = [] //init in willappear
+    private var showHistory = false
     
     private var toHide : [UIView] = []
     private var toShow : [UIView] = []
@@ -101,6 +103,8 @@ class CCWelcomeViewController: UIViewController {
     }
     func searchAction(){
         if searchTextField.text == ""{
+            return
+            
             let overlayImage = UIImage(named: "4_0.jpg")
             
             //Add to "Saved"
@@ -123,6 +127,10 @@ class CCWelcomeViewController: UIViewController {
             })
             
         } else {
+            // Add to history
+            CCCoreUtil.addSearchHistory(searchTextField.text!)
+            
+            // Show search result
             let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
             vc.modalTransitionStyle = .CrossDissolve
             
@@ -176,10 +184,15 @@ class CCWelcomeViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
     override func viewWillAppear(animated: Bool) {
-        let inset = UIEdgeInsetsMake(7.5, 7.5, 12.5, 12.5)
-        profileButton.setImage(CCCoreUtil.userPicture.imageWithAlignmentRectInsets(inset), forState: UIControlState.Normal)
-        profileButton.contentEdgeInsets = inset
+        history = CCCoreUtil.getSearchHistory()
+        if searchTextField.text != ""{
+            textFieldDidBeginEditing(searchTextField)
+            textFieldDidChange()
+            searchTextField.becomeFirstResponder()
+        }
+        tableView.reloadData()
     }
     
     
@@ -354,6 +367,8 @@ class CCWelcomeViewController: UIViewController {
         libraryViews = [library,orView]
         
     }
+    
+    
 }
 
 extension CCWelcomeViewController:UITextFieldDelegate{
@@ -415,13 +430,16 @@ extension CCWelcomeViewController:UITextFieldDelegate{
     }
     
     func textFieldDidChange(){
-//        if self.searchTextField.text!.isEmpty {
-//            self.searchTextField.autocorrectionType = .No
-//            self.collectionView.alpha = 1
-//        } else {
-//            self.searchTextField.autocorrectionType = .Yes
-//            self.collectionView.alpha = 0
-//        }
+        let last = showHistory
+        
+        if self.searchTextField.text!.isEmpty {
+            showHistory = false
+        } else {
+            showHistory = true
+        }
+        if showHistory != last {
+            tableView.reloadData()
+        }
     }
 }
 
@@ -455,13 +473,20 @@ extension CCWelcomeViewController : YIPopupTextViewDelegate{
 extension CCWelcomeViewController : UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.searchTextField.text = self.hotTag[indexPath.row]
+        if showHistory{
+            self.searchTextField.text = self.history[indexPath.row]
+        } else {
+            self.searchTextField.text = self.hotTag[indexPath.row]
+        }
         self.searchAction()
     }
 }
 
 extension CCWelcomeViewController : UITableViewDataSource{
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if showHistory{
+            return "History"
+        }
         return "Recommended"
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -478,12 +503,20 @@ extension CCWelcomeViewController : UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if showHistory{
+            return self.history.count
+        }
         return self.hotTag.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
-        
-        cell.textLabel?.attributedText = NSAttributedString(string:self.hotTag[indexPath.row],
+        var content = ""
+        if showHistory{
+            content = self.history[indexPath.row]
+        } else {
+            content = self.hotTag[indexPath.row]
+        }
+        cell.textLabel?.attributedText = NSAttributedString(string:content,
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x111111),NSFontAttributeName:UIFont.systemFontOfSize(13.5)])
         
         return cell
