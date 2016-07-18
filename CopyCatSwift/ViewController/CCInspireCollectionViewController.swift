@@ -171,6 +171,7 @@ class CCInspireCollectionViewController: UIViewController{
         //GPS
         let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
         gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         gpsButton.addTarget(self, action: #selector(CCInspireViewController.gpsAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(gpsButton)
 
@@ -284,14 +285,9 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 userDefault.removeObjectForKey("isFirstTimeUser")
                 userDefault.synchronize()
                 
-                //create overlay view
-                //let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-                //let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
-                
-                //open camera
-                //let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
-                //overlayView.delegate = AVCVC
                 let detailedView = CCInspireDetailViewController(image: overlayImage!)
+                detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+                detailedView.parent = self
                 self.presentViewController(detailedView, animated: true, completion: { _ in })
             }
         }

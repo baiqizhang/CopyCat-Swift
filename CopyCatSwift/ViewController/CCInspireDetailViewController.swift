@@ -9,7 +9,7 @@
 import UIKit
 
 class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
-
+    var parent : CCInspireCollectionViewController?
     
     private let cancelButton = UIButton()
     private let okButton = UIButton()
@@ -107,10 +107,14 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
         
+        //close
+        self.closeAction()
+
         //open camera
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
         overlayView.delegate = AVCVC
-        self.presentViewController(AVCVC, animated: true, completion: { _ in })
+        self.parent?.presentViewController(AVCVC, animated: false, completion: { _ in })
+        
 
     }
 
