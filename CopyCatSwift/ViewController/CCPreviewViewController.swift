@@ -201,12 +201,13 @@ class CCPreviewViewController : UIViewController {
         self.instagramButton = UIButton(frame: CGRectMake(170, self.view.frame.size.height - 70, 55, 55))
         self.instagramButton?.addTarget(self, action:#selector(CCPreviewViewController.shareInstaAction), forControlEvents:.TouchUpInside)
         self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
+        self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         self.view.addSubview(self.instagramButton!)
         
         self.flipButton = UIButton(frame: CGRectMake(245, self.view.frame.size.height - 70, 55, 55))
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchUpInside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
-        self.flipButton?.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
+        self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         self.view.addSubview(self.flipButton!)
         
         // Share checkbox

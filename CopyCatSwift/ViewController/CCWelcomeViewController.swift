@@ -264,8 +264,11 @@ class CCWelcomeViewController: UIViewController {
         
         //search button
         searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 100, 35 , 37, 37)
-        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)//searchButton.tintColor
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)
         searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
+        searchButton.setImage(UIImage(named: "search.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+        
+        
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         searchButton.layer.borderWidth = 1;
         searchButton.layer.borderColor = UIColor(hexNumber: 0xEEEEEE).CGColor
@@ -289,6 +292,9 @@ class CCWelcomeViewController: UIViewController {
         let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 135, 35))
         library.setAttributedTitle(NSAttributedString(string:"Use my own template",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
+        library.setAttributedTitle(NSAttributedString(string:"Use my own template",
+            attributes:[NSForegroundColorAttributeName: UIColor(hex:0x41AFFF),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Highlighted)
+        
         library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         library.layer.borderWidth = 1
         library.layer.cornerRadius = 17.0;
@@ -299,6 +305,8 @@ class CCWelcomeViewController: UIViewController {
         let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 40, view.frame.size.height-40, 80, 30))
         feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Normal)
+        feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x41AFFF),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Highlighted)
         feedback.layer.borderColor = UIColor(hexNumber: 0x777777).CGColor
         feedback.layer.borderWidth = 1
         feedback.layer.cornerRadius = 15.0;
@@ -350,10 +358,12 @@ class CCWelcomeViewController: UIViewController {
         let font = UIFont.systemFontOfSize(16)
         okay.setAttributedTitle(NSAttributedString(string:"Get Started",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
+        okay.setAttributedTitle(NSAttributedString(string:"Get Started",
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x41AFFF),NSFontAttributeName:font]), forState: .Highlighted)
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
         okay.layer.cornerRadius = 20.0;
-        okay.backgroundColor = UIColor(hexNumber: 0x222222)
+        okay.backgroundColor = UIColor(hexNumber: 0x222222)    
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
         
         
