@@ -242,14 +242,9 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 userDefault.removeObjectForKey("isFirstTimeUser")
                 userDefault.synchronize()
                 
-                //create overlay view
-                //let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-                //let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
-                
-                //open camera
-                //let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
-                //overlayView.delegate = AVCVC
                 let detailedView = CCInspireDetailViewController(image: overlayImage!)
+                detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+                detailedView.parent = self
                 self.presentViewController(detailedView, animated: true, completion: { _ in })
             }
         }

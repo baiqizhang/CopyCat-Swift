@@ -317,7 +317,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search recommendation and history
-        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 277, 260)
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 139.5, 85, 278, 260)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -501,9 +501,9 @@ extension CCWelcomeViewController : UITableViewDelegate{
 extension CCWelcomeViewController : UITableViewDataSource{
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if showHistory{
-            return "History"
+            return "Search History"
         }
-        return "Hot Tags"
+        return "Popular Tags"
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if view.isKindOfClass(UITableViewHeaderFooterView){
