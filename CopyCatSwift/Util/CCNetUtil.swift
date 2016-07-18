@@ -217,17 +217,31 @@ import AwesomeCache
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
 
-        //let url = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
-        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
-        if let cachedJSON = searchResCache[url] {
+        let copyCatUrl = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
+        let unsplashUrl = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        if let cachedJSON = searchResCache[copyCatUrl] {
             let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
             completion(posts: result)
             return
+        } else if let cachedJSON = searchResCache[unsplashUrl] {
+                let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
+                completion(posts: result)
+                return
         }
-        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        
+        var encodedUrl = copyCatUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
-            let result = parsePostFromUnsplashJson(json)
-            completion(posts: result)
+            if json {
+                let result = parsePostFromUnsplashJson(json)
+                completion(posts: result)
+            } else {
+                encodedUrl = unsplashUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+                CCNetUtil.getJSONFromURL(encodedUrl!) { (unJson:JSON) -> Void in
+                    let result = parsePostFromUnsplashJson(unJson)
+                    completion(posts: result)
+                }
+            }
         }
     }
     
@@ -483,6 +497,8 @@ import AwesomeCache
                 searchResCache.setObject(urlData, forKey: url, expires: .Seconds(86400))
                 NSLog("received json:%@",json.rawString()!)
                 completion(json: json)
+            } else {
+                completion(json: nil)
             }
         })
     }

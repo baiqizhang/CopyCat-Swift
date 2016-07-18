@@ -88,6 +88,7 @@
 		974875191D10B32D0089C385 /* geofence.png in Resources */ = {isa = PBXBuildFile; fileRef = 974875181D10B32D0089C385 /* geofence.png */; };
 		9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */; };
 		9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */; };
+		97551EBF1D3C814D00277556 /* UIButton+HitArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */; };
 		97636E091D1F39F00073D9EA /* lucky.png in Resources */ = {isa = PBXBuildFile; fileRef = 97636E081D1F39F00073D9EA /* lucky.png */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
@@ -331,6 +332,7 @@
 		974875181D10B32D0089C385 /* geofence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geofence.png; sourceTree = "<group>"; };
 		9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCPickOverlayViewController.swift; path = Camera/CCPickOverlayViewController.swift; sourceTree = "<group>"; };
 		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+HitArea.swift"; sourceTree = "<group>"; };
 		97636E081D1F39F00073D9EA /* lucky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lucky.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 		97F6DFDE1C23A54700707180 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */,
 				9740CA621C2FE8B30023FE2C /* UIColor+Hex.h */,
 				9740CA631C2FE8B30023FE2C /* UIColor+Hex.m */,
 				1A4DF1EA1C508380001A4775 /* CCCollectionView.swift */,
@@ -1427,6 +1430,7 @@
 				97254F911C2955EF0047968A /* CCGalleryViewController.swift in Sources */,
 				97254F921C2955EF0047968A /* CCWelcomeViewController.swift in Sources */,
 				97FCBB9A1CF2AFDC003734DA /* CCPost.swift in Sources */,
+				97551EBF1D3C814D00277556 /* UIButton+HitArea.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

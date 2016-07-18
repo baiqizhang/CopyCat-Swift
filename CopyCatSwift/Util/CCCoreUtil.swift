@@ -13,6 +13,8 @@ import CoreData
     static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     static let userDefault = NSUserDefaults.standardUserDefaults()
     static let VERSION_KEY = "core_version"
+    static let INSTRUCTION_SHOW_TIMES = "instructionShownTimes"
+    static let SWIPE_HINT_SHOWN_TIMES = "swipHintShownTimes"
     static let kTopCategoryName = "Saved"
     static let kSearchHistory = "Search_history"
     
@@ -160,6 +162,9 @@ import CoreData
         userDefault.setInteger(Int(1), forKey: "isUsingBackgrondMode")
         userDefault.setInteger(Int(0), forKey: "isSaveToCameraRoll")
         userDefault.setInteger(Int(1), forKey: "isPreviewAfterPhotoTaken")
+        
+        userDefault.setInteger(Int(0), forKey: INSTRUCTION_SHOW_TIMES)
+        userDefault.setInteger(Int(0), forKey: SWIPE_HINT_SHOWN_TIMES)
         
         userDefault.setInteger(Int(0), forKey: "categoryCount")
         var category : CCCategory

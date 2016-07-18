@@ -29,7 +29,7 @@ class CCWelcomeViewController: UIViewController {
     private let collectionView = UIView()
     
     private let tableView = UITableView()
-    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Woman","Macbook","Sign","Grassland"]
+    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
     private var history : [String] = [] //init in willappear
     private var showHistory = false
     
@@ -87,7 +87,9 @@ class CCWelcomeViewController: UIViewController {
                 view.userInteractionEnabled = true
             }
         }
+        
     }
+    
     func pickImage() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -262,11 +264,11 @@ class CCWelcomeViewController: UIViewController {
         
         //search button
         searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 100, 35 , 37, 37)
-        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)//searchButton.tintColor
         searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
-        searchButton.layer.borderWidth = 1.0;
-        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+        searchButton.layer.borderWidth = 1;
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xEEEEEE).CGColor
         searchButton.layer.cornerRadius = 8.0;
         searchButton.alpha = 0
         searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
@@ -307,7 +309,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search recommendation and history
-        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 275, 260)
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 277, 260)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -319,9 +321,7 @@ class CCWelcomeViewController: UIViewController {
         self.view.addSubview(tableView)
         
         // ----- shown on guide page -----
-
         
-        // instructions
         let textWidth:CGFloat = 100.0
         
         let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 250 , textWidth*2, 35))
@@ -329,21 +329,21 @@ class CCWelcomeViewController: UIViewController {
         step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
         step1.textAlignment = .Left
-        view.addSubview(step1)
+        
         
         let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 300 , textWidth*2, 35))
         step2.text = "2. Pick a reference photo"
         step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
         step2.textAlignment = .Left
-        view.addSubview(step2)
+        
         
         let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 350 , textWidth*2, 35))
         step3.text = "3. Swipe and snap!"
         step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)
         step3.textAlignment = .Left
-        view.addSubview(step3)
+        
         
         
         let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, 450 , 170, 38))
@@ -355,20 +355,26 @@ class CCWelcomeViewController: UIViewController {
         okay.layer.cornerRadius = 20.0;
         okay.backgroundColor = UIColor(hexNumber: 0x222222)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
-        view.addSubview(okay)
         
-        toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
-        for view in self.toShow{
-            view.alpha = 0
-            view.userInteractionEnabled = false
+        
+        // instructions
+        let shown = CCCoreUtil.userDefault.integerForKey(CCCoreUtil.INSTRUCTION_SHOW_TIMES)
+        if shown < 3 {
+            view.addSubview(step1)
+            view.addSubview(step2)
+            view.addSubview(step3)
+            view.addSubview(okay)
+            toHide = [step1,step2,step3,okay,placeHolderImageView]
+            toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
+            for view in self.toShow{
+                view.alpha = 0
+                view.userInteractionEnabled = false
+            }
+            CCCoreUtil.userDefault.setInteger(shown + 1, forKey: CCCoreUtil.INSTRUCTION_SHOW_TIMES)
         }
         
         libraryViews = [library,orView]
-        
     }
-    
-    
 }
 
 extension CCWelcomeViewController:UITextFieldDelegate{
@@ -381,9 +387,9 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             self.profileButton.alpha = 0
             self.logoImageView.alpha = 0
             
-            let back = UIImageView(frame: CGRectMake(5, 0, 25, 25))
+            let back = UIImageView(frame: CGRectMake(2.5, -5, 35, 35))
             back.image = UIImage(named: "back.png")
-            back.tintColor = UIColor(hexNumber: 0xEEEEEE)
+            back.tintColor = UIColor(hexNumber: 0xF2F2F2)
             back.image = back.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             back.tintColor = UIColor.grayColor()
             
@@ -487,7 +493,7 @@ extension CCWelcomeViewController : UITableViewDataSource{
         if showHistory{
             return "History"
         }
-        return "Recommended"
+        return "Hot Tags"
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if view.isKindOfClass(UITableViewHeaderFooterView){

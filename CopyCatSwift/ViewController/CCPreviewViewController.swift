@@ -11,6 +11,7 @@ import CoreMotion
 import AssetsLibrary
 import Fabric
 import Crashlytics
+import EggsBenedict
 
 class CCPreviewViewController : UIViewController {
     
@@ -19,6 +20,7 @@ class CCPreviewViewController : UIViewController {
     var refImage: UIImage?
     var imageView: UIImageView?
     var refImageView: UIImageView?
+    let sharingFlow = SharingFlow(type: .IGOExclusivegram)
     
     var isShowingRef: Bool = false
     
@@ -28,13 +30,14 @@ class CCPreviewViewController : UIViewController {
     }
     
     var acceptButton: UIButton?
+    var instagramButton: UIButton?
     var cancelButton: UIButton?
     var flipButton: UIButton?
     var shareTaken: UIButton?
     var shareOrigin: UIButton?
     var refOrientation: Float = 0
     
-    var _sharingOrigin = true
+    var _sharingOrigin = false
     var sharingOrigin: Bool {
         set{
             
@@ -54,7 +57,7 @@ class CCPreviewViewController : UIViewController {
         }
     }
     
-    var _sharingTaken = true
+    var _sharingTaken = false
     var sharingTaken: Bool {
         set{
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -142,16 +145,16 @@ class CCPreviewViewController : UIViewController {
     
     
     func onFlipPress() {
-        UIView.animateWithDuration(0.2, animations: {
-            if self.isShowingRef {
-                self.imageView?.alpha = 1
-                self.refImageView?.alpha = 0
-                self.isShowingRef = false
-            } else {
-                self.imageView?.alpha = 0
-                self.refImageView?.alpha = 1
-                self.isShowingRef = true
-            }
+        UIView.animateWithDuration(0.1, animations: {
+            self.imageView?.alpha = 0
+            self.refImageView?.alpha = 1
+        })
+    }
+    
+    func onFlipRelease() {
+        UIView.animateWithDuration(0.1, animations: {
+            self.imageView?.alpha = 1
+            self.refImageView?.alpha = 0
         })
     }
     
@@ -175,8 +178,6 @@ class CCPreviewViewController : UIViewController {
                                        contentId: nil,
                                        customAttributes: nil)
         
-        
-        
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
         
@@ -185,19 +186,27 @@ class CCPreviewViewController : UIViewController {
         self.motionManager?.deviceMotionUpdateInterval = 0.1
         self.orientation = 0
         
-        self.acceptButton = UIButton(frame: CGRectMake(self.view.frame.size.width / 2 - 40, self.view.frame.size.height - 85, 80, 80))
-        self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
-        self.acceptButton?.setBackgroundImage(UIImage(named: "save.png"), forState: .Normal)
-        self.view.addSubview(self.acceptButton!)
-        
-        self.cancelButton = UIButton(frame: CGRectMake(40, self.view.frame.size.height - 70, 55, 55))
+        self.cancelButton = UIButton(frame: CGRectMake(20, self.view.frame.size.height - 70, 55, 55))
         self.cancelButton?.addTarget(self, action: #selector(CCPreviewViewController.dismissSelf), forControlEvents: .TouchUpInside)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.cancelButton!)
         
-        self.flipButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 55, 55))
-        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchUpInside)
+        self.acceptButton = UIButton(frame: CGRectMake(95, self.view.frame.size.height - 70, 55, 55))
+        self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
+        self.acceptButton?.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
+        self.acceptButton?.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
+        self.view.addSubview(self.acceptButton!)
+        
+        self.instagramButton = UIButton(frame: CGRectMake(170, self.view.frame.size.height - 70, 55, 55))
+        self.instagramButton?.addTarget(self, action:#selector(CCPreviewViewController.shareInstaAction), forControlEvents:.TouchUpInside)
+        self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
+        self.view.addSubview(self.instagramButton!)
+        
+        self.flipButton = UIButton(frame: CGRectMake(245, self.view.frame.size.height - 70, 55, 55))
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpOutside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.flipButton!)
@@ -221,7 +230,6 @@ class CCPreviewViewController : UIViewController {
         self.shareTaken!.setTitleColor(UIColor(hex:0x1D62F0), forState: .Highlighted)
 //        self.view.addSubview(self.shareTaken!)
         
-        self.isShowingRef = true
         let height = self.view.frame.size.height - 140
         let width = self.view.frame.width
         let frame_bg = CGRectMake(0, 40, width, height)
@@ -286,6 +294,15 @@ class CCPreviewViewController : UIViewController {
         })
     }
     
+    func shareInstaAction() {
+        if sharingFlow.hasInstagramApp {
+            sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
+        } else {
+            print("no instagarm")
+        }
+        // saveImage()
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         self.motionManager?.stopDeviceMotionUpdates()
     }
@@ -298,6 +315,7 @@ class CCPreviewViewController : UIViewController {
             self.acceptButton!.transform=CGAffineTransformMakeRotation(0)
             self.cancelButton!.transform=CGAffineTransformMakeRotation(0)
             self.flipButton!.transform=CGAffineTransformMakeRotation(0)
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(0)
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 0:
@@ -328,6 +346,7 @@ class CCPreviewViewController : UIViewController {
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 1:
@@ -358,6 +377,7 @@ class CCPreviewViewController : UIViewController {
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case -1:
