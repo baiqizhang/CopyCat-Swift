@@ -314,6 +314,7 @@ class CCPreviewViewController : UIViewController {
             self.acceptButton!.transform=CGAffineTransformMakeRotation(0)
             self.cancelButton!.transform=CGAffineTransformMakeRotation(0)
             self.flipButton!.transform=CGAffineTransformMakeRotation(0)
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(0)
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 0:
@@ -344,6 +345,7 @@ class CCPreviewViewController : UIViewController {
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case 1:
@@ -374,6 +376,7 @@ class CCPreviewViewController : UIViewController {
             self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
             var transform: CGAffineTransform
             switch (self.imageOrientation) {
             case -1:
