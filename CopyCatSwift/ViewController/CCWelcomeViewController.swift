@@ -87,7 +87,9 @@ class CCWelcomeViewController: UIViewController {
                 view.userInteractionEnabled = true
             }
         }
+        
     }
+    
     func pickImage() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -319,9 +321,7 @@ class CCWelcomeViewController: UIViewController {
         self.view.addSubview(tableView)
         
         // ----- shown on guide page -----
-
         
-        // instructions
         let textWidth:CGFloat = 100.0
         
         let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 250 , textWidth*2, 35))
@@ -329,21 +329,21 @@ class CCWelcomeViewController: UIViewController {
         step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
         step1.textAlignment = .Left
-        view.addSubview(step1)
+        
         
         let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 300 , textWidth*2, 35))
         step2.text = "2. Pick a reference photo"
         step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
         step2.textAlignment = .Left
-        view.addSubview(step2)
+        
         
         let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 350 , textWidth*2, 35))
         step3.text = "3. Swipe and snap!"
         step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)
         step3.textAlignment = .Left
-        view.addSubview(step3)
+        
         
         
         let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, 450 , 170, 38))
@@ -355,20 +355,26 @@ class CCWelcomeViewController: UIViewController {
         okay.layer.cornerRadius = 20.0;
         okay.backgroundColor = UIColor(hexNumber: 0x222222)
         okay.addTarget(self, action: #selector(getStarted), forControlEvents: UIControlEvents.TouchUpInside)
-        view.addSubview(okay)
         
-        toHide = [step1,step2,step3,okay,placeHolderImageView]
-        toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
-        for view in self.toShow{
-            view.alpha = 0
-            view.userInteractionEnabled = false
+        
+        // instructions
+        let shown = CCCoreUtil.userDefault.integerForKey(CCCoreUtil.INSTRUCTION_SHOW_TIMES)
+        if shown < 3 {
+            view.addSubview(step1)
+            view.addSubview(step2)
+            view.addSubview(step3)
+            view.addSubview(okay)
+            toHide = [step1,step2,step3,okay,placeHolderImageView]
+            toShow = [backgroundImageView,searchTextField,orView,library,feedback,profileButton]
+            for view in self.toShow{
+                view.alpha = 0
+                view.userInteractionEnabled = false
+            }
+            CCCoreUtil.userDefault.setInteger(shown + 1, forKey: CCCoreUtil.INSTRUCTION_SHOW_TIMES)
         }
         
         libraryViews = [library,orView]
-        
     }
-    
-    
 }
 
 extension CCWelcomeViewController:UITextFieldDelegate{
