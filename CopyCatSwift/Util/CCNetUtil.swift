@@ -213,12 +213,21 @@ import Kingfisher
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
-//        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
-        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        let copyCatUrl = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
+        let unsplashUrl = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        var encodedUrl = copyCatUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
-            let result = parsePostFromUnsplashJson(json)
-            completion(posts: result)
+            if json {
+                let result = parsePostFromUnsplashJson(json)
+                completion(posts: result)
+            } else {
+                encodedUrl = unsplashUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+                CCNetUtil.getJSONFromURL(encodedUrl!) { (unJson:JSON) -> Void in
+                    let result = parsePostFromUnsplashJson(unJson)
+                    completion(posts: result)
+                }
+            }
         }
     }
     
@@ -473,6 +482,8 @@ import Kingfisher
                 let json = JSON(data: urlData)
                 NSLog("received json:%@",json.rawString()!)
                 completion(json: json)
+            } else {
+                completion(json: nil)
             }
         })
     }
