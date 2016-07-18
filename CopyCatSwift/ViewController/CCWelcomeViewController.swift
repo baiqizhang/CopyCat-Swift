@@ -13,21 +13,23 @@ import Crashlytics
 
 
 class CCWelcomeViewController: UIViewController {
-    private var backgroundImageView = UIImageView()
-    private var placeHolderImageView = UIImageView()
+    private let backgroundImageView = UIImageView()
+    private let placeHolderImageView = UIImageView()
     private var logoImageView = UIImageView()
     
-    private var categoryButton = UIButton()
-    private var inspireButton = UIButton()
-    private var instagramLoingButton = UIButton()
-    private var profileButton = UIButton()
-    private var guideButton = UIButton()
+    private let categoryButton = UIButton()
+    private let inspireButton = UIButton()
+    private let instagramLoingButton = UIButton()
+    private let profileButton = UIButton()
+    private let guideButton = UIButton()
     
-    private var searchTextField = UITextField()
-    private var searchButton = UIButton()
+    private let searchTextField = UITextField()
+    private let searchButton = UIButton()
     private var leftView = UIView()
-    private var collectionView = UIView()
+    private let collectionView = UIView()
     
+    private let tableView = UITableView()
+    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Woman","Macbook","Sign","Grassland"]
     
     private var toHide : [UIView] = []
     private var toShow : [UIView] = []
@@ -209,60 +211,6 @@ class CCWelcomeViewController: UIViewController {
         logoImageView.image = UIImage(named: "cclogo.png")
         view!.addSubview(logoImageView)
 
-        //Buttons
-//        categoryButton.frame = CGRectMake(80, 340.0 - offset, 50, 50)
-//        categoryButton.setBackgroundImage(UIImage(named: "photo.png"), forState: .Normal)
-//        categoryButton.setBackgroundImage(UIImage(named: "photo_highlight.png"), forState: .Highlighted)
-//        categoryButton.addTarget(self, action: #selector(CCWelcomeViewController.openGallery), forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(categoryButton)
-//        
-//        inspireButton.frame = CGRectMake(self.view.frame.size.width - 115, 340 - offset, 50, 50)
-//        inspireButton.setBackgroundImage(UIImage(named: "gallery.png"), forState: .Normal)
-//        inspireButton.setBackgroundImage(UIImage(named: "gallery_highlight.png"), forState: .Highlighted)
-//        inspireButton.addTarget(self, action: #selector(CCWelcomeViewController.openInspire), forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(inspireButton)
-//        
-//        guideButton.frame = CGRectMake(self.view.frame.size.width - 50, 520 , 30, 30)
-//        guideButton.setBackgroundImage(UIImage(named: "help.png"), forState: .Normal)
-//        guideButton.addTarget(self, action: #selector(CCWelcomeViewController.userGuide), forControlEvents: .TouchUpInside)
-//
-//        
-//        //Button Labels
-//        let cameraLabel: UILabel = UILabel(frame: CGRectMake(75, 393 - offset, 60, 15))
-//        cameraLabel.textAlignment = .Center
-//        cameraLabel.text = NSLocalizedString("CAMERA", comment: "CAMERA")
-//        cameraLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
-//        self.view!.addSubview(cameraLabel)
-//        
-//        let libraryLabel: UILabel = UILabel(frame: CGRectMake(self.view.frame.size.width - 119.5, 393 - offset, 60, 15))
-//        libraryLabel.textAlignment = .Center
-//        libraryLabel.text = NSLocalizedString("GALLERY", comment:"GALLERY")
-//        libraryLabel.font = UIFont.systemFontOfSize(CCCoreUtil.fontSizeS)
-//        self.view!.addSubview(libraryLabel)
-
-        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(CCWelcomeViewController.openProfile))
-        
-        profileButton.addGestureRecognizer(singleTap)
-        profileButton.userInteractionEnabled = true
-        
-        profileButton.imageView?.layer.cornerRadius = 12
-        profileButton.imageView?.clipsToBounds = true
-        profileButton.imageView?.layer.borderWidth = 1
-        profileButton.imageView?.layer.borderColor = UIColor.whiteColor().CGColor
-        view!.addSubview(profileButton)
-        
-        profileButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
-        
-        view.addConstraint(NSLayoutConstraint(item: profileButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 45))
-        
-        
-        
-        
         
         //search bar
         searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35)
@@ -300,16 +248,13 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(searchTextField)
         
         //search button
-        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 105, 35 , 37, 37)
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 100, 35 , 37, 37)
         searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
         searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         searchButton.layer.borderWidth = 1.0;
         searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         searchButton.layer.cornerRadius = 8.0;
-//        searchButton.setAttributedTitle(NSAttributedString(string:"Search",
-//            attributes:[NSForegroundColorAttributeName:
-//                UIColor.whiteColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)]), forState: .Normal)
         searchButton.alpha = 0
         searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
         view.addSubview(searchButton)
@@ -319,7 +264,7 @@ class CCWelcomeViewController: UIViewController {
         collectionView.alpha = 0
         view.addSubview(collectionView)
         
-        //or select from my
+        //or select from my lib
         let orView = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - 80, view.frame.size.height/2, 20, 35))
         orView.text = "or"
         orView.textColor = .whiteColor()
@@ -347,6 +292,18 @@ class CCWelcomeViewController: UIViewController {
         feedback.addTarget(self, action: #selector(feedbackAction), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(feedback)
         
+        
+        //search recommendation and history
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 265, 260)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        tableView.layer.borderColor = UIColor(hexNumber: 0x777777).CGColor
+        tableView.layer.borderWidth = 1
+        tableView.layer.cornerRadius = 5.0;
+        tableView.alpha = 0
+        self.view.addSubview(tableView)
         
         // ----- shown on guide page -----
 
@@ -401,7 +358,8 @@ class CCWelcomeViewController: UIViewController {
 
 extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(textField: UITextField) {
-        UIView.animateWithDuration(0.2) {
+        
+        UIView.animateWithDuration(0.15) {
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 140, 35, 235, 37)
             self.searchButton.alpha = 1
             
@@ -421,6 +379,9 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             leftView.addGestureRecognizer(tap)
             
             self.searchTextField.leftView = leftView
+            
+            self.tableView.alpha = 1
+
 
             
             for view in self.libraryViews{
@@ -431,17 +392,14 @@ extension CCWelcomeViewController:UITextFieldDelegate{
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        UIView.animateWithDuration(0.2) {
+        self.tableView.alpha = 0
+        UIView.animateWithDuration(0.15) {
             self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 250, 35)
             self.searchButton.alpha = 0
             self.searchTextField.leftView = self.leftView
             
             self.profileButton.alpha = 1
             self.logoImageView.alpha = 1
-            
-            self.searchTextField.rightView = nil
-            //self.searchTextField.rightViewMode = .UnlessEditing
-            
             for view in self.libraryViews{
                 view.alpha = 1
                 view.userInteractionEnabled = true
@@ -491,5 +449,43 @@ extension CCWelcomeViewController : YIPopupTextViewDelegate{
             })
         }
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+extension CCWelcomeViewController : UITableViewDelegate{
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.searchTextField.text = self.hotTag[indexPath.row]
+        self.searchAction()
+    }
+}
+
+extension CCWelcomeViewController : UITableViewDataSource{
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Recommended"
+    }
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if view.isKindOfClass(UITableViewHeaderFooterView){
+            let headerView = view as! UITableViewHeaderFooterView
+            if #available(iOS 8.2, *) {
+                //headerView.textLabel?.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+                headerView.textLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 14)!// Fallback on earlier versions
+            } else {
+                headerView.textLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 14)!// Fallback on earlier versions
+            }
+            headerView.textLabel?.textColor = UIColor(hexNumber: 0x222222)
+        }
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.hotTag.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        
+        cell.textLabel?.attributedText = NSAttributedString(string:self.hotTag[indexPath.row],
+            attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x111111),NSFontAttributeName:UIFont.systemFontOfSize(13.5)])
+        
+        return cell
     }
 }
