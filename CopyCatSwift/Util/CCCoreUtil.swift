@@ -26,14 +26,18 @@ import CoreData
             return self.userDefault.integerForKey("isUsingBackgrondMode")
         }
     }
-    static var isSaveToCameraRoll : Int {
+    static var isSaveToCameraRoll = 1
+    /*
+    Int {
+        
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isSaveToCameraRoll")
         }
         get{
             return self.userDefault.integerForKey("isSaveToCameraRoll")
         }
-    }
+ 
+    }*/
     static var isPreviewAfterPhotoTaken : Int {
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isPreviewAfterPhotoTaken")
