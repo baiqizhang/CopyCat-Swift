@@ -29,7 +29,7 @@ class CCWelcomeViewController: UIViewController {
     private let collectionView = UIView()
     
     private let tableView = UITableView()
-    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Woman","Macbook","Sign","Grassland"]
+    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
     private var history : [String] = [] //init in willappear
     private var showHistory = false
     
@@ -487,7 +487,7 @@ extension CCWelcomeViewController : UITableViewDataSource{
         if showHistory{
             return "History"
         }
-        return "Recommended"
+        return "Hot tags"
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if view.isKindOfClass(UITableViewHeaderFooterView){
