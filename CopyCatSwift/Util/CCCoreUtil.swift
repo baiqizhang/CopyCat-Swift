@@ -109,6 +109,38 @@ import CoreData
         self.userDefault.setBool(Bool(true), forKey: "cameraGuide")
     }
     
+    // Destory Core Data
+    static func destroyCoreData() {
+        userDefault.setObject(false, forKey: "initialized")
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            for category in list {
+                let categoryObject = category as! NSManagedObject
+                // delete
+                self.managedObjectContext.deleteObject(categoryObject)
+            }
+            try self.managedObjectContext.save()
+        }catch{
+            NSLog("Destory Error")
+        }
+        
+        // delete files in Documnets
+        let fileManager = NSFileManager.defaultManager()
+        let files = fileManager.enumeratorAtPath("\(NSHomeDirectory())/Documents/")
+        for filename in files! {
+            if filename.containsString(".jpg") {
+                do {
+                    try fileManager.removeItemAtPath("\(NSHomeDirectory())/Documents/\(filename)")
+                    print("delete \(filename)")
+                } catch {
+                    NSLog("Delete Error")
+                }
+            }
+        }
+    }
+    
     // Initialization
     static func initCoreData(newestVersion: Int) {
 
@@ -192,10 +224,25 @@ import CoreData
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
+        
         userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        userDefault.setObject(true, forKey: "initialized")
+    }
+    
+    static func loadCategories() {
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            NSLog("count:%d", list.count)
+            self.categories = list.mutableCopy() as! NSMutableArray
+        }catch{
+            NSLog("Not found")
+        }
     }
     
     static func prepare(){
+        
         
         // Core data version number. should not be decreased.
         // version 2: 07/17/2016
@@ -203,31 +250,22 @@ import CoreData
         let newestVersion = 2
         
         if let _ = userDefault.stringForKey("initialized"){
-            
-            //Creating entries
-            let categoriesFetch = NSFetchRequest(entityName: "Category")
 
-            do{
-                let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
-                NSLog("categoryList:%@\ncount:%d", list, list.count)
-                self.categories = list.mutableCopy() as! NSMutableArray
-            }catch{
-                NSLog("Not found")
-            }
+            loadCategories()
             
             // Version Check
             let coreVersion = userDefault.integerForKey(VERSION_KEY)
-            
+            print("Version Controlled!!!!", coreVersion)
             if coreVersion > 0 {
-                // Yeah, Version Controlled Core
-                print("Version Controlled!!!!", coreVersion)
                 
                 // check if core data is new
                 if coreVersion < newestVersion {
                     print("Old Version")
-                    // Do some migration here
-                    // ...
-                    
+                    // version 1, destory
+                    if coreVersion == 1 {
+                        destroyCoreData()
+                        initCoreData(newestVersion)
+                    }
                 }
                 
             } else {
@@ -254,8 +292,11 @@ import CoreData
             initCoreData(newestVersion)
         }
         initializing = false
+        
         // set version number to newest to fix multiple "All" problem
         userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        
+        loadCategories()
     }
     
     //MARK: Create
@@ -270,14 +311,13 @@ import CoreData
         if position == -1 {
             CCCoreUtil.categories.addObject(category)
         } else {
-            print("There!!!!!!!!", name)
             CCCoreUtil.categories.insertObject(category, atIndex: position)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addCategory Save error!")
         }
         return category
     }
@@ -330,13 +370,13 @@ import CoreData
         if category.mutableOrderedSetValueForKey("photoList").count == 0 {
             category.mutableOrderedSetValueForKey("photoList").addObject(photo)
         } else {
-            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)//.addObject(photo)
+            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addPhotoForCategory Save error!")
         }
         
         if let name = category.name where name != kTopCategoryName && !initializing {
@@ -358,7 +398,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addUserPhoto Save error!")
         }
 
     }
@@ -370,7 +410,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("removePhotoForCategory Save error!")
         }
     }
     
