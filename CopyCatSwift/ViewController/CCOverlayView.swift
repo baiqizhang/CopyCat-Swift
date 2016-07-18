@@ -357,39 +357,47 @@ class CCOverlayView: UIView {
         
         
         //for animation
-        self.fadeView = UIView.init(frame: self.frame)
-        self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.75)
-        self.fadeView?.userInteractionEnabled = false
-        self.fadeView?.alpha = 0
-        self.addSubview(self.fadeView!)
+        let shown = CCCoreUtil.userDefault.integerForKey(CCCoreUtil.SWIPE_HINT_SHOWN_TIMES)
+        if (shown < 3) {
+            self.fadeView = UIView.init(frame: self.frame)
+            self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.75)
+            self.fadeView?.userInteractionEnabled = false
+            self.fadeView?.alpha = 0
+            self.addSubview(self.fadeView!)
+            
+            self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
+            self.swipeView?.image = UIImage(named: "swipe.png")
+            self.swipeView?.alpha = 0
+            self.addSubview(self.swipeView!)
+            
+            self.dot = UIImageView.init(frame: CGRectMake(marginFactor-zoomFactor/2, self.frame.size.height * self.positionFactor-zoomFactor/2, sizeFactor+zoomFactor, sizeFactor+zoomFactor))
+            self.dot?.image = UIImage(named: "whitedot.png")
+            self.dot?.alpha=0;
+            self.addSubview(self.dot!)
+            
+            guideLabel1.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-130,300, 40)
+            guideLabel1.text = "Swipe to adjust transparency" //and learn its composition
+            guideLabel1.textAlignment = .Center
+            guideLabel1.font = UIFont.systemFontOfSize(22)
+            guideLabel1.textColor = .whiteColor()
+            guideLabel1.alpha = 0
+            addSubview(guideLabel1)
+            
+            guideLabel2.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-80,300, 40)
+            guideLabel2.text = "and learn its composition"
+            guideLabel2.textAlignment = .Center
+            guideLabel2.font = UIFont.systemFontOfSize(19)
+            guideLabel2.textColor = .whiteColor()
+            guideLabel2.alpha = 0
+            addSubview(guideLabel2)
+            
+            self.stopAnimation = false
+            
+            CCCoreUtil.userDefault.setInteger(shown + 1, forKey: CCCoreUtil.SWIPE_HINT_SHOWN_TIMES)
+        } else {
+            self.stopAnimation = true
+        }
         
-        self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
-        self.swipeView?.image = UIImage(named: "swipe.png")
-        self.swipeView?.alpha = 0
-        self.addSubview(self.swipeView!)
-        
-        self.dot = UIImageView.init(frame: CGRectMake(marginFactor-zoomFactor/2, self.frame.size.height * self.positionFactor-zoomFactor/2, sizeFactor+zoomFactor, sizeFactor+zoomFactor))
-        self.dot?.image = UIImage(named: "whitedot.png")
-        self.dot?.alpha=0;
-        self.addSubview(self.dot!)
-        
-        guideLabel1.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-130,300, 40)
-        guideLabel1.text = "Swipe to adjust transparency" //and learn its composition
-        guideLabel1.textAlignment = .Center
-        guideLabel1.font = UIFont.systemFontOfSize(22)
-        guideLabel1.textColor = .whiteColor()
-        guideLabel1.alpha = 0
-        addSubview(guideLabel1)
-        
-        guideLabel2.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-80,300, 40)
-        guideLabel2.text = "and learn its composition"
-        guideLabel2.textAlignment = .Center
-        guideLabel2.font = UIFont.systemFontOfSize(19)
-        guideLabel2.textColor = .whiteColor()
-        guideLabel2.alpha = 0
-        addSubview(guideLabel2)
-        
-        self.stopAnimation = false
     }
     
     
