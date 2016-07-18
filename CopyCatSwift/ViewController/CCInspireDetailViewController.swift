@@ -96,7 +96,7 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
     func okForUse() {
         let overlayImage = self.imageView.image
         //Add to "Saved"
-        CCCoreUtil.addPhotoForTopCategory(overlayImage!)
+        //CCCoreUtil.addPhotoForTopCategory(overlayImage!)
         
         // show animation each time user re-enter categoryview
         let userDefault = NSUserDefaults.standardUserDefaults()

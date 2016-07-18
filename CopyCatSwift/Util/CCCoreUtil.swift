@@ -16,6 +16,9 @@ import CoreData
     static let kTopCategoryName = "Saved"
     static let kSearchHistory = "Search_history"
     
+    static var photoFilter = [String: [String: String]]();
+    static var photoSet = Set<String>();
+    
     static var initializing = true
     
     // MARK: Settings
@@ -27,14 +30,18 @@ import CoreData
             return self.userDefault.integerForKey("isUsingBackgrondMode")
         }
     }
-    static var isSaveToCameraRoll : Int {
+    static var isSaveToCameraRoll = 1
+    /*
+    Int {
+        
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isSaveToCameraRoll")
         }
         get{
             return self.userDefault.integerForKey("isSaveToCameraRoll")
         }
-    }
+ 
+    }*/
     static var isPreviewAfterPhotoTaken : Int {
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isPreviewAfterPhotoTaken")
@@ -108,6 +115,38 @@ import CoreData
     
     static func didCameraGuide(){
         self.userDefault.setBool(Bool(true), forKey: "cameraGuide")
+    }
+    
+    // Destory Core Data
+    static func destroyCoreData() {
+        userDefault.setObject(false, forKey: "initialized")
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            for category in list {
+                let categoryObject = category as! NSManagedObject
+                // delete
+                self.managedObjectContext.deleteObject(categoryObject)
+            }
+            try self.managedObjectContext.save()
+        }catch{
+            NSLog("Destory Error")
+        }
+        
+        // delete files in Documnets
+        let fileManager = NSFileManager.defaultManager()
+        let files = fileManager.enumeratorAtPath("\(NSHomeDirectory())/Documents/")
+        for filename in files! {
+            if filename.containsString(".jpg") {
+                do {
+                    try fileManager.removeItemAtPath("\(NSHomeDirectory())/Documents/\(filename)")
+                    print("delete \(filename)")
+                } catch {
+                    NSLog("Delete Error")
+                }
+            }
+        }
     }
     
     // Initialization
@@ -193,42 +232,49 @@ import CoreData
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_1.jpg")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_2.jpg")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "5_3.jpg")
+        
         userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        userDefault.setObject(true, forKey: "initialized")
+    }
+    
+    static func loadCategories() {
+        //Creating entries
+        let categoriesFetch = NSFetchRequest(entityName: "Category")
+        do{
+            let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
+            NSLog("count:%d", list.count)
+            self.categories = list.mutableCopy() as! NSMutableArray
+        }catch{
+            NSLog("Not found")
+        }
     }
     
     static func prepare(){
+        
         
         // Core data version number. should not be decreased.
         // version 2: 07/17/2016
         // version 1: 06/25/2016
         let newestVersion = 2
         
+        
         if let _ = userDefault.stringForKey("initialized"){
-            
-            //Creating entries
-            let categoriesFetch = NSFetchRequest(entityName: "Category")
 
-            do{
-                let list = try CCCoreUtil.managedObjectContext.executeFetchRequest(categoriesFetch) as NSArray
-                NSLog("categoryList:%@\ncount:%d", list, list.count)
-                self.categories = list.mutableCopy() as! NSMutableArray
-            }catch{
-                NSLog("Not found")
-            }
+            loadCategories()
             
             // Version Check
             let coreVersion = userDefault.integerForKey(VERSION_KEY)
-            
+            print("Version Controlled!!!!", coreVersion)
             if coreVersion > 0 {
-                // Yeah, Version Controlled Core
-                print("Version Controlled!!!!", coreVersion)
                 
                 // check if core data is new
                 if coreVersion < newestVersion {
                     print("Old Version")
-                    // Do some migration here
-                    // ...
-                    
+                    // version 1, destory
+                    if coreVersion == 1 {
+                        destroyCoreData()
+                        initCoreData(newestVersion)
+                    }
                 }
                 
             } else {
@@ -253,10 +299,14 @@ import CoreData
         } else {
             // Initialization
             initCoreData(newestVersion)
+
         }
         initializing = false
+        
         // set version number to newest to fix multiple "All" problem
         userDefault.setInteger(newestVersion, forKey: VERSION_KEY)
+        
+        loadCategories()
     }
     
     //MARK: Create
@@ -271,14 +321,13 @@ import CoreData
         if position == -1 {
             CCCoreUtil.categories.addObject(category)
         } else {
-            print("There!!!!!!!!", name)
             CCCoreUtil.categories.insertObject(category, atIndex: position)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addCategory Save error!")
         }
         return category
     }
@@ -286,7 +335,12 @@ import CoreData
     static func addPhotoForTopCategory(image : UIImage){
         for item in categories{
             let category = item as! CCCategory
-            if category.name == kTopCategoryName{
+            if category.name == kTopCategoryName {
+                let hash = UIImagePNGRepresentation(image)!.MD5().hexedString()
+                if photoSet.contains(hash) {
+                    return;
+                }
+                photoSet.insert(hash)
                 let count = category.photoCount!.integerValue + 1
                 let uri = "\(category.id!)_\(count)"
                 let path = "\(NSHomeDirectory())/Documents/\(uri).jpg"
@@ -304,6 +358,7 @@ import CoreData
             }
         }
     }
+
     
     static func addPhotoForCategory(category: CCCategory, image : UIImage) -> CCPhoto {
         let count = category.photoCount!.integerValue + 1
@@ -316,10 +371,11 @@ import CoreData
             try NSFileManager.defaultManager().removeItemAtPath(tmpath)
             //TODO: create thumbnail
         }catch{
-            
+                
         }
+
         
-        return addPhotoForCategory(category, photoURI:uri)
+        return addPhotoForCategory(category, photoURI: uri)
     }
     
     static func addPhotoForCategory(category: CCCategory, photoURI: String) -> CCPhoto {
@@ -331,13 +387,13 @@ import CoreData
         if category.mutableOrderedSetValueForKey("photoList").count == 0 {
             category.mutableOrderedSetValueForKey("photoList").addObject(photo)
         } else {
-            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)//.addObject(photo)
+            category.mutableOrderedSetValueForKey("photoList").insertObject(photo, atIndex: 1)
         }
         
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addPhotoForCategory Save error!")
         }
         
         if let name = category.name where name != kTopCategoryName && !initializing {
@@ -359,7 +415,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("addUserPhoto Save error!")
         }
 
     }
@@ -371,7 +427,7 @@ import CoreData
         do{
             try CCCoreUtil.managedObjectContext.save()
         }catch{
-            NSLog("Save error!")
+            NSLog("removePhotoForCategory Save error!")
         }
     }
 
@@ -402,5 +458,43 @@ import CoreData
             let array : [String] = [str]
             userDefault.setObject(array, forKey: kSearchHistory)
         }
+    }
+}
+
+extension Int {
+    func hexedString() -> String {
+        return NSString(format:"%02x", self) as String
+    }
+}
+
+extension NSData {
+    func hexedString() -> String {
+        var string = String()
+        for i in UnsafeBufferPointer<UInt8>(start: UnsafeMutablePointer<UInt8>(bytes), count: length) {
+            string += Int(i).hexedString()
+        }
+        return string
+    }
+    
+    func MD5() -> NSData {
+        let result = NSMutableData(length: Int(CC_MD5_DIGEST_LENGTH))!
+        CC_MD5(bytes, CC_LONG(length), UnsafeMutablePointer<UInt8>(result.mutableBytes))
+        return NSData(data: result)
+    }
+    
+    func SHA1() -> NSData {
+        let result = NSMutableData(length: Int(CC_SHA1_DIGEST_LENGTH))!
+        CC_SHA1(bytes, CC_LONG(length), UnsafeMutablePointer<UInt8>(result.mutableBytes))
+        return NSData(data: result)
+    }
+}
+
+extension String {
+    func MD5() -> String {
+        return (self as NSString).dataUsingEncoding(NSUTF8StringEncoding)!.MD5().hexedString()
+    }
+    
+    func SHA1() -> String {
+        return (self as NSString).dataUsingEncoding(NSUTF8StringEncoding)!.SHA1().hexedString()
     }
 }

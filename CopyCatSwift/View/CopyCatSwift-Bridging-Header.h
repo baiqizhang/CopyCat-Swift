@@ -34,5 +34,6 @@
 
 
 #import "MWTapDetectingImageView.h"
+#import <CommonCrypto/CommonCrypto.h>
 
 

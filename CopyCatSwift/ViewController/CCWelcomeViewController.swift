@@ -307,7 +307,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search recommendation and history
-        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 265, 260)
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 275, 260)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
