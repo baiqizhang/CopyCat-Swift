@@ -95,14 +95,17 @@ class CCInspireCollectionViewController: UIViewController{
             CCNetUtil.searchGPSByAddressString(addrTextField.text!, completion: { (posts) in
                 self.stopIndicator()
                 
-                if posts.isEmpty{
-                    let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        alert.show()
+                if posts!.isEmpty{
+                    let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                        self.dismissViewControllerAnimated(true, completion: { _ in })
                     })
+                    
+                    // show the alert
+                    self.presentViewController(alert, animated: true, completion: nil)
                 } else {
                     self.postList = []
-                    for post in posts{
+                    for post in posts!{
                         NSLog("uri:" + post.photoURI!);
                     }
                     self.postList = posts
@@ -194,27 +197,67 @@ class CCInspireCollectionViewController: UIViewController{
         }
         
         startIndicator()
-        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (posts) in
+        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (postsNull) in
             self.stopIndicator()
             
-            if posts.isEmpty{
-                let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    alert.show()
-                })
-            } else {
-                self.postList = []
-                
-                for post in posts{
-                    let uri = post.photoURI! as String
-                    print("uri:" + uri);
+            if let posts = postsNull {
+                if posts.isEmpty{
+                    //let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
+                    ///dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    //    alert.show()
+                    //})
+                    let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                        self.dismissViewControllerAnimated(true, completion: { _ in })
+                        })
+                    
+                    // show the alert
+                    self.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    self.postList = []
+                    
+                    for post in posts{
+                        let uri = post.photoURI! as String
+                        print("uri:" + uri);
+                    }
+                    self.postList = posts
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.collectionView!.reloadData()
+                        self.collectionView!.setContentOffset(CGPointZero, animated: true)
+                    })
                 }
-                self.postList = posts
+            } else {
+                let alert = UIAlertController(title: "Sorry", message: "No Network Connection", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.collectionView!.reloadData()
-                    self.collectionView!.setContentOffset(CGPointZero, animated: true)
-                })
+                alert.addAction(UIAlertAction(title: "Use Offline Photos", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                    let overlayImage = UIImage(named: "4_0.jpg")
+                    
+                    //Add to "Saved"
+                    CCCoreUtil.addPhotoForTopCategory(overlayImage!)
+                    
+                    // show animation each time user re-enter categoryview
+                    let userDefault = NSUserDefaults.standardUserDefaults()
+                    userDefault.removeObjectForKey("isFirstTimeUser")
+                    userDefault.synchronize()
+                    
+                    //create overlay view
+                    let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+                    let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+                    
+                    //open camera
+                    let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+                    overlayView.delegate = AVCVC
+                    self.presentViewController(AVCVC, animated: true, completion: {
+                        AVCVC.setRefImage()
+                    })
+                    })
+                alert.addAction(UIAlertAction(title: "Back to Home", style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                    self.dismissViewControllerAnimated(true, completion: { _ in })
+                    })
+                // show the alert
+            
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         })
 
@@ -310,10 +353,13 @@ extension CCInspireCollectionViewController: CLLocationManagerDelegate{
         
         CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
             if posts.isEmpty{
-                let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    alert.show()
-                })
+                let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                        self.dismissViewControllerAnimated(true, completion: { _ in })
+                    })
+                
+                // show the alert
+                self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 self.postList = []
                 for post in posts{

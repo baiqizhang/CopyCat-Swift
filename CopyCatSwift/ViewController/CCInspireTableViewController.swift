@@ -150,17 +150,17 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                     inspireView.stopIndicator()
                 }
                 
-                if posts.isEmpty{
+                if posts!.isEmpty{
                     let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         alert.show()
                     })
                 } else {
                     self.postList = []
-                    for post in posts{
+                    for post in posts!{
                         NSLog("uri:" + post.photoURI!);
                     }
-                    self.postList = posts
+                    self.postList = posts!
                     self.loading = false
                     NSLog("postlist:%@\npostList.count:%d", self.postList, self.postList.count)
                     
@@ -211,7 +211,7 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                     inspireView.stopIndicator()
                 }
 
-                if posts.isEmpty{
+                if posts!.isEmpty{
                     let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         alert.show()
@@ -219,11 +219,11 @@ class CCInspireTableViewController : SKStatefulTableViewController {
                 } else {
                     self.postList = []
                     
-                    for post in posts{
+                    for post in posts!{
                         let uri = post.photoURI! as String
                         print("uri:" + uri);
                     }
-                    self.postList = posts
+                    self.postList = posts!
                     self.loading = false
 
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
