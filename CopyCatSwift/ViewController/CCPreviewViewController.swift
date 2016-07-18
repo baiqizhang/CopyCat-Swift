@@ -145,16 +145,16 @@ class CCPreviewViewController : UIViewController {
     
     
     func onFlipPress() {
-        UIView.animateWithDuration(0.2, animations: {
-            if self.isShowingRef {
-                self.imageView?.alpha = 1
-                self.refImageView?.alpha = 0
-                self.isShowingRef = false
-            } else {
-                self.imageView?.alpha = 0
-                self.refImageView?.alpha = 1
-                self.isShowingRef = true
-            }
+        UIView.animateWithDuration(0.1, animations: {
+            self.imageView?.alpha = 0
+            self.refImageView?.alpha = 1
+        })
+    }
+    
+    func onFlipRelease() {
+        UIView.animateWithDuration(0.1, animations: {
+            self.imageView?.alpha = 1
+            self.refImageView?.alpha = 0
         })
     }
     
@@ -204,7 +204,9 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(self.instagramButton!)
         
         self.flipButton = UIButton(frame: CGRectMake(245, self.view.frame.size.height - 70, 55, 55))
-        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchUpInside)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpOutside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.flipButton!)
@@ -228,7 +230,6 @@ class CCPreviewViewController : UIViewController {
         self.shareTaken!.setTitleColor(UIColor(hex:0x1D62F0), forState: .Highlighted)
 //        self.view.addSubview(self.shareTaken!)
         
-        self.isShowingRef = true
         let height = self.view.frame.size.height - 140
         let width = self.view.frame.width
         let frame_bg = CGRectMake(0, 40, width, height)
