@@ -8,15 +8,18 @@
 
 import CoreData
 import Kingfisher
+import AwesomeCache
 
 
 @objc class CCNetUtil:NSObject{
+    
 
 //    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
 //    static let host = "http://54.84.135.175:3000/api/v0/"
     static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
     static let myCache = ImageCache(name: "all_image_cache")
     static let imageDownloader = ImageDownloader(name: "user_profile_downloader")
+    static var searchResCache = try! Cache<NSData>(name: "resCache")
 
     // MARK: Parsing User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
@@ -213,8 +216,14 @@ import Kingfisher
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]) -> Void) -> Void{
-        let url = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
-//        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+
+        //let url = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
+        let url = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        if let cachedJSON = searchResCache[url] {
+            let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
+            completion(posts: result)
+            return
+        }
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
             let result = parsePostFromUnsplashJson(json)
@@ -471,6 +480,7 @@ import Kingfisher
         loadDataFromURL(NSURL(string: url)!, completion:{(data: NSData?, error: NSError?) -> Void in
             if let urlData = data {
                 let json = JSON(data: urlData)
+                searchResCache.setObject(urlData, forKey: url, expires: .Seconds(86400))
                 NSLog("received json:%@",json.rawString()!)
                 completion(json: json)
             }
