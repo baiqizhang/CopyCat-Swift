@@ -262,11 +262,11 @@ class CCWelcomeViewController: UIViewController {
         
         //search button
         searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 100, 35 , 37, 37)
-        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.1)//searchButton.tintColor
+        searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)//searchButton.tintColor
         searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
-        searchButton.layer.borderWidth = 1.0;
-        searchButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+        searchButton.layer.borderWidth = 1;
+        searchButton.layer.borderColor = UIColor(hexNumber: 0xEEEEEE).CGColor
         searchButton.layer.cornerRadius = 8.0;
         searchButton.alpha = 0
         searchButton.addTarget(self, action: #selector(CCWelcomeViewController.searchAction), forControlEvents: .TouchUpInside)
@@ -307,7 +307,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search recommendation and history
-        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 275, 260)
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 140, 85, 277, 260)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -381,9 +381,9 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             self.profileButton.alpha = 0
             self.logoImageView.alpha = 0
             
-            let back = UIImageView(frame: CGRectMake(5, 0, 25, 25))
+            let back = UIImageView(frame: CGRectMake(2.5, -5, 35, 35))
             back.image = UIImage(named: "back.png")
-            back.tintColor = UIColor(hexNumber: 0xEEEEEE)
+            back.tintColor = UIColor(hexNumber: 0xF2F2F2)
             back.image = back.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             back.tintColor = UIColor.grayColor()
             
@@ -487,7 +487,7 @@ extension CCWelcomeViewController : UITableViewDataSource{
         if showHistory{
             return "History"
         }
-        return "Hot tags"
+        return "Hot Tags"
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if view.isKindOfClass(UITableViewHeaderFooterView){
