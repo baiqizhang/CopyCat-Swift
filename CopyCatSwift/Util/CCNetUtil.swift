@@ -106,10 +106,10 @@ import AwesomeCache
             let postEntity = NSEntityDescription.entityForName("Post", inManagedObjectContext: CCCoreUtil.managedObjectContext)
             let post = NSManagedObject.init(entity: postEntity!, insertIntoManagedObjectContext: nil) as! CCPost
             
-            post.userName = subJson["user"]["name"].stringValue
-            post.userProfileImage = subJson["user"]["profile_image"]["small"].stringValue
+//            post.userName = subJson["user"]["name"].stringValue
+//            post.userProfileImage = subJson["user"]["profile_image"]["small"].stringValue
             
-            post.photoURI = subJson["urls"]["regular"].string
+            post.photoURI = subJson["urls"]["small"].string
             
             post.photoWidth = 1
             post.photoHeight = 1
@@ -230,12 +230,12 @@ import AwesomeCache
         }
         
         var encodedUrl = copyCatUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        
-        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
-            if json {
-                let result = parsePostFromUnsplashJson(json)
-                completion(posts: result)
-            } else {
+//
+//        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+//            if json {
+//                let result = parsePostFromUnsplashJson(json)
+//                completion(posts: result)
+//            } else {
                 encodedUrl = unsplashUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
                 CCNetUtil.getJSONFromURL(encodedUrl!) { (unJson:JSON) -> Void in
                     if (unJson == nil) {
@@ -244,8 +244,8 @@ import AwesomeCache
                     let result = parsePostFromUnsplashJson(unJson)
                     completion(posts: result)
                 }
-            }
-        }
+//            }
+//        }
     }
     
     

@@ -270,6 +270,9 @@ class CCOverlayView: UIView {
         let height = frame.size.height - 140
         let width = frame.size.width
         self.frame_bg = CGRectMake(0, 40, width, height)
+        if frame.size.width>320{
+            self.frame_bg = CGRectMake(0, 53.0/375*frame.size.width, width, height-20.0/667*frame.size.height)
+        }
         let thumbnailSize : CGFloat = 150
         
         if image.size.width > image.size.height {
