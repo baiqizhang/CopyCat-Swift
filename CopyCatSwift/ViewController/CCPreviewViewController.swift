@@ -86,6 +86,17 @@ class CCPreviewViewController : UIViewController {
         return true
     }
     
+    //MARK: Actions
+    
+    func shareInstaAction() {
+        if sharingFlow.hasInstagramApp {
+            sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
+        } else {
+            let alert = UIAlertView(title: "Sorry", message: "Instagram Not Found", delegate: nil, cancelButtonTitle: "Okay" )
+            alert.show()
+        }
+    }
+    
     func toggleSharingOrigin() {
         self.sharingOrigin = !self.sharingOrigin
     }
@@ -115,6 +126,13 @@ class CCPreviewViewController : UIViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 vc.libraryButton.enabled = true
                 vc.stillButton.enabled = true
+                
+                if let _ = CCCoreUtil.userDefault.stringForKey("photo_saved"){
+                } else {
+                    CCCoreUtil.userDefault.setObject("true",forKey: "photo_saved")
+                    let alert = UIAlertView(title: "Note", message: "Photo Saved to Camera Roll", delegate: nil, cancelButtonTitle: "Got it" )
+                    alert.show()
+                }
             })
         })
         
@@ -158,6 +176,7 @@ class CCPreviewViewController : UIViewController {
         })
     }
     
+    //MARK: Lifecycle
     
     init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int, refOrientation: Float) {
         super.init(nibName: nil, bundle: nil)
@@ -181,30 +200,34 @@ class CCPreviewViewController : UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.13, alpha: 1)
         
+        let windowWidth = view.frame.size.width
+        let windowHeight = view.frame.size.height
+        
+        
         // Rotation
         self.motionManager = CMMotionManager()
         self.motionManager?.deviceMotionUpdateInterval = 0.1
         self.orientation = 0
         
-        self.cancelButton = UIButton(frame: CGRectMake(20, self.view.frame.size.height - 70, 55, 55))
+        self.cancelButton = UIButton(frame: CGRectMake(20.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.cancelButton?.addTarget(self, action: #selector(CCPreviewViewController.dismissSelf), forControlEvents: .TouchUpInside)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.cancelButton!)
         
-        self.acceptButton = UIButton(frame: CGRectMake(95, self.view.frame.size.height - 70, 55, 55))
+        self.acceptButton = UIButton(frame: CGRectMake(95.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
         self.acceptButton?.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
         self.acceptButton?.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.acceptButton!)
         
-        self.instagramButton = UIButton(frame: CGRectMake(170, self.view.frame.size.height - 70, 55, 55))
+        self.instagramButton = UIButton(frame: CGRectMake(170.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.instagramButton?.addTarget(self, action:#selector(CCPreviewViewController.shareInstaAction), forControlEvents:.TouchUpInside)
         self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
         self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         self.view.addSubview(self.instagramButton!)
         
-        self.flipButton = UIButton(frame: CGRectMake(245, self.view.frame.size.height - 70, 55, 55))
+        self.flipButton = UIButton(frame: CGRectMake(245.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpOutside)
@@ -295,18 +318,11 @@ class CCPreviewViewController : UIViewController {
         })
     }
     
-    func shareInstaAction() {
-        if sharingFlow.hasInstagramApp {
-            sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
-        } else {
-            print("no instagarm")
-        }
-        // saveImage()
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         self.motionManager?.stopDeviceMotionUpdates()
     }
+    
+    //MARK: Rotation
     
     func rotateUpright() {
         if (self.orientation==0) {
