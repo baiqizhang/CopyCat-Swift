@@ -53,15 +53,19 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
                 return
             }
         
-        let height = self.view.frame.size.height - 140
-        let width = self.view.frame.size.width
-
+        let windowWidth = self.view.frame.size.width
+        let windowHeight = self.view.frame.size.height
+        
+        let height = windowHeight - 140
+        let width = windowWidth
+        
+        
         self.imageCollectionView?.transform = CGAffineTransformIdentity
-        self.imageCollectionView?.frame = CGRectMake(-70, 120, height-10,width-55)
+        self.imageCollectionView?.frame = CGRectMake(-75.0/320*windowWidth, 125.0/568*windowHeight, height-15.0/320*windowWidth,width-55.0/568*windowHeight)
         self.imageCollectionView!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2));
         
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
-        self.categoryCollectionView?.frame = CGRectMake(width/2-73, 22+height/2.0, height-10,40)
+        self.categoryCollectionView?.frame = CGRectMake(width/2-73.0/320*windowWidth, 20.0/568*windowHeight+height/2.0, height-12.0/320*windowWidth,40.0/568*windowHeight)
         self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(-M_PI_2));
         
         self.closeButton.transform=CGAffineTransformMakeRotation (CGFloat(-M_PI_2));
@@ -72,16 +76,19 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
             else{
                 return
         }
-        let height = self.view.frame.size.height - 140
-        let width = self.view.frame.size.width
+        let windowWidth = self.view.frame.size.width
+        let windowHeight = self.view.frame.size.height
+        
+        let height = windowHeight - 140
+        let width = windowWidth
         
         self.imageCollectionView?.transform = CGAffineTransformIdentity
-        self.imageCollectionView?.frame = CGRectMake(-25, 120, height-10,width-55)
+        self.imageCollectionView?.frame = CGRectMake(-27.0/320*windowWidth, 122.0/568*windowHeight, height-15.0/320*windowWidth,width-55.0/568*windowHeight)
         self.imageCollectionView?.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2));
         
         
         self.categoryCollectionView?.transform = CGAffineTransformIdentity
-        self.categoryCollectionView?.frame = CGRectMake(-width/2-25, 20+height/2.0, height-10,40)
+        self.categoryCollectionView?.frame = CGRectMake(-width/2-27.0/320*windowWidth, 20.0/568*windowHeight+height/2.0, height-10.0/320*windowWidth,40.0/568*windowHeight)
         self.categoryCollectionView!.transform=CGAffineTransformMakeRotation (CGFloat(M_PI_2));
         
         self.closeButton.transform=CGAffineTransformMakeRotation (CGFloat(M_PI_2));

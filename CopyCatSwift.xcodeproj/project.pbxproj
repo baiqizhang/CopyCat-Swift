@@ -139,7 +139,6 @@
 		97F6DFD71C23A1C300707180 /* swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DFB11C23A1C300707180 /* swipe.png */; };
 		97F6DFD81C23A1C300707180 /* whitedot.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DFB21C23A1C300707180 /* whitedot.png */; };
 		97F6DFE11C23A54700707180 /* CopyCatSwift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97F6DFDA1C23A54700707180 /* CopyCatSwift.xcdatamodeld */; };
-		97F6DFE91C23A5AC00707180 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DFE81C23A5AC00707180 /* Info.plist */; };
 		97FCBB5C1CE90760003734DA /* 0_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB311CE90760003734DA /* 0_0.jpg */; };
 		97FCBB5D1CE90760003734DA /* 0_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB321CE90760003734DA /* 0_1.jpg */; };
 		97FCBB5E1CE90760003734DA /* 0_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FCBB331CE90760003734DA /* 0_2.jpg */; };
@@ -1018,7 +1017,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Baiqi Zhang";
 				TargetAttributes = {
 					9704E1511C21FC4800A48C5F = {
@@ -1119,7 +1118,6 @@
 				97F6DFC81C23A1C300707180 /* photo.png in Resources */,
 				974875191D10B32D0089C385 /* geofence.png in Resources */,
 				97FCBB831CE95D30003734DA /* pin_black.png in Resources */,
-				97F6DFE91C23A5AC00707180 /* Info.plist in Resources */,
 				97F6DFB81C23A1C300707180 /* check_highlight.png in Resources */,
 				978656C31C3FA1C500617669 /* circleuser.png in Resources */,
 				97FCBB5E1CE90760003734DA /* 0_2.jpg in Resources */,

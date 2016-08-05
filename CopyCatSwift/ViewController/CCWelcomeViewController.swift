@@ -207,6 +207,8 @@ class CCWelcomeViewController: UIViewController {
         } else {
             offset = 75
         }
+        let windowWidth = view.frame.size.width
+        let windowHeight = view.frame.size.height
         
         //Background and logo
         self.placeHolderImageView.frame = self.view.frame
@@ -222,13 +224,13 @@ class CCWelcomeViewController: UIViewController {
         backgroundImageView.addGestureRecognizer(tapRecognizer)
         
         
-        logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-140, 200, 70))
+        logoImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-(100.0/320.0)*windowWidth, view.frame.size.height/2-(140.0/568)*windowHeight, (200.0/320.0)*windowWidth, (70.0/568)*windowHeight))
         logoImageView.image = UIImage(named: "cclogo.png")
         view!.addSubview(logoImageView)
 
         
         //search bar
-        searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, view.frame.size.height/2 - 50 , 250, 35)
+        searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - (120.0/320.0)*windowWidth, view.frame.size.height/2 - (50.0/568)*windowHeight , (250.0/320)*windowWidth, (35.0/568)*windowHeight)
         searchTextField.font = UIFont.systemFontOfSize(10.5)
         searchTextField.delegate = self
         searchTextField.borderStyle = .RoundedRect
@@ -253,7 +255,7 @@ class CCWelcomeViewController: UIViewController {
         magnifyingGlass.image = magnifyingGlass.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         magnifyingGlass.tintColor = UIColor.grayColor()
         
-        leftView = UIView(frame: CGRectMake(0, 0, 25, 20))
+        leftView = UIView(frame: CGRectMake(0, 0, (25.0/320.0)*windowWidth, 20))
         leftView.addSubview(magnifyingGlass)
         
         searchTextField.leftView = leftView
@@ -263,7 +265,7 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(searchTextField)
         
         //search button
-        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + 100, 35 , 37, 37)
+        searchButton.frame = CGRectMake(self.view.frame.size.width/2 + (105.0/320.0)*windowWidth, 35 , 37, 37)
         searchButton.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.15)
         searchButton.setImage(UIImage(named: "search.png"), forState: .Normal)
         searchButton.setImage(UIImage(named: "search.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
@@ -317,7 +319,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         //search recommendation and history
-        tableView.frame = CGRectMake(self.view.frame.size.width/2 - 139.5, 85, 278, 260)
+        tableView.frame = CGRectMake(self.view.frame.size.width/2 - (139.5/320.0)*windowWidth, (85.0/568)*windowHeight, (278.0/320.0)*windowWidth, (260.0/568)*windowHeight)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -332,21 +334,21 @@ class CCWelcomeViewController: UIViewController {
         
         let textWidth:CGFloat = 100.0
         
-        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 250 , textWidth*2, 35))
+        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight , textWidth*2, 35))
         step1.text = "1. Decide what to capture"
         step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
         step1.textAlignment = .Left
         
         
-        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 300 , textWidth*2, 35))
+        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+50 , textWidth*2, 35))
         step2.text = "2. Pick a reference photo"
         step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
         step2.textAlignment = .Left
         
         
-        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, 350 , textWidth*2, 35))
+        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+100 , textWidth*2, 35))
         step3.text = "3. Swipe and snap!"
         step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)
@@ -354,7 +356,7 @@ class CCWelcomeViewController: UIViewController {
         
         
         
-        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, 450 , 170, 38))
+        let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, (250.0/568)*windowHeight+200 , 170, 38))
         let font = UIFont.systemFontOfSize(16)
         okay.setAttributedTitle(NSAttributedString(string:"Get Started",
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
@@ -389,9 +391,12 @@ class CCWelcomeViewController: UIViewController {
 
 extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(textField: UITextField) {
+        let windowWidth = view.frame.size.width
+        let windowHeight = view.frame.size.height
+        
         
         UIView.animateWithDuration(0.15) {
-            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 140, 35, 235, 37)
+            self.searchTextField.frame = CGRectMake(windowWidth/2 - (140.0/320.0)*windowWidth, 35, (235/320.0)*windowWidth, 37)
             self.searchButton.alpha = 1
             
             self.profileButton.alpha = 0
@@ -423,9 +428,12 @@ extension CCWelcomeViewController:UITextFieldDelegate{
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        let windowWidth = view.frame.size.width
+        let windowHeight = view.frame.size.height
+        
         self.tableView.alpha = 0
         UIView.animateWithDuration(0.15) {
-            self.searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 50 , 250, 35)
+            self.searchTextField.frame = CGRectMake(windowWidth/2 - (120.0/320.0)*windowWidth, windowHeight/2 - (50.0/568)*windowHeight , (255.0/320)*windowWidth, (35.0/568)*windowHeight)
             self.searchButton.alpha = 0
             self.searchTextField.leftView = self.leftView
             
