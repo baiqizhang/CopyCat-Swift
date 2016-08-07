@@ -8,6 +8,8 @@ PODS:
   - Google-Mobile-Ads-SDK (7.7.0)
   - iRate (1.11.4)
   - Kingfisher (2.4.1)
+  - Polyglot (0.5.0)
+  - SMTPLite (0.0.3)
 
 DEPENDENCIES:
   - AwesomeCache (~> 2.0)
@@ -18,6 +20,8 @@ DEPENDENCIES:
   - Google-Mobile-Ads-SDK (~> 7.0)
   - iRate (~> 1.11)
   - Kingfisher (~> 2.4)
+  - Polyglot (~> 0.3)
+  - SMTPLite (~> 0.0.3)
 
 SPEC CHECKSUMS:
   AwesomeCache: 366415b66330fb02d085bb24a2164fb04893d4fc
@@ -28,5 +32,7 @@ SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: d290e523a6e2f223256abcbf8e0c778b55b1f04e
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   Kingfisher: 41aed5b6c1ed8fa98cf6d75283ce89cf7890f517
+  Polyglot: 9357934dadad89a6d68fc6f82047677349bce3df
+  SMTPLite: fb12970fa93f57432ca1b0abee101a18ae54603b
 
 COCOAPODS: 0.39.0

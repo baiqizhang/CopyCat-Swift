@@ -2,6 +2,7 @@
 # platform :ios, '6.0'
 
 target 'CopyCatSwift' do
+    pod 'SMTPLite', '~> 0.0.3'
     pod 'iRate', '~> 1.11'
     pod 'EggsBenedict', '~> 0.9.9'
     pod 'Google-Mobile-Ads-SDK', '~> 7.0'
@@ -10,8 +11,10 @@ target 'CopyCatSwift' do
     pod 'Crashlytics'
     pod "AwesomeCache", "~> 2.0"
     source 'https://github.com/CocoaPods/Specs.git'
+
     platform :ios, '8.0'
     pod 'Kingfisher', '~> 2.4'
+    pod 'Polyglot', '~> 0.3'
     use_frameworks!
 end
 
