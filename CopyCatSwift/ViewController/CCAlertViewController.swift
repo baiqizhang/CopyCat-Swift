@@ -170,11 +170,11 @@ extension CCAlertViewController:UITableViewDelegate{
         let category = CCCoreUtil.categories[indexPath.row+1]
         CCCoreUtil.addPhotoForCategory(category as! CCCategory, image: self.image!)
         if let p = parent{
-            if p.isKindOfClass(CCInspireTableViewController){
-                let tvc = p as! CCInspireTableViewController
-                tvc.pinCompleted()
-            }
-        }         
+//            if p.isKindOfClass(CCInspireTableViewController){
+//                let tvc = p as! CCInspireTableViewController
+//                tvc.pinCompleted()
+//            }
+        }
         closeAction()
     }
 }

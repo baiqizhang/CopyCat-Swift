@@ -52,25 +52,8 @@ class CCWelcomeViewController: UIViewController {
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
         overlayView.delegate = AVCVC
         self.presentViewController(AVCVC, animated: true, completion: { _ in })
-        
-////      old style  
-//        let controller = CCCategoryViewController()
-//        controller.modalTransitionStyle = .CrossDissolve
-//        self.presentViewController(controller, animated: true, completion: nil)
-    }
-    
-    func openProfile() {
-        let vc = CCProfileViewController()
-        vc.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(vc, animated: true, completion: nil)
     }
 
-    func openInspire() {
-        let vc = CCInspireViewController()
-        vc.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
     func userGuide() {
         let ccGuide = CCGuideViewController()
         self.presentViewController(ccGuide, animated: true, completion: nil)

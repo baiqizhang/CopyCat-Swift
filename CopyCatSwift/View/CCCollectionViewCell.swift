@@ -24,10 +24,10 @@ class CCCollectionViewCell: UICollectionViewCell {
     func handleLongPress(longPress: UILongPressGestureRecognizer!){
         if self.deleteFlag < 0 {return}
         if longPress.state == .Began {
-            let vc = self.delegate as! CCPhotoCollectionManipulation
-            vc.prepareDeleteCell(self)
-            vc.prepareDelete()
-            self.flip()
+//            let vc = self.delegate as! CCPhotoCollectionManipulation
+//            vc.prepareDeleteCell(self)
+//            vc.prepareDelete()
+//            self.flip()
         }
     }
     

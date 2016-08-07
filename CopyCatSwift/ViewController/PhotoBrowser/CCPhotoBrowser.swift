@@ -81,7 +81,7 @@ import Crashlytics
         
         
         //Buttons
-        if (delegate is CCProfileViewController) || (delegate is AVCamViewController) {
+        if /*(delegate is CCProfileViewController) || */(delegate is AVCamViewController) {
             bgView.frame = CGRectMake(0, view.frame.size.height - 70, view.frame.size.width, 70)
             bgView.backgroundColor = UIColor.blackColor()
             view!.addSubview(bgView)
@@ -115,41 +115,41 @@ import Crashlytics
             view!.addSubview(deleteButton)
             
         }
-        if (delegate is CCGalleryViewController) {
-            let bg: UIView = UIView(frame: CGRectMake(0, view.frame.size.height - 50, view.frame.size.width, 50))
-            bg.backgroundColor = UIColor.blackColor()
-            view!.addSubview(bg)
-            
-            //close
-            let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
-            closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
-            closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-            closeButton.addTarget(self, action: #selector(CCPhotoBrowser.cancelAction), forControlEvents: .TouchUpInside)
-            view!.addSubview(closeButton)
-            
-            //check
-            let checkButton: UIButton = UIButton(frame: CGRectMake(5 * view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
-            checkButton.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
-            checkButton.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
-            checkButton.addTarget(self, action: #selector(CCPhotoBrowser.checkAction), forControlEvents: .TouchUpInside)
-            view!.addSubview(checkButton)
-            
-            //share
-            shareButton.frame = CGRectMake(3 * view.frame.size.width / 6 - 22, view.frame.size.height - 47.5, 45, 45)
-            shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
-            shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
-            shareButton.addTarget(self, action: #selector(CCPhotoBrowser.shareAction), forControlEvents: .TouchUpInside)
-            view!.addSubview(shareButton)
-            
-            //dark split bar
-            let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
-            bar.backgroundColor = UIColor(white: 0.16, alpha: 1)
-            view!.addSubview(bar)
-            
-            let bar2: UIView = UIView(frame: CGRectMake(2*view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
-            bar2.backgroundColor = UIColor(white: 0.16, alpha: 1)
-            view!.addSubview(bar2)
-        }
+//        if (delegate is CCGalleryViewController) {
+//            let bg: UIView = UIView(frame: CGRectMake(0, view.frame.size.height - 50, view.frame.size.width, 50))
+//            bg.backgroundColor = UIColor.blackColor()
+//            view!.addSubview(bg)
+//            
+//            //close
+//            let closeButton: UIButton = UIButton(frame: CGRectMake(view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
+//            closeButton.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
+//            closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
+//            closeButton.addTarget(self, action: #selector(CCPhotoBrowser.cancelAction), forControlEvents: .TouchUpInside)
+//            view!.addSubview(closeButton)
+//            
+//            //check
+//            let checkButton: UIButton = UIButton(frame: CGRectMake(5 * view.frame.size.width / 6 - 23, view.frame.size.height - 50, 50, 50))
+//            checkButton.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
+//            checkButton.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
+//            checkButton.addTarget(self, action: #selector(CCPhotoBrowser.checkAction), forControlEvents: .TouchUpInside)
+//            view!.addSubview(checkButton)
+//            
+//            //share
+//            shareButton.frame = CGRectMake(3 * view.frame.size.width / 6 - 22, view.frame.size.height - 47.5, 45, 45)
+//            shareButton.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
+//            shareButton.setBackgroundImage(UIImage(named: "sendto_highlight.png"), forState: .Highlighted)
+//            shareButton.addTarget(self, action: #selector(CCPhotoBrowser.shareAction), forControlEvents: .TouchUpInside)
+//            view!.addSubview(shareButton)
+//            
+//            //dark split bar
+//            let bar: UIView = UIView(frame: CGRectMake(view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
+//            bar.backgroundColor = UIColor(white: 0.16, alpha: 1)
+//            view!.addSubview(bar)
+//            
+//            let bar2: UIView = UIView(frame: CGRectMake(2*view.frame.size.width / 3, view.frame.size.height - 37.5, 1, 25))
+//            bar2.backgroundColor = UIColor(white: 0.16, alpha: 1)
+//            view!.addSubview(bar2)
+//        }
         
         currentCell = collectionView(browserCollectionView!, cellForItemAtIndexPath: NSIndexPath(forRow: currentIndex, inSection: 0)) as! CCBrowserCell
     }
@@ -192,11 +192,11 @@ import Crashlytics
                                        customAttributes: nil)
 
         self.dismissViewControllerAnimated(true, completion: {() -> Void in
-            if (self.delegate is CCGalleryViewController) {
-                NSLog("%@", self.currentCell!.image!)
-                let vc = self.delegate as! CCGalleryViewController
-                vc.showOverlayViewWithImage(self.currentCell!.image!, isNewImage: false)
-            }
+//            if (self.delegate is CCGalleryViewController) {
+//                NSLog("%@", self.currentCell!.image!)
+//                let vc = self.delegate as! CCGalleryViewController
+//                vc.showOverlayViewWithImage(self.currentCell!.image!, isNewImage: false)
+//            }
         })
     }
     
@@ -327,11 +327,11 @@ extension CCPhotoBrowser:UIScrollViewDelegate{
 
 extension CCPhotoBrowser:UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if (self.delegate is CCGalleryViewController) {
-            return photoDataSources!.count - 1
-        } else {
+//        if (self.delegate is CCGalleryViewController) {
+//            return photoDataSources!.count - 1
+//        } else {
             return photoDataSources!.count
-        }
+//        }
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if indexPath.row<0{
@@ -339,15 +339,14 @@ extension CCPhotoBrowser:UICollectionViewDataSource{
         }
         let cell: CCBrowserCell = collectionView.dequeueReusableCellWithReuseIdentifier(NSStringFromClass(CCBrowserCell), forIndexPath: indexPath) as! CCBrowserCell
         var path: String
-        if (self.delegate is CCGalleryViewController) {
-            let photo = photoDataSources![indexPath.row + 1] as! CCPhoto
-            path = photo.photoURI!
-        }
-        else {
+//        if (self.delegate is CCGalleryViewController) {
+//            let photo = photoDataSources![indexPath.row + 1] as! CCPhoto
+//            path = photo.photoURI!
+//        }
+//        else {
             let photo = photoDataSources![indexPath.row] as! CCPhoto
             path = photo.photoURI!
-//            path = "\(photo.photoURI).jpg"
-        }
+//        }
         cell.initWithImagePath(path, photoBrowser: self)
 
         return cell

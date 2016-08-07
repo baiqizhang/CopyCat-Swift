@@ -457,15 +457,15 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 
 -(void)showLibraryDetail{;
-    if ([self.libraryButton backgroundImageForState:UIControlStateNormal]==nil){
-        return;
-    }
-    CCCategory *userCategory = [CCCoreUtil categories][0];
-    CCPhotoBrowser *libVC=[[CCPhotoBrowser alloc]initWithPhotos:userCategory.photoList.array.mutableCopy currentIndex:[userCategory.photoList count]-1];
-    libVC.delegate=self;
-    libVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
-    libVC.category = userCategory;
-    [self presentViewController:libVC animated:YES completion:nil];
+//    if ([self.libraryButton backgroundImageForState:UIControlStateNormal]==nil){
+//        return;
+//    }
+//    CCCategory *userCategory = [CCCoreUtil categories][0];
+//    CCPhotoBrowser *libVC=[[CCPhotoBrowser alloc]initWithPhotos:userCategory.photoList.array.mutableCopy currentIndex:[userCategory.photoList count]-1];
+//    libVC.delegate=self;
+//    libVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+//    libVC.category = userCategory;
+//    [self presentViewController:libVC animated:YES completion:nil];
 }
 
 

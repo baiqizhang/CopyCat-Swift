@@ -158,7 +158,7 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
         closeButton.setTitle("Cancel", forState: .Normal)
         closeButton.setTitleColor(.whiteColor(), forState: .Normal)
         closeButton.setTitleColor(UIColor(hexNumber:0x41AFFF), forState: .Highlighted)
-        closeButton.addTarget(self, action: #selector(CCCategoryViewController.closeAction), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(closeAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(closeButton)
         
         
