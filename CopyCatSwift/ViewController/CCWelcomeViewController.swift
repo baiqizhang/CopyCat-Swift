@@ -131,23 +131,23 @@ class CCWelcomeViewController: UIViewController {
     }
     
     func feedbackAction(){
-        let alertController = UIAlertController(title: "Quick Feedback", message: "Are you enjoying this App?", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Quick Feedback", comment: "Quick Feedback"), message: NSLocalizedString("Are you enjoying this App?", comment: "Are you enjoying this App?"), preferredStyle: .Alert)
 
-        let loveAction = UIAlertAction(title: "Yes, very much!", style: .Default) { (_) in
-            let alertController = UIAlertController(title: "That's nice. Thank you", message: "Can you help us by leaving a review on the AppStore?", preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
-                iRate.sharedInstance().openRatingsPageInAppStore()
+        let loveAction = UIAlertAction(title: NSLocalizedString("Yes, very much!", comment: "Yes, very much!"), style: .Default) { (_) in
+            let alertController = UIAlertController(title: NSLocalizedString("That's nice. Thank you", comment: ""), message: NSLocalizedString("Can you help us by leaving a review on the AppStore?", comment: ""), preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("Sure!", comment: ""), style: .Default) { (_) in
+                //iRate.sharedInstance().openRatingsPageInAppStore()
             }
-            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .Cancel)  { (_) in }
             alertController.addAction(okAction)
             alertController.addAction(cancelAction)
             self.presentViewController(alertController, animated: true) {}
         }
-        let hateAction = UIAlertAction(title: "Not really", style: .Cancel) { (_) in
-            let alertController = UIAlertController(title: "How can we improve?", message: "Do you want to tell us how to improve our app and make you happy?", preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "Sure!", style: .Default) { (_) in
+        let hateAction = UIAlertAction(title: NSLocalizedString("Not really", comment: ""), style: .Cancel) { (_) in
+            let alertController = UIAlertController(title: NSLocalizedString("How can we improve?", comment: ""), message: NSLocalizedString("Do you want to tell us how to improve our app and make you happy?", comment: ""), preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("Sure!", comment: ""), style: .Default) { (_) in
                 // NOTE: maxCount = 0 to hide count
-                let popupTextView = YIPopupTextView(placeHolder: NSLocalizedString("The developer values your feedback.", comment: "Feedback"), maxCount: 1000, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
+                let popupTextView = YIPopupTextView(placeHolder: NSLocalizedString(NSLocalizedString("The developer values your feedback.", comment: ""), comment: "Feedback"), maxCount: 1000, buttonStyle: YIPopupTextViewButtonStyle.RightCancelAndDone)
                 popupTextView.delegate = self
                 popupTextView.caretShiftGestureEnabled = true
                 // default = NO
@@ -155,7 +155,7 @@ class CCWelcomeViewController: UIViewController {
                 popupTextView.showInViewController(self)
 
             }
-            let cancelAction = UIAlertAction(title: "No", style: .Cancel)  { (_) in }
+            let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .Cancel)  { (_) in }
             alertController.addAction(okAction)
             alertController.addAction(cancelAction)
             self.presentViewController(alertController, animated: true) {}
@@ -228,7 +228,7 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.returnKeyType = .Search
         searchTextField.clearButtonMode = .WhileEditing
         searchTextField.addTarget(self, action: #selector(CCWelcomeViewController.textFieldDidChange), forControlEvents: .EditingChanged)
-        searchTextField.attributedPlaceholder = NSAttributedString(string:"What to capture today? e.g. coffee",
+        searchTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("What to capture today? e.g. coffee", comment: ""),
                                                                    attributes:[NSForegroundColorAttributeName:
                                                                     UIColor.grayColor()])
         
@@ -275,9 +275,9 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(orView)
         
         let library = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 60, view.frame.size.height/2, 135, 35))
-        library.setAttributedTitle(NSAttributedString(string:"Use my own template",
+        library.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Use my own template", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Normal)
-        library.setAttributedTitle(NSAttributedString(string:"Use my own template",
+        library.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Use my own template", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hex:0x41AFFF),NSFontAttributeName:UIFont.systemFontOfSize(11.5)]), forState: .Highlighted)
         
         library.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
@@ -288,9 +288,9 @@ class CCWelcomeViewController: UIViewController {
         view.addSubview(library)
         
         let feedback = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 40, view.frame.size.height-40, 80, 30))
-        feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
+        feedback.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Feedback", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Normal)
-        feedback.setAttributedTitle(NSAttributedString(string:"Feedback",
+        feedback.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Feedback", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x41AFFF),NSFontAttributeName:UIFont.systemFontOfSize(10.5)]), forState: .Highlighted)
         feedback.layer.borderColor = UIColor(hexNumber: 0x777777).CGColor
         feedback.layer.borderWidth = 1
@@ -318,21 +318,21 @@ class CCWelcomeViewController: UIViewController {
         let textWidth:CGFloat = 100.0
         
         let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight , textWidth*2, 35))
-        step1.text = "1. Decide what to capture"
+        step1.text = NSLocalizedString("STEP1", comment: "")
         step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
         step1.textAlignment = .Left
         
         
         let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+50 , textWidth*2, 35))
-        step2.text = "2. Pick a reference photo"
+        step2.text = NSLocalizedString("STEP2", comment: "")
         step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
         step2.textAlignment = .Left
         
         
         let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+100 , textWidth*2, 35))
-        step3.text = "3. Swipe and snap!"
+        step3.text = NSLocalizedString("STEP3", comment: "")
         step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)
         step3.textAlignment = .Left
@@ -341,9 +341,9 @@ class CCWelcomeViewController: UIViewController {
         
         let okay = UIButton(frame: CGRectMake(self.view.frame.size.width/2 - 85, (250.0/568)*windowHeight+200 , 170, 38))
         let font = UIFont.systemFontOfSize(16)
-        okay.setAttributedTitle(NSAttributedString(string:"Get Started",
+        okay.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Get Started", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0xDDDDDD),NSFontAttributeName:font]), forState: .Normal)
-        okay.setAttributedTitle(NSAttributedString(string:"Get Started",
+        okay.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Get Started", comment: ""),
             attributes:[NSForegroundColorAttributeName: UIColor(hexNumber: 0x41AFFF),NSFontAttributeName:font]), forState: .Highlighted)
         okay.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
         okay.layer.borderWidth = 1
@@ -375,7 +375,7 @@ class CCWelcomeViewController: UIViewController {
 extension CCWelcomeViewController:UITextFieldDelegate{
     func textFieldDidBeginEditing(textField: UITextField) {
         let windowWidth = view.frame.size.width
-        let windowHeight = view.frame.size.height
+        _ = view.frame.size.height
         
         
         UIView.animateWithDuration(0.15) {
@@ -492,9 +492,9 @@ extension CCWelcomeViewController : UITableViewDelegate{
 extension CCWelcomeViewController : UITableViewDataSource{
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if showHistory{
-            return "Search History"
+            return NSLocalizedString("Search History", comment: "history")
         }
-        return "Popular Tags"
+        return NSLocalizedString("Popular Tags", comment: "Popular Tags")
     }
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if view.isKindOfClass(UITableViewHeaderFooterView){
