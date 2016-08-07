@@ -224,7 +224,6 @@ class CCWelcomeViewController: UIViewController {
 
         searchTextField.autocorrectionType = .Default
         searchTextField.spellCheckingType = .No
-        searchTextField.keyboardType = .ASCIICapable
         searchTextField.returnKeyType = .Search
         searchTextField.clearButtonMode = .WhileEditing
         searchTextField.addTarget(self, action: #selector(CCWelcomeViewController.textFieldDidChange), forControlEvents: .EditingChanged)

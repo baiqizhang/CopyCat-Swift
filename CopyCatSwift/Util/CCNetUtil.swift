@@ -9,7 +9,7 @@
 import CoreData
 import Kingfisher
 import AwesomeCache
-
+import Polyglot
 
 @objc class CCNetUtil:NSObject{
     
@@ -215,8 +215,7 @@ import AwesomeCache
         }
     }
     
-    static func searchUnsplash(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
-
+    static func searchUnsplashTranslated(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
         let copyCatUrl = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/search?labels=\(tag)"
         let unsplashUrl = "https://api.unsplash.com/photos/search?query="+tag+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         if let cachedJSON = searchResCache[copyCatUrl] {
@@ -224,28 +223,42 @@ import AwesomeCache
             completion(posts: result)
             return
         } else if let cachedJSON = searchResCache[unsplashUrl] {
-                let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
-                completion(posts: result)
-                return
+            let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
+            completion(posts: result)
+            return
         }
         
         var encodedUrl = copyCatUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-//
-//        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
-//            if json {
-//                let result = parsePostFromUnsplashJson(json)
-//                completion(posts: result)
-//            } else {
-                encodedUrl = unsplashUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-                CCNetUtil.getJSONFromURL(encodedUrl!) { (unJson:JSON) -> Void in
-                    if (unJson == nil) {
-                        completion(posts: nil)
-                    }
-                    let result = parsePostFromUnsplashJson(unJson)
-                    completion(posts: result)
-                }
-//            }
-//        }
+        //
+        //        CCNetUtil.getJSONFromURL(encodedUrl!) { (json:JSON) -> Void in
+        //            if json {
+        //                let result = parsePostFromUnsplashJson(json)
+        //                completion(posts: result)
+        //            } else {
+        encodedUrl = unsplashUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        CCNetUtil.getJSONFromURL(encodedUrl!) { (unJson:JSON) -> Void in
+            if (unJson == nil) {
+                completion(posts: nil)
+            }
+            let result = parsePostFromUnsplashJson(unJson)
+            completion(posts: result)
+        }
+        //            }
+        //        }
+    }
+    
+    static func searchUnsplash(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
+        let preferredLanguage = NSLocale.preferredLanguages()[0] as String
+        if preferredLanguage == "en" {
+            searchUnsplashTranslated(tag, completion: completion)
+        } else {
+            //translage to en
+            let translator = Polyglot(clientId: "copycat", clientSecret: "UUwOEXGR919dCnmgar9NKYsT1x/OT1PllpWgAX0Zmqw=")
+            translator.translate(tag) { translation in
+                searchUnsplashTranslated(translation, completion: completion)
+            }
+        }
+        
     }
     
     
@@ -412,36 +425,52 @@ import AwesomeCache
     }
 
     static func sendFeedback(content:String, completion:(error:String?) -> Void) -> Void{
-        var json = [String: AnyObject]()
-        let _ = String(NSDate())
-        json["contact"] = "\"test\",<test@test.com>"
-        json["subject"] = "feedback"
-        json["text"] = content
+        let message = SMTPMessage()
+        message.from = "copycatsvteam@gmail.com"
+        message.to = "copycatsvteam@gmail.com"
+        message.host = "smtp.gmail.com"
+        message.account = "copycatsvteam@gmail.com"
+        message.pwd = "copycatteam"
         
-        do{
-            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
-            HTTPPostJSON(host + "feedback", data: data, callback: { (response, error) -> Void in
-                if let _ = error {
-                    completion(error: "Connection Failed")
-                    return
-                }
-                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
-                    NSLog("response:%@", datastring)
-                    if datastring.containsString("OK"){
-                        completion( error: nil)
-                    } else {
-                        completion( error: datastring)
-                    }
-                    
-                }
-            })
-        } catch{
-            
+        message.subject = "Feedback"
+        message.content = content
+        
+        message.send({ (message, now, total) in
+            NSLog("Sending feedback")
+            }, success: { (message) in
+                NSLog("Email sent")
+        }) { (message, error) in
+            NSLog("Error:%@",error)
         }
+//        var json = [String: AnyObject]()
+//        let _ = String(NSDate())
+//        json["contact"] = "\"test\",<test@test.com>"
+//        json["subject"] = "feedback"
+//        json["text"] = content
+//        
+//        do{
+//            let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions())
+//            HTTPPostJSON(host + "feedback", data: data, callback: { (response, error) -> Void in
+//                if let _ = error {
+//                    completion(error: "Connection Failed")
+//                    return
+//                }
+//                if let datastring = NSString(data:response!, encoding:NSUTF8StringEncoding) as String? {
+//                    NSLog("response:%@", datastring)
+//                    if datastring.containsString("OK"){
+//                        completion( error: nil)
+//                    } else {
+//                        completion( error: datastring)
+//                    }
+//                    
+//                }
+//            })
+//        } catch{
+//            
+//        }
     }
     
     static func sendReport(imageId:String, userId:String, content:String, completion:(error:String?) -> Void) -> Void {
-        
         var json = [String: AnyObject]()
         let _ = String(NSDate())
         

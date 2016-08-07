@@ -36,4 +36,5 @@
 #import "MWTapDetectingImageView.h"
 #import <CommonCrypto/CommonCrypto.h>
 
+#import "SMTPMessage.h"
 
