@@ -92,7 +92,7 @@ class CCPreviewViewController : UIViewController {
         if sharingFlow.hasInstagramApp {
             sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
         } else {
-            let alert = UIAlertView(title: "Sorry", message: "Instagram Not Found", delegate: nil, cancelButtonTitle: "Okay" )
+            let alert = UIAlertView(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Instagram Not Found", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
             alert.show()
         }
     }
@@ -129,8 +129,8 @@ class CCPreviewViewController : UIViewController {
                 
                 if let _ = CCCoreUtil.userDefault.stringForKey("photo_saved"){
                 } else {
-                    CCCoreUtil.userDefault.setObject("true",forKey: "photo_saved")
-                    let alert = UIAlertView(title: "Note", message: "Photo Saved to Camera Roll", delegate: nil, cancelButtonTitle: "Got it" )
+                    CCCoreUtil.userDefault.setObject("true", forKey: "photo_saved")
+                    let alert = UIAlertView(title: NSLocalizedString("Note", comment: ""), message: NSLocalizedString("Photo Saved to Camera Roll", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
                     alert.show()
                 }
             })
@@ -237,7 +237,7 @@ class CCPreviewViewController : UIViewController {
         
         // Share checkbox
         self.shareOrigin = UIButton(frame: CGRectMake(40, 3, 120, 34))
-        self.shareOrigin!.setTitle("Original", forState: .Normal)
+        self.shareOrigin!.setTitle(NSLocalizedString("Original", comment: ""), forState: .Normal)
         self.shareOrigin!.addTarget(self, action: #selector(CCPreviewViewController.toggleSharingOrigin), forControlEvents: .TouchUpInside)
         self.shareOrigin!.layer.cornerRadius = 5
         self.shareOrigin!.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -246,7 +246,7 @@ class CCPreviewViewController : UIViewController {
 //        self.view.addSubview(self.shareOrigin!)
         
         self.shareTaken = UIButton(frame: CGRectMake(180, 3, 120, 34))
-        self.shareTaken!.setTitle("Current One", forState: .Normal)
+        self.shareTaken!.setTitle(NSLocalizedString("Current One", comment: ""), forState: .Normal)
         self.shareTaken!.addTarget(self, action: #selector(CCPreviewViewController.toggleSharingToken), forControlEvents: .TouchUpInside)
         self.shareTaken!.layer.cornerRadius = 5
         self.shareTaken!.setTitleColor(UIColor.blackColor(), forState: .Normal)
