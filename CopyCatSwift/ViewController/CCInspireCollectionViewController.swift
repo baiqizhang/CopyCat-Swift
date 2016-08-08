@@ -29,7 +29,7 @@ class CCInspireCollectionViewController: UIViewController{
     convenience init(tag : String){
         self.init()
         self.searchTextField.text = tag
-    
+        
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -52,7 +52,7 @@ class CCInspireCollectionViewController: UIViewController{
             
             let textLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 200, height: 50))
             textLabel.textColor = UIColor.grayColor()
-            textLabel.text = NSLocalizedString("Searching...", comment: "")
+            textLabel.text = "Searching"
             textLabel.textAlignment = .Left
             
             self.indicatorView.addSubview(activityView)
@@ -68,7 +68,7 @@ class CCInspireCollectionViewController: UIViewController{
             self.indicatorView.removeFromSuperview()
         }
     }
-
+    
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
@@ -78,7 +78,7 @@ class CCInspireCollectionViewController: UIViewController{
     internal func gpsAction(){
         let alertController = UIAlertController(title: "Geo-search", message: "", preferredStyle: .Alert)
         
-        let searchMyLocAction = UIAlertAction(title: NSLocalizedString("Search Nearby", comment: ""), style: .Default) { (_) in
+        let searchMyLocAction = UIAlertAction(title: "Search Nearby", style: .Default) { (_) in
             self.startIndicator()
             
             //start tracking gps
@@ -90,7 +90,7 @@ class CCInspireCollectionViewController: UIViewController{
             
         }
         
-        let searchByAddrAction = UIAlertAction(title: NSLocalizedString("Search By Address", comment: ""), style: .Default) { (_) in
+        let searchByAddrAction = UIAlertAction(title: "Search By Address", style: .Default) { (_) in
             self.stopIndicator()
             
             let addrTextField = alertController.textFields![0] as UITextField
@@ -98,10 +98,10 @@ class CCInspireCollectionViewController: UIViewController{
                 self.stopIndicator()
                 
                 if posts!.isEmpty{
-                    let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                    let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
                         self.dismissViewControllerAnimated(true, completion: { _ in })
-                    })
+                        })
                     
                     // show the alert
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -122,7 +122,7 @@ class CCInspireCollectionViewController: UIViewController{
         }
         searchByAddrAction.enabled = false
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .Cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addTextFieldWithConfigurationHandler { (textField) in
             textField.placeholder = "Golden Gate Bridge"
@@ -139,7 +139,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         presentViewController(alertController, animated: true) {}
     }
-
+    
     // MARK: VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,7 +155,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         //Title
         let titleLabel = UILabel(frame: CGRectMake(50, 0, self.view.frame.size.width - 100, 40))
-//        let titleText = category?.name
+        //        let titleText = category?.name
         titleLabel.text = self.searchTitle//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
         titleLabel.font = UIFont.systemFontOfSize(17)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
@@ -164,7 +164,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         //Back
         closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "back.png")?.maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
+        closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
@@ -172,11 +172,11 @@ class CCInspireCollectionViewController: UIViewController{
         
         //GPS
         let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
-        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
         gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(gpsButton)
-
+        
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0
@@ -187,12 +187,10 @@ class CCInspireCollectionViewController: UIViewController{
         collectionView!.delegate = self
         collectionView!.dataSource = self
         self.view!.addSubview(self.collectionView!)
-
+        
         let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
-        
-        view.backgroundColor = .whiteColor()
     }
     
     
@@ -211,9 +209,8 @@ class CCInspireCollectionViewController: UIViewController{
                     ///dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     //    alert.show()
                     //})
-
-                    let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                    let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
                         self.dismissViewControllerAnimated(true, completion: { _ in })
                         })
                     
@@ -234,9 +231,9 @@ class CCInspireCollectionViewController: UIViewController{
                     })
                 }
             } else {
-                let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Sorry", message: "No Network Connection", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Use Offline Photos", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                alert.addAction(UIAlertAction(title: "Use Offline Photos", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
                     let overlayImage = UIImage(named: "4_0.jpg")
                     
                     //Add to "Saved"
@@ -258,15 +255,15 @@ class CCInspireCollectionViewController: UIViewController{
                         AVCVC.setRefImage()
                     })
                     })
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Back to Home", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                alert.addAction(UIAlertAction(title: "Back to Home", style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
                     self.dismissViewControllerAnimated(true, completion: { _ in })
                     })
                 // show the alert
-            
+                
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         })
-
+        
     }
     
 }
@@ -276,10 +273,14 @@ class CCInspireCollectionViewController: UIViewController{
 
 extension CCInspireCollectionViewController:UICollectionViewDelegate{
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //et url = self.postList![indexPath.row].photoURI!
-        if let indexPath = collectionView.indexPathsForSelectedItems()?[0]{
-            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CCCollectionViewCell {
-                let overlayImage = cell.imageView?.image
+        let url = self.postList![indexPath.row].photoURI!
+        CCNetUtil.loadImage(url) { (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else {
+                    print(error)
+                    return
+                }
+                let overlayImage = UIImage(data: data)
                 
                 // show animation each time user re-enter categoryview
                 let userDefault = NSUserDefaults.standardUserDefaults()
@@ -290,9 +291,9 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
                 detailedView.parent = self
                 self.presentViewController(detailedView, animated: true, completion: { _ in })
-
             }
         }
+        
     }
 }
 
@@ -309,6 +310,8 @@ extension CCInspireCollectionViewController:UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CCCollectionViewCell
         
+        cell.backgroundColor = .clearColor()
+        cell.initWithNetworkUrl(postList![indexPath.row].photoURI!)
         
         return cell
     }
@@ -336,7 +339,7 @@ extension CCInspireCollectionViewController: CLLocationManagerDelegate{
         }
         guard let location = locations.first
             else {
-                let alert = UIAlertView(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Failed to get location", comment: ""), delegate: self, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
+                let alert = UIAlertView(title: "Error", message: "Failed to get location", delegate: self, cancelButtonTitle: "OK")
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     alert.show()
                 })
@@ -348,9 +351,9 @@ extension CCInspireCollectionViewController: CLLocationManagerDelegate{
         
         CCNetUtil.searchGPS(lat, lon: lon, completion: { (posts) in
             if posts.isEmpty{
-                let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
-                        self.dismissViewControllerAnimated(true, completion: { _ in })
+                let alert = UIAlertController(title: "Sorry", message: "No match found", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                    self.dismissViewControllerAnimated(true, completion: { _ in })
                     })
                 
                 // show the alert
