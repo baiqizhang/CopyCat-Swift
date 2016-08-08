@@ -18,6 +18,7 @@ class CCInspireCollectionViewController: UIViewController{
     private let flowLayout = UICollectionViewFlowLayout()
     private var collectionView : CCCollectionView?
     
+    var searchTitle: String?
     var indicatorView = UIView()
     var postList:[CCPost]?
     
@@ -28,6 +29,7 @@ class CCInspireCollectionViewController: UIViewController{
     convenience init(tag : String){
         self.init()
         self.searchTextField.text = tag
+    
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -154,7 +156,7 @@ class CCInspireCollectionViewController: UIViewController{
         //Title
         let titleLabel = UILabel(frame: CGRectMake(50, 0, self.view.frame.size.width - 100, 40))
 //        let titleText = category?.name
-        titleLabel.text = "Search Result"//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
+        titleLabel.text = self.searchTitle//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
         titleLabel.font = UIFont.systemFontOfSize(17)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
         titleLabel.textAlignment = .Center

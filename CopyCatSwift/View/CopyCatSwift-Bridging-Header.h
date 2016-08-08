@@ -30,7 +30,7 @@
 
 
 //Login
-#import "iRate.h"
+//#import "iRate.h"
 
 
 #import "MWTapDetectingImageView.h"

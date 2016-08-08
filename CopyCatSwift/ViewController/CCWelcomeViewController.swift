@@ -118,7 +118,7 @@ class CCWelcomeViewController: UIViewController {
             // Show search result
             let vc = CCInspireCollectionViewController(tag: self.searchTextField.text!)
             vc.modalTransitionStyle = .CrossDissolve
-            
+            vc.searchTitle = self.searchTextField.text
             let transition = CATransition()
             transition.duration = 0.4
             transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
