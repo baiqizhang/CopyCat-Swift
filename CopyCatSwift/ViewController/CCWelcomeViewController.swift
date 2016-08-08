@@ -37,7 +37,7 @@ class CCWelcomeViewController: UIViewController {
     private var toShow : [UIView] = []
     private var libraryViews : [UIView] = []
     
-    // Actions
+    // MARK: Actions
     func openGalleryWithImage(image:UIImage){
         // show animation each time user re-enter categoryview
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -87,6 +87,10 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.resignFirstResponder()
     }
     func searchAction(){
+//        let vc = CCCrawlViewController.sharedInstance()
+//        presentViewController(vc, animated: true, completion: nil)
+//        return
+        
         if searchTextField.text == ""{
             return
             
@@ -165,7 +169,7 @@ class CCWelcomeViewController: UIViewController {
         presentViewController(alertController, animated: true) {}
     }
     
-    // Lifecycle
+    // MARK: Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

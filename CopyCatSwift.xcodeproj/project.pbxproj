@@ -28,6 +28,7 @@
 		9717A5331C3767D8002AB0C6 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9717A5321C3767D8002AB0C6 /* SwiftyJSON.swift */; };
 		9717A53E1C388D5E002AB0C6 /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9717A53D1C388D5E002AB0C6 /* SKStatefulTableViewController.m */; };
 		97254F921C2955EF0047968A /* CCWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */; };
+		97262D3B1D58134F00967800 /* CCCrawlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97262D3A1D58134F00967800 /* CCCrawlViewController.swift */; };
 		9727B0DA1C34F29C005E9D12 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9727B0D91C34F29C005E9D12 /* AppIcon.png */; };
 		9727B0DE1C35D3C2005E9D12 /* CCNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9727B0DD1C35D3C2005E9D12 /* CCNetUtil.swift */; };
 		973481001D284EB400ADB430 /* CCInspireCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */; };
@@ -233,6 +234,7 @@
 		9717A53D1C388D5E002AB0C6 /* SKStatefulTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewController.m; sourceTree = "<group>"; };
 		97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCWelcomeViewController.swift; sourceTree = "<group>"; };
 		97254FD11C29EF100047968A /* CopyCatSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CopyCatSwift-Bridging-Header.h"; path = "View/CopyCatSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		97262D3A1D58134F00967800 /* CCCrawlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCrawlViewController.swift; sourceTree = "<group>"; };
 		9727B0D91C34F29C005E9D12 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon.png; path = Resources/AppIcon.png; sourceTree = "<group>"; };
 		9727B0DD1C35D3C2005E9D12 /* CCNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCNetUtil.swift; sourceTree = "<group>"; };
 		973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInspireCollectionViewController.swift; sourceTree = "<group>"; };
@@ -811,7 +813,6 @@
 		97F6DFDF1C23A54700707180 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
 				1AAD320E1C640029009D1DA7 /* Login */,
 				9717A53B1C388D5E002AB0C6 /* SKStatefulTableViewController */,
 				9740CA4A1C2FE8570023FE2C /* Camera */,
@@ -821,6 +822,8 @@
 				97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */,
 				72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */,
 				4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */,
+				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
+				97262D3A1D58134F00967800 /* CCCrawlViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1370,6 +1373,7 @@
 				9740CA901C2FE8B30023FE2C /* MWTapDetectingImageView.m in Sources */,
 				97FCBBA41D0B6F02003734DA /* CCURLProtocol.swift in Sources */,
 				9740C9741C2D45F80023FE2C /* CCCoreUtil.swift in Sources */,
+				97262D3B1D58134F00967800 /* CCCrawlViewController.swift in Sources */,
 				1A4DF1F31C508380001A4775 /* CCOverlayFrameView.swift in Sources */,
 				9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */,
 				9740CA501C2FE8770023FE2C /* AVCamViewController.m in Sources */,

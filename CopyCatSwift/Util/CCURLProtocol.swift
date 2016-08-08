@@ -13,7 +13,15 @@ var requestCount = 0
 class CCURLProtocol: NSURLProtocol {
     
     override class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        print("Request #\(requestCount++): URL = \(request.URL!.absoluteString)")
+        let url = request.URL!.absoluteString
+//        print("Request #\(requestCount++): URL = \(url)")
+
+        if let _ = url.rangeOfString("https://encrypted-tbn[\\s\\S]*", options: .RegularExpressionSearch) {
+            CCCrawlViewController.sharedInstance().appendURL(url)
+            print("Image : \(url)")
+        }
+
+        
         return false
     }
 }

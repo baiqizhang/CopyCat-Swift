@@ -164,7 +164,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         //Back
         closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
+        closeButton.setBackgroundImage(UIImage(named: "back.png")?.maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
@@ -172,7 +172,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         //GPS
         let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
-        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
         gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(gpsButton)
@@ -191,6 +191,8 @@ class CCInspireCollectionViewController: UIViewController{
         let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
+        
+        view.backgroundColor = .whiteColor()
     }
     
     
@@ -310,8 +312,6 @@ extension CCInspireCollectionViewController:UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CCCollectionViewCell
         
-        cell.backgroundColor = .clearColor()
-        cell.initWithNetworkUrl(postList![indexPath.row].photoURI!)
         
         return cell
     }
