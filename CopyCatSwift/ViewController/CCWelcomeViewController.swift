@@ -29,7 +29,7 @@ class CCWelcomeViewController: UIViewController {
     private let collectionView = UIView()
     
     private let tableView = UITableView()
-    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+    private var hotTag: [String] = []
     private var history : [String] = [] //init in willappear
     private var showHistory = false
     
@@ -183,6 +183,8 @@ class CCWelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hotTag = CCNetUtil.getHottag()
         
         //Init offset and ImageView
         var offset : CGFloat = -100.0

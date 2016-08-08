@@ -213,38 +213,14 @@ class CCInspireCollectionViewController: UIViewController{
         }
         
         startIndicator()
-        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (postsNull) in
+        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (postsNullable) in
             self.stopIndicator()
+            var posts:[CCPost] = []
+            if let _ = postsNullable {
+                posts = postsNullable!
+            }
             
-            if let posts = postsNull {
-                if posts.isEmpty{
-                    //let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
-                    ///dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    //    alert.show()
-                    //})
-                    
-                    let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
-                        self.dismissViewControllerAnimated(true, completion: { _ in })
-                        })
-                    
-                    // show the alert
-                    self.presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    self.postList = []
-                    
-                    for post in posts{
-                        let uri = post.photoURI! as String
-                        print("uri:" + uri);
-                    }
-                    self.postList = posts
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.collectionView!.reloadData()
-                        self.collectionView!.setContentOffset(CGPointZero, animated: true)
-                    })
-                }
-            } else {
+            if posts.isEmpty{
                 let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
                 
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Use Offline Photos", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
@@ -269,16 +245,47 @@ class CCInspireCollectionViewController: UIViewController{
                         AVCVC.setRefImage()
                     })
                 })
-//                alert.addAction(UIAlertAction(title: NSLocalizedString("Back to Home", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
-//                    self.dismissViewControllerAnimated(true, completion: { _ in })
-//                })
-
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Try photo crawler", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Try photo crawler", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
                     self.openBrowser()
                 })
-                
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                    alert.dismissViewControllerAnimated(true, completion: { 
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                })
                 // show the alert
                 self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                self.postList = []
+                
+                for post in posts{
+                    let uri = post.photoURI! as String
+                    print("uri:" + uri);
+                }
+                self.postList = posts
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.collectionView!.reloadData()
+                    self.collectionView!.setContentOffset(CGPointZero, animated: true)
+                    
+                    if self.postList?.count<10{
+                        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            let alert = UIAlertController(title: NSLocalizedString("Too few results", comment: ""), message: NSLocalizedString("We can't find that in our high quality database", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("Try photo crawler", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                                self.openBrowser()
+                            })
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("Nope", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                                alert.dismissViewControllerAnimated(false, completion: nil)
+                            })
+
+                            // show the alert
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    }
+                })
             }
         })
         

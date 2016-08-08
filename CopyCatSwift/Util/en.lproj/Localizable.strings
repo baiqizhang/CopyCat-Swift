@@ -51,6 +51,9 @@
 "No match found" = "No match found in our library";
 "Use Offline Photos" = "Use Offline Photos";
 "Try photo crawler" = "Search on Google instead";
+"Too few results" = "Too few results";
+"We can't find that in our high quality database" = "We can't find that in our high quality database. Try photo crawler? (Top right corner)";
+"Nope" = "Nope";
 "Back to Home" = "Back to search";
 "Error" = "Error";
 "Cancel" = "Cancel";

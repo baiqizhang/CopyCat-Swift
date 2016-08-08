@@ -19,6 +19,15 @@ import Polyglot
     static let imageDownloader = ImageDownloader(name: "user_profile_downloader")
     static var searchResCache = try! Cache<NSData>(name: "resCache")
 
+    static func getHottag()->[String]{
+        let preferredLanguage = NSLocale.preferredLanguages()[0] as String
+        if preferredLanguage.hasPrefix("zh-Hans") {
+            return ["Pose","咖啡", "情侣", "建筑","早餐","手机","秋天"]
+        }
+        
+        return ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+    }
+    
     // MARK: Parsing User Feed
     static func parsePostFromJson(json:JSON) -> [CCPost]{
         var result = [CCPost]()
