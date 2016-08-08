@@ -274,14 +274,10 @@ class CCInspireCollectionViewController: UIViewController{
 
 extension CCInspireCollectionViewController:UICollectionViewDelegate{
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let url = self.postList![indexPath.row].photoURI!
-        CCNetUtil.loadImage(url) { (data, response, error) in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                guard let data = data where error == nil else {
-                    print(error)
-                    return
-                }
-                let overlayImage = UIImage(data: data)
+        //et url = self.postList![indexPath.row].photoURI!
+        if let indexPath = collectionView.indexPathsForSelectedItems()?[0]{
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CCCollectionViewCell {
+                let overlayImage = cell.imageView?.image
                 
                 // show animation each time user re-enter categoryview
                 let userDefault = NSUserDefaults.standardUserDefaults()
@@ -292,9 +288,9 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
                 detailedView.parent = self
                 self.presentViewController(detailedView, animated: true, completion: { _ in })
+
             }
         }
-
     }
 }
 
