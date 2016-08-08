@@ -14,14 +14,15 @@ class CCURLProtocol: NSURLProtocol {
     
     override class func canInitWithRequest(request: NSURLRequest) -> Bool {
         let url = request.URL!.absoluteString
-//        print("Request #\(requestCount++): URL = \(url)")
 
         if let _ = url.rangeOfString("https://encrypted-tbn[\\s\\S]*", options: .RegularExpressionSearch) {
             CCCrawlViewController.sharedInstance().appendURL(url)
-            print("Image : \(url)")
+        } else if let _ = url.rangeOfString("http://img\\d*.imgtn.bdimg.com/it/[\\s\\S]*", options: .RegularExpressionSearch) {
+            CCCrawlViewController.sharedInstance().appendURL(url)
         }
-
-        
+//        else if let _ = url.rangeOfString("[\\s\\S]*.(jpg|png|gif)", options: .RegularExpressionSearch) {
+//            CCCrawlViewController.sharedInstance().appendURL(url)
+//        }
         return false
     }
 }

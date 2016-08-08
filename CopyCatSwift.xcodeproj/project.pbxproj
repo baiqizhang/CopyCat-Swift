@@ -88,6 +88,7 @@
 		9792C9541C437E5400EF63BC /* like2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9792C9501C437E5400EF63BC /* like2.png */; };
 		9792C9551C437E5400EF63BC /* pin_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9792C9511C437E5400EF63BC /* pin_highlight.png */; };
 		9792C9561C437E5400EF63BC /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9792C9521C437E5400EF63BC /* pin.png */; };
+		979893EE1D583322000F0B54 /* browser.png in Resources */ = {isa = PBXBuildFile; fileRef = 979893ED1D583322000F0B54 /* browser.png */; };
 		979A99321C391BBB00214E85 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A99311C391BBB00214E85 /* UIImageView+Download.swift */; };
 		97C4F33F1C9FAA07003934BB /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4F33E1C9FAA07003934BB /* instagram.png */; };
 		97C4F3411C9FB316003934BB /* UIImageWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */; };
@@ -322,6 +323,7 @@
 		9792C9501C437E5400EF63BC /* like2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like2.png; sourceTree = "<group>"; };
 		9792C9511C437E5400EF63BC /* pin_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_highlight.png; sourceTree = "<group>"; };
 		9792C9521C437E5400EF63BC /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		979893ED1D583322000F0B54 /* browser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = browser.png; sourceTree = "<group>"; };
 		979A99311C391BBB00214E85 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		97C4F33E1C9FAA07003934BB /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
 		97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageWithInsets.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				979893ED1D583322000F0B54 /* browser.png */,
 				97636E081D1F39F00073D9EA /* lucky.png */,
 				974875181D10B32D0089C385 /* geofence.png */,
 				9748750C1D0E39A20089C385 /* search.png */,
@@ -1124,6 +1127,7 @@
 				97F6DFCE1C23A1C300707180 /* save2_highlight.png in Resources */,
 				97FCBB6D1CE90760003734DA /* 2_1.jpg in Resources */,
 				97F6DFC51C23A1C300707180 /* focus.png in Resources */,
+				979893EE1D583322000F0B54 /* browser.png in Resources */,
 				9740C96F1C2BB9210023FE2C /* banner4.png in Resources */,
 				97F6DFCA1C23A1C300707180 /* photo_full_image_selected.png in Resources */,
 				97F6DFD01C23A1C300707180 /* sendto_highlight.png in Resources */,

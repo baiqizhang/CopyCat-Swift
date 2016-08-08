@@ -11,16 +11,16 @@ import Fabric
 import Crashlytics
 
 class CCCrawlViewController: UIViewController, UIWebViewDelegate {
-    private var crawledURL : [String] = []
+    var url = "https://www.google.com/imghp"  //"http://www.bing.com/images"
 
-    private let closeButton = UIButton()
+    static let sharedVC = CCCrawlViewController()
+    private var crawledURL : [String] = []
     
+    private let closeButton = UIButton()
     private var webView = UIWebView()
-    private var url = "https://www.google.com/imghp"
     private let flowLayout = UICollectionViewFlowLayout()
     private var collectionView : UICollectionView?
     
-    static let sharedVC = CCCrawlViewController()
     
     //MARK: Crawl
     static func sharedInstance() -> CCCrawlViewController{
@@ -44,6 +44,14 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
     //MARK: Actions
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
+        resetBrowser()
+    }
+    func resetBrowser(){
+        let preferredLanguage = NSLocale.preferredLanguages()[0] as String
+        if preferredLanguage == "zh-Hans-CN" {
+            url = "http://image.baidu.com/"
+        }
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
     }
     
     //MARK: Lifecycle
@@ -52,7 +60,6 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
     }
     
     override func viewDidLoad() {
@@ -60,37 +67,41 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
         
         CCCrawlViewController.sharedInstance().crawledURL = []
         
+        //Webview
+        let len = 2*(self.view.frame.size.width-4)/4.0+3
+        webView.frame = CGRectMake(0, 30, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-len-30-30)
+        webView.delegate = self
+        self.view.addSubview(webView)
+        
+        let label = UILabel(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height-len-30,UIScreen.mainScreen().bounds.width,30))
+        label.text = NSLocalizedString("Crawled Image", comment: "")
+        label.textColor = UIColor(hex: 0x222222)
+        label.font = UIFont.systemFontOfSize(14)
+        view.addSubview(label)
+        
+        let bar1 = UIView(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height-len-30,UIScreen.mainScreen().bounds.width,1))
+        bar1.backgroundColor = UIColor(hex: 0x888888)
+        view.addSubview(bar1)
+        
+        let bar2 = UIView(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height-len,UIScreen.mainScreen().bounds.width,1))
+        bar2.backgroundColor = UIColor(hex: 0x888888)
+        view.addSubview(bar2)
+        
         //Close
-        closeButton.frame = CGRectMake(5, 0, 40, 40)
+        closeButton.frame = CGRectMake(5, -5, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png")?.maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
         closeButton.addTarget(self, action: #selector(InstagramLoginViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
-        
-        
-        webView.frame = CGRectMake(0, 50, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height/2-80)
-        webView.delegate = self
-        self.view.addSubview(webView)
-        
-        
-        let label = UILabel(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height/2-30,UIScreen.mainScreen().bounds.width,30))
-        label.text = "Crawled Image"
-        label.textColor = UIColor(hex: 0x444444)
-        view.addSubview(label)
-        
-        let bar1 = UIView(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height/2-30,UIScreen.mainScreen().bounds.width,1))
-        bar1.backgroundColor = UIColor(hex: 0x888888)
-        view.addSubview(bar1)
-        
-        let bar2 = UIView(frame:CGRectMake(0,UIScreen.mainScreen().bounds.height/2,UIScreen.mainScreen().bounds.width,1))
-        bar2.backgroundColor = UIColor(hex: 0x888888)
-        view.addSubview(bar2)
+
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0
         flowLayout.minimumLineSpacing = 2
-        collectionView = CCCollectionView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.height/2, self.view.frame.size.width, UIScreen.mainScreen().bounds.height/2-30), collectionViewLayout: self.flowLayout)
+        flowLayout.scrollDirection = .Horizontal
+        
+        collectionView = CCCollectionView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.height - len, self.view.frame.size.width, len), collectionViewLayout: self.flowLayout)
         collectionView!.registerClass(CCCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView!.backgroundColor = .clearColor()
         collectionView!.delegate = self
@@ -98,7 +109,11 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
         self.view!.addSubview(self.collectionView!)
         
         view.backgroundColor = .whiteColor()
-
+        
+        resetBrowser()
+        
+        let alert = UIAlertView(title: NSLocalizedString("Photo Crawler", comment: ""), message: NSLocalizedString("The upper part is a web browser. Click on crawled photo below to start CopyCatting", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("Got it", comment: ""))
+        alert.show()
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
@@ -155,8 +170,8 @@ extension CCCrawlViewController:UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CCCollectionViewCell
         
-        cell.backgroundColor = .clearColor()
-        cell.initWithNetworkUrl(crawledURL[indexPath.row])
+//        cell.backgroundColor = .clearColor()
+        cell.initWithNetworkUrlWithoutCache(crawledURL[indexPath.row])
 
         return cell
     }
@@ -166,12 +181,12 @@ extension CCCrawlViewController:UICollectionViewDataSource{
 
 extension CCCrawlViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(2, 0, 0, 0);
+        return UIEdgeInsetsMake(2, 0, 0, 0)
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let len=(self.view.frame.size.width-4)/3.0;
-        let retval = CGSizeMake(len, len);
-        return retval;
+        let len = (self.view.frame.size.width-5)/4.0
+        let retval = CGSizeMake(len, len)
+        return retval
     }
 }
 

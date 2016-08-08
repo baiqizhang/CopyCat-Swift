@@ -87,10 +87,6 @@ class CCWelcomeViewController: UIViewController {
         searchTextField.resignFirstResponder()
     }
     func searchAction(){
-//        let vc = CCCrawlViewController.sharedInstance()
-//        presentViewController(vc, animated: true, completion: nil)
-//        return
-        
         if searchTextField.text == ""{
             return
             

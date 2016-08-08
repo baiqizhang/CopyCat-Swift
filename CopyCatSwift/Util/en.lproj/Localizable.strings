@@ -37,6 +37,10 @@
 //Search
 "Search History" = "Search History";
 "Popular Tags" = "Popular Tags";
+"Crawled Image" = "Crawled Image - Click to CopyCat";
+"Photo Crawler" = "Photo Crawler";
+"The upper part is a web browser. Click on crawled photo below to start CopyCatting" = "The upper part is a web browser you can search with. \nClick on crawled photo below to start CopyCatting";
+"Got it" = "Got it";
 
 //Search Result
 "Searching..." = "Searching...";
@@ -44,9 +48,10 @@
 "Search Nearby" = "Search Nearby";
 "Search By Address" = "Search By Address";
 "Sorry" = "Sorry";
-"No match found" = "No match found";
+"No match found" = "No match found in our library";
 "Use Offline Photos" = "Use Offline Photos";
-"Back to Home" = "Back to Home";
+"Try photo crawler" = "Search on Google instead";
+"Back to Home" = "Back to search";
 "Error" = "Error";
 "Cancel" = "Cancel";
 "Failed to get location" = "Failed to get location";
