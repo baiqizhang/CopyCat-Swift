@@ -38,6 +38,25 @@
 "Search History" = "Search History";
 "Popular Tags" = "Popular Tags";
 
+//Search Result
+"Searching..." = "Searching...";
+"Geo-search" = "Geo-search";
+"Search Nearby" = "Search Nearby";
+"Search By Address" = "Search By Address";
+"Sorry" = "Sorry";
+"No match found" = "No match found";
+"Use Offline Photos" = "Use Offline Photos";
+"Back to Home" = "Back to Home";
+"Error" = "Error";
+"Cancel" = "Cancel";
+"Failed to get location" = "Failed to get location";
+
+//Camera
+"Instagram Not Found" = "Instagram Not Found";
+"Photo Saved to Camera Roll" = "Photo Saved to Camera Roll";
+"Note" = "Note";
+"Original" = "Original";
+"Current One" = "Current One";
 
 //Mostly Deprecated
 "CAMERA" = "CAMERA";

@@ -52,9 +52,15 @@
 
 "INS_LOGOUT_TITLE" = "登出";
 "INS_LOGOUT_ALERT" = "您将不能同步Instagram Likes";
-"OK" = "确认";
+"OK" = "好的";
 "CANCEL" = "取消";
 
+//Camera
+"Instagram Not Found" = "Instagram暂时不可用";
+"Photo Saved to Camera Roll" = "照片已存入胶卷";
+"Note" = "注意";
+"Original" = "原始图片";
+"Current One" = "当前图片";
 
 //FeedBack
 "Quick Feedback" = "提交反馈";
@@ -72,6 +78,7 @@
 //Search
 "Search History" = "搜索历史";
 "Popular Tags" = "热搜标签";
+"Search Nearby" = "搜索附近";
 
 //Welcome
 "What to capture today? e.g. coffee" = "今天想拍什么？比如：海滩";
@@ -81,3 +88,15 @@
 "Use my own template" = "用我自己的照片做模版";
 "Get Started" = "快速上手";
 "Feedback" = "反馈问题";
+"Back to Home" = "返回主界面";
+"Error" = "出错了";
+"Failed to get location" = "无法获取当前位置";
+"Cancel" = "取消";
+
+//Search Result
+"Searching..." = "搜索中……";
+"Geo-search" = "按位置搜索";
+"Search By Address" = "按地址搜索";
+"Sorry" = "抱歉";
+"No match found" = "没有找到匹配图片";
+"Use Offline Photos" = "使用离线图片";
