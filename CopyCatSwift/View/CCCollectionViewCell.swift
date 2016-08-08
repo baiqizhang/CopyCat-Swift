@@ -103,6 +103,30 @@ class CCCollectionViewCell: UICollectionViewCell {
 
     }
 
+    func initWithNetworkUrlWithoutCache(url: String) {
+        self.deleteFlag = 0
+        self.imagePath = url
+        
+        initImage()
+        
+        self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
+        self.imageView!.clipsToBounds = true
+        UIView.animateWithDuration(0.3, animations: {
+            self.imageView!.alpha = 1
+        })
+        
+        CCNetUtil.loadImage(url) { (data, response, error) in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else {
+                    print(error)
+                    return
+                }
+                self.imageView?.image = UIImage(data: data)
+            }
+        }
+        
+    }
+
     func initWithImagePath(imagePath: String, deleteFlag: Int) {
         self.deleteFlag = deleteFlag
         self.imagePath = imagePath

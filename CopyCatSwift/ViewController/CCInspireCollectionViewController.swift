@@ -29,7 +29,7 @@ class CCInspireCollectionViewController: UIViewController{
     convenience init(tag : String){
         self.init()
         self.searchTextField.text = tag
-    
+        
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -68,7 +68,7 @@ class CCInspireCollectionViewController: UIViewController{
             self.indicatorView.removeFromSuperview()
         }
     }
-
+    
     func closeAction() {
         self.dismissViewControllerAnimated(true, completion: { _ in })
     }
@@ -101,7 +101,7 @@ class CCInspireCollectionViewController: UIViewController{
                     let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
                         self.dismissViewControllerAnimated(true, completion: { _ in })
-                    })
+                        })
                     
                     // show the alert
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -139,7 +139,12 @@ class CCInspireCollectionViewController: UIViewController{
         
         presentViewController(alertController, animated: true) {}
     }
-
+    
+    func openBrowser(){
+        let vc = CCCrawlViewController.sharedInstance()
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
     // MARK: VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,7 +160,7 @@ class CCInspireCollectionViewController: UIViewController{
         
         //Title
         let titleLabel = UILabel(frame: CGRectMake(50, 0, self.view.frame.size.width - 100, 40))
-//        let titleText = category?.name
+        //        let titleText = category?.name
         titleLabel.text = self.searchTitle//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
         titleLabel.font = UIFont.systemFontOfSize(17)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
         titleLabel.textColor = .whiteColor()
@@ -170,13 +175,21 @@ class CCInspireCollectionViewController: UIViewController{
         view!.addSubview(closeButton)
         
         
+//        //GPS
+//        let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
+//        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+//        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+//        gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
+//        self.view!.addSubview(gpsButton)
+        
+        
         //GPS
-        let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
-        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
-        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
-        gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
-        self.view!.addSubview(gpsButton)
-
+        let crawlButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
+        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+        crawlButton.addTarget(self, action: #selector(openBrowser), forControlEvents: .TouchUpInside)
+        self.view!.addSubview(crawlButton)
+        
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0
@@ -187,7 +200,7 @@ class CCInspireCollectionViewController: UIViewController{
         collectionView!.delegate = self
         collectionView!.dataSource = self
         self.view!.addSubview(self.collectionView!)
-
+        
         let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
@@ -200,38 +213,14 @@ class CCInspireCollectionViewController: UIViewController{
         }
         
         startIndicator()
-        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (postsNull) in
+        CCNetUtil.searchUnsplash(self.searchTextField.text!, completion: { (postsNullable) in
             self.stopIndicator()
+            var posts:[CCPost] = []
+            if let _ = postsNullable {
+                posts = postsNullable!
+            }
             
-            if let posts = postsNull {
-                if posts.isEmpty{
-                    //let alert = UIAlertView(title: "Error", message: "No match found", delegate: self, cancelButtonTitle: "OK")
-                    ///dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    //    alert.show()
-                    //})
-
-                    let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
-                        self.dismissViewControllerAnimated(true, completion: { _ in })
-                        })
-                    
-                    // show the alert
-                    self.presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    self.postList = []
-                    
-                    for post in posts{
-                        let uri = post.photoURI! as String
-                        print("uri:" + uri);
-                    }
-                    self.postList = posts
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.collectionView!.reloadData()
-                        self.collectionView!.setContentOffset(CGPointZero, animated: true)
-                    })
-                }
-            } else {
+            if posts.isEmpty{
                 let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
                 
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Use Offline Photos", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
@@ -255,16 +244,51 @@ class CCInspireCollectionViewController: UIViewController{
                     self.presentViewController(AVCVC, animated: true, completion: {
                         AVCVC.setRefImage()
                     })
+                })
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Try photo crawler", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                    self.openBrowser()
+                })
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                    alert.dismissViewControllerAnimated(true, completion: { 
+                        self.dismissViewControllerAnimated(true, completion: nil)
                     })
-                alert.addAction(UIAlertAction(title: NSLocalizedString("Back to Home", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
-                    self.dismissViewControllerAnimated(true, completion: { _ in })
-                    })
+                })
                 // show the alert
-            
                 self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                self.postList = []
+                
+                for post in posts{
+                    let uri = post.photoURI! as String
+                    print("uri:" + uri);
+                }
+                self.postList = posts
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.collectionView!.reloadData()
+                    self.collectionView!.setContentOffset(CGPointZero, animated: true)
+                    
+                    if self.postList?.count<10{
+                        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            let alert = UIAlertController(title: NSLocalizedString("Too few results", comment: ""), message: NSLocalizedString("We can't find that in our high quality database", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("Try photo crawler", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
+                                self.openBrowser()
+                            })
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("Nope", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
+                                alert.dismissViewControllerAnimated(false, completion: nil)
+                            })
+
+                            // show the alert
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    }
+                })
             }
         })
-
+        
     }
     
 }
@@ -288,7 +312,7 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
                 detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
                 detailedView.parent = self
                 self.presentViewController(detailedView, animated: true, completion: { _ in })
-
+                
             }
         }
     }
@@ -350,7 +374,7 @@ extension CCInspireCollectionViewController: CLLocationManagerDelegate{
             if posts.isEmpty{
                 let alert = UIAlertController(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("No match found", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.Default) {  (UIAlertAction) -> Void in
-                        self.dismissViewControllerAnimated(true, completion: { _ in })
+                    self.dismissViewControllerAnimated(true, completion: { _ in })
                     })
                 
                 // show the alert

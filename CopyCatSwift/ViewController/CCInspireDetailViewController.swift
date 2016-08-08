@@ -9,7 +9,7 @@
 import UIKit
 
 class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
-    var parent : CCInspireCollectionViewController?
+    var parent : UIViewController?
     
     private let cancelButton = UIButton()
     private let okButton = UIButton()

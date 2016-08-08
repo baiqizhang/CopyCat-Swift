@@ -77,21 +77,28 @@
 "How can we improve?" = "请您提供改进建议";
 "Do you want to tell us how to improve our app and make you happy?" = "您是否愿意提供一些改进建议";
 "The developer values your feedback." = "非常感谢您的反馈！";
+"Crawled Image" = "抓取到的图片 - 若加载错误，请左右拖动刷新";
 
 //Search
 "Search History" = "搜索历史";
 "Popular Tags" = "热搜标签";
 "Search Nearby" = "搜索附近";
+"Photo Crawler" = "图片抓取";
+"The upper part is a web browser. Click on crawled photo below to start CopyCatting" = "上半部分是浏览器，下半部分是抓取到的图片";
+"Got it" = "了解";
 
 //Welcome
-"What to capture today? e.g. coffee" = "今天想拍什么？比如：海滩";
+"What to capture today? e.g. coffee" = "今天想拍什么？比如：咖啡";
 "STEP1" = "1. 决定要拍什么";
 "STEP2" = "2. 寻找参考图";
-"STEP3" = "3. 在屏幕上划动，确定构图，拍！";
+"STEP3" = "3. 调节透明度，学习构图";
 "Use my own template" = "用我自己的照片做模版";
-"Get Started" = "快速上手";
+"Get Started" = "开始创作";
 "Feedback" = "反馈问题";
 "Back to Home" = "返回主界面";
+"Too few results" = "结果太少";
+"We can't find that in our high quality database" = "高质量图片库中搜索不到，试试图片抓取功能？（右上角）";
+"Nope" = "算了";
 "Error" = "出错了";
 "Failed to get location" = "无法获取当前位置";
 "Cancel" = "取消";
@@ -101,5 +108,6 @@
 "Geo-search" = "按位置搜索";
 "Search By Address" = "按地址搜索";
 "Sorry" = "抱歉";
-"No match found" = "没有找到匹配图片";
+"No match found" = "图片库中没有找到匹配图片";
 "Use Offline Photos" = "使用离线图片";
+"Try photo crawler" = "从百度抓取";

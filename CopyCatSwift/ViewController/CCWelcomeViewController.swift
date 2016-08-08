@@ -29,7 +29,7 @@ class CCWelcomeViewController: UIViewController {
     private let collectionView = UIView()
     
     private let tableView = UITableView()
-    private var hotTag: [String] = ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+    private var hotTag: [String] = []
     private var history : [String] = [] //init in willappear
     private var showHistory = false
     
@@ -37,7 +37,7 @@ class CCWelcomeViewController: UIViewController {
     private var toShow : [UIView] = []
     private var libraryViews : [UIView] = []
     
-    // Actions
+    // MARK: Actions
     func openGalleryWithImage(image:UIImage){
         // show animation each time user re-enter categoryview
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -165,7 +165,7 @@ class CCWelcomeViewController: UIViewController {
         presentViewController(alertController, animated: true) {}
     }
     
-    // Lifecycle
+    // MARK: Lifecycle
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -183,6 +183,8 @@ class CCWelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hotTag = CCNetUtil.getHottag()
         
         //Init offset and ImageView
         var offset : CGFloat = -100.0
