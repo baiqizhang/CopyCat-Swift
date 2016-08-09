@@ -246,7 +246,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     
     self.cancelButton=[[UIButton alloc]initWithFrame:CGRectMake(25, self.view.frame.size.height-67.5, 80, 45)];
     [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [self.cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
     [self.cancelButton setTitleColor:[UIColor hexStringToColor:@"#41AFFF"] forState:UIControlStateHighlighted];
     [self.view addSubview:self.cancelButton];
 
@@ -254,7 +254,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     self.setRefButton=[[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 90, self.view.frame.size.height - 70, 60, 50)];
     [self.setRefButton addTarget:self action:@selector(setRefImage) forControlEvents:UIControlEventTouchUpInside];
     [self.setRefButton setTitleColor:[UIColor hexStringToColor:@"#41AFFF"] forState:UIControlStateHighlighted];
-    [self.setRefButton setTitle:@"Library" forState:UIControlStateNormal];
+    [self.setRefButton setTitle:NSLocalizedString(@"Library", @"") forState:UIControlStateNormal];
     
     [self.view addSubview:self.setRefButton];
     

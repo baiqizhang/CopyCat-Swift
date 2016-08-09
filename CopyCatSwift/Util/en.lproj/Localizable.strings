@@ -65,6 +65,7 @@
 "Note" = "Note";
 "Original" = "Original";
 "Current One" = "Current One";
+"Library" = "Library"; 
 
 //Mostly Deprecated
 "CAMERA" = "CAMERA";
@@ -74,12 +75,14 @@
 "and learn its composition" = "and learn its composition";
 
 "CATEGORY" = "CATEGORY";
-"PEOPLE" = "PEOPLE";
-"URBAN" = "URBAN";
-"NATURE" = "NATURE";
-"FOOD" = "FOOD";
-"LIFESTYLE" = "LIFESTYLE";
-"MISC" = "MISCELLANEOUS";
+"Saved" = "Saved";
+"Category" = "Category";
+"People" = "People";
+"Urban" = "Urban";
+"Nature" = "Nature";
+"Food" = "Food";
+"Lifestyle" = "Lifestyle";
+"Misc" = "Misc";
 
 "SETTINGS" = "SETTINGS";
 "SEND FEEDBACK" = "SEND FEEDBACK";

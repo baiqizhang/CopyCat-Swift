@@ -25,10 +25,10 @@ import Polyglot
     static func getHottag()->[String]{
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
         if preferredLanguage.hasPrefix("zh-Hans") {
-            return ["Pose","咖啡", "情侣", "建筑","早餐","手机","秋天"]
+            return ["Pose","咖啡", "情侣", "建筑","早餐","海滩","秋天"]
         }
         
-        return ["Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+        return ["Pose","Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
     }
     
     // MARK: Parsing User Feed
@@ -270,7 +270,7 @@ import Polyglot
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
-        if preferredLanguage.hasPrefix("en") {
+        if preferredLanguage.hasPrefix("en") || (hitTags.contains(tag.lowercaseString)) {
             searchUnsplashTranslated(tag, completion: completion)
         } else {
             //translage to en

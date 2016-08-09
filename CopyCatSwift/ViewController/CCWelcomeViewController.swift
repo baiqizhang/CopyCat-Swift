@@ -316,23 +316,23 @@ class CCWelcomeViewController: UIViewController {
         
         // ----- shown on guide page -----
         
-        let textWidth:CGFloat = 100.0
+        let textWidth:CGFloat = 105.0
         
-        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight , textWidth*2, 35))
+        let step1 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 6, (250.0/568)*windowHeight , textWidth*2, 35))
         step1.text = NSLocalizedString("STEP1", comment: "")
         step1.textColor = UIColor(hexNumber: 0xBBBBBB)
         step1.font = UIFont.systemFontOfSize(16)
         step1.textAlignment = .Left
         
         
-        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+50 , textWidth*2, 35))
+        let step2 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 6, (250.0/568)*windowHeight+50 , textWidth*2, 35))
         step2.text = NSLocalizedString("STEP2", comment: "")
         step2.textColor = UIColor(hexNumber: 0xBBBBBB)
         step2.font = UIFont.systemFontOfSize(16)
         step2.textAlignment = .Left
         
         
-        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 10, (250.0/568)*windowHeight+100 , textWidth*2, 35))
+        let step3 = UILabel(frame: CGRectMake(self.view.frame.size.width/2 - textWidth + 6, (250.0/568)*windowHeight+100 , textWidth*2, 35))
         step3.text = NSLocalizedString("STEP3", comment: "")
         step3.textColor = UIColor(hexNumber: 0xBBBBBB)
         step3.font = UIFont.systemFontOfSize(16)

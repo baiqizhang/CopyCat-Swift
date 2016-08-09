@@ -14,13 +14,14 @@
 "CAMERA" = "拍 照";
 "GALLERY" = "发 现";
 
-"CATEGORY" = "类 别";
-"PEOPLE" = "人 物";
-"URBAN" = "城 市";
-"NATURE" = "风 景";
-"FOOD" = "食 物";
-"LIFESTYLE" = "生 活";
-"MISC" = "其 它";
+"Saved" = "保存";
+"Category" = "类别";
+"People" = "人物";
+"Urban" = "城市";
+"Nature" = "风景";
+"Food" = "食物";
+"Lifestyle" = "生活";
+"Misc" = "其它";
 
 "SETTINGS" = "设 置";
 "SEND FEEDBACK" = "提交反馈";
@@ -63,8 +64,11 @@
 "Current One" = "当前图片";
 
 
-"Swipe to adjust transparency" = "划动调整透明度";
+"Swipe to adjust transparency" = "手指右划试试看";
 "and learn its composition" = "学习参考图的构图";
+
+"Library" = "图库";
+
 //FeedBack
 "Quick Feedback" = "提交反馈";
 "Are you enjoying this App?" = "您喜欢这款APP吗？";
@@ -81,18 +85,18 @@
 
 //Search
 "Search History" = "搜索历史";
-"Popular Tags" = "热搜标签";
+"Popular Tags" = "热门搜索";
 "Search Nearby" = "搜索附近";
 "Photo Crawler" = "图片抓取";
 "The upper part is a web browser. Click on crawled photo below to start CopyCatting" = "上半部分是浏览器，下半部分是抓取到的图片";
 "Got it" = "了解";
 
 //Welcome
-"What to capture today? e.g. coffee" = "今天想拍什么？比如：咖啡";
-"STEP1" = "1. 决定要拍什么";
-"STEP2" = "2. 寻找参考图";
-"STEP3" = "3. 调节透明度，学习构图";
-"Use my own template" = "用我自己的照片做模版";
+"What to capture today? e.g. coffee" = "这次打算拍什么？比如：咖啡";
+"STEP1" = "1. zhaodao 一张参考图";
+"STEP2" = "2. 调节透明度，方便对照";
+"STEP3" = "3. 模仿构图，拍出满意照片！";
+"Use my own template" = "我的相册有美图";
 "Get Started" = "开始创作";
 "Feedback" = "反馈问题";
 "Back to Home" = "返回主界面";
