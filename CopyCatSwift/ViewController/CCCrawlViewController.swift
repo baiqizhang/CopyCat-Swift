@@ -91,7 +91,7 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
         closeButton.frame = CGRectMake(5, -5, 40, 40)
         closeButton.setBackgroundImage(UIImage(named: "close.png")?.maskWithColor(UIColor(hex:0x111111)), forState: .Normal)
         closeButton.setBackgroundImage(UIImage(named: "close_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: #selector(InstagramLoginViewController.closeAction), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(CCCrawlViewController.closeAction), forControlEvents: .TouchUpInside)
         view!.addSubview(closeButton)
         
 

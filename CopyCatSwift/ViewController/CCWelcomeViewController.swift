@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Gecco
 import Crashlytics
 //import CoreData
 
@@ -53,11 +52,6 @@ class CCWelcomeViewController: UIViewController {
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
         overlayView.delegate = AVCVC
         self.presentViewController(AVCVC, animated: true, completion: { _ in })
-    }
-
-    func userGuide() {
-        let ccGuide = CCGuideViewController()
-        self.presentViewController(ccGuide, animated: true, completion: nil)
     }
     
     func getStarted() {
@@ -181,9 +175,8 @@ class CCWelcomeViewController: UIViewController {
         }
         tableView.reloadData()
         
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.popupWebView()
-        }
+        self.popupWebView()
+
     }
     
     func popupWebView() {
@@ -194,7 +187,12 @@ class CCWelcomeViewController: UIViewController {
             print("Cancel")
         }
         alertController.addAction(cancelAction)
-        let webView = UIWebView(frame: CGRectMake(0, 50, alertController.view.frame.width / 3 * 2 + 5, 220))
+        let webView = UIWebView()
+        if self.view.frame.width == 320 {
+            webView.frame = CGRectMake(-5, 50, alertController.view.frame.width / 4 * 3 + 10, 220)
+        } else {
+            webView.frame = CGRectMake(-10, 50, 270, 220)
+        }
         webView.backgroundColor = UIColor.clearColor()
         webView.opaque = false
         alertController.view.addSubview(webView)
@@ -206,8 +204,12 @@ class CCWelcomeViewController: UIViewController {
                 let curVersion = (Int(String(json["curVersion"])))!
                 if curVersion > oldVersion {
                     CCCoreUtil.setNotificationVersion(curVersion)
-                    webView.loadHTMLString(String(json["html"]), baseURL: nil)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        webView.loadHTMLString(String(json["html"]), baseURL: nil)
+                        webView.scrollView.contentOffset = CGPointMake(0, 100)
+                        webView.stringByEvaluatingJavaScriptFromString("document. body.style.zoom = 0.85;")
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    })
                 }
             }
         }

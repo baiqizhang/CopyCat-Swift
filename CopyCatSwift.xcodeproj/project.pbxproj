@@ -14,11 +14,8 @@
 		1A4DF1F31C508380001A4775 /* CCOverlayFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1EE1C508380001A4775 /* CCOverlayFrameView.swift */; };
 		1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */; };
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
-		1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */; };
 		4673A9411D33412A00C1826C /* CCInspireDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
-		72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */; };
-		72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */; };
 		86C7DCC11D331EF60055033D /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC01D331EF60055033D /* grid.png */; };
 		86C7DCC31D3330920055033D /* CCGridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7DCC21D3330920055033D /* CCGridOverlay.swift */; };
 		86C7DCC51D33440F0055033D /* grid_tint.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC41D33440F0055033D /* grid_tint.png */; };
@@ -26,7 +23,6 @@
 		9704E16E1C21FC4800A48C5F /* CopyCatSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E16D1C21FC4800A48C5F /* CopyCatSwiftTests.swift */; };
 		9704E1791C21FC4800A48C5F /* CopyCatSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E1781C21FC4800A48C5F /* CopyCatSwiftUITests.swift */; };
 		9717A5331C3767D8002AB0C6 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9717A5321C3767D8002AB0C6 /* SwiftyJSON.swift */; };
-		9717A53E1C388D5E002AB0C6 /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9717A53D1C388D5E002AB0C6 /* SKStatefulTableViewController.m */; };
 		97254F921C2955EF0047968A /* CCWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */; };
 		97262D3B1D58134F00967800 /* CCCrawlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97262D3A1D58134F00967800 /* CCCrawlViewController.swift */; };
 		9727B0DA1C34F29C005E9D12 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9727B0D91C34F29C005E9D12 /* AppIcon.png */; };
@@ -205,14 +201,11 @@
 		1A4DF1EE1C508380001A4775 /* CCOverlayFrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOverlayFrameView.swift; sourceTree = "<group>"; };
 		1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCPreviewViewController.swift; sourceTree = "<group>"; };
 		1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCOverlayView.swift; sourceTree = "<group>"; };
-		1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramLoginViewController.swift; sourceTree = "<group>"; };
 		1DF5AA656029B580D8730DA9 /* Pods_CopyCatSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CopyCatSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21DB380638D4E16A5A5481F7 /* Pods-CopyCatSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CopyCatSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift.release.xcconfig"; sourceTree = "<group>"; };
 		3DDD347E7527D428ACAC253B /* libPods-CopyCatSwiftTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CopyCatSwiftTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInspireDetailViewController.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
-		72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGuideViewController.swift; sourceTree = "<group>"; };
-		72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCameraGuideViewController.swift; sourceTree = "<group>"; };
 		86C7DCC01D331EF60055033D /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		86C7DCC21D3330920055033D /* CCGridOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGridOverlay.swift; sourceTree = "<group>"; };
 		86C7DCC41D33440F0055033D /* grid_tint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_tint.png; sourceTree = "<group>"; };
@@ -225,8 +218,6 @@
 		9704E1781C21FC4800A48C5F /* CopyCatSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyCatSwiftUITests.swift; sourceTree = "<group>"; };
 		9704E17A1C21FC4800A48C5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9717A5321C3767D8002AB0C6 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = CopyCatSwift/Util/SwiftyJSON.swift; sourceTree = "<group>"; };
-		9717A53C1C388D5E002AB0C6 /* SKStatefulTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStatefulTableViewController.h; sourceTree = "<group>"; };
-		9717A53D1C388D5E002AB0C6 /* SKStatefulTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewController.m; sourceTree = "<group>"; };
 		97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCWelcomeViewController.swift; sourceTree = "<group>"; };
 		97254FD11C29EF100047968A /* CopyCatSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CopyCatSwift-Bridging-Header.h"; path = "View/CopyCatSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		97262D3A1D58134F00967800 /* CCCrawlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCCrawlViewController.swift; sourceTree = "<group>"; };
@@ -455,14 +446,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		1AAD320E1C640029009D1DA7 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				1AAD320F1C64004A009D1DA7 /* InstagramLoginViewController.swift */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
 		5CA617B8B8235B45589EA0A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,15 +521,6 @@
 			name = Framework;
 			sourceTree = "<group>";
 		};
-		9717A53B1C388D5E002AB0C6 /* SKStatefulTableViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9717A53C1C388D5E002AB0C6 /* SKStatefulTableViewController.h */,
-				9717A53D1C388D5E002AB0C6 /* SKStatefulTableViewController.m */,
-			);
-			path = SKStatefulTableViewController;
-			sourceTree = "<group>";
-		};
 		9740C8FE1C2BB9210023FE2C /* Ref */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,7 +563,6 @@
 				9740CA4E1C2FE8770023FE2C /* AVCamViewController.m */,
 				1A4DF1F61C50875E001A4775 /* CCPreviewViewController.swift */,
 				1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */,
-				72FEA2121CE900EE006AD58B /* CCCameraGuideViewController.swift */,
 				86C7DCC21D3330920055033D /* CCGridOverlay.swift */,
 			);
 			name = Camera;
@@ -798,14 +771,11 @@
 		97F6DFDF1C23A54700707180 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1AAD320E1C640029009D1DA7 /* Login */,
-				9717A53B1C388D5E002AB0C6 /* SKStatefulTableViewController */,
 				9740CA4A1C2FE8570023FE2C /* Camera */,
 				9740CA511C2FE8B30023FE2C /* DNImagePicker */,
 				9740C9711C2BE9960023FE2C /* CCSettingsViewController.swift */,
 				9792C94D1C423A9300EF63BC /* CCAlertViewController.swift */,
 				97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */,
-				72F18BAA1CD05AC300A464AA /* CCGuideViewController.swift */,
 				4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */,
 				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
 				97262D3A1D58134F00967800 /* CCCrawlViewController.swift */,
@@ -1307,7 +1277,6 @@
 				9740CA8C1C2FE8B30023FE2C /* DNFullImageButton.m in Sources */,
 				9717A5331C3767D8002AB0C6 /* SwiftyJSON.swift in Sources */,
 				9740CA321C2F5A7B0023FE2C /* UIImage+Thumbnail.m in Sources */,
-				1AAD32101C64004A009D1DA7 /* InstagramLoginViewController.swift in Sources */,
 				1A4DF1EF1C508380001A4775 /* CCCollectionView.swift in Sources */,
 				9740CA8E1C2FE8B30023FE2C /* DNUnAuthorizedTipsView.m in Sources */,
 				97FCBB961CF2AFDC003734DA /* CCCategory.swift in Sources */,
@@ -1323,9 +1292,7 @@
 				9740CA7E1C2FE8B30023FE2C /* DNImageFlowViewController.m in Sources */,
 				9740CA861C2FE8B30023FE2C /* UIViewController+DNImagePicker.m in Sources */,
 				9740CAA01C30AA280023FE2C /* README.md in Sources */,
-				9717A53E1C388D5E002AB0C6 /* SKStatefulTableViewController.m in Sources */,
 				97FCBB9B1CF2AFDC003734DA /* CCPost+CoreDataProperties.swift in Sources */,
-				72F18BAB1CD05AC300A464AA /* CCGuideViewController.swift in Sources */,
 				9740CA9F1C30AA280023FE2C /* YISSTextView.m in Sources */,
 				9740CA8B1C2FE8B30023FE2C /* DNBrowserCell.m in Sources */,
 				97FCBB981CF2AFDC003734DA /* CCPhoto.swift in Sources */,
@@ -1333,7 +1300,6 @@
 				9740CA7C1C2FE8B30023FE2C /* DNAlbumTableViewController.m in Sources */,
 				9740CA831C2FE8B30023FE2C /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				9740CA891C2FE8B30023FE2C /* DNAssetsViewCell.m in Sources */,
-				72FEA2131CE900EE006AD58B /* CCCameraGuideViewController.swift in Sources */,
 				9740CA7D1C2FE8B30023FE2C /* DNAsset.m in Sources */,
 				9740CA901C2FE8B30023FE2C /* MWTapDetectingImageView.m in Sources */,
 				97FCBBA41D0B6F02003734DA /* CCURLProtocol.swift in Sources */,

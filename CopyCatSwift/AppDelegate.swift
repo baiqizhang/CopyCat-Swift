@@ -26,15 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         //init core
-        CCCoreUtil.prepare()
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+            CCCoreUtil.prepare()
+        }
         
         //apparances
         CCFramedButton.appearance().backgroundColor = UIColor(white: 0, alpha: 0.5)
 
         // MARK: Fabric
         Fabric.with([Crashlytics.self])
-        Answers.logCustomEventWithName("OpenPage", customAttributes: ["debug":"true"])
-
+        
         return true
     }
     

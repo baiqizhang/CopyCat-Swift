@@ -3,9 +3,9 @@
 
 target 'CopyCatSwift' do
     pod 'SMTPLite', '~> 0.0.3'
-    pod 'iRate', '~> 1.11'
+#    pod 'iRate', '~> 1.11'
     pod 'EggsBenedict', '~> 0.9.9'
-    pod 'Gecco'
+#    pod 'Gecco'
     pod 'Fabric'
     pod 'Crashlytics'
     pod "AwesomeCache", "~> 2.0"

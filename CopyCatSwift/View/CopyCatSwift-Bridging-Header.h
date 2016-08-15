@@ -12,9 +12,6 @@
 #import "UIImage+Rotating.h"
 
 
-// Table View
-#import "SKStatefulTableViewController.h"
-
 // Image Picker
 #import "DNImagePickerController.h"
 #import "DNSendButton.h"
