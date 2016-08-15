@@ -37,6 +37,7 @@ class CCWelcomeViewController: UIViewController {
     private var toShow : [UIView] = []
     private var libraryViews : [UIView] = []
     
+    
     // MARK: Actions
     func openGalleryWithImage(image:UIImage){
         // show animation each time user re-enter categoryview
@@ -162,6 +163,7 @@ class CCWelcomeViewController: UIViewController {
         }
         alertController.addAction(loveAction)
         alertController.addAction(hateAction)
+        
         presentViewController(alertController, animated: true) {}
     }
     
@@ -178,8 +180,38 @@ class CCWelcomeViewController: UIViewController {
             searchTextField.becomeFirstResponder()
         }
         tableView.reloadData()
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.popupWebView()
+        }
     }
     
+    func popupWebView() {
+        let alertTitle = NSLocalizedString("Update", comment: "Update")
+        let alertController = UIAlertController(title: alertTitle, message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .Alert)
+        let okText = NSLocalizedString("Got it", comment: "Got it")
+        let cancelAction: UIAlertAction = UIAlertAction(title: okText, style: .Cancel) { action -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(cancelAction)
+        let webView = UIWebView(frame: CGRectMake(0, 50, alertController.view.frame.width / 3 * 2 + 5, 220))
+        webView.backgroundColor = UIColor.clearColor()
+        webView.opaque = false
+        alertController.view.addSubview(webView)
+        let oldVersion = CCCoreUtil.getNotificationVersion()
+        let urlString = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/whatsnew?lang=\(NSLocale.preferredLanguages()[0] as String)&version=\(oldVersion)"
+        
+        CCNetUtil.getJSONFromURL(urlString) { (json) in
+            if json != nil {
+                let curVersion = (Int(String(json["curVersion"])))!
+                if curVersion > oldVersion {
+                    CCCoreUtil.setNotificationVersion(curVersion)
+                    webView.loadHTMLString(String(json["html"]), baseURL: nil)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -399,11 +431,7 @@ extension CCWelcomeViewController:UITextFieldDelegate{
             leftView.addGestureRecognizer(tap)
             
             self.searchTextField.leftView = leftView
-            
             self.tableView.alpha = 1
-
-
-            
             for view in self.libraryViews{
                 view.alpha = 0
                 view.userInteractionEnabled = false

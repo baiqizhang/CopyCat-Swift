@@ -15,6 +15,7 @@ import CoreData
     static let VERSION_KEY = "core_version"
     static let INSTRUCTION_SHOW_TIMES = "instructionShownTimes"
     static let SWIPE_HINT_SHOWN_TIMES = "swipHintShownTimes"
+    static let kReadNotification = "ReadNotification"
     static let kTopCategoryName = "Saved"
     static let kSearchHistory = "Search_history"
     
@@ -463,6 +464,20 @@ import CoreData
             let array : [String] = [str]
             userDefault.setObject(array, forKey: kSearchHistory)
         }
+    }
+    
+    static func getNotificationVersion() -> Int {
+        let obj = userDefault.objectForKey(kReadNotification)
+        if obj != nil {
+            return obj as! Int
+        } else {
+            userDefault.setObject(0, forKey: kReadNotification)
+            return 0
+        }
+    }
+    
+    static func setNotificationVersion(version: Int) {
+        userDefault.setObject(version, forKey: kReadNotification)
     }
 }
 

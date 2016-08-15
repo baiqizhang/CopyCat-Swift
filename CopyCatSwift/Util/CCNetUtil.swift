@@ -28,7 +28,6 @@ import Polyglot
         if preferredLanguage.hasPrefix("zh-Hans") {
             return ["Pose","咖啡", "情侣", "建筑","早餐","海滩","秋天"]
         }
-        
         return ["Pose","Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
     }
     

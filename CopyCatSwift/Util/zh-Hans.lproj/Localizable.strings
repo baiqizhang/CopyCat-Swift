@@ -106,6 +106,7 @@
 "Error" = "出错了";
 "Failed to get location" = "无法获取当前位置";
 "Cancel" = "取消";
+"Update" = "更新";
 
 //Search Result
 "Searching..." = "搜索中……";
