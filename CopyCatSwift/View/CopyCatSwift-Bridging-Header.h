@@ -24,15 +24,6 @@
 #import "AVCamViewController.h"
 #import "YIPopupTextView.h"
 
-// Networking
-//#import <AFNetworking/AFNetworking.h>
-//#import "UIKit+AFNetworking.h"
-
-
-//Login
-//#import "iRate.h"
-
-
 #import "MWTapDetectingImageView.h"
 #import <CommonCrypto/CommonCrypto.h>
 

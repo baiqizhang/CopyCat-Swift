@@ -11,7 +11,6 @@ import CoreData
 import Fabric
 import Crashlytics
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -31,16 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //apparances
         CCFramedButton.appearance().backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
 
         // MARK: Fabric
         Fabric.with([Crashlytics.self])
         Answers.logCustomEventWithName("OpenPage", customAttributes: ["debug":"true"])
 
-        
         return true
     }
-
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -88,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         } catch {
-
             CLSLogv("Core data mismatch", getVaList([""]))
             NSLog("Error opening the database. Deleting the file and trying again.")
             
@@ -103,8 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //if the app did not quit, show the alert to inform the users that the data have been deleted
             var alert: UIAlertView = UIAlertView(title: "Error encountered while reading the database. Please allow all the data to download again.", message: "", delegate: nil, cancelButtonTitle: "OK", otherButtonTitles: "")
             alert.show()
-
-            
         }
         
         return coordinator

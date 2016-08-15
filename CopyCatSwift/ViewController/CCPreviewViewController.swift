@@ -112,10 +112,6 @@ class CCPreviewViewController : UIViewController {
         
         dispatch_async(dispatch_get_global_queue(0, 0), {
             let image = self.image
-            let tmImage = image?.thumbnailWithFactor(200)
-            dispatch_async(dispatch_get_main_queue(), {
-                vc.libraryButton.setBackgroundImage(tmImage, forState: .Normal)
-            })
             if CCCoreUtil.isSaveToCameraRoll == 1 {
                 // TODO warning message
                 ALAssetsLibrary().writeImageToSavedPhotosAlbum(image?.CGImage, orientation: ALAssetOrientation.init(rawValue: (image?.imageOrientation.rawValue)!)!, completionBlock: nil)
@@ -220,8 +216,8 @@ class CCPreviewViewController : UIViewController {
         
         self.acceptButton = UIButton(frame: CGRectMake(95.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.acceptButton?.addTarget(self, action:#selector(CCPreviewViewController.saveImage), forControlEvents:.TouchUpInside)
-        self.acceptButton?.setBackgroundImage(UIImage(named: "check.png"), forState: .Normal)
-        self.acceptButton?.setBackgroundImage(UIImage(named: "check_highlight.png"), forState: .Highlighted)
+        self.acceptButton?.setBackgroundImage(UIImage(named: "save2.png"), forState: .Normal)
+        self.acceptButton?.setBackgroundImage(UIImage(named: "save2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.acceptButton!)
         
         self.instagramButton = UIButton(frame: CGRectMake(170.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))

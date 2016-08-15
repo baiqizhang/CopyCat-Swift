@@ -228,7 +228,7 @@ import Polyglot
     
     static func searchUnsplashTranslated(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
         let copyCatUrl = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/search?labels=\(tag.lowercaseString)"
-        let unsplashUrl = "https://api.unsplash.com/photos/search?query="+tag.lowercaseString+"&per_page=50&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
+        let unsplashUrl = "https://api.unsplash.com/photos/search?query="+tag.lowercaseString+"&per_page=100&&client_id=6aeca0a320939652cbb91719382190478eee706cdbd7cfa8774138a00dd81fab"
         if let cachedJSON = searchResCache[copyCatUrl] {
             let result = parsePostFromUnsplashJson(JSON(data: cachedJSON))
             completion(posts: result)
