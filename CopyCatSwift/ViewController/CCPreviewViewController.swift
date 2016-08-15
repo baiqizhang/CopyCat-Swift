@@ -191,6 +191,9 @@ class CCPreviewViewController : UIViewController {
     }
     
     override func viewDidLoad() {
+        // add watermark
+        waterMark()
+        
         //Logging
         Answers.logContentViewWithName("Camera",
                                        contentType: "TakePhoto",
@@ -302,9 +305,6 @@ class CCPreviewViewController : UIViewController {
             self.ratio1 = 1
             self.ratio2 = (self.imageView!.frame.size.width) / (self.imageView!.frame.size.height)
         }
-        
-        // add watermark
-         waterMark()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -429,9 +429,9 @@ class CCPreviewViewController : UIViewController {
     
     func waterMark() {
         let image = self.image!
-        let waterMark = UIImage(named: "like2.png")
+        let waterMark = UIImage(named: "cclogo.png")
         let imgSize = image.size
-        let ratio: CGFloat = 0.1 // how big the watermark is
+        let ratio: CGFloat = 0.15 // how big the watermark is
         
         let scaling: CGFloat = min( (image.size.width * ratio) / (waterMark?.size.width)!, (image.size.height * ratio) / (waterMark?.size.height)!)
         let waterSize = CGSize(width: (waterMark?.size.width)! * scaling, height: (waterMark?.size.height)! * scaling)
@@ -448,7 +448,8 @@ class CCPreviewViewController : UIViewController {
         
         image.drawInRect(rect, blendMode: .Normal, alpha: 1)
         bluredBackground.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
-        waterMark!.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
+        let waterRectModified = waterRect.offsetBy(dx: 0, dy: 4)
+        waterMark!.drawInRect(waterRectModified, blendMode: .Normal, alpha: 1)
         
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

@@ -101,7 +101,7 @@
 "Feedback" = "反馈问题";
 "Back to Home" = "返回主界面";
 "Too few results" = "结果太少";
-"We can't find that in our high quality database" = "高质量图片库中搜索不到，试试图片抓取功能？（右上角）";
+"We can't find that in our high quality database" = "高质量图片库中数量不够多，试试图片抓取功能？（右上角）";
 "Nope" = "算了";
 "Error" = "出错了";
 "Failed to get location" = "无法获取当前位置";
