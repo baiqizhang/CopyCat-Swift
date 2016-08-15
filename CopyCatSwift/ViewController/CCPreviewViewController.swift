@@ -302,6 +302,9 @@ class CCPreviewViewController : UIViewController {
             self.ratio1 = 1
             self.ratio2 = (self.imageView!.frame.size.width) / (self.imageView!.frame.size.height)
         }
+        
+        // add watermark
+         waterMark()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -314,7 +317,6 @@ class CCPreviewViewController : UIViewController {
             } else if motion!.gravity.y < -0.3 && abs(motion!.gravity.x) < 0.3 {
                 self.rotateUpright()
             }
-            
         })
     }
     
@@ -415,25 +417,42 @@ class CCPreviewViewController : UIViewController {
             
         })
         self.orientation = -1
+    }
+    
+    //MARK: Image Edit
+    
+    func cornerImageBlured(image: UIImage, cornerRect: CGRect) -> UIImage {
+        let imageRef = CGImageCreateWithImageInRect(image.CGImage, cornerRect)
+        let croppedImage = UIImage(CGImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
+        return croppedImage.applyLightEffect()
+    }
+    
+    func waterMark() {
+        let image = self.image!
+        let waterMark = UIImage(named: "like2.png")
+        let imgSize = image.size
+        let ratio: CGFloat = 0.1 // how big the watermark is
         
+        let scaling: CGFloat = min( (image.size.width * ratio) / (waterMark?.size.width)!, (image.size.height * ratio) / (waterMark?.size.height)!)
+        let waterSize = CGSize(width: (waterMark?.size.width)! * scaling, height: (waterMark?.size.height)! * scaling)
+        
+        let waterRect = CGRectMake(imgSize.width - waterSize.width, imgSize.height - waterSize.height, waterSize.width, waterSize.height)
+        let rect = CGRect(x: 0, y: 0, width: imgSize.width, height: imgSize.height)
+        let bluredBackground = cornerImageBlured(image, cornerRect: waterRect)
+        
+        UIGraphicsBeginImageContextWithOptions(imgSize, true, 0)
+        let context = UIGraphicsGetCurrentContext()
+        
+        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        CGContextFillRect(context, rect)
+        
+        image.drawInRect(rect, blendMode: .Normal, alpha: 1)
+        bluredBackground.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
+        waterMark!.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
+        
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        self.image = result
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
