@@ -185,7 +185,7 @@ class CCWelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         hotTag = CCNetUtil.getHottag()
-        
+        CCNetUtil.getSpecialTags()
         //Init offset and ImageView
         var offset : CGFloat = -100.0
         if self.view.frame.size.height == 568 {

@@ -15,12 +15,13 @@ import Polyglot
 //    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
 //    static let host = "http://54.84.135.175:3000/api/v0/"
     static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
+    static let copyCatUpdateList = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/search/updateList"
     static let myCache = ImageCache(name: "all_image_cache")
     static let imageDownloader = ImageDownloader(name: "user_profile_downloader")
     static var searchResCache = try! Cache<NSData>(name: "resCache")
+    static var shouldUpdateTagList = true;
     
-    
-    static let hitTags = Set(["pose"]);
+    static var hitTags = Set<String>();
 
     static func getHottag()->[String]{
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
@@ -237,6 +238,7 @@ import Polyglot
             completion(posts: result)
             return
         }
+        getSpecialTags()
         if (hitTags.contains(tag.lowercaseString)) {
             var encodedUrl = copyCatUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
 
@@ -266,6 +268,21 @@ import Polyglot
             }
         }
         
+    }
+    
+    static func getSpecialTags() -> Void {
+        if (shouldUpdateTagList) {
+            shouldUpdateTagList = false
+            
+            CCNetUtil.getJSONFromURL(copyCatUpdateList) { (json:JSON) -> Void in
+                if json == nil {
+                    return
+                }
+                for (_, subJson) in json["tags"]{
+                    hitTags.insert(String(subJson))
+                }
+            }
+        }
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
