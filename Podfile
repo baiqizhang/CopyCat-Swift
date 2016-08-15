@@ -5,7 +5,6 @@ target 'CopyCatSwift' do
     pod 'SMTPLite', '~> 0.0.3'
     pod 'iRate', '~> 1.11'
     pod 'EggsBenedict', '~> 0.9.9'
-    pod 'Google-Mobile-Ads-SDK', '~> 7.0'
     pod 'Gecco'
     pod 'Fabric'
     pod 'Crashlytics'
