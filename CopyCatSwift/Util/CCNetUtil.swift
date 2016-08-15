@@ -268,6 +268,7 @@ import Polyglot
             }
         }
         
+        
     }
     
     static func getSpecialTags() -> Void {
@@ -286,6 +287,7 @@ import Polyglot
     }
     
     static func searchUnsplash(tag:String, completion:(posts:[CCPost]?) -> Void) -> Void{
+        logSearch(tag.lowercaseString)
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
         if preferredLanguage.hasPrefix("en") || (hitTags.contains(tag.lowercaseString)) {
             searchUnsplashTranslated(tag, completion: completion)
@@ -385,6 +387,15 @@ import Polyglot
         }
     }
     
+    static func logSearch(tag: String) -> Void {
+        let urlString = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/log?keyword=\(tag)"
+        let url: NSURL = NSURL(string: urlString)!
+        let request: NSURLRequest = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{
+            (response, data, error) -> Void in
+        })
+    }
     
     static func newPost(image:UIImage,completion:(error: String?) -> Void){
         //resize before sending
