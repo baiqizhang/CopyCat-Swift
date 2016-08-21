@@ -304,7 +304,9 @@ class CCPreviewViewController : UIViewController {
         }
         
         // add watermark before save after
-        waterMark()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { () -> Void in
+            self.waterMark()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
