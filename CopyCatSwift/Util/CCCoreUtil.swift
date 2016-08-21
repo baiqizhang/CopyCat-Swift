@@ -173,15 +173,15 @@ import CoreData
         
         category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+//        CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
         
         category = CCCoreUtil.addCategory("People",bannerURI:"banner0.png")
         CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
@@ -289,15 +289,15 @@ import CoreData
                 // old age version, add "Saved" category
                 let category = CCCoreUtil.addCategory(kTopCategoryName, bannerURI:"banner0.png", position: 1)
                 CCCoreUtil.addPhotoForCategory(category, photoURI: "AddNew.png")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
-                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_0.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "0_1.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_0.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "1_1.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_0.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "2_1.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "3_0.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_0.jpg")
+//                CCCoreUtil.addPhotoForCategory(category, photoURI: "4_1.jpg")
                 
                 // TODO: migrate old photos
                 
@@ -402,9 +402,9 @@ import CoreData
             NSLog("addPhotoForCategory Save error!")
         }
         
-        if let name = category.name where name != kTopCategoryName && !initializing {
-            addPhotoForCategory(self.categories[1] as! CCCategory, photoURI: photoURI)
-        }
+//        if let name = category.name where name != kTopCategoryName && !initializing {
+//            addPhotoForCategory(self.categories[1] as! CCCategory, photoURI: photoURI)
+//        }
         
         return photo
     }
@@ -415,6 +415,7 @@ import CoreData
         let uri =  photo.photoURI! + "_ref"
         let path = "\(NSHomeDirectory())/Documents/\(uri).jpg"
         let imgData: NSData = UIImageJPEGRepresentation(refImage, 0)!
+        
         imgData.writeToFile(path, atomically: true)
         
         photo.refPhotoURI = uri

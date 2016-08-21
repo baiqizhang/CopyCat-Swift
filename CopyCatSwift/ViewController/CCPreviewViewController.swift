@@ -188,7 +188,7 @@ class CCPreviewViewController : UIViewController {
     
     override func viewDidLoad() {
         // add watermark
-        waterMark()
+//        waterMark()
         
         //Logging
         Answers.logContentViewWithName("Camera",
@@ -259,8 +259,11 @@ class CCPreviewViewController : UIViewController {
         let backgroundView = UIView(frame: frame_bg)
         backgroundView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(backgroundView)
+
         self.imageView = UIImageView(frame: frame_bg)
         self.imageView?.image = self.image
+        self.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        self.imageView?.clipsToBounds = true
         self.view.addSubview(self.imageView!)
         
         self.refImageView = UIImageView(frame: frame_bg)
@@ -277,7 +280,7 @@ class CCPreviewViewController : UIViewController {
             switch self.imageOrientation {
             case -1:
                 self.orientation = -1
-                // self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_2_PI))
+                self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 
@@ -286,7 +289,7 @@ class CCPreviewViewController : UIViewController {
                 break
             case 1:
                 self.orientation = 1
-                // self.cancelButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+                self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 
@@ -323,96 +326,102 @@ class CCPreviewViewController : UIViewController {
     //MARK: Rotation
     
     func rotateUpright() {
-        if (self.orientation==0) {
-            return
-        }
-        UIView.animateWithDuration(0.3, animations:  {
-            self.acceptButton!.transform=CGAffineTransformMakeRotation(0)
-            self.cancelButton!.transform=CGAffineTransformMakeRotation(0)
-            self.flipButton!.transform=CGAffineTransformMakeRotation(0)
-            self.instagramButton!.transform=CGAffineTransformMakeRotation(0)
-            var transform: CGAffineTransform
-            switch (self.imageOrientation) {
-            case 0:
-                transform=CGAffineTransformMakeRotation(0)
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-                break
-            case -1:
-                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-                break
-            case 1:
-                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-                break
-            default:
-                break
-            }
-            
-        })
-        self.orientation = 0
+//        rotateRight()
+//        return;
+//        
+//        if (self.orientation==0) {
+//            return
+//        }
+//        UIView.animateWithDuration(0.3, animations:  {
+//            self.acceptButton!.transform=CGAffineTransformMakeRotation(0)
+//            self.cancelButton!.transform=CGAffineTransformMakeRotation(0)
+//            self.flipButton!.transform=CGAffineTransformMakeRotation(0)
+//            self.instagramButton!.transform=CGAffineTransformMakeRotation(0)
+//            var transform: CGAffineTransform
+//            switch (self.imageOrientation) {
+//            case 0:
+//                transform=CGAffineTransformMakeRotation(0)
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+//                break
+//            case -1:
+//                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+//                break
+//            case 1:
+//                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+//                break
+//            default:
+//                break
+//            }
+//            
+//        })
+//        self.orientation = 0
     }
     
     func rotateLeft() {
-        if (self.orientation==1){
-            return
-        }
-        UIView.animateWithDuration(0.3, animations:{
-            self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            var transform: CGAffineTransform
-            switch (self.imageOrientation) {
-            case 1:
-                transform=CGAffineTransformMakeRotation(0)
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-                break
-            case 0:
-                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-                break
-            case -1:
-                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-                break
-            default:
-                break
-            }
-            
-        })
-        self.orientation=1
+//        rotateRight()
+//        return;
+//        
+//        if (self.orientation==1){
+//            return
+//        }
+//        UIView.animateWithDuration(0.3, animations:{
+//            self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//            self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//            self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//            var transform: CGAffineTransform
+//            switch (self.imageOrientation) {
+//            case 1:
+//                transform=CGAffineTransformMakeRotation(0)
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+//                break
+//            case 0:
+//                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+//                break
+//            case -1:
+//                transform=CGAffineTransformMakeRotation(CGFloat(-M_PI))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+//                break
+//            default:
+//                break
+//            }
+//            
+//        })
+//        self.orientation=1
     }
     
     func rotateRight() {
-        if (self.orientation == -1){
-            return
-        }
-        UIView.animateWithDuration(0.3, animations: {
-            self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-            var transform: CGAffineTransform
-            switch (self.imageOrientation) {
-            case -1:
-                transform=CGAffineTransformMakeRotation(0)
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-                break
-            case 0:
-                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
-                break
-            case 1:
-                transform=CGAffineTransformMakeRotation(CGFloat(M_PI))
-                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
-                break
-            default:
-                break
-            }
-            
-        })
-        self.orientation = -1
+//        if (self.orientation == -1){
+//            return
+//        }
+//        UIView.animateWithDuration(0.3, animations: {
+//            self.cancelButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//            self.acceptButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//            self.flipButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//            self.instagramButton!.transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//            var transform: CGAffineTransform
+//            switch (self.imageOrientation) {
+//            case -1:
+//                transform=CGAffineTransformMakeRotation(0)
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+//                break
+//            case 0:
+//                transform=CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio2, self.ratio2)
+//                break
+//            case 1:
+//                transform=CGAffineTransformMakeRotation(CGFloat(M_PI))
+//                self.imageView!.transform=CGAffineTransformScale(transform, self.ratio1, self.ratio1)
+//                break
+//            default:
+//                break
+//            }
+//            
+//        })
+//        self.orientation = -1
     }
     
     //MARK: Image Edit

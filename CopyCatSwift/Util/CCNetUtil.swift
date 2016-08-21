@@ -387,13 +387,15 @@ import Polyglot
     }
     
     static func logSearch(tag: String) -> Void {
-        let urlString = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/log?keyword=\(tag)"
-        let url: NSURL = NSURL(string: urlString)!
-        let request: NSURLRequest = NSURLRequest(URL: url)
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{
-            (response, data, error) -> Void in
-        })
+        if let encodedTag = tag.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()){
+            let urlString = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/log?keyword=\(encodedTag)"
+            if let url = NSURL(string:urlString) {
+                let request: NSURLRequest = NSURLRequest(URL: url)
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{
+                    (response, data, error) -> Void in
+                })
+            }
+        }
     }
     
     static func newPost(image:UIImage,completion:(error: String?) -> Void){

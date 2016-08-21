@@ -86,6 +86,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 -(void)rotateUpright{
+    [self rotateRight];
+    return;
+    
     if (self.orientation==0)
         return;
     
@@ -109,6 +112,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 }
 
 -(void)rotateLeft{
+    [self rotateRight];
+    return;
+    
     if (self.orientation==1)
         return;
     

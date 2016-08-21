@@ -1,6 +1,6 @@
 PODS:
   - AwesomeCache (2.2)
-  - Crashlytics (3.7.0):
+  - Crashlytics (3.7.3):
     - Fabric (~> 1.6.3)
   - EggsBenedict (0.9.9)
   - Fabric (1.6.7)
@@ -19,7 +19,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AwesomeCache: 366415b66330fb02d085bb24a2164fb04893d4fc
-  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   EggsBenedict: 1e72e098060916bc51cbedc46bd2b71d29b7e633
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Kingfisher: 41aed5b6c1ed8fa98cf6d75283ce89cf7890f517
