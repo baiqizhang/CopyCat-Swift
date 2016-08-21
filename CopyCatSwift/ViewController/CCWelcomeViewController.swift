@@ -46,7 +46,7 @@ class CCWelcomeViewController: UIViewController {
         
         //create overlay view
         let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        let overlayView = CCOverlayView(frame: frame, image: image)
+        let overlayView = CCOverlayView(frame: frame, overImage: image)
         
         //open camera
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
@@ -97,7 +97,7 @@ class CCWelcomeViewController: UIViewController {
             
             //create overlay view
             let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-            let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+            let overlayView = CCOverlayView(frame: frame, overImage: overlayImage!)
             
             //open camera
             let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)

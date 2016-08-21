@@ -16,6 +16,7 @@
 		1A4DF1F91C517B2F001A4775 /* CCOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DF1F81C517B2F001A4775 /* CCOverlayView.swift */; };
 		4673A9411D33412A00C1826C /* CCInspireDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */; };
 		72AEAD0D1CD2B548000B65BF /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 72AEAD0C1CD2B548000B65BF /* help.png */; };
+		86A9F82A1D6A6DB100FF007E /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 86A9F8291D6A6DB100FF007E /* finger.png */; };
 		86C7DCC11D331EF60055033D /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC01D331EF60055033D /* grid.png */; };
 		86C7DCC31D3330920055033D /* CCGridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7DCC21D3330920055033D /* CCGridOverlay.swift */; };
 		86C7DCC51D33440F0055033D /* grid_tint.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7DCC41D33440F0055033D /* grid_tint.png */; };
@@ -206,6 +207,7 @@
 		3DDD347E7527D428ACAC253B /* libPods-CopyCatSwiftTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CopyCatSwiftTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInspireDetailViewController.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
+		86A9F8291D6A6DB100FF007E /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finger.png; path = Resources/finger.png; sourceTree = "<group>"; };
 		86C7DCC01D331EF60055033D /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		86C7DCC21D3330920055033D /* CCGridOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGridOverlay.swift; sourceTree = "<group>"; };
 		86C7DCC41D33440F0055033D /* grid_tint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_tint.png; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 		97F6DF871C23A0A100707180 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				86A9F8291D6A6DB100FF007E /* finger.png */,
 				973481091D32F8D100ADB430 /* bg_welcome.png */,
 				9734810A1D32F8D100ADB430 /* cclogo.png */,
 				97F6DF8C1C23A1C300707180 /* Assets.xcassets */,
@@ -1025,6 +1028,7 @@
 				97F6DFC31C23A1C300707180 /* flip2.png in Resources */,
 				97F6DFB61C23A1C300707180 /* back_highlight.png in Resources */,
 				97FCBB741CE90760003734DA /* 3_0.jpg in Resources */,
+				86A9F82A1D6A6DB100FF007E /* finger.png in Resources */,
 				97F6DFC01C23A1C300707180 /* flashOff_highlight.png in Resources */,
 				97F6DFC61C23A1C300707180 /* gallery.png in Resources */,
 				97FCBB5F1CE90760003734DA /* 0_3.jpg in Resources */,

@@ -187,8 +187,6 @@ class CCPreviewViewController : UIViewController {
     }
     
     override func viewDidLoad() {
-        // add watermark
-//        waterMark()
         
         //Logging
         Answers.logContentViewWithName("Camera",
@@ -304,6 +302,9 @@ class CCPreviewViewController : UIViewController {
             self.ratio1 = 1
             self.ratio2 = (self.imageView!.frame.size.width) / (self.imageView!.frame.size.height)
         }
+        
+        // add watermark before save after
+        waterMark()
     }
     
     override func viewWillAppear(animated: Bool) {

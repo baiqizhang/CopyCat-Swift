@@ -105,7 +105,7 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         
         //create overlay view
         let frame: CGRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        let overlayView = CCOverlayView(frame: frame, image: overlayImage!)
+        let overlayView = CCOverlayView(frame: frame, overImage: overlayImage!)
         
         //close
         self.closeAction()

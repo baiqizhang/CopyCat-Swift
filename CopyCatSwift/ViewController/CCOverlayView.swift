@@ -39,12 +39,13 @@ class CCOverlayView: UIView {
     var stopAnimation = false
     let guideLabel1 = UILabel()
     let guideLabel2 = UILabel()
+    var timesPlayed = 0
     
     //constants
-    let marginFactor: CGFloat = 60.0
+    let marginFactor: CGFloat = 25.0
     let zoomFactor: CGFloat = 15.0
     let sizeFactor: CGFloat = 55.0
-    let positionFactor : CGFloat = 0.5
+    let positionFactor : CGFloat = 0.63
     let headerHeight: CGFloat = 40
     let footerHeight: CGFloat = 100
     
@@ -100,34 +101,53 @@ class CCOverlayView: UIView {
     }
     
     func playAnimation(){
-        if self.stopAnimation {
+        if self.stopAnimation || self.timesPlayed > 2 {
             return
         }
-        
-        UIView.animateWithDuration(0.3, delay: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut , UIViewAnimationOptions.BeginFromCurrentState], animations: {
+        self.timesPlayed += 1
+        UIView.animateWithDuration(0.3, delay: 0.3, options: [UIViewAnimationOptions.CurveEaseInOut , UIViewAnimationOptions.BeginFromCurrentState], animations: { // appear
             self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height * self.positionFactor, self.sizeFactor, self.sizeFactor)
             self.dot?.alpha = 1
+            self.imageView?.alpha = 0
+            self.slider?.alpha = 1
             }, completion: { finished in
-                //2
+                
                 if self.stopAnimation {
                     return
                 }
-                UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
-                    self.dot?.frame = CGRectMake(320 - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
-                    self.dot?.alpha = 0
+                
+                UIView.animateWithDuration(0.7, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: { // moving
+                    self.dot?.frame = CGRectMake(320 - self.marginFactor, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
+                    self.imageView?.alpha = 1
+                    self.slider?.setValue(1, animated: true)
                     }, completion: { finished in
-                        // 4
+                        
                         if self.stopAnimation {
                             return
                         }
-                        UIView.animateWithDuration(1, delay: 0, options: [], animations: {}, completion: {
-                            finished in
-                            self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
-                            if self.stopAnimation {
-                                return
-                            }
-                            self.playAnimation()
-                        })
+                        
+                        UIView.animateWithDuration(0.5, delay: 0.3, options: [UIViewAnimationOptions.CurveEaseInOut], animations: { // move back
+                            self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height * self.positionFactor, self.sizeFactor, self.sizeFactor)
+                            self.dot?.alpha = 0
+                            self.imageView?.alpha = 0
+                            self.slider?.setValue(0, animated: true)
+                            }, completion: { finished in
+                                if self.stopAnimation {
+                                    return
+                                }
+                                UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
+                                        self.slider?.alpha = 0
+                                    }, completion: { // disapear and resize
+                                    finished in
+                                    self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
+                                    
+                                    if self.stopAnimation {
+                                        return
+                                    }
+                                    
+                                    self.playAnimation()
+                                })
+                            })
                 })
                 
         })
@@ -219,7 +239,7 @@ class CCOverlayView: UIView {
     func onSegChanged() {
         if CCCoreUtil.isUsingBackgrondMode == 1{
             self.imageView?.frame = self.frame_bg
-            self.overlayAlpha = 0.2
+            self.overlayAlpha = 0
             self.bringSubviewToFront(self.fakeView!)
             self.usingBackground = true
         } else {
@@ -231,7 +251,8 @@ class CCOverlayView: UIView {
     }
     
     
-    func setOverlayImage(var image:UIImage){
+    func setOverlayImage(overImage:UIImage){
+        var image = overImage
         let thumbnailSize : CGFloat = 150
         
         if image.size.width > image.size.height {
@@ -263,9 +284,9 @@ class CCOverlayView: UIView {
 
     }
     
-    convenience init( frame: CGRect, var image: UIImage) {
+    convenience init( frame: CGRect,  overImage: UIImage) {
         self.init(frame: frame)
-        
+        var image = overImage
         self.overlayState = 1
         let height = frame.size.height - 140
         let width = frame.size.width
@@ -318,7 +339,7 @@ class CCOverlayView: UIView {
         self.addSubview(self.imageView!)
         
         //slider
-        self.slider = UISlider(frame: CGRectMake(30, 43, frame.size.width - 60, 50))
+        self.slider = UISlider(frame: CGRectMake(30, frame.height-self.footerHeight-70, frame.size.width - 60, 50))
         self.slider?.minimumValue = 0.0
         self.slider?.maximumValue = 1.0
         self.slider?.continuous = true
@@ -361,9 +382,9 @@ class CCOverlayView: UIView {
         
         //for animation
         let shown = CCCoreUtil.userDefault.integerForKey(CCCoreUtil.SWIPE_HINT_SHOWN_TIMES)
-        if (shown < 3) {
+        if (true/*shown < 3*/) {
             self.fadeView = UIView.init(frame: self.frame)
-            self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.75)
+            self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.25)
             self.fadeView?.userInteractionEnabled = false
             self.fadeView?.alpha = 0
             self.addSubview(self.fadeView!)
@@ -371,10 +392,10 @@ class CCOverlayView: UIView {
             self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
             self.swipeView?.image = UIImage(named: "swipe.png")
             self.swipeView?.alpha = 0
-            self.addSubview(self.swipeView!)
+            //self.addSubview(self.swipeView!)
             
             self.dot = UIImageView.init(frame: CGRectMake(marginFactor-zoomFactor/2, self.frame.size.height * self.positionFactor-zoomFactor/2, sizeFactor+zoomFactor, sizeFactor+zoomFactor))
-            self.dot?.image = UIImage(named: "whitedot.png")
+            self.dot?.image = UIImage(named: "finger.png")
             self.dot?.alpha=0;
             self.addSubview(self.dot!)
             
@@ -384,7 +405,7 @@ class CCOverlayView: UIView {
             guideLabel1.font = UIFont.systemFontOfSize(22)
             guideLabel1.textColor = .whiteColor()
             guideLabel1.alpha = 0
-            addSubview(guideLabel1)
+            //addSubview(guideLabel1)
             
             guideLabel2.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-80,300, 40)
             guideLabel2.text = NSLocalizedString("and learn its composition", comment: "")
@@ -392,7 +413,7 @@ class CCOverlayView: UIView {
             guideLabel2.font = UIFont.systemFontOfSize(19)
             guideLabel2.textColor = .whiteColor()
             guideLabel2.alpha = 0
-            addSubview(guideLabel2)
+            //addSubview(guideLabel2)
             
             self.stopAnimation = false
             
