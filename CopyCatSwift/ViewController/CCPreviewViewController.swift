@@ -111,13 +111,13 @@ class CCPreviewViewController : UIViewController {
         vc.stillButton.enabled = false
         
         dispatch_async(dispatch_get_global_queue(0, 0), {
-            let image = self.image
             if CCCoreUtil.isSaveToCameraRoll == 1 {
                 // TODO warning message
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(image?.CGImage, orientation: ALAssetOrientation.init(rawValue: (image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+//                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
             }
             
-            CCCoreUtil.addUserPhoto(image!, refImage: self.refImage!)
+//            CCCoreUtil.addUserPhoto(image!, refImage: self.refImage!)
             
             dispatch_async(dispatch_get_main_queue(), {
                 vc.libraryButton.enabled = true

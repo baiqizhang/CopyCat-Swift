@@ -11,7 +11,7 @@ import Fabric
 import Crashlytics
 
 class CCCrawlViewController: UIViewController, UIWebViewDelegate {
-    var url = "https://www.google.com/imghp"  //"http://www.bing.com/images"
+    var url = "https://www.google.com/imghp?as_st=y&tbm=isch&hl=en&as_q=&as_epq=&as_oq=&as_eq=&cr=&as_sitesearch=&safe=active&tbs=sur:f"  //"http://www.bing.com/images"
 
     static let sharedVC = CCCrawlViewController()
     private var crawledURL : [String] = []
