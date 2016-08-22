@@ -220,6 +220,7 @@ class CCWelcomeViewController: UIViewController {
         
         hotTag = CCNetUtil.getHottag()
         CCNetUtil.getSpecialTags()
+        
         //Init offset and ImageView
         var offset : CGFloat = -100.0
         if self.view.frame.size.height == 568 {
@@ -412,6 +413,8 @@ extension CCWelcomeViewController:UITextFieldDelegate{
         let windowWidth = view.frame.size.width
         _ = view.frame.size.height
         
+        self.hotTag = CCNetUtil.getHottag()
+        self.tableView.reloadData()
         
         UIView.animateWithDuration(0.15) {
             self.searchTextField.frame = CGRectMake(windowWidth/2 - (140.0/320.0)*windowWidth, 35, (235/320.0)*windowWidth, 37)

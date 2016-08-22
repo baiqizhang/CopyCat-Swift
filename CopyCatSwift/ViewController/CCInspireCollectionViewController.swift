@@ -175,20 +175,20 @@ class CCInspireCollectionViewController: UIViewController{
         view!.addSubview(closeButton)
         
         
-//        //GPS
-//        let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
-//        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
-//        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
-//        gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
-//        self.view!.addSubview(gpsButton)
-        
-        
         //GPS
-        let crawlButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
-        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
-        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
-        crawlButton.addTarget(self, action: #selector(openBrowser), forControlEvents: .TouchUpInside)
-        self.view!.addSubview(crawlButton)
+        let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 7, 27, 27))
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+        gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+        gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
+        self.view!.addSubview(gpsButton)
+        
+        
+//        //GPS
+//        let crawlButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
+//        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)), forState: .Normal)
+//        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+//        crawlButton.addTarget(self, action: #selector(openBrowser), forControlEvents: .TouchUpInside)
+//        self.view!.addSubview(crawlButton)
         
         
         //Collection
