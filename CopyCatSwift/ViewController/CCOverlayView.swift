@@ -42,9 +42,9 @@ class CCOverlayView: UIView {
     var timesPlayed = 0
     
     //constants
-    let marginFactor: CGFloat = 25.0
+    let marginFactor: CGFloat = 15.0
     let zoomFactor: CGFloat = 15.0
-    let sizeFactor: CGFloat = 55.0
+    let sizeFactor: CGFloat = 70.0
     let positionFactor : CGFloat = 0.63
     let headerHeight: CGFloat = 40
     let footerHeight: CGFloat = 100
@@ -104,7 +104,7 @@ class CCOverlayView: UIView {
         if self.stopAnimation || self.timesPlayed > 2 {
             return
         }
-        self.timesPlayed += 1
+        //self.timesPlayed += 1
         UIView.animateWithDuration(0.3, delay: 0.3, options: [UIViewAnimationOptions.CurveEaseInOut , UIViewAnimationOptions.BeginFromCurrentState], animations: { // appear
             self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height * self.positionFactor, self.sizeFactor, self.sizeFactor)
             self.dot?.alpha = 1
@@ -117,7 +117,7 @@ class CCOverlayView: UIView {
                 }
                 
                 UIView.animateWithDuration(0.7, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: { // moving
-                    self.dot?.frame = CGRectMake(320 - self.marginFactor, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
+                    self.dot?.frame = CGRectMake(self.frame.width - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
                     self.imageView?.alpha = 1
                     self.slider?.setValue(1, animated: true)
                     }, completion: { finished in
@@ -382,14 +382,14 @@ class CCOverlayView: UIView {
         
         //for animation
         let shown = CCCoreUtil.userDefault.integerForKey(CCCoreUtil.SWIPE_HINT_SHOWN_TIMES)
-        if (true/*shown < 3*/) {
+        if (shown < 3) {
             self.fadeView = UIView.init(frame: self.frame)
             self.fadeView?.backgroundColor = UIColor(white: 0, alpha: 0.25)
             self.fadeView?.userInteractionEnabled = false
             self.fadeView?.alpha = 0
             self.addSubview(self.fadeView!)
             
-            self.swipeView = UIImageView.init(frame: CGRectMake(320-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
+            self.swipeView = UIImageView.init(frame: CGRectMake(self.frame.width-marginFactor-sizeFactor-zoomFactor/2 - 20, self.frame.size.height/2+sizeFactor+10,80, 24))
             self.swipeView?.image = UIImage(named: "swipe.png")
             self.swipeView?.alpha = 0
             //self.addSubview(self.swipeView!)
