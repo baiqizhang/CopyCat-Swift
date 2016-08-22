@@ -174,18 +174,18 @@ class CCOverlayView: UIView {
                                     return
                                 }
                                 UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
-                                        self.slider?.alpha = 0
+                                    self.slider?.alpha = 0
                                     }, completion: { // disapear and resize
-                                    finished in
-                                    self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
-                                    
-                                    if self.stopAnimation {
-                                        return
-                                    }
-                                    
-                                    self.playAnimation()
+                                        finished in
+                                        self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
+                                        
+                                        if self.stopAnimation {
+                                            return
+                                        }
+                                        
+                                        self.playAnimation()
                                 })
-                            })
+                        })
                 })
                 
         })
@@ -258,9 +258,14 @@ class CCOverlayView: UIView {
                 self.slider?.alpha = 0.0
                 self.sliderDot!.alpha = 0.0
             })
+            if 1.0 < overlayAlpha && overlayAlpha < 1.15 {
+                overlayAlpha = 1.0
+            } else if overlayAlpha > 1.15 {
+                overlayAlpha = 1.3
+            }
         } else{
             
-            self.overlayAlpha += (translation.x - self.lastPos) * 1.5 / 255.0
+            self.overlayAlpha += (translation.x - self.lastPos) * 1.6 / 255.0
             if self.overlayAlpha < 0 {
                 self.overlayAlpha = 0
             }
@@ -293,7 +298,7 @@ class CCOverlayView: UIView {
             self.usingBackground = true
         }
         
-
+        
     }
     
     
@@ -327,7 +332,7 @@ class CCOverlayView: UIView {
             lowerBlurView.alpha = 0
             self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
         }
-
+        
     }
     
     convenience init( frame: CGRect,  overImage: UIImage) {
