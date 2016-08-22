@@ -14,21 +14,43 @@ import Polyglot
 @objc class CCNetUtil:NSObject{
 //    static let host = "http://ec2-52-21-52-152.compute-1.amazonaws.com:8080"
 //    static let host = "http://54.84.135.175:3000/api/v0/"
-    static let host = "http://copycatloadbalancer-426137485.us-east-1.elb.amazonaws.com/api/v0/"
-    static let copyCatUpdateList = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/search/updateList"
+    static let host = "http://ec2-52-42-208-246.us-west-2.compute.amazonaws.com:3001/api/v1/"
+    static let copyCatUpdateList = host + "search/updateList"
     static let myCache = ImageCache(name: "all_image_cache")
     static let imageDownloader = ImageDownloader(name: "user_profile_downloader")
     static var searchResCache = try! Cache<NSData>(name: "resCache")
-    static var shouldUpdateTagList = true;
+    static var shouldUpdateTagList = true
     
-    static var hitTags = Set<String>();
-
+    static var hitTags = Set<String>()
+    static var hotTags : [String] = []
+    static var hotTagsUpdated = false
+    
+    
     static func getHottag()->[String]{
-        let preferredLanguage = NSLocale.preferredLanguages()[0] as String
-        if preferredLanguage.hasPrefix("zh-Hans") {
-            return ["Pose","咖啡", "情侣", "建筑","早餐","海滩","秋天"]
+        if hotTagsUpdated{
+            return hotTags
         }
-        return ["Pose","Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+        
+        let preferredLanguage = NSLocale.preferredLanguages()[0] as String
+        var lang : String
+        if preferredLanguage.hasPrefix("zh-Hans") {
+            hotTags = ["Pose","咖啡", "情侣", "建筑","早餐","海滩","秋天"]
+            lang = "cn"
+        } else {
+            hotTags = ["Pose","Dog", "Hiker", "Coffee","Couple","Macbook","Sign","Grassland"]
+            lang = "en"
+        }
+        hotTagsUpdated = true
+        CCNetUtil.getJSONFromURL(host + "tag/" + lang) { (json:JSON) -> Void in
+            if json == nil {
+                return
+            }
+            hotTags = []
+            for (_, subJson) in json {
+                hotTags.append(subJson.rawString()!)
+            }
+        }
+        return hotTags;
     }
     
     // MARK: Parsing User Feed
