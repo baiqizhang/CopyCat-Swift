@@ -60,7 +60,7 @@ class CCOverlayView: UIView {
                 self._control_alpha = Float(newValue)
                 self.imageView?.alpha = 1.0
                 self.slider?.value = 1.0
-                if newValue > 1.2 {
+                if newValue > 1.15 {
                     switchToBigDot()
                 }
                 if newValue > 1.3 {
@@ -81,12 +81,26 @@ class CCOverlayView: UIView {
     
     func switchToBigDot() {
         self.slider?.setThumbImage(UIImage(named: "empty.png"), forState: .Normal)
-        self.sliderDot?.frame = CGRectMake(frame.width - 65, frame.height-self.footerHeight-69, 45, 45)
+        let sWidth = self.frame.width
+        let sHeight = frame.height
+        UIView.animateWithDuration(0.07) {
+            self.sliderDot?.frame = CGRectMake(sWidth - 65, sHeight-self.footerHeight-69, 45, 45)
+        }
+        if self.usingBackground {
+            onSegChanged()
+        }
     }
     
     func switchToSmallDot() {
         self.slider?.setThumbImage(nil, forState: .Normal)
-        self.sliderDot?.frame = CGRectMake(frame.width - 48, frame.height-self.footerHeight-51, 10, 10)
+        let sWidth = self.frame.width
+        let sHeight = frame.height
+        UIView.animateWithDuration(0.07) {
+            self.sliderDot?.frame = CGRectMake(sWidth - 48, sHeight-self.footerHeight-51, 10, 10)
+        }
+        if self.usingBackground == false {
+            onSegChanged()
+        }
     }
     
     // grid overlay
@@ -246,7 +260,7 @@ class CCOverlayView: UIView {
             })
         } else{
             
-            self.overlayAlpha += (translation.x - self.lastPos) / 255.0
+            self.overlayAlpha += (translation.x - self.lastPos) * 1.5 / 255.0
             if self.overlayAlpha < 0 {
                 self.overlayAlpha = 0
             }
@@ -263,17 +277,23 @@ class CCOverlayView: UIView {
     }
     
     func onSegChanged() {
-        if CCCoreUtil.isUsingBackgrondMode == 1{
-            self.imageView?.frame = self.frame_bg
-            self.overlayAlpha = 0
-            self.bringSubviewToFront(self.fakeView!)
-            self.usingBackground = true
-        } else {
-            self.imageView?.frame = self.frame_tm
-            self.overlayAlpha = 0.9
+        if self.usingBackground {
+            UIView.animateWithDuration(0.1, animations: {
+                self.imageView?.frame = self.frame_tm
+            })
             self.bringSubviewToFront(self.imageView! )
             self.usingBackground = false
+        } else {
+            UIView.animateWithDuration(0.1, animations: {
+                self.imageView?.frame = self.frame_bg
+            })
+            self.bringSubviewToFront(self.slider!)
+            self.bringSubviewToFront(self.sliderDot!)
+            self.bringSubviewToFront(self.fakeView!)
+            self.usingBackground = true
         }
+        
+
     }
     
     
@@ -395,6 +415,7 @@ class CCOverlayView: UIView {
         self.fakeView!.userInteractionEnabled = true
         self.addSubview(self.fakeView!)
         self.onSegChanged()
+        self.overlayAlpha = 0
         
         let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePinch(_:)))
