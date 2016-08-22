@@ -45,7 +45,7 @@ class CCOverlayView: UIView {
     let marginFactor: CGFloat = 15.0
     let zoomFactor: CGFloat = 15.0
     let sizeFactor: CGFloat = 70.0
-    let positionFactor : CGFloat = 0.63
+    let positionFactor : CGFloat = 0.56
     let headerHeight: CGFloat = 40
     let footerHeight: CGFloat = 100
     
@@ -117,7 +117,7 @@ class CCOverlayView: UIView {
                 }
                 
                 UIView.animateWithDuration(0.7, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: { // moving
-                    self.dot?.frame = CGRectMake(self.frame.width - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + 10, self.sizeFactor + 10)
+                    self.dot?.frame = CGRectMake(self.frame.width - self.marginFactor - self.sizeFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor - self.zoomFactor / 2, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
                     self.imageView?.alpha = 1
                     self.slider?.setValue(1, animated: true)
                     }, completion: { finished in
