@@ -148,6 +148,7 @@ class CCOverlayView: UIView {
             self.dot?.alpha = 1
             self.imageView?.alpha = 0
             self.slider?.alpha = 1
+            self.sliderDot?.alpha = 1
             }, completion: { finished in
                 
                 if self.stopAnimation {
@@ -175,6 +176,7 @@ class CCOverlayView: UIView {
                                 }
                                 UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
                                     self.slider?.alpha = 0
+                                    self.sliderDot?.alpha = 0
                                     }, completion: { // disapear and resize
                                         finished in
                                         self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
