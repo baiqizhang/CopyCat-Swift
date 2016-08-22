@@ -53,21 +53,59 @@ class CCOverlayView: UIView {
     
     //slider & alpha control
     var slider: UISlider?
+    var _control_alpha: Float = 0.0
     var overlayAlpha: CGFloat{
         set {
-            self.imageView?.alpha = newValue
-            self.slider?.value = Float(newValue)
+            if newValue > 1.0 {
+                self._control_alpha = Float(newValue)
+                self.imageView?.alpha = 1.0
+                self.slider?.value = 1.0
+                if newValue > 1.15 {
+                    switchToBigDot()
+                }
+                if newValue > 1.3 {
+                    self._control_alpha = 1.3
+                }
+            } else {
+                self._control_alpha = Float(newValue)
+                self.imageView?.alpha = newValue
+                self.slider?.value = self._control_alpha
+                switchToSmallDot()
+            }
         }
         get {
-            return (self.imageView?.alpha)!
+            return CGFloat(_control_alpha)
+        }
+    }
+    var sliderDot: UIImageView?
+    
+    func switchToBigDot() {
+        self.slider?.setThumbImage(UIImage(named: "empty.png"), forState: .Normal)
+        let sWidth = self.frame.width
+        let sHeight = frame.height
+        UIView.animateWithDuration(0.07) {
+            self.sliderDot?.frame = CGRectMake(sWidth - 65, sHeight-self.footerHeight-69, 45, 45)
+        }
+        if self.usingBackground {
+            onSegChanged()
+        }
+    }
+    
+    func switchToSmallDot() {
+        self.slider?.setThumbImage(nil, forState: .Normal)
+        let sWidth = self.frame.width
+        let sHeight = frame.height
+        UIView.animateWithDuration(0.07) {
+            self.sliderDot?.frame = CGRectMake(sWidth - 48, sHeight-self.footerHeight-51, 10, 10)
+        }
+        if self.usingBackground == false {
+            onSegChanged()
         }
     }
     
     // grid overlay
     var gridBtn: UIButton?
     var gridOverlay: CCGridOverlay?
-    
-    
     
     func prepareAnimation() {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -104,7 +142,7 @@ class CCOverlayView: UIView {
         if self.stopAnimation || self.timesPlayed > 2 {
             return
         }
-        //self.timesPlayed += 1
+        self.timesPlayed += 1
         UIView.animateWithDuration(0.3, delay: 0.3, options: [UIViewAnimationOptions.CurveEaseInOut , UIViewAnimationOptions.BeginFromCurrentState], animations: { // appear
             self.dot?.frame = CGRectMake(self.marginFactor, self.frame.size.height * self.positionFactor, self.sizeFactor, self.sizeFactor)
             self.dot?.alpha = 1
@@ -136,18 +174,18 @@ class CCOverlayView: UIView {
                                     return
                                 }
                                 UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
-                                        self.slider?.alpha = 0
+                                    self.slider?.alpha = 0
                                     }, completion: { // disapear and resize
-                                    finished in
-                                    self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
-                                    
-                                    if self.stopAnimation {
-                                        return
-                                    }
-                                    
-                                    self.playAnimation()
+                                        finished in
+                                        self.dot?.frame = CGRectMake(self.marginFactor - self.zoomFactor / 2, self.frame.size.height * self.positionFactor, self.sizeFactor + self.zoomFactor, self.sizeFactor + self.zoomFactor)
+                                        
+                                        if self.stopAnimation {
+                                            return
+                                        }
+                                        
+                                        self.playAnimation()
                                 })
-                            })
+                        })
                 })
                 
         })
@@ -213,19 +251,26 @@ class CCOverlayView: UIView {
             self.lastPos = translation.x
             UIView.animateWithDuration(0.3, animations: {
                 self.slider?.alpha = 1.0
+                self.sliderDot!.alpha = 1.0
             })
         } else if recognizer.state == .Ended {
             UIView.animateWithDuration(0.3, animations: {
                 self.slider?.alpha = 0.0
+                self.sliderDot!.alpha = 0.0
             })
+            if 1.0 < overlayAlpha && overlayAlpha < 1.15 {
+                overlayAlpha = 1.0
+            } else if overlayAlpha > 1.15 {
+                overlayAlpha = 1.3
+            }
         } else{
             
-            self.overlayAlpha += (translation.x - self.lastPos) / 255.0
+            self.overlayAlpha += (translation.x - self.lastPos) * 1.6 / 255.0
             if self.overlayAlpha < 0 {
                 self.overlayAlpha = 0
             }
-            if self.overlayAlpha > 1 {
-                self.overlayAlpha = 1
+            if self.overlayAlpha > 1.3 {
+                self.overlayAlpha = 1.3
             }
             self.lastPos = translation.x
         }
@@ -237,17 +282,23 @@ class CCOverlayView: UIView {
     }
     
     func onSegChanged() {
-        if CCCoreUtil.isUsingBackgrondMode == 1{
-            self.imageView?.frame = self.frame_bg
-            self.overlayAlpha = 0
-            self.bringSubviewToFront(self.fakeView!)
-            self.usingBackground = true
-        } else {
-            self.imageView?.frame = self.frame_tm
-            self.overlayAlpha = 0.9
+        if self.usingBackground {
+            UIView.animateWithDuration(0.1, animations: {
+                self.imageView?.frame = self.frame_tm
+            })
             self.bringSubviewToFront(self.imageView! )
             self.usingBackground = false
+        } else {
+            UIView.animateWithDuration(0.1, animations: {
+                self.imageView?.frame = self.frame_bg
+            })
+            self.bringSubviewToFront(self.slider!)
+            self.bringSubviewToFront(self.sliderDot!)
+            self.bringSubviewToFront(self.fakeView!)
+            self.usingBackground = true
         }
+        
+        
     }
     
     
@@ -281,7 +332,7 @@ class CCOverlayView: UIView {
             lowerBlurView.alpha = 0
             self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
         }
-
+        
     }
     
     convenience init( frame: CGRect,  overImage: UIImage) {
@@ -339,7 +390,7 @@ class CCOverlayView: UIView {
         self.addSubview(self.imageView!)
         
         //slider
-        self.slider = UISlider(frame: CGRectMake(30, frame.height-self.footerHeight-70, frame.size.width - 60, 50))
+        self.slider = UISlider(frame: CGRectMake(30, frame.height-self.footerHeight-70, frame.size.width - 100, 50))
         self.slider?.minimumValue = 0.0
         self.slider?.maximumValue = 1.0
         self.slider?.continuous = true
@@ -349,6 +400,12 @@ class CCOverlayView: UIView {
         self.slider?.value = Float(self.overlayAlpha)
         self.slider?.alpha = 0
         self.addSubview(self.slider!)
+        
+        // slider dot
+        self.sliderDot = UIImageView.init(frame: CGRectMake(frame.width - 65, frame.height-self.footerHeight-69, 45, 45))
+        self.sliderDot?.image = UIImage(named: "whitedot.png")
+        self.sliderDot?.alpha = 0
+        self.addSubview(self.sliderDot!)
         
         //grid layout
         self.gridBtn = UIButton(frame: CGRectMake(10, 2, 35, 35))
@@ -363,6 +420,7 @@ class CCOverlayView: UIView {
         self.fakeView!.userInteractionEnabled = true
         self.addSubview(self.fakeView!)
         self.onSegChanged()
+        self.overlayAlpha = 0
         
         let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePinch(_:)))
