@@ -498,7 +498,14 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 
 -(void)cancelAction{
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (self.isInUserGuide) {
+        self.isInUserGuide = false;
+        [self presentViewController:[CCWelcomeViewController new] animated: true completion: NULL];
+    } else {
+        [self dismissViewControllerAnimated:YES completion: ^void () {
+        }];
+    }
 }
 
 - (void)changeCamera:(id)sender

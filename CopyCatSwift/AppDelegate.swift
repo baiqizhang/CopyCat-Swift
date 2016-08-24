@@ -22,7 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Start VC
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = CCWelcomeViewController()
+        let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchBefore")
+        if !launchedBefore  {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchBefore")
+            self.window?.rootViewController = CCUserGuideViewController()
+            NSLog("user guide launched")
+        } else {
+            self.window?.rootViewController = CCWelcomeViewController()
+        }
+
         self.window?.makeKeyAndVisible()
         
         //init core

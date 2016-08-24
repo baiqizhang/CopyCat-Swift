@@ -85,7 +85,7 @@ class CCWelcomeViewController: UIViewController {
         if searchTextField.text == ""{
             return
             
-            let overlayImage = UIImage(named: "4_0.jpg")
+            /*let overlayImage = UIImage(named: "4_0.jpg")
             
             //Add to "Saved"
             CCCoreUtil.addPhotoForTopCategory(overlayImage!)
@@ -105,7 +105,7 @@ class CCWelcomeViewController: UIViewController {
             self.presentViewController(AVCVC, animated: true, completion: {
                 AVCVC.setRefImage()
             })
-            
+            */
         } else {
             // Add to history
             CCCoreUtil.addSearchHistory(searchTextField.text!)
@@ -221,12 +221,9 @@ class CCWelcomeViewController: UIViewController {
         hotTag = CCNetUtil.getHottag()
         CCNetUtil.getSpecialTags()
         
-        //Init offset and ImageView
-        var offset : CGFloat = -100.0
-        if self.view.frame.size.height == 568 {
-        } else {
-            offset = 75
-        }
+        //Should be removed
+        //NSUserDefaults.standardUserDefaults().setBool(false, forKey: "launchBefore")
+
         let windowWidth = view.frame.size.width
         let windowHeight = view.frame.size.height
         
@@ -402,6 +399,7 @@ class CCWelcomeViewController: UIViewController {
                 view.userInteractionEnabled = false
             }
             CCCoreUtil.userDefault.setInteger(shown + 1, forKey: CCCoreUtil.INSTRUCTION_SHOW_TIMES)
+            CCCoreUtil.userDefault.synchronize();
         }
         
         libraryViews = [library,orView]

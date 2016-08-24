@@ -116,3 +116,8 @@
 "INS_LOGOUT_ALERT" = "You will no longer be able to sync instagram likes.";
 "OK" = "Ok";
 "CANCEL" = "Cancel";
+
+//User Guide
+"Selfie" = "Selfie";
+"Start CopyCatting!" = "Start CopyCatting!";
+"Select a photo to imitate!" = "Select a photo to imitate!";
