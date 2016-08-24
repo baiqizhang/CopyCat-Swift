@@ -38,11 +38,13 @@ class CCOverlayView: UIView {
     var picker: UIImagePickerController?
     var delegate: AnyObject?
     var transparencyButton: UIButton?
+    var overlayFrame: CGRect?
     
     var imageView: UIImageView?
     var segControl: UISegmentedControl?
     var fakeView: UIView?
     var rotateFlag = false
+    var inited = false
     
     var overlayState: CGFloat = 0
     var savedAlpha: CGFloat = 0.0
@@ -58,6 +60,7 @@ class CCOverlayView: UIView {
     
     //animation
     var fadeView: UIView?
+    var rotate: UIImageView?
     var dot: UIImageView?
     var swipeView: UIImageView?
     var stopAnimation = false
@@ -364,7 +367,30 @@ class CCOverlayView: UIView {
     
     convenience init( frame: CGRect,  overImage: UIImage) {
         self.init(frame: frame)
-        var image = overImage
+        self.inited = false
+        self.image = overImage
+        self.overlayFrame = frame
+        self.imageView = UIImageView.init(image: image)
+        switch UIDevice.currentDevice().orientation{
+        case .Portrait:
+            self.rotate = UIImageView.init(frame: CGRectMake(frame.width / 2 - 50, frame.height / 3, 100, 100))
+            self.rotate?.image = UIImage(named: "rotate.png")
+            self.rotate?.alpha=1;
+            self.addSubview(self.rotate!)
+            self.backgroundColor = UIColor.blackColor()
+            self.alpha = 0.7
+        case .LandscapeLeft:
+            initOverlay()
+        default: break
+            
+        }
+    }
+
+    func initOverlay() {
+        if (self.inited) {
+            return
+        }
+        let frame = self.overlayFrame!
         self.overlayState = 1
         let height = frame.size.height - 140
         let width = frame.size.width
@@ -374,10 +400,10 @@ class CCOverlayView: UIView {
         }
         let thumbnailSize : CGFloat = 150
         
-        if image.size.width > image.size.height {
-            self.frame_tm = CGRectMake(self.frame.size.width / 2 - image.size.height / image.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image.size.height / image.size.width * thumbnailSize, thumbnailSize)
+        if image!.size.width > image!.size.height {
+            self.frame_tm = CGRectMake(self.frame.size.width / 2 - image!.size.height / image!.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image!.size.height / image!.size.width * thumbnailSize, thumbnailSize)
         } else {
-            self.frame_tm = CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2 - image.size.height / image.size.width * thumbnailSize / 2, thumbnailSize, image.size.height / image.size.width * thumbnailSize)
+            self.frame_tm = CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2 - image!.size.height / image!.size.width * thumbnailSize / 2, thumbnailSize, image!.size.height / image!.size.width * thumbnailSize)
         }
         
         self.backgroundColor = UIColor.clearColor()
@@ -387,12 +413,10 @@ class CCOverlayView: UIView {
         //        self.addSubview(self.transparencyButton!)
         
         //rotate if width > height
-        if image.size.width > image.size.height {
-            image = image.rotateInDegrees(-90.0)
+        if image!.size.width > image!.size.height {
+            image = image!.rotateInDegrees(-90.0)
             self.refOrientation = -90
         }
-        self.image=image;
-        self.imageView = UIImageView.init(image: image)
         
         //for square image
         upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
@@ -401,7 +425,7 @@ class CCOverlayView: UIView {
         self.addSubview(upperBlurView)
         self.addSubview(lowerBlurView)
         
-        if image.size.width == image.size.height{
+        if image!.size.width == image!.size.height{
             self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
             upperBlurView.alpha = 1
             lowerBlurView.alpha = 1
@@ -506,9 +530,7 @@ class CCOverlayView: UIView {
         } else {
             self.stopAnimation = true
         }
-        
+        self.inited = true
     }
-    
-    
-    
 }
+
