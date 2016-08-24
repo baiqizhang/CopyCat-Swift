@@ -21,4 +21,6 @@
 - (void)cameraZoom:(float)scale;
 - (void)setRefImage;
 - (void)snapStillImage:(id)sender;
+-(void)rotateUpright;
+-(void)rotateRight;
 @end
