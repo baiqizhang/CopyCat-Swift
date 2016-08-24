@@ -398,13 +398,13 @@ class CCOverlayView: UIView {
         self.slider?.maximumTrackTintColor = UIColor.whiteColor()
         self.slider?.minimumTrackTintColor = UIColor.whiteColor()
         self.slider?.value = Float(self.overlayAlpha)
-        self.slider?.alpha = 0
+        self.slider?.alpha = 1
         self.addSubview(self.slider!)
         
         // slider dot
         self.sliderDot = UIImageView.init(frame: CGRectMake(frame.width - 65, frame.height-self.footerHeight-69, 45, 45))
         self.sliderDot?.image = UIImage(named: "whitedot.png")
-        self.sliderDot?.alpha = 0
+        self.sliderDot?.alpha = 1
         self.addSubview(self.sliderDot!)
         
         //grid layout
@@ -420,7 +420,7 @@ class CCOverlayView: UIView {
         self.fakeView!.userInteractionEnabled = true
         self.addSubview(self.fakeView!)
         self.onSegChanged()
-        self.overlayAlpha = 0
+        self.overlayAlpha = 0.5
         
         let panGestureRecognizer = UIPanGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePan(_:)))
         let pinchGestureRecognizer = UIPinchGestureRecognizer.init(target: self, action: #selector(CCOverlayView.handlePinch(_:)))

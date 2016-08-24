@@ -109,10 +109,19 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         
         //close
         self.closeAction()
-
+        
         //open camera
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
+        if let userGuideParent = self.parent as? CCInspireCollectionViewController {
+            if userGuideParent.shouldShowHint {
+                userGuideParent.shouldShowHint = false
+                AVCVC.isInUserGuide = true
+            }
+
+        }
+
         overlayView.delegate = AVCVC
+        
         self.parent?.presentViewController(AVCVC, animated: false, completion: { _ in })
         
 

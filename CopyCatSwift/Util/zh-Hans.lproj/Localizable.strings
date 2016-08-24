@@ -116,3 +116,8 @@
 "No match found" = "图片库中没有找到匹配图片";
 "Use Offline Photos" = "使用离线图片";
 "Try photo crawler" = "从百度抓取";
+
+//User Guide
+"Selfie" = "自拍";
+"Start CopyCatting!" = "第一张照片！";
+"Select a photo to imitate!" = "选择一张图片来模仿构图";

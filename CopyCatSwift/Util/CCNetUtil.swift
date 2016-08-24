@@ -22,6 +22,7 @@ import Polyglot
     static var shouldUpdateTagList = true
     
     static var hitTags = Set<String>()
+    static var hackMap = ["自拍": "selfie"]
     static var hotTags : [String] = []
     static var hotTagsUpdated = false
     
@@ -312,6 +313,8 @@ import Polyglot
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
         if preferredLanguage.hasPrefix("en") || (hitTags.contains(tag.lowercaseString)) {
             searchUnsplashTranslated(tag, completion: completion)
+        } else if let word = hackMap[tag] {
+            searchUnsplashTranslated(word, completion: completion)
         } else {
             //translage to en
             let translator = Polyglot(clientId: "copycat", clientSecret: "UUwOEXGR919dCnmgar9NKYsT1x/OT1PllpWgAX0Zmqw=")

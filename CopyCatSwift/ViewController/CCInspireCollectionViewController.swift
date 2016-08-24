@@ -17,6 +17,7 @@ class CCInspireCollectionViewController: UIViewController{
     private let closeButton = UIButton()
     private let flowLayout = UICollectionViewFlowLayout()
     private var collectionView : CCCollectionView?
+    var shouldShowHint = false
     
     var searchTitle: String?
     var indicatorView = UIView()
@@ -182,6 +183,20 @@ class CCInspireCollectionViewController: UIViewController{
         gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(gpsButton)
         
+        if shouldShowHint {
+            let hintLabel = UITextView(frame: CGRectMake(view.frame.size.width / 8, view.frame.size.height - 50, view.frame.size.width / 8 * 6, 40))
+            //        let titleText = category?.name
+            hintLabel.text = NSLocalizedString("Select a photo to imitate!", comment: "")//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
+            hintLabel.font = UIFont.systemFontOfSize(20)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
+            hintLabel.textColor = .whiteColor()
+            hintLabel.textAlignment = .Center
+            hintLabel.layer.borderWidth = 1
+            hintLabel.layer.cornerRadius = 17.0;
+            
+            hintLabel.layer.borderColor = UIColor.whiteColor().CGColor
+            hintLabel.layer.backgroundColor = UIColor.blackColor().CGColor
+            self.view!.addSubview(hintLabel)
+        }
         
 //        //GPS
 //        let crawlButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 5, 30, 30))
@@ -189,7 +204,7 @@ class CCInspireCollectionViewController: UIViewController{
 //        crawlButton.setBackgroundImage(UIImage(named: "browser.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
 //        crawlButton.addTarget(self, action: #selector(openBrowser), forControlEvents: .TouchUpInside)
 //        self.view!.addSubview(crawlButton)
-        
+
         
         //Collection
         flowLayout.minimumInteritemSpacing = 0

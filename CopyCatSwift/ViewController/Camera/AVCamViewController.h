@@ -13,8 +13,8 @@
 @property (nonatomic, strong) UIButton *libraryButton;
 @property (nonatomic, strong) UIButton *stillButton;
 @property (nonatomic, strong) UIButton *cancelButton;
-
 @property (nonatomic, strong) id overlayView;
+@property (nonatomic) BOOL isInUserGuide;
 
 -(instancetype)initWithOverlayView:(UIView*)overlayView;
 - (void)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer withFlag:(BOOL)flag;
