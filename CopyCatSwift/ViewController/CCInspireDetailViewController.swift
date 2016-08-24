@@ -113,6 +113,7 @@ class CCInspireDetailViewController: UIViewController , UIScrollViewDelegate{
         //open camera
         let AVCVC: AVCamViewController = AVCamViewController(overlayView: overlayView)
         overlayView.delegate = AVCVC
+        CCOverlayView.volumnButtonDelegate = AVCVC
         self.parent?.presentViewController(AVCVC, animated: false, completion: { _ in })
         
 

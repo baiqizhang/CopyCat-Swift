@@ -7,9 +7,33 @@
 //
 
 import UIKit
+import JPSVolumeButtonHandler
 
 class CCOverlayView: UIView {
-    
+    var volumnHandler = JPSVolumeButtonHandler.init(upBlock: {
+      if CCOverlayView.volumnButtonPressed{
+        return
+      }
+      let vc = CCOverlayView.volumnButtonDelegate;
+      vc?.snapStillImage(nil)
+      let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+      dispatch_after(delayTime, dispatch_get_main_queue()) {
+        CCOverlayView.volumnButtonPressed = false
+      }
+    }) {
+      if CCOverlayView.volumnButtonPressed{
+        return
+      }
+      let vc = CCOverlayView.volumnButtonDelegate;
+      vc?.snapStillImage(nil)
+      let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+      dispatch_after(delayTime, dispatch_get_main_queue()) {
+        CCOverlayView.volumnButtonPressed = false
+      }
+    }
+    static var volumnButtonDelegate : AVCamViewController?
+    static var volumnButtonPressed = false
+  
     var image: UIImage?
     var picker: UIImagePickerController?
     var delegate: AnyObject?
@@ -78,6 +102,7 @@ class CCOverlayView: UIView {
         }
     }
     var sliderDot: UIImageView?
+  
     
     func switchToBigDot() {
         self.slider?.setThumbImage(UIImage(named: "empty.png"), forState: .Normal)
