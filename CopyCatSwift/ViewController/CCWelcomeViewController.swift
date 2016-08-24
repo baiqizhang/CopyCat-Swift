@@ -248,7 +248,7 @@ class CCWelcomeViewController: UIViewController {
         
         //search bar
         searchTextField.frame = CGRectMake(self.view.frame.size.width/2 - (120.0/320.0)*windowWidth, view.frame.size.height/2 - (50.0/568)*windowHeight , (250.0/320)*windowWidth, (35.0/568)*windowHeight)
-        searchTextField.font = UIFont.systemFontOfSize(10.5)
+        searchTextField.font = UIFont.systemFontOfSize(12)
         searchTextField.delegate = self
         searchTextField.borderStyle = .RoundedRect
         searchTextField.backgroundColor = UIColor.whiteColor()
@@ -266,7 +266,7 @@ class CCWelcomeViewController: UIViewController {
                                                                     UIColor.grayColor()])
         
         
-        let magnifyingGlass = UIImageView(frame: CGRectMake(5, 0, 20, 20))
+        let magnifyingGlass = UIImageView(frame: CGRectMake(5, -1, 22, 22))
         magnifyingGlass.image = UIImage(named: "search.png")
         magnifyingGlass.image = magnifyingGlass.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         magnifyingGlass.tintColor = UIColor.grayColor()

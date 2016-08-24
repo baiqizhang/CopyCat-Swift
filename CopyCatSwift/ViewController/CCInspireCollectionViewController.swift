@@ -143,6 +143,9 @@ class CCInspireCollectionViewController: UIViewController{
     
     func openBrowser(){
         let vc = CCCrawlViewController.sharedInstance()
+        if let title = self.searchTitle {
+          vc.query = title
+        }
         presentViewController(vc, animated: true, completion: nil)
     }
     

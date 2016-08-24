@@ -24,5 +24,7 @@
 #import "MWTapDetectingImageView.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-#import "SMTPMessage.h"
+//#import "SMTPMessage.h"
 
+//#import "Pods/JPSVolumeButtonHandler.h"
+//#import "Pods/JPSVolumeButtonHandler/JPSVolumeButtonHandler.h"

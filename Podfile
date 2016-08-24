@@ -2,10 +2,9 @@
 # platform :ios, '6.0'
 
 target 'CopyCatSwift' do
+    pod 'JPSVolumeButtonHandler'
     pod 'SMTPLite', '~> 0.0.3'
-#    pod 'iRate', '~> 1.11'
     pod 'EggsBenedict', '~> 0.9.9'
-#    pod 'Gecco'
     pod 'Fabric'
     pod 'Crashlytics'
     pod "AwesomeCache", "~> 2.0"
@@ -26,3 +25,5 @@ target 'CopyCatSwiftUITests' do
 end
 
 
+#    pod 'iRate', '~> 1.11'
+#    pod 'Gecco'

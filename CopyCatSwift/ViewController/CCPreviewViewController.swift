@@ -267,7 +267,10 @@ class CCPreviewViewController : UIViewController {
         self.refImageView = UIImageView(frame: frame_bg)
         self.refImageView?.image = self.refImage
         self.refImageView?.alpha = 0
+        self.refImageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        self.refImageView?.clipsToBounds = true
         self.view.addSubview(self.refImageView!)
+      
         if self.imageView?.image?.size.width > self.imageView?.image?.size.height {
             self.imageView?.frame = CGRectMake(frame_bg.origin.x + frame_bg.size.width / 2 - frame_bg.size.height / 2,
                                                frame_bg.origin.y + frame_bg.size.height / 2 - frame_bg.size.width / 2,

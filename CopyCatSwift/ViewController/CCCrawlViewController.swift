@@ -11,7 +11,8 @@ import Fabric
 import Crashlytics
 
 class CCCrawlViewController: UIViewController, UIWebViewDelegate {
-    var url = "https://www.google.com/imghp?as_st=y&tbm=isch&hl=en&as_q=&as_epq=&as_oq=&as_eq=&cr=&as_sitesearch=&safe=active&tbs=sur:f"  //"http://www.bing.com/images"
+    var url = "https://www.google.com/search?safe=active&as_st=y&hl=en&site=imghp&tbm=isch&source=hp&biw=1040&bih=1060&q="
+    var query = ""
 
     static let sharedVC = CCCrawlViewController()
     private var crawledURL : [String] = []
@@ -49,9 +50,11 @@ class CCCrawlViewController: UIViewController, UIWebViewDelegate {
     func resetBrowser(){
         let preferredLanguage = NSLocale.preferredLanguages()[0] as String
         if preferredLanguage == "zh-Hans-CN" {
-            url = "http://image.baidu.com/"
+            url = "http://image.baidu.com/search/wiseala?tn=wiseala&word="//"http://image.baidu.com/"
         }
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        let combinedUrl = url + query
+        let encodedUrl = combinedUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        webView.loadRequest(NSURLRequest(URL:NSURL(string: encodedUrl!)! ))
     }
     
     //MARK: Lifecycle

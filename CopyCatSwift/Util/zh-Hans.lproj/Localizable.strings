@@ -92,7 +92,7 @@
 "Got it" = "了解";
 
 //Welcome
-"What to capture today? e.g. coffee" = "这次打算拍什么？比如：咖啡";
+"What to capture today? e.g. coffee" = "这次打算拍什么？";
 "STEP1" = "1. 找到一张参考图";
 "STEP2" = "2. 调节透明度，方便对照";
 "STEP3" = "3. 模仿构图，拍出满意照片！";

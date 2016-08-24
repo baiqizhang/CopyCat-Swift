@@ -61,6 +61,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 @property(nonatomic) NSInteger orientation;
 
 
+
 @property(nonatomic,strong) CCPickOverleyViewController * overlayPicker;
 
 @end
@@ -88,7 +89,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 -(void)rotateUpright{
     [self rotateRight];
     return;
-    
+  
     if (self.orientation==0)
         return;
     
@@ -608,8 +609,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
             }
         }];
     });
-    
-    
 }
 
 - (void)snapStillImage:(id)sender

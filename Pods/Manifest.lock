@@ -4,6 +4,7 @@ PODS:
     - Fabric (~> 1.6.3)
   - EggsBenedict (0.9.9)
   - Fabric (1.6.7)
+  - JPSVolumeButtonHandler (1.0.1)
   - Kingfisher (2.4.1)
   - Polyglot (0.5.0)
   - SMTPLite (0.0.3)
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Crashlytics
   - EggsBenedict (~> 0.9.9)
   - Fabric
+  - JPSVolumeButtonHandler
   - Kingfisher (~> 2.4)
   - Polyglot (~> 0.3)
   - SMTPLite (~> 0.0.3)
@@ -22,8 +24,11 @@ SPEC CHECKSUMS:
   Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   EggsBenedict: 1e72e098060916bc51cbedc46bd2b71d29b7e633
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  JPSVolumeButtonHandler: 20f474cf94fc7c21be8db572ecdf9aaffb20a738
   Kingfisher: 41aed5b6c1ed8fa98cf6d75283ce89cf7890f517
   Polyglot: 9357934dadad89a6d68fc6f82047677349bce3df
   SMTPLite: fb12970fa93f57432ca1b0abee101a18ae54603b
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: e45463852071d81f2f0caf8817ee11b174e99822
+
+COCOAPODS: 1.0.1
