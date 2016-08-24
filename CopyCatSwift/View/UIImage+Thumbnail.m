@@ -146,4 +146,33 @@
     
     return coloredImage;
 }
+
++ (UIImage *)combineImage:(UIImage *)image1 withImage:(UIImage *)image2 orientation:(int32_t)imageOrientation;{
+//  if (imageOrientation != 0){
+//    CGSize size = CGSizeMake(image1.size.width, image1.size.height + image2.size.height/image2.size.width*image1.size.width);
+//    
+//    UIGraphicsBeginImageContext(size);
+//    
+//    [image1 drawInRect:CGRectMake(0,0,size.width, image1.size.height)];
+//    [image2 drawInRect:CGRectMake(0,image1.size.height,size.width, image2.size.height/image2.size.width*image1.size.width)];
+//    
+//    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    return finalImage;
+//  } else {
+//    CGSize size = CGSizeMake(image1.size.width + image2.size.width/image2.size.width*image1.size.height, image1.size.height);
+//    
+//    UIGraphicsBeginImageContext(size);
+//    
+//    [image1 drawInRect:CGRectMake(0,0,size.width, image1.size.height)];
+//    [image2 drawInRect:CGRectMake(image1.size.width, 0 , image2.size.width/image2.size.width*image1.size.height, size.height)];
+//    
+//    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    return finalImage;
+//  }
+  return image1;
+}
 @end

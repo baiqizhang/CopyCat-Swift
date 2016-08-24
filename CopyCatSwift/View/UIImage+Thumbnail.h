@@ -14,4 +14,5 @@
 - (UIImage *)resizeWithFactor:(float)factor;
 - (UIImage *)zoomWithFactor:(float)factor;
 - (UIImage *) maskWithColor:(UIColor *)color;
++ (UIImage *)combineImage:(UIImage *)firstImage withImage:(UIImage *)secondImage orientation:(int32_t)imageOrientation;
 @end

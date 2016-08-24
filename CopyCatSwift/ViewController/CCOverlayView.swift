@@ -10,6 +10,7 @@ import UIKit
 import JPSVolumeButtonHandler
 
 class CCOverlayView: UIView {
+    //volumn key to capture
     var volumnHandler = JPSVolumeButtonHandler.init(upBlock: {
       if CCOverlayView.volumnButtonPressed{
         return
@@ -34,6 +35,7 @@ class CCOverlayView: UIView {
     static var volumnButtonDelegate : AVCamViewController?
     static var volumnButtonPressed = false
   
+    //image
     var image: UIImage?
     var picker: UIImagePickerController?
     var delegate: AnyObject?
@@ -398,44 +400,25 @@ class CCOverlayView: UIView {
         if frame.size.width>320{
             self.frame_bg = CGRectMake(0, 53.0/375*frame.size.width, width, height-20.0/667*frame.size.height)
         }
-        let thumbnailSize : CGFloat = 150
-        
-        if image!.size.width > image!.size.height {
-            self.frame_tm = CGRectMake(self.frame.size.width / 2 - image!.size.height / image!.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image!.size.height / image!.size.width * thumbnailSize, thumbnailSize)
-        } else {
-            self.frame_tm = CGRectMake(self.frame.size.width / 2, self.frame.size.height / 2 - image!.size.height / image!.size.width * thumbnailSize / 2, thumbnailSize, image!.size.height / image!.size.width * thumbnailSize)
-        }
-        
+
         self.backgroundColor = UIColor.clearColor()
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
         self.transparencyButton?.addTarget(self, action: #selector(CCOverlayView.onPress), forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
-        //        self.addSubview(self.transparencyButton!)
-        
-        //rotate if width > height
-        if image!.size.width > image!.size.height {
-            image = image!.rotateInDegrees(-90.0)
-            self.refOrientation = -90
-        }
-        
+
+
+        self.image=image;
+        self.imageView = UIImageView.init(image: image)
+      
+        self.setOverlayImage(image)
+
         //for square image
         upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
         lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
         
         self.addSubview(upperBlurView)
         self.addSubview(lowerBlurView)
-        
-        if image!.size.width == image!.size.height{
-            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFit
-            upperBlurView.alpha = 1
-            lowerBlurView.alpha = 1
-        } else {
-            upperBlurView.alpha = 0
-            lowerBlurView.alpha = 0
-            self.imageView!.contentMode=UIViewContentMode.ScaleAspectFill
-        }
-        
-        
+
         self.imageView!.clipsToBounds = true
         self.imageView!.userInteractionEnabled = true;
         self.addSubview(self.imageView!)

@@ -77,7 +77,7 @@ class CCPreviewViewController : UIViewController {
     }
     
     var motionManager: CMMotionManager?
-    var imageOrientation = 0
+    var imageOrientation : Int32 = 0
     var orientation = 0
     var ratio1: CGFloat = 0
     var ratio2: CGFloat = 0
@@ -174,7 +174,7 @@ class CCPreviewViewController : UIViewController {
     
     //MARK: Lifecycle
     
-    init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int, refOrientation: Float) {
+    init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int32, refOrientation: Float) {
         super.init(nibName: nil, bundle: nil)
         self.refOrientation = refOrientation
         self.image = image
@@ -259,7 +259,7 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(backgroundView)
 
         self.imageView = UIImageView(frame: frame_bg)
-        self.imageView?.image = self.image
+        self.imageView?.image = UIImage.combineImage(self.image, withImage: self.refImage, orientation:imageOrientation)
         self.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
         self.imageView?.clipsToBounds = true
         self.view.addSubview(self.imageView!)
