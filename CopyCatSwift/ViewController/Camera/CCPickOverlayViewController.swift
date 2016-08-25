@@ -190,7 +190,9 @@ class CCPickOverleyViewController:UIViewController,UICollectionViewDelegate, UIC
     func closeAction() {
         self.dismissViewControllerAnimated(false, completion: nil)
         let overlayView = self.delegate?.overlayView as! CCOverlayView
-        overlayView.setOverlayImage(currentImage!)
+        if let image = currentImage{
+            overlayView.setOverlayImage(image)
+        }
         overlayView.alpha = 1
         self.delegate?.cancelButton.alpha=1
     }
