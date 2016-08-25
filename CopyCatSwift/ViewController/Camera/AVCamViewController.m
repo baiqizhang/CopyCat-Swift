@@ -324,16 +324,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 {
     [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
       CCOverlayView *overlayView=self.overlayView;
+        if (motion.gravity.x<-0.5f) {
+            if (![self.overlayView isInited]) {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    [self.overlayView initOverlay];
+                    [self.overlayView prepareAnimation];
+                });
+            }
+        }
       if (overlayView.refOrientation == -90){
         [self rotateRight];
       } else {
         [self rotateUpright];
       }
-//        NSLog(@"%f",motion.gravity.x);
-//        if (motion.gravity.x>0.5f)
-//            [self rotateLeft];
-//        else if (motion.gravity.x<-0.5f)
-//            [self rotateRight];
 //        else if (motion.gravity.x>-0.45f&&motion.gravity.x<0.45f)
 //            [self rotateUpright];
       
@@ -371,7 +374,6 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 
 -(void)viewDidAppear:(BOOL)animated{
     CCOverlayView *overlayView=self.overlayView;
-    [overlayView prepareAnimation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
