@@ -382,29 +382,21 @@ class CCOverlayView: UIView {
         if (self.refOrientation == 0) {
             initOverlay()
         } else {
-            switch UIDevice.currentDevice().orientation{
-            case .Portrait:
-                self.rotate = UIImageView.init(frame: CGRectMake(frame.width / 2 - 50, frame.height / 3, 100, 100))
-                self.rotate?.image = UIImage(named: "rotate.png")
-                self.rotate?.alpha=1;
-                self.addSubview(self.rotate!)
-                
-                self.rotateHint = UILabel.init(frame: CGRectMake(frame.width / 2 - 100, frame.height / 3 + 120, 200, 40))
-                rotateHint?.text = NSLocalizedString("Please rotate your device", comment: "")
-                rotateHint?.textAlignment = .Center
-                rotateHint?.font = UIFont.systemFontOfSize(16)
-                rotateHint?.textColor = .whiteColor()
-                rotateHint?.alpha = 1
-                self.addSubview(rotateHint!)
-                
-                self.backgroundColor = UIColor.blackColor()
-                self.alpha = 0.7
-                return
-            case .LandscapeLeft:
-                initOverlay()
-            default: break
-                
-            }
+            self.rotate = UIImageView.init(frame: CGRectMake(frame.width / 2 - 50, frame.height / 3, 100, 100))
+            self.rotate?.image = UIImage(named: "rotate.png")
+            self.rotate?.alpha=1;
+            self.addSubview(self.rotate!)
+            
+            self.rotateHint = UILabel.init(frame: CGRectMake(frame.width / 2 - 100, frame.height / 3 + 120, 200, 40))
+            rotateHint?.text = NSLocalizedString("Please rotate your device", comment: "")
+            rotateHint?.textAlignment = .Center
+            rotateHint?.font = UIFont.systemFontOfSize(16)
+            rotateHint?.textColor = .whiteColor()
+            rotateHint?.alpha = 1
+            self.addSubview(rotateHint!)
+            
+            self.backgroundColor = UIColor.blackColor()
+            self.alpha = 0.7
         }
     }
 
