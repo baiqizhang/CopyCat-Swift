@@ -16,6 +16,7 @@
 
 #import "UIImage+Thumbnail.h"
 #import "UIImage+fixOrientation.h"
+#import "UIImage+Rotating.h"
 
 #import "CopyCatSwift-Swift.h"
 
@@ -609,65 +610,58 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			{
 				NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 				UIImage *image = [[UIImage alloc] initWithData:imageData];
-                
-                image=[image fixOrientation];
-                
-//                if (self.fliped){
-//                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
-//
-//                    UIGraphicsBeginImageContext(frame.size);
-//                    CGContextRef context = UIGraphicsGetCurrentContext();
-//
-//                    CGContextScaleCTM(context, -1, -1);
-//                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
-//                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
-//
-//                    image = UIGraphicsGetImageFromCurrentImageContext();
-//                    UIGraphicsEndImageContext();
-//                }
+        
+        image=[image fixOrientation];
+        
+        if (self.fliped && self.orientation != 0){
+          image = [image rotateInDegrees:-90];
+        }
 
-                if (self.zoomingScale!=1)
-                    image=[image zoomWithFactor:self.zoomingScale];
+        if (self.zoomingScale!=1)
+            image=[image zoomWithFactor:self.zoomingScale];
 
+        
+        CCOverlayView *overlayView=self.overlayView;
+        
+        
+        if ([CCCoreUtil isPreviewAfterPhotoTaken]){
+            CCOverlayView* ovlv = (CCOverlayView*) self.overlayView;
+            CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation refOrientation:ovlv.refOrientation];
+            pvc.delegate=self;
+            if (self.fliped){
+                pvc.isSelfie = @YES;
+            }
+            [self presentViewController:pvc animated:NO completion:nil];
+        } else{
+            self.libraryButton.enabled=NO;
+            self.stillButton.enabled=NO;
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                UIImage* newImage=image;
                 
-                CCOverlayView *overlayView=self.overlayView;
+                UIImage* tmImage=[newImage thumbnailWithFactor:200];
                 
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.libraryButton setBackgroundImage:tmImage forState:UIControlStateNormal];
+                });
                 
-                if ([CCCoreUtil isPreviewAfterPhotoTaken]){
-                    CCOverlayView* ovlv = (CCOverlayView*) self.overlayView;
-                    CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation refOrientation:ovlv.refOrientation];
-                    pvc.delegate=self;
-                    [self presentViewController:pvc animated:NO completion:nil];
-                } else{
-                    self.libraryButton.enabled=NO;
-                    self.stillButton.enabled=NO;
-                    
-                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        UIImage* newImage=image;
-                        
-                        UIImage* tmImage=[newImage thumbnailWithFactor:200];
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.libraryButton setBackgroundImage:tmImage forState:UIControlStateNormal];
-                        });
-                        
-                        if ([CCCoreUtil isSaveToCameraRoll])
-                        {
-                            [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[newImage CGImage] orientation:(ALAssetOrientation)[newImage imageOrientation] completionBlock:nil];
-                            NSLog(@"Save to Camera Roll");
-                        }
-                        
-                        [CCCoreUtil addUserPhoto:image refImage:overlayView.image];
-                        
-
-                        NSLog(@"Saved");
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            self.libraryButton.enabled=YES;
-                            self.stillButton.enabled=YES	;
-                        });
-                    });
+                if ([CCCoreUtil isSaveToCameraRoll])
+                {
+                    [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[newImage CGImage] orientation:(ALAssetOrientation)[newImage imageOrientation] completionBlock:nil];
+                    NSLog(@"Save to Camera Roll");
                 }
+                
+                [CCCoreUtil addUserPhoto:image refImage:overlayView.image];
+                
+
+                NSLog(@"Saved");
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.libraryButton.enabled=YES;
+                    self.stillButton.enabled=YES	;
+                });
+            });
+        }
 			}
 		}];
 	});

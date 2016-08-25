@@ -80,9 +80,11 @@ class CCPreviewViewController : UIViewController {
     
     var motionManager: CMMotionManager?
     var imageOrientation : Int32 = 0
-//    var orientation = 0
+  
     var ratio1: CGFloat = 0
     var ratio2: CGFloat = 0
+  
+    var isSelfie = false
     
     override func prefersStatusBarHidden() -> Bool {
         return true
@@ -114,7 +116,9 @@ class CCPreviewViewController : UIViewController {
         
         dispatch_async(dispatch_get_global_queue(0, 0), {
             if CCCoreUtil.isSaveToCameraRoll == 1 {
-                // TODO warning message
+                if (self.isSelfie){
+                  ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: Int(self.refOrientation))!, completionBlock: nil)
+                }
                 ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
                 ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
               
@@ -289,8 +293,8 @@ class CCPreviewViewController : UIViewController {
                                                frame_bg.size.width)
             self.ratio1 = (self.imageView?.frame.size.height)! / (self.imageView?.frame.size.width)!
             self.ratio2 = 1
-            switch self.imageOrientation {
-            case -1:
+            switch self.refOrientation {
+            case -90:
 //                self.orientation = -90
                 self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
@@ -299,7 +303,7 @@ class CCPreviewViewController : UIViewController {
                 let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.imageView!.transform=CGAffineTransformScale(transform, ratio2, ratio2)
                 break
-            case 1:
+            case 90:
 //                self.orientation = 90
                 self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
