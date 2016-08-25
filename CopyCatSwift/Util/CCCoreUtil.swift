@@ -25,6 +25,23 @@ import CoreData
     static var initializing = true
     
     // MARK: Settings
+    static var doesSaveRefImage : Int {
+        set{
+            self.userDefault.setInteger(Int(newValue), forKey: "doesSaveRefImage")
+        }
+        get{
+            return self.userDefault.integerForKey("doesSaveRefImage")
+        }
+    }
+    static var doesSaveCollageImage : Int {
+        set{
+            self.userDefault.setInteger(Int(newValue), forKey: "doesSaveCollageImage")
+        }
+        get{
+            return self.userDefault.integerForKey("doesSaveCollageImage")
+        }
+    }
+  
     static var isUsingBackgrondMode : Int {
         set{
             self.userDefault.setInteger(Int(newValue), forKey: "isUsingBackgrondMode")
@@ -263,6 +280,14 @@ import CoreData
         // version 1: 06/25/2016
         let newestVersion = 2
         
+        if let _ = userDefault.stringForKey("doesSaveRefImage"){
+        } else {
+            CCCoreUtil.doesSaveRefImage = 1
+        }
+        if let _ = userDefault.stringForKey("doesSaveCollageImage"){
+        } else {
+            CCCoreUtil.doesSaveCollageImage = 1
+        }
         
         if let _ = userDefault.stringForKey("initialized"){
 

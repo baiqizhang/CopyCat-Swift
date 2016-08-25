@@ -20,8 +20,11 @@ class CCPreviewViewController : UIViewController {
     var image_watermark: UIImage?
     var refImage: UIImage?
     var refImage_watermark: UIImage?
+    var combined_watermark: UIImage?
+  
     var imageView: UIImageView?
     var refImageView: UIImageView?
+    var combineImageView: UIImageView?
     let sharingFlow = SharingFlow(type: .IGOExclusivegram)
     
     var isShowingRef: Bool = false
@@ -35,10 +38,12 @@ class CCPreviewViewController : UIViewController {
     var instagramButton: UIButton?
     var cancelButton: UIButton?
     var flipButton: UIButton?
-    var shareTaken: UIButton?
-    var shareOrigin: UIButton?
+  
+    var flipState = 0;
     var refOrientation: Float = 0
     
+    var shareTaken: UIButton?
+    var shareOrigin: UIButton?
     var _sharingOrigin = false
     var sharingOrigin: Bool {
         set{
@@ -108,8 +113,7 @@ class CCPreviewViewController : UIViewController {
         self.sharingTaken = !self.sharingTaken
     }
     
-    func saveImage() {
-        
+    func saveImageCommit() {
         let vc = self.delegate as! AVCamViewController
         vc.libraryButton.enabled = false
         vc.stillButton.enabled = false
@@ -117,19 +121,16 @@ class CCPreviewViewController : UIViewController {
         dispatch_async(dispatch_get_global_queue(0, 0), {
             if CCCoreUtil.isSaveToCameraRoll == 1 {
                 if (self.isSelfie){
-                  ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: Int(self.refOrientation))!, completionBlock: nil)
+                    ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: Int(self.refOrientation))!, completionBlock: nil)
+                } else {
+                    ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
                 }
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
-              
-                var image1 = self.image
-                var image2 = self.refImage
-//                if self.refOrientation == -90{
-//                    image2 = self.refImage?.rotateInDegrees(-90)
-//                }
-                let combined = UIImage.combineImage(image1, withImage: image2, orientation: self.refOrientation == -90 ? -90:0)
-                let watermarked = self.waterMark(combined,ratio: 0.1)
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(watermarked.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                if CCCoreUtil.doesSaveRefImage == 1{
+                    ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                }
+                if CCCoreUtil.doesSaveCollageImage == 1{
+                    ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.combined_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                }
             }
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -144,25 +145,16 @@ class CCPreviewViewController : UIViewController {
                 }
             })
         })
-        
-        if sharingTaken {
-            CCNetUtil.newPost(self.image!, completion: { (error:String?) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    print("Token Image Uploaded")
-                })
-            })
-        }
-        
-        if sharingOrigin {
-            let resetImage = self.refImage!.rotateInDegrees(-self.refOrientation)
-            CCNetUtil.newPost(resetImage, completion: { (error:String?) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    print("Origin Image Uploaded")
-                })
-            })
-        }
-        
         self.dismissSelf()
+    }
+    func saveImage() {
+        let alertVC = CCAlertViewController(style: .ActionSheet)
+        alertVC.modalPresentationStyle = .OverCurrentContext
+        alertVC.modalTransitionStyle = .CrossDissolve
+        
+        alertVC.isHorizontal = self.refOrientation == 0 ? false : true
+        alertVC.parent = self
+        presentViewController(alertVC, animated: true, completion: nil)
     }
     
     
@@ -184,9 +176,37 @@ class CCPreviewViewController : UIViewController {
             self.refImageView?.alpha = 0
         })
     }
-    
+  
+  func flipAction() {
+      flipState = flipState + 1
+      if flipState == 3{
+          flipState = 0
+      }
+      if flipState == 1 {
+          UIView.animateWithDuration(0.1, animations: {
+              self.imageView?.alpha = 0
+              self.combineImageView?.alpha = 1
+              self.refImageView?.alpha = 0
+          })
+      }
+      if flipState == 2 {
+          UIView.animateWithDuration(0.1, animations: {
+              self.imageView?.alpha = 0
+              self.combineImageView?.alpha = 0
+              self.refImageView?.alpha = 1
+          })
+      }
+      if flipState == 0 {
+          UIView.animateWithDuration(0.1, animations: {
+              self.imageView?.alpha = 1
+              self.refImageView?.alpha = 0
+              self.combineImageView?.alpha = 0
+          })
+      }
+  }
+  
     //MARK: Lifecycle
-    
+  
     init(image: UIImage, withReferenceImage refImage: UIImage, orientation: Int32, refOrientation: Float) {
         super.init(nibName: nil, bundle: nil)
         self.refOrientation = refOrientation
@@ -240,9 +260,10 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(self.instagramButton!)
         
         self.flipButton = UIButton(frame: CGRectMake(245.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
-        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
-        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
-        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpOutside)
+        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.flipAction), forControlEvents: .TouchUpInside)
+//        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
+//        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
+//        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpOutside)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png"), forState: .Normal)
         self.flipButton?.setBackgroundImage(UIImage(named: "flip2.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         self.view.addSubview(self.flipButton!)
@@ -286,6 +307,12 @@ class CCPreviewViewController : UIViewController {
         self.refImageView?.clipsToBounds = true
         self.view.addSubview(self.refImageView!)
       
+        self.combineImageView = UIImageView(frame: frame_bg)
+        self.combineImageView?.alpha = 0
+        self.combineImageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        self.combineImageView?.clipsToBounds = true
+        self.view.addSubview(self.combineImageView!)
+      
         if self.imageView?.image?.size.width > self.imageView?.image?.size.height {
             self.imageView?.frame = CGRectMake(frame_bg.origin.x + frame_bg.size.width / 2 - frame_bg.size.height / 2,
                                                frame_bg.origin.y + frame_bg.size.height / 2 - frame_bg.size.width / 2,
@@ -323,29 +350,39 @@ class CCPreviewViewController : UIViewController {
         
         // add watermark before save after
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { () -> Void in
-            if let image = self.image{
-              self.image_watermark = self.waterMark(image)
-            }
             if let image = self.refImage{
               if self.refOrientation == -90{
                 self.refImage = image.rotateInDegrees(90.0)
               }
-              self.refImage_watermark = self.waterMark(self.refImage!)
+            }
+            let image1 = self.image
+            let image2 = self.refImage
+            let combined = UIImage.combineImage(image1, withImage: image2, orientation: self.refOrientation == -90 ? -90:0)
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.combineImageView?.image = combined
+            })          
+            self.combined_watermark = self.waterMark(combined,ratio: 0.125)
+          
+            if let image = self.image{
+                self.image_watermark = self.waterMark(image)
+            }
+            if let image = self.refImage{
+                self.refImage_watermark = self.waterMark(image)
             }
         }
     }
-    
+  
     override func viewWillAppear(animated: Bool) {
-        self.motionManager!.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!, withHandler: {
-            (motion: CMDeviceMotion?, error: NSError?) -> Void in
-            if motion!.gravity.x > 0.5 {
-                self.rotateLeft()
-            } else if motion!.gravity.x < -0.5 {
-                self.rotateRight()
-            } else if motion!.gravity.y < -0.3 && abs(motion!.gravity.x) < 0.3 {
-                self.rotateUpright()
-            }
-        })
+//        self.motionManager!.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!, withHandler: {
+//            (motion: CMDeviceMotion?, error: NSError?) -> Void in
+//            if motion!.gravity.x > 0.5 {
+//                self.rotateLeft()
+//            } else if motion!.gravity.x < -0.5 {
+//                self.rotateRight()
+//            } else if motion!.gravity.y < -0.3 && abs(motion!.gravity.x) < 0.3 {
+//                self.rotateUpright()
+//            } 
+//        })
     }
     
     override func viewDidDisappear(animated: Bool) {
