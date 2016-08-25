@@ -337,7 +337,7 @@ class CCOverlayView: UIView {
     
     func setOverlayImage(overImage:UIImage){
         var image = overImage
-        let thumbnailSize : CGFloat = 150
+        let thumbnailSize : CGFloat = 125
         
         if image.size.width > image.size.height {
             self.frame_tm = CGRectMake(self.frame.size.width / 2 - image.size.height / image.size.width + thumbnailSize / 2, self.frame.size.height / 2 - thumbnailSize, image.size.height / image.size.width * thumbnailSize, thumbnailSize)
