@@ -40,11 +40,14 @@ class CCOverlayView: UIView {
     var picker: UIImagePickerController?
     var delegate: AnyObject?
     var transparencyButton: UIButton?
+    var overlayFrame: CGRect?
+    var rotateHint: UILabel?
     
     var imageView: UIImageView?
     var segControl: UISegmentedControl?
     var fakeView: UIView?
     var rotateFlag = false
+    var inited = false
     
     var overlayState: CGFloat = 0
     var savedAlpha: CGFloat = 0.0
@@ -60,6 +63,7 @@ class CCOverlayView: UIView {
     
     //animation
     var fadeView: UIView?
+    var rotate: UIImageView?
     var dot: UIImageView?
     var swipeView: UIImageView?
     var stopAnimation = false
@@ -75,7 +79,7 @@ class CCOverlayView: UIView {
     let headerHeight: CGFloat = 40
     let footerHeight: CGFloat = 100
     
-    var refOrientation = 0.0
+    var refOrientation = 0
     
     //slider & alpha control
     var slider: UISlider?
@@ -347,9 +351,8 @@ class CCOverlayView: UIView {
         } else {
             self.refOrientation = 0
         }
-        self.image=image;
-        self.imageView?.image = image
-        
+        self.image = image;
+        self.imageView = UIImageView.init(image: image)
         
         //for square image
         if image.size.width == image.size.height{
@@ -366,32 +369,75 @@ class CCOverlayView: UIView {
     
     convenience init( frame: CGRect,  overImage: UIImage) {
         self.init(frame: frame)
-        var image = overImage
+        self.inited = false
+        self.overlayFrame = frame
+
+        self.setOverlayImage(overImage)
+        let frame = self.overlayFrame!
+        if (self.refOrientation == 0) {
+            initOverlay()
+        } else {
+            switch UIDevice.currentDevice().orientation{
+            case .Portrait:
+                self.rotate = UIImageView.init(frame: CGRectMake(frame.width / 2 - 50, frame.height / 3, 100, 100))
+                self.rotate?.image = UIImage(named: "rotate.png")
+                self.rotate?.alpha=1;
+                self.addSubview(self.rotate!)
+                
+                self.rotateHint = UILabel.init(frame: CGRectMake(frame.width / 2 - 100, frame.height / 3 + 120, 200, 40))
+                rotateHint?.text = NSLocalizedString("Please rotate your device", comment: "")
+                rotateHint?.textAlignment = .Center
+                rotateHint?.font = UIFont.systemFontOfSize(16)
+                rotateHint?.textColor = .whiteColor()
+                rotateHint?.alpha = 1
+                self.addSubview(rotateHint!)
+                
+                self.backgroundColor = UIColor.blackColor()
+                self.alpha = 0.7
+                return
+            case .LandscapeLeft:
+                initOverlay()
+            default: break
+                
+            }
+        }
+    }
+
+    func isInited() -> Bool {
+        return self.inited
+    }
+    
+    func initOverlay() {
+        
+        if (self.inited) {
+            return
+        }
+        
+        let frame = self.overlayFrame!
+        rotate?.removeFromSuperview()
+        rotateHint?.removeFromSuperview()
+        
         self.overlayState = 1
+        self.alpha = 1
         let height = frame.size.height - 140
         let width = frame.size.width
         self.frame_bg = CGRectMake(0, 40, width, height)
         if frame.size.width>320{
             self.frame_bg = CGRectMake(0, 53.0/375*frame.size.width, width, height-20.0/667*frame.size.height)
         }
-      
+
         self.backgroundColor = UIColor.clearColor()
         self.transparencyButton = UIButton.init(frame: CGRectMake(frame.size.width - 80, frame.size.height - 70, 50, 50))
         self.transparencyButton?.addTarget(self, action: #selector(CCOverlayView.onPress), forControlEvents: .TouchUpInside)
         self.transparencyButton?.setBackgroundImage(UIImage(named: "transparency.png"), forState: .Normal)
 
-      self.image=image;
-        self.imageView = UIImageView.init(image: image)
-      
-        self.setOverlayImage(image)
-      
         //for square image
         upperBlurView.frame = CGRectMake(0, 40, width, (height-width)/2)
         lowerBlurView.frame = CGRectMake(0, 40+width+(height-width)/2, width, (height-width)/2)
         
         self.addSubview(upperBlurView)
         self.addSubview(lowerBlurView)
-      
+
         self.imageView!.clipsToBounds = true
         self.imageView!.userInteractionEnabled = true;
         self.addSubview(self.imageView!)
@@ -486,9 +532,7 @@ class CCOverlayView: UIView {
         } else {
             self.stopAnimation = true
         }
-        
+        self.inited = true
     }
-    
-    
-    
 }
+

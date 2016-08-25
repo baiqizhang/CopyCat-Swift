@@ -73,6 +73,8 @@
 		9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */; };
 		9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */; };
 		97551EBF1D3C814D00277556 /* UIButton+HitArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */; };
+		975E3C3F1D6E3C9A00EA5911 /* CCUserGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */; };
+		975E3C411D6E463100EA5911 /* rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 975E3C401D6E463100EA5911 /* rotate.png */; };
 		97636E091D1F39F00073D9EA /* lucky.png in Resources */ = {isa = PBXBuildFile; fileRef = 97636E081D1F39F00073D9EA /* lucky.png */; };
 		978656C21C3FA1C500617669 /* circleuser_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C01C3FA1C500617669 /* circleuser_highlight.png */; };
 		978656C31C3FA1C500617669 /* circleuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 978656C11C3FA1C500617669 /* circleuser.png */; };
@@ -299,6 +301,8 @@
 		9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCPickOverlayViewController.swift; path = Camera/CCPickOverlayViewController.swift; sourceTree = "<group>"; };
 		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+HitArea.swift"; sourceTree = "<group>"; };
+		975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserGuideViewController.swift; sourceTree = "<group>"; };
+		975E3C401D6E463100EA5911 /* rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rotate.png; path = Resources/rotate.png; sourceTree = "<group>"; };
 		97636E081D1F39F00073D9EA /* lucky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lucky.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
 		978656C11C3FA1C500617669 /* circleuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser.png; sourceTree = "<group>"; };
@@ -656,6 +660,7 @@
 		97F6DF871C23A0A100707180 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				975E3C401D6E463100EA5911 /* rotate.png */,
 				86A9F8291D6A6DB100FF007E /* finger.png */,
 				973481091D32F8D100ADB430 /* bg_welcome.png */,
 				8680E24F1D6AACF500FF4E6B /* empty.png */,
@@ -786,6 +791,7 @@
 				97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */,
 				4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */,
 				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
+				975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */,
 				97262D3A1D58134F00967800 /* CCCrawlViewController.swift */,
 				97CBEC061D6E5B780010DC50 /* CCUserGuideViewController.swift */,
 			);
@@ -886,6 +892,7 @@
 				97723C431CE455B00073DC0F /* Run Fabric Script */,
 				6A74FCBD9C3C35772FF36913 /* [CP] Copy Pods Resources */,
 				0F1C1DF20CDD61A08AA9E050 /* [CP] Embed Pods Frameworks */,
+				5DC0434ED8906487E3D08C53 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1079,6 +1086,7 @@
 				97FCBB7D1CE90760003734DA /* 4_6.jpg in Resources */,
 				9740CA821C2FE8B30023FE2C /* DNImagePicker.strings in Resources */,
 				97F6DFBB1C23A1C300707180 /* delete.png in Resources */,
+				975E3C411D6E463100EA5911 /* rotate.png in Resources */,
 				97FCBB701CE90760003734DA /* 2_4.jpg in Resources */,
 				97F6DFCE1C23A1C300707180 /* save2_highlight.png in Resources */,
 				97FCBB6D1CE90760003734DA /* 2_1.jpg in Resources */,
@@ -1138,6 +1146,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5DC0434ED8906487E3D08C53 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CopyCatSwift/Pods-CopyCatSwift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5F4F2CDEABEC99B17B896B42 /* [CP] Check Pods Manifest.lock */ = {
@@ -1255,7 +1278,7 @@
 				9740CA311C2F5A7B0023FE2C /* UIImage+Rotating.m in Sources */,
 				97FCBBA01CF2B021003734DA /* CCUserManager.swift in Sources */,
 				9727B0DE1C35D3C2005E9D12 /* CCNetUtil.swift in Sources */,
-				97CBEC071D6E5B790010DC50 /* CCUserGuideViewController.swift in Sources */,
+				975E3C3F1D6E3C9A00EA5911 /* CCUserGuideViewController.swift in Sources */,
 				9740CA811C2FE8B30023FE2C /* DNPhotoBrowser.m in Sources */,
 				9740CA841C2FE8B30023FE2C /* UIColor+Hex.m in Sources */,
 				1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */,
