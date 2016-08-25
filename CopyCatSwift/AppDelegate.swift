@@ -25,7 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchBefore")
         if !launchedBefore  {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchBefore")
-            self.window?.rootViewController = CCUserGuideViewController()
+            // Show search result
+            let vc = CCInspireCollectionViewController(tag: NSLocalizedString("Tutorial", comment: ""))
+            vc.modalTransitionStyle = .CrossDissolve
+            vc.searchTitle = NSLocalizedString("Tutorial", comment: "")
+            vc.shouldShowHint = true
+            self.window?.rootViewController = vc
             NSLog("user guide launched")
         } else {
             self.window?.rootViewController = CCWelcomeViewController()

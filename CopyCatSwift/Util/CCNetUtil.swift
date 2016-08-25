@@ -23,7 +23,7 @@ import SMTPLite
     static var shouldUpdateTagList = true
     
     static var hitTags = Set<String>()
-    static var hackMap = ["自拍": "selfie"]
+    static var hackMap = ["自拍": "selfie", "教程": "Tutorial"]
     static var hotTags : [String] = []
     static var hotTagsUpdated = false
     
@@ -295,6 +295,8 @@ import SMTPLite
     }
     
     static func getSpecialTags() -> Void {
+        hitTags.insert("tutorial")
+        hitTags.insert("pose")
         if (shouldUpdateTagList) {
             shouldUpdateTagList = false
             
