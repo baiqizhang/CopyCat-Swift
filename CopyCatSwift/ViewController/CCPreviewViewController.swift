@@ -17,7 +17,9 @@ class CCPreviewViewController : UIViewController {
     
     var delegate: AnyObject?
     var image: UIImage?
+    var image_watermark: UIImage?
     var refImage: UIImage?
+    var refImage_watermark: UIImage?
     var imageView: UIImageView?
     var refImageView: UIImageView?
     let sharingFlow = SharingFlow(type: .IGOExclusivegram)
@@ -78,7 +80,7 @@ class CCPreviewViewController : UIViewController {
     
     var motionManager: CMMotionManager?
     var imageOrientation : Int32 = 0
-    var orientation = 0
+//    var orientation = 0
     var ratio1: CGFloat = 0
     var ratio2: CGFloat = 0
     
@@ -113,11 +115,18 @@ class CCPreviewViewController : UIViewController {
         dispatch_async(dispatch_get_global_queue(0, 0), {
             if CCCoreUtil.isSaveToCameraRoll == 1 {
                 // TODO warning message
-                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
-//                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+                ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
+              
+                var image1 = self.image
+                var image2 = self.refImage
+//                if self.refOrientation == -90{
+//                    image2 = self.refImage?.rotateInDegrees(-90)
+//                }
+                let combined = UIImage.combineImage(image1, withImage: image2, orientation: self.refOrientation == -90 ? -90:0)
+                let watermarked = self.waterMark(combined,ratio: 0.1)
+                ALAssetsLibrary().writeImageToSavedPhotosAlbum(watermarked.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
             }
-            
-//            CCCoreUtil.addUserPhoto(image!, refImage: self.refImage!)
             
             dispatch_async(dispatch_get_main_queue(), {
                 vc.libraryButton.enabled = true
@@ -178,7 +187,9 @@ class CCPreviewViewController : UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.refOrientation = refOrientation
         self.image = image
+        self.image_watermark = image
         self.refImage = refImage
+        self.refImage_watermark = refImage
         self.imageOrientation = orientation
     }
     
@@ -204,8 +215,8 @@ class CCPreviewViewController : UIViewController {
         // Rotation
         self.motionManager = CMMotionManager()
         self.motionManager?.deviceMotionUpdateInterval = 0.1
-        self.orientation = 0
-        
+//        self.orientation = 0
+      
         self.cancelButton = UIButton(frame: CGRectMake(20.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
         self.cancelButton?.addTarget(self, action: #selector(CCPreviewViewController.dismissSelf), forControlEvents: .TouchUpInside)
         self.cancelButton?.setBackgroundImage(UIImage(named: "close.png"), forState: .Normal)
@@ -259,7 +270,7 @@ class CCPreviewViewController : UIViewController {
         self.view.addSubview(backgroundView)
 
         self.imageView = UIImageView(frame: frame_bg)
-        self.imageView?.image = UIImage.combineImage(self.image, withImage: self.refImage, orientation:imageOrientation)
+        self.imageView?.image = self.image//UIImage.combineImage(self.image, withImage: self.refImage, orientation:imageOrientation)
         self.imageView?.contentMode = UIViewContentMode.ScaleAspectFill
         self.imageView?.clipsToBounds = true
         self.view.addSubview(self.imageView!)
@@ -280,7 +291,7 @@ class CCPreviewViewController : UIViewController {
             self.ratio2 = 1
             switch self.imageOrientation {
             case -1:
-                self.orientation = -1
+//                self.orientation = -90
                 self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
@@ -289,7 +300,7 @@ class CCPreviewViewController : UIViewController {
                 self.imageView!.transform=CGAffineTransformScale(transform, ratio2, ratio2)
                 break
             case 1:
-                self.orientation = 1
+//                self.orientation = 90
                 self.instagramButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.acceptButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                 self.flipButton!.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
@@ -308,7 +319,15 @@ class CCPreviewViewController : UIViewController {
         
         // add watermark before save after
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { () -> Void in
-            self.waterMark()
+            if let image = self.image{
+              self.image_watermark = self.waterMark(image)
+            }
+            if let image = self.refImage{
+              if self.refOrientation == -90{
+                self.refImage = image.rotateInDegrees(90.0)
+              }
+              self.refImage_watermark = self.waterMark(self.refImage!)
+            }
         }
     }
     
@@ -437,13 +456,14 @@ class CCPreviewViewController : UIViewController {
         let croppedImage = UIImage(CGImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
         return croppedImage.applyLightEffect()
     }
-    
-    func waterMark() {
-        let image = self.image!
+  
+    func waterMark(image:UIImage) -> UIImage{
+      return waterMark(image, ratio: 0.15)
+    }
+    func waterMark(image:UIImage, ratio:CGFloat) -> UIImage{
         let waterMark = UIImage(named: "cclogo.png")
         let imgSize = image.size
-        let ratio: CGFloat = 0.15 // how big the watermark is
-        
+      
         let scaling: CGFloat = min( (image.size.width * ratio) / (waterMark?.size.width)!, (image.size.height * ratio) / (waterMark?.size.height)!)
         let waterSize = CGSize(width: (waterMark?.size.width)! * scaling, height: (waterMark?.size.height)! * scaling)
         
@@ -465,6 +485,6 @@ class CCPreviewViewController : UIViewController {
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        self.image = result
+        return result
     }
 }

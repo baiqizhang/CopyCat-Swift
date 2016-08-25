@@ -581,21 +581,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
                 
                 image=[image fixOrientation];
-                
-                if (self.fliped){
-                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
-                    
-                    UIGraphicsBeginImageContext(frame.size);
-                    CGContextRef context = UIGraphicsGetCurrentContext();
-                    
-                    CGContextScaleCTM(context, -1, -1);
-                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
-                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
-                    
-                    image = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
-                }
-                
+              
                 if (self.zoomingScale!=1)
                     image=[image zoomWithFactor:self.zoomingScale];
                 
@@ -626,19 +612,19 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 
                 image=[image fixOrientation];
                 
-                if (self.fliped){
-                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
-
-                    UIGraphicsBeginImageContext(frame.size);
-                    CGContextRef context = UIGraphicsGetCurrentContext();
-
-                    CGContextScaleCTM(context, -1, -1);
-                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
-                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
-
-                    image = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
-                }
+//                if (self.fliped){
+//                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
+//
+//                    UIGraphicsBeginImageContext(frame.size);
+//                    CGContextRef context = UIGraphicsGetCurrentContext();
+//
+//                    CGContextScaleCTM(context, -1, -1);
+//                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
+//                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
+//
+//                    image = UIGraphicsGetImageFromCurrentImageContext();
+//                    UIGraphicsEndImageContext();
+//                }
 
                 if (self.zoomingScale!=1)
                     image=[image zoomWithFactor:self.zoomingScale];

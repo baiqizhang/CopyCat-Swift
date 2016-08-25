@@ -87,6 +87,7 @@
 		979A99321C391BBB00214E85 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A99311C391BBB00214E85 /* UIImageView+Download.swift */; };
 		97C4F33F1C9FAA07003934BB /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C4F33E1C9FAA07003934BB /* instagram.png */; };
 		97C4F3411C9FB316003934BB /* UIImageWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */; };
+		97CBEC071D6E5B790010DC50 /* CCUserGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CBEC061D6E5B780010DC50 /* CCUserGuideViewController.swift */; };
 		97F6DFB31C23A1C300707180 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8C1C23A1C300707180 /* Assets.xcassets */; };
 		97F6DFB41C23A1C300707180 /* AddNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8E1C23A1C300707180 /* AddNew.png */; };
 		97F6DFB51C23A1C300707180 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 97F6DF8F1C23A1C300707180 /* back.png */; };
@@ -314,6 +315,7 @@
 		979A99311C391BBB00214E85 /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
 		97C4F33E1C9FAA07003934BB /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
 		97C4F3401C9FB316003934BB /* UIImageWithInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageWithInsets.swift; sourceTree = "<group>"; };
+		97CBEC061D6E5B780010DC50 /* CCUserGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserGuideViewController.swift; sourceTree = "<group>"; };
 		97F6DF8C1C23A1C300707180 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		97F6DF8E1C23A1C300707180 /* AddNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddNew.png; sourceTree = "<group>"; };
 		97F6DF8F1C23A1C300707180 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -791,6 +793,7 @@
 				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
 				975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */,
 				97262D3A1D58134F00967800 /* CCCrawlViewController.swift */,
+				97CBEC061D6E5B780010DC50 /* CCUserGuideViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
