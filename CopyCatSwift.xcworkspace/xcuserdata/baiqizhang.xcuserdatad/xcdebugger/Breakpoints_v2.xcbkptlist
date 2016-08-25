@@ -824,11 +824,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CopyCatSwift/ViewController/CCInspireDetailViewController.swift"
-            timestampString = "493713417.070543"
+            timestampString = "493793967.71528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "okForUse()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1022,6 +1022,38 @@
             startingLineNumber = "265"
             endingLineNumber = "265"
             landmarkName = "searchUnsplashTranslated(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CopyCatSwift/ViewController/Camera/CCSpotLightViewController.swift"
+            timestampString = "493797591.085115"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "next(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CopyCatSwift/ViewController/Camera/CCSpotLightViewController.swift"
+            timestampString = "493797591.085115"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "next(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,19 +11,21 @@ import CoreMotion
 import AssetsLibrary
 import Fabric
 import Crashlytics
+import Gecco
 import EggsBenedict
 
 class CCPreviewViewController : UIViewController {
     
-    var delegate: AnyObject?
+    var delegateAV: AnyObject?
     var image: UIImage?
     var image_watermark: UIImage?
     var refImage: UIImage?
     var refImage_watermark: UIImage?
     var imageView: UIImageView?
+    var stepIndex = 0
     var refImageView: UIImageView?
     let sharingFlow = SharingFlow(type: .IGOExclusivegram)
-    
+    var shouldShowHint = false
     var isShowingRef: Bool = false
     
     enum ToggleButton {
@@ -108,7 +110,7 @@ class CCPreviewViewController : UIViewController {
     
     func saveImage() {
         
-        let vc = self.delegate as! AVCamViewController
+        let vc = self.delegateAV as! AVCamViewController
         vc.libraryButton.enabled = false
         vc.stillButton.enabled = false
         
@@ -118,8 +120,8 @@ class CCPreviewViewController : UIViewController {
                 ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.image_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
                 ALAssetsLibrary().writeImageToSavedPhotosAlbum(self.refImage_watermark?.CGImage, orientation: ALAssetOrientation.init(rawValue: (self.image?.imageOrientation.rawValue)!)!, completionBlock: nil)
               
-                var image1 = self.image
-                var image2 = self.refImage
+                let image1 = self.image
+                let image2 = self.refImage
 //                if self.refOrientation == -90{
 //                    image2 = self.refImage?.rotateInDegrees(-90)
 //                }
@@ -344,6 +346,14 @@ class CCPreviewViewController : UIViewController {
         })
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if (shouldShowHint) {
+            shouldShowHint = false
+            let spotlightViewController = CCSpotLightViewController()
+            presentViewController(spotlightViewController, animated: false, completion: nil)
+        }
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         self.motionManager?.stopDeviceMotionUpdates()
     }
@@ -487,4 +497,5 @@ class CCPreviewViewController : UIViewController {
         
         return result
     }
+    
 }

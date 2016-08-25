@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) id overlayView;
 @property (nonatomic) BOOL isInUserGuide;
+@property (nonatomic) BOOL isShowPreviewGuide;
 
 -(instancetype)initWithOverlayView:(UIView*)overlayView;
 - (void)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer withFlag:(BOOL)flag;

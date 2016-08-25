@@ -636,8 +636,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                 if ([CCCoreUtil isPreviewAfterPhotoTaken]){
                     CCOverlayView* ovlv = (CCOverlayView*) self.overlayView;
                     CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation refOrientation:ovlv.refOrientation];
-                    pvc.delegate=self;
+                    if (_isShowPreviewGuide) {
+                        pvc.delegateAV = self;
+                        pvc.shouldShowHint = true;
+                        _isShowPreviewGuide = false;
+                    }
                     [self presentViewController:pvc animated:NO completion:nil];
+
                 } else{
                     self.libraryButton.enabled=NO;
                     self.stillButton.enabled=NO;

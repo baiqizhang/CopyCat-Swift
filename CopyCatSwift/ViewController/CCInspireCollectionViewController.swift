@@ -232,7 +232,7 @@ class CCInspireCollectionViewController: UIViewController{
     
     override func viewWillLayoutSubviews() {
         if (shouldShowHint) {
-            let alertController = UIAlertController(title: NSLocalizedString("Hi, New User", comment: ""), message: NSLocalizedString("Let's take a selfie using CopyCat", comment: "Are you enjoying this App?"), preferredStyle: .Alert)
+            let alertController = UIAlertController(title: NSLocalizedString("Hi, New User", comment: ""), message: NSLocalizedString("Let's take a photo using CopyCat", comment: "Are you enjoying this App?"), preferredStyle: .Alert)
             
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (_) in
                 alertController.dismissViewControllerAnimated(true, completion: nil)

@@ -9,7 +9,7 @@ target 'CopyCatSwift' do
     pod 'Crashlytics'
     pod "AwesomeCache", "~> 2.0"
     source 'https://github.com/CocoaPods/Specs.git'
-
+    pod 'Gecco'
     platform :ios, '8.0'
     pod 'Kingfisher', '~> 2.4'
     pod 'Polyglot', '~> 0.3'
