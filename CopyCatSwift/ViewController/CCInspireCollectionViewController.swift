@@ -340,18 +340,17 @@ extension CCInspireCollectionViewController:UICollectionViewDelegate{
         //et url = self.postList![indexPath.row].photoURI!
         if let indexPath = collectionView.indexPathsForSelectedItems()?[0]{
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CCCollectionViewCell {
-                let overlayImage = cell.imageView?.image
-                
-                // show animation each time user re-enter categoryview
-                let userDefault = NSUserDefaults.standardUserDefaults()
-                userDefault.removeObjectForKey("isFirstTimeUser")
-                userDefault.synchronize()
-                
-                let detailedView = CCInspireDetailViewController(image: overlayImage!)
-                detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-                detailedView.parent = self
-                self.presentViewController(detailedView, animated: true, completion: { _ in })
-                
+                if let overlayImage = cell.imageView?.image{
+                    // show animation each time user re-enter categoryview
+                    let userDefault = NSUserDefaults.standardUserDefaults()
+                    userDefault.removeObjectForKey("isFirstTimeUser")
+                    userDefault.synchronize()
+                    
+                    let detailedView = CCInspireDetailViewController(image: overlayImage)
+                    detailedView.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+                    detailedView.parent = self
+                    self.presentViewController(detailedView, animated: true, completion: { _ in })
+                }
             }
         }
     }

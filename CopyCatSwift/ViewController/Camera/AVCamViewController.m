@@ -16,6 +16,7 @@
 
 #import "UIImage+Thumbnail.h"
 #import "UIImage+fixOrientation.h"
+#import "UIImage+Rotating.h"
 
 #import "CopyCatSwift-Swift.h"
 
@@ -609,22 +610,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 			{
 				NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 				UIImage *image = [[UIImage alloc] initWithData:imageData];
-                
+        
                 image=[image fixOrientation];
                 
-//                if (self.fliped){
-//                    CGRect frame=CGRectMake(0, 0, image.size.width, image.size.height);
-//
-//                    UIGraphicsBeginImageContext(frame.size);
-//                    CGContextRef context = UIGraphicsGetCurrentContext();
-//
-//                    CGContextScaleCTM(context, -1, -1);
-//                    CGContextTranslateCTM(context,-1*frame.size.width,-frame.size.height);//frame.size.width,0);
-//                    CGContextDrawImage(context, CGRectMake(0, 0, frame.size.width, frame.size.height),image.CGImage);
-//
-//                    image = UIGraphicsGetImageFromCurrentImageContext();
-//                    UIGraphicsEndImageContext();
-//                }
+                if (self.fliped && self.orientation != 0){
+                  image = [image rotateInDegrees:-90];
+                }
 
                 if (self.zoomingScale!=1)
                     image=[image zoomWithFactor:self.zoomingScale];
@@ -637,9 +628,13 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
                     CCOverlayView* ovlv = (CCOverlayView*) self.overlayView;
                     CCPreviewViewController *pvc=[[CCPreviewViewController alloc]initWithImage:image withReferenceImage:overlayView.image orientation:self.orientation refOrientation:ovlv.refOrientation];
                     if (_isShowPreviewGuide) {
-                        pvc.delegateAV = self;
+                        pvc.delegate = self;
                         pvc.shouldShowHint = true;
                         _isShowPreviewGuide = false;
+                    }
+                    pvc.delegate=self;
+                    if (self.fliped){
+                        pvc.isSelfie = @YES;
                     }
                     [self presentViewController:pvc animated:NO completion:nil];
 

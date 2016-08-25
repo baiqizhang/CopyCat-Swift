@@ -57,8 +57,8 @@
 "CANCEL" = "取消";
 
 //Camera
-"Instagram Not Found" = "Instagram暂时不可用";
-"Photo Saved to Camera Roll" = "照片已存入胶卷";
+"Instagram Not Found" = "找不到Instagram";
+"Photo Saved to Camera Roll" = "照片将在后台存入本地相册";
 "Note" = "注意";
 "Original" = "原始图片";
 "Current One" = "当前图片";
@@ -120,11 +120,11 @@
 //User Guide
 "Selfie" = "自拍";
 "Start CopyCatting!" = "第一张照片！";
-"Select a photo to imitate!" = "选择一张图片来模仿构图";
+"Select a photo to imitate!" = "选择一张图片来模仿";
 "Please rotate your device" = "请向左旋转您的设备";
 "Tutorial" = "教程";
-"Tab to save the photo" = "点击存储照片";
-"Tab to share the photo" = "点击分享照片";
-"Tab to compare the photo" = "点击对比照片";
-"Hi, New User" = "欢迎新用户";
+"Tab to save the photo" = "点击保存";
+"Tab to share the photo" = "点击分享";
+"Tab to compare the photo" = "点击对比";
+"Hi, New User" = "欢迎使用CopyCat";
 "Let's take a photo using CopyCat" = "让我们用CopyCat拍第一张照片吧！";

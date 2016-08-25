@@ -13,9 +13,16 @@ class CCAlertViewController : UIViewController {
     enum Style {
         case CategoryList
         case ProgressBar
+        case ActionSheet
     }
     var style : Style?
     var parent : UIViewController?
+  
+    // For "Save to gallery"
+    var isHorizontal = true
+    var saveButton = UIButton()
+    var saveRefButton = UIButton()
+    var saveCollageButton = UIButton()
     
     // For "Pin to Category"
     var image : UIImage?
@@ -56,6 +63,43 @@ class CCAlertViewController : UIViewController {
         self.style = style
     }
     
+    func saveRefAction(){
+        if CCCoreUtil.doesSaveRefImage == 1 {
+            CCCoreUtil.doesSaveRefImage = 0
+        } else {
+            CCCoreUtil.doesSaveRefImage = 1
+        }
+        if CCCoreUtil.doesSaveRefImage == 1 {
+            saveRefButton.setTitleColor(UIColor(hexNumber: 0x41AFFF), forState: .Normal)
+        }
+        else {
+            saveRefButton.setTitleColor(UIColor(hexNumber: 0xAAAAAA), forState: .Normal)
+        }
+    }
+    
+    func saveCollageAction(){
+        if CCCoreUtil.doesSaveCollageImage == 1 {
+            CCCoreUtil.doesSaveCollageImage = 0
+        } else {
+            CCCoreUtil.doesSaveCollageImage = 1
+        }
+        if CCCoreUtil.doesSaveCollageImage == 1 {
+            saveCollageButton.setTitleColor(UIColor(hexNumber: 0x41AFFF), forState: .Normal)
+        }
+        else {
+            saveCollageButton.setTitleColor(UIColor(hexNumber: 0xAAAAAA), forState: .Normal)
+        }
+    }
+    
+    func saveAction(){
+        dismissViewControllerAnimated(false, completion: {
+            if ((self.parent?.isKindOfClass(CCPreviewViewController)) != nil){
+                let vc = self.parent as! CCPreviewViewController
+                vc.saveImageCommit()
+            }
+        })
+    }
+    
     override func viewDidLoad() {
         view.backgroundColor = .clearColor()
         
@@ -64,6 +108,67 @@ class CCAlertViewController : UIViewController {
         background.alpha = 0.75
         view.addSubview(background)
 
+        if (style == Style.ActionSheet){
+            background.alpha = 0.25
+            background.addTarget(self, action: #selector(CCAlertViewController.closeAction), forControlEvents: .AllTouchEvents)
+
+            saveButton.backgroundColor = .blackColor()
+            saveButton.setTitle("Save Now", forState: .Normal)
+            saveButton.setTitleColor(.whiteColor(), forState: .Normal)
+            saveButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+            saveButton.layer.borderWidth = 1
+            saveButton.addTarget(self, action: #selector(saveAction), forControlEvents: .TouchDown)
+            view.addSubview(saveButton)
+
+            saveRefButton.backgroundColor = .blackColor()
+            saveRefButton.setTitle("Save reference photo", forState: .Normal)
+            saveRefButton.setTitleColor(.whiteColor(), forState: .Normal)
+            saveRefButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+            saveRefButton.layer.borderWidth = 1
+            saveRefButton.addTarget(self, action: #selector(saveRefAction), forControlEvents: .TouchDown)
+            view.addSubview(saveRefButton)
+
+            saveCollageButton.backgroundColor = .blackColor()
+            saveCollageButton.setTitle("Save photo collage", forState: .Normal)
+            saveCollageButton.setTitleColor(.whiteColor(), forState: .Normal)
+            saveCollageButton.layer.borderColor = UIColor(hexNumber: 0xBBBBBB).CGColor
+            saveCollageButton.layer.borderWidth = 1
+            saveCollageButton.addTarget(self, action: #selector(saveCollageAction), forControlEvents: .TouchDown)
+            view.addSubview(saveCollageButton)
+
+            let width = view.frame.size.width
+            let height = view.frame.size.height
+            if isHorizontal{
+                let padding = -width/8*3+height/32
+                saveButton.frame = CGRectMake(padding, height*2/5, width/4*3, height/16)
+                saveRefButton.frame = CGRectMake(height/16+padding-1, height*2/5, width/4*3, height/16)
+                saveCollageButton.frame = CGRectMake(2*height/16+padding-2, height*2/5, width/4*3, height/16)
+
+                saveButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                saveRefButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                saveCollageButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+            } else {
+                let padding = -width/8*3+width/2
+                saveButton.frame = CGRectMake(padding, height-height/16, width/4*3, height/16)
+                saveRefButton.frame = CGRectMake(padding, height-2*height/16+1, width/4*3, height/16)
+                saveCollageButton.frame = CGRectMake(padding, height-3*height/16+2, width/4*3, height/16)
+            }
+            
+            if CCCoreUtil.doesSaveRefImage == 1 {
+                saveRefButton.setTitleColor(UIColor(hexNumber: 0x41AFFF), forState: .Normal)
+            }
+            else {
+                saveRefButton.setTitleColor(UIColor(hexNumber: 0xAAAAAA), forState: .Normal)
+            }
+
+            if CCCoreUtil.doesSaveCollageImage == 1 {
+                saveCollageButton.setTitleColor(UIColor(hexNumber: 0x41AFFF), forState: .Normal)
+            }
+            else {
+                saveCollageButton.setTitleColor(UIColor(hexNumber: 0xAAAAAA), forState: .Normal)
+            }
+          
+        }
         if (style == Style.CategoryList){
             background.addTarget(self, action: #selector(CCAlertViewController.closeAction), forControlEvents: .AllTouchEvents)
 
