@@ -22,6 +22,7 @@ class CCInspireCollectionViewController: UIViewController{
     var searchTitle: String?
     var indicatorView = UIView()
     var postList:[CCPost]?
+    var hintLabel = UITextView()
     
     private let locationManager = CLLocationManager()
     private var locationFound = false
@@ -172,12 +173,14 @@ class CCInspireCollectionViewController: UIViewController{
         self.view!.addSubview(titleLabel)
         
         //Back
-        closeButton.frame = CGRectMake(0, 1, 40, 40)
-        closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
-        closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
-        closeButton.addTarget(self, action: #selector(closeAction), forControlEvents: .TouchUpInside)
-        view!.addSubview(closeButton)
-        
+        if (!shouldShowHint) {
+            closeButton.frame = CGRectMake(0, 1, 40, 40)
+            closeButton.setBackgroundImage(UIImage(named: "back.png"), forState: .Normal)
+            closeButton.setBackgroundImage(UIImage(named: "back_highlight.png"), forState: .Highlighted)
+            closeButton.addTarget(self, action: #selector(closeAction), forControlEvents: .TouchUpInside)
+            view!.addSubview(closeButton)
+        }
+
         
         //GPS
         let gpsButton = UIButton(frame: CGRectMake(self.view.frame.size.width - 40, 7, 27, 27))
@@ -185,19 +188,20 @@ class CCInspireCollectionViewController: UIViewController{
         gpsButton.setBackgroundImage(UIImage(named: "geofence.png")?.imageWithInsets(UIEdgeInsetsMake(10, 10, 10, 10)).maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         gpsButton.addTarget(self, action: #selector(gpsAction), forControlEvents: .TouchUpInside)
         self.view!.addSubview(gpsButton)
-        
-        if shouldShowHint {
-            let hintLabel = UITextView(frame: CGRectMake(view.frame.size.width / 8, view.frame.size.height - 50, view.frame.size.width / 8 * 6, 40))
+        if self.shouldShowHint {
+            hintLabel = UITextView(frame: CGRectMake(self.view.frame.size.width / 8, self.view.frame.size.height - 50, self.view.frame.size.width / 8 * 6, 40))
             //        let titleText = category?.name
             hintLabel.text = NSLocalizedString("Select a photo to imitate!", comment: "")//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
             hintLabel.font = UIFont.systemFontOfSize(20)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
             hintLabel.textColor = .whiteColor()
             hintLabel.textAlignment = .Center
             hintLabel.layer.borderWidth = 1
+            hintLabel.layer.zPosition = 1
             hintLabel.layer.cornerRadius = 17.0;
             
             hintLabel.layer.borderColor = UIColor.whiteColor().CGColor
             hintLabel.layer.backgroundColor = UIColor.blackColor().CGColor
+            hintLabel.alpha = 0
             self.view!.addSubview(hintLabel)
         }
         
@@ -222,6 +226,23 @@ class CCInspireCollectionViewController: UIViewController{
         let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(closeAction))
         swipe.direction = .Right
         self.view!.addGestureRecognizer(swipe)
+        
+
+    }
+    
+    override func viewWillLayoutSubviews() {
+        if (shouldShowHint) {
+            let alertController = UIAlertController(title: NSLocalizedString("Hi, New User", comment: ""), message: NSLocalizedString("Let's take a selfie using CopyCat", comment: "Are you enjoying this App?"), preferredStyle: .Alert)
+            
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default) { (_) in
+                alertController.dismissViewControllerAnimated(true, completion: nil)
+                self.hintLabel.alpha = 1
+            }
+            
+            alertController.addAction(okAction)
+            
+            presentViewController(alertController, animated: true) {}
+        }
     }
     
     
@@ -267,7 +288,7 @@ class CCInspireCollectionViewController: UIViewController{
                     self.openBrowser()
                 })
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertActionStyle.Cancel) {  (UIAlertAction) -> Void in
-                    alert.dismissViewControllerAnimated(true, completion: { 
+                    alert.dismissViewControllerAnimated(true, completion: {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     })
                 })

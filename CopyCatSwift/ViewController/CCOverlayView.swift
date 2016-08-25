@@ -277,35 +277,38 @@ class CCOverlayView: UIView {
     }
     
     func handlePanLR(recognizer:UIPanGestureRecognizer){
-        self.finishAnimation()
-        
-        let translation = recognizer.translationInView(self)
-        if recognizer.state == .Began {
-            self.lastPos = translation.x
-            UIView.animateWithDuration(0.3, animations: {
-                self.slider?.alpha = 1.0
-                self.sliderDot!.alpha = 1.0
-            })
-        } else if recognizer.state == .Ended {
-            UIView.animateWithDuration(0.3, animations: {
-                self.slider?.alpha = 0.0
-                self.sliderDot!.alpha = 0.0
-            })
-            if 1.0 < overlayAlpha && overlayAlpha < 1.15 {
-                overlayAlpha = 1.0
-            } else if overlayAlpha > 1.15 {
-                overlayAlpha = 1.3
-            }
-        } else{
+        if let myRecognizer = recognizer as? UIPanGestureRecognizer {
+            self.finishAnimation()
             
-            self.overlayAlpha += (translation.x - self.lastPos) * 1.6 / 255.0
-            if self.overlayAlpha < 0 {
-                self.overlayAlpha = 0
+            let translation = myRecognizer.translationInView(self)
+            if recognizer.state == .Began {
+                self.lastPos = translation.x
+                UIView.animateWithDuration(0.3, animations: {
+                    self.slider?.alpha = 1.0
+                    self.sliderDot!.alpha = 1.0
+                })
+            } else if recognizer.state == .Ended {
+                UIView.animateWithDuration(0.3, animations: {
+                    self.slider?.alpha = 0.0
+                    self.sliderDot!.alpha = 0.0
+                })
+                if 1.0 < overlayAlpha && overlayAlpha < 1.15 {
+                    overlayAlpha = 1.0
+                } else if overlayAlpha > 1.15 {
+                    overlayAlpha = 1.3
+                }
+            } else{
+                
+                self.overlayAlpha += (translation.x - self.lastPos) * 1.6 / 255.0
+                if self.overlayAlpha < 0 {
+                    self.overlayAlpha = 0
+                }
+                if self.overlayAlpha > 1.3 {
+                    self.overlayAlpha = 1.3
+                }
+                self.lastPos = translation.x
             }
-            if self.overlayAlpha > 1.3 {
-                self.overlayAlpha = 1.3
-            }
-            self.lastPos = translation.x
+
         }
     }
     
@@ -352,7 +355,7 @@ class CCOverlayView: UIView {
             self.refOrientation = 0
         }
         self.image = image;
-        self.imageView = UIImageView.init(image: image)
+        self.imageView?.image = image
         
         //for square image
         if image.size.width == image.size.height{
@@ -371,8 +374,10 @@ class CCOverlayView: UIView {
         self.init(frame: frame)
         self.inited = false
         self.overlayFrame = frame
-
+        
+        self.imageView = UIImageView()
         self.setOverlayImage(overImage)
+
         let frame = self.overlayFrame!
         if (self.refOrientation == 0) {
             initOverlay()
