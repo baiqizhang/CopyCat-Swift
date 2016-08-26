@@ -101,7 +101,7 @@
 "Feedback" = "反馈问题";
 "Back to Home" = "返回主界面";
 "Too few results" = "结果太少";
-"We can't find that in our high quality database" = "高质量图片库中数量不够多，试试图片抓取功能？（右上角）";
+"We can't find that in our high quality database" = "高质量图片库中数量不够多";
 "Nope" = "算了";
 "Error" = "出错了";
 "Failed to get location" = "无法获取当前位置";
@@ -123,8 +123,8 @@
 "Select a photo to imitate!" = "选择一张图片来模仿";
 "Please rotate your device" = "请向左旋转您的设备";
 "Tutorial" = "教程";
-"Tab to save the photo" = "点击保存";
-"Tab to share the photo" = "点击分享";
-"Tab to compare the photo" = "点击对比";
+"Tab to save the photo" = "保存";
+"Tab to share the photo" = "分享";
+"Tab to compare the photo" = "对比";
 "Hi, New User" = "欢迎使用CopyCat";
 "Let's take a photo using CopyCat" = "让我们用CopyCat拍第一张照片吧！";

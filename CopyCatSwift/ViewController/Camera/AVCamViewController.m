@@ -613,8 +613,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
         
                 image=[image fixOrientation];
                 
-                if (self.fliped && self.orientation != 0){
-                  image = [image rotateInDegrees:-90];
+                if (self.fliped){
+                    if (self.orientation != 0) {
+                        image = [image rotateInDegrees:-90];
+                    }
+                    image = [image horizontalFlip];
                 }
 
                 if (self.zoomingScale!=1)

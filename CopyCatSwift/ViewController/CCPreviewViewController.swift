@@ -100,12 +100,14 @@ class CCPreviewViewController : UIViewController {
     //MARK: Actions
     
     func shareInstaAction() {
-        if sharingFlow.hasInstagramApp {
-            sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
-        } else {
-            let alert = UIAlertView(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Instagram Not Found", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
-            alert.show()
-        }
+        let vc = UIActivityViewController(activityItems: [self.image!], applicationActivities: nil)
+        presentViewController(vc, animated: true, completion: {})
+//        if sharingFlow.hasInstagramApp {
+//            sharingFlow.presentOpenInMenuWithImage(self.image, inView: self.view)
+//        } else {
+//            let alert = UIAlertView(title: NSLocalizedString("Sorry", comment: ""), message: NSLocalizedString("Instagram Not Found", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment: ""))
+//            alert.show()
+//        }
     }
     
     func toggleSharingOrigin() {
@@ -255,13 +257,13 @@ class CCPreviewViewController : UIViewController {
         self.acceptButton?.setBackgroundImage(UIImage(named: "save2_highlight.png"), forState: .Highlighted)
         self.view.addSubview(self.acceptButton!)
         
-        self.instagramButton = UIButton(frame: CGRectMake(170.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
+        self.instagramButton = UIButton(frame: CGRectMake(170.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight+1, 53, 53))
         self.instagramButton?.addTarget(self, action:#selector(CCPreviewViewController.shareInstaAction), forControlEvents:.TouchUpInside)
-        self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png"), forState: .Normal)
-        self.instagramButton?.setBackgroundImage(UIImage(named: "instagram_slim.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
+        self.instagramButton?.setBackgroundImage(UIImage(named: "sendto.png"), forState: .Normal)
+        self.instagramButton?.setBackgroundImage(UIImage(named: "sendto.png")?.maskWithColor(UIColor(hex:0x41AFFF)), forState:.Highlighted)
         self.view.addSubview(self.instagramButton!)
         
-        self.flipButton = UIButton(frame: CGRectMake(245.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight, 55, 55))
+        self.flipButton = UIButton(frame: CGRectMake(245.0/320*windowWidth, self.view.frame.size.height - 70.0/568*windowHeight+2, 53, 53))
         self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.flipAction), forControlEvents: .TouchUpInside)
 //        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipPress), forControlEvents: .TouchDown)
 //        self.flipButton?.addTarget(self, action: #selector(CCPreviewViewController.onFlipRelease), forControlEvents: .TouchUpInside)
@@ -502,10 +504,12 @@ class CCPreviewViewController : UIViewController {
     
     //MARK: Image Edit
     
-    func cornerImageBlured(image: UIImage, cornerRect: CGRect) -> UIImage {
-        let imageRef = CGImageCreateWithImageInRect(image.CGImage, cornerRect)
-        let croppedImage = UIImage(CGImage: imageRef!, scale: image.scale, orientation: image.imageOrientation)
-        return croppedImage.applyLightEffect()
+    func cornerImageBlured(image: UIImage, cornerRect: CGRect) -> UIImage? {
+        if let imageRef = CGImageCreateWithImageInRect(image.CGImage, cornerRect){
+            let croppedImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+            return croppedImage.applyLightEffect()
+        }
+        return nil
     }
   
     func waterMark(image:UIImage) -> UIImage{
@@ -520,23 +524,24 @@ class CCPreviewViewController : UIViewController {
         
         let waterRect = CGRectMake(imgSize.width - waterSize.width, imgSize.height - waterSize.height, waterSize.width, waterSize.height)
         let rect = CGRect(x: 0, y: 0, width: imgSize.width, height: imgSize.height)
-        let bluredBackground = cornerImageBlured(image, cornerRect: waterRect)
         
-        UIGraphicsBeginImageContextWithOptions(imgSize, true, 0)
-        let context = UIGraphicsGetCurrentContext()
-        
-        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextFillRect(context, rect)
-        
-        image.drawInRect(rect, blendMode: .Normal, alpha: 1)
-        bluredBackground.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
-        let waterRectModified = waterRect.offsetBy(dx: 0, dy: 4)
-        waterMark!.drawInRect(waterRectModified, blendMode: .Normal, alpha: 1)
-        
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return result
+        if let bluredBackground = cornerImageBlured(image, cornerRect: waterRect){
+            UIGraphicsBeginImageContextWithOptions(imgSize, true, 0)
+            let context = UIGraphicsGetCurrentContext()
+            
+            CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+            CGContextFillRect(context, rect)
+            
+            image.drawInRect(rect, blendMode: .Normal, alpha: 1)
+            bluredBackground.drawInRect(waterRect, blendMode: .Normal, alpha: 1)
+            let waterRectModified = waterRect.offsetBy(dx: 0, dy: 4)
+            waterMark!.drawInRect(waterRectModified, blendMode: .Normal, alpha: 1)
+            
+            let result = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return result
+        }
+        return image
     }
     
 }

@@ -4,7 +4,6 @@
 target 'CopyCatSwift' do
     pod 'JPSVolumeButtonHandler'
     pod 'SMTPLite', '~> 0.0.3'
-    pod 'EggsBenedict', '~> 0.9.9'
     pod 'Fabric'
     pod 'Crashlytics'
     pod "AwesomeCache", "~> 2.0"

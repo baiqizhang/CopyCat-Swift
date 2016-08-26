@@ -192,7 +192,7 @@ class CCInspireCollectionViewController: UIViewController{
             hintLabel = UITextView(frame: CGRectMake(self.view.frame.size.width / 8, self.view.frame.size.height - 50, self.view.frame.size.width / 8 * 6, 40))
             //        let titleText = category?.name
             hintLabel.text = NSLocalizedString("Select a photo to imitate!", comment: "")//NSLocalizedString((titleText?.uppercaseString)!, comment: (titleText)!)
-            hintLabel.font = UIFont.systemFontOfSize(20)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
+            hintLabel.font = UIFont.systemFontOfSize(16)//UIFont(name: NSLocalizedString("Font", comment : "Georgia"), size: 20.0)
             hintLabel.textColor = .whiteColor()
             hintLabel.textAlignment = .Center
             hintLabel.layer.borderWidth = 1

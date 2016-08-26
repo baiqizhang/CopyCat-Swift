@@ -2,7 +2,6 @@ PODS:
   - AwesomeCache (2.2)
   - Crashlytics (3.7.3):
     - Fabric (~> 1.6.3)
-  - EggsBenedict (0.9.9)
   - Fabric (1.6.7)
   - Gecco (0.2.0)
   - JPSVolumeButtonHandler (1.0.1)
@@ -13,7 +12,6 @@ PODS:
 DEPENDENCIES:
   - AwesomeCache (~> 2.0)
   - Crashlytics
-  - EggsBenedict (~> 0.9.9)
   - Fabric
   - Gecco
   - JPSVolumeButtonHandler
@@ -24,7 +22,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AwesomeCache: 366415b66330fb02d085bb24a2164fb04893d4fc
   Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
-  EggsBenedict: 1e72e098060916bc51cbedc46bd2b71d29b7e633
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Gecco: 27ab0f43da3f8e844771cf641992afdd1ea09c62
   JPSVolumeButtonHandler: 20f474cf94fc7c21be8db572ecdf9aaffb20a738

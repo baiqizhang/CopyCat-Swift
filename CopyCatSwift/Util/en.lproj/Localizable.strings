@@ -50,10 +50,10 @@
 "Search By Address" = "Search By Address";
 "Sorry" = "Sorry";
 "No match found" = "No match found in our library";
-"Use Offline Photos" = "Use Offline Photos";
+"Use Offline Photos" = "Use Offline Library";
 "Try photo crawler" = "Search on Google instead";
 "Too few results" = "Too few results";
-"We can't find that in our high quality database" = "We can't find enough photos in our high quality database. Try photo crawler? (Top right corner)";
+"We can't find that in our high quality database" = "We can't find enough photos in our high quality database.";
 "Nope" = "Nope";
 "Back to Home" = "Back to search";
 "Error" = "Error";
@@ -120,11 +120,11 @@
 //User Guide
 "Selfie" = "Selfie";
 "Start CopyCatting!" = "Start CopyCatting!";
-"Select a photo to imitate!" = "Select a photo to imitate!";
+"Select a photo to imitate!" = "Select a photo to CopyCat!";
 "Please rotate your device" = "Please rotate your device";
 "Tutorial" = "Tutorial";
-"Tab to save the photo" = "Save the photo";
-"Tab to compare the photo" = "Compare the photo";
-"Tab to share the photo" = "Share the photo";
-"Hi, New User" = "Hi, New User";
+"Tab to save the photo" = "Save";
+"Tab to compare the photo" = "Compare";
+"Tab to share the photo" = "Share";
+"Hi, New User" = "Welcome to CopyCat!";
 "Let's take a photo using CopyCat" = "Let's take a photo using CopyCat";

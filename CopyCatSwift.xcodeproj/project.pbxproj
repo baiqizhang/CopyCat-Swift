@@ -210,7 +210,7 @@
 		4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCInspireDetailViewController.swift; sourceTree = "<group>"; };
 		72AEAD0C1CD2B548000B65BF /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		8680E24F1D6AACF500FF4E6B /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = empty.png; path = Resources/empty.png; sourceTree = "<group>"; };
-		86A9F8291D6A6DB100FF007E /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finger.png; path = Resources/finger.png; sourceTree = "<group>"; };
+		86A9F8291D6A6DB100FF007E /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finger.png; path = ../finger.png; sourceTree = "<group>"; };
 		86C7DCC01D331EF60055033D /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		86C7DCC21D3330920055033D /* CCGridOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCGridOverlay.swift; sourceTree = "<group>"; };
 		86C7DCC41D33440F0055033D /* grid_tint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_tint.png; sourceTree = "<group>"; };
@@ -302,7 +302,7 @@
 		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+HitArea.swift"; sourceTree = "<group>"; };
 		975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserGuideViewController.swift; sourceTree = "<group>"; };
-		975E3C401D6E463100EA5911 /* rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rotate.png; path = Resources/rotate.png; sourceTree = "<group>"; };
+		975E3C401D6E463100EA5911 /* rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rotate.png; path = ../rotate.png; sourceTree = "<group>"; };
 		975E3C421D6EA6EE00EA5911 /* CCSpotLightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCSpotLightViewController.swift; path = Camera/CCSpotLightViewController.swift; sourceTree = "<group>"; };
 		97636E081D1F39F00073D9EA /* lucky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lucky.png; sourceTree = "<group>"; };
 		978656C01C3FA1C500617669 /* circleuser_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleuser_highlight.png; sourceTree = "<group>"; };
@@ -662,8 +662,6 @@
 		97F6DF871C23A0A100707180 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				975E3C401D6E463100EA5911 /* rotate.png */,
-				86A9F8291D6A6DB100FF007E /* finger.png */,
 				973481091D32F8D100ADB430 /* bg_welcome.png */,
 				8680E24F1D6AACF500FF4E6B /* empty.png */,
 				9734810A1D32F8D100ADB430 /* cclogo.png */,
@@ -680,6 +678,8 @@
 		97F6DF8D1C23A1C300707180 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				975E3C401D6E463100EA5911 /* rotate.png */,
+				86A9F8291D6A6DB100FF007E /* finger.png */,
 				979893ED1D583322000F0B54 /* browser.png */,
 				97636E081D1F39F00073D9EA /* lucky.png */,
 				974875181D10B32D0089C385 /* geofence.png */,
@@ -1490,7 +1490,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Pods/FBSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Pods/Headers/**",
@@ -1538,7 +1537,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Pods/FBSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Pods/Headers/**",

@@ -497,8 +497,8 @@ import CoreData
         if obj != nil {
             return obj as! Int
         } else {
-            userDefault.setObject(0, forKey: kReadNotification)
-            return 0
+            userDefault.setObject(Int(1), forKey: kReadNotification)
+            return Int(1)
         }
     }
     
