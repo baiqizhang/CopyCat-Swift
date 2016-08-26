@@ -12,7 +12,6 @@ import AssetsLibrary
 import Fabric
 import Crashlytics
 import Gecco
-import EggsBenedict
 
 class CCPreviewViewController : UIViewController {
     
@@ -27,7 +26,6 @@ class CCPreviewViewController : UIViewController {
     var stepIndex = 0
     var refImageView: UIImageView?
     var combineImageView: UIImageView?
-    let sharingFlow = SharingFlow(type: .IGOExclusivegram)
     var shouldShowHint = false
     var isShowingRef: Bool = false
     
