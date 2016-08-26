@@ -10,14 +10,17 @@ import UIKit
 import Gecco
 
 class CCSpotLightViewController: SpotlightViewController {
-    
-
-
     var stepIndex: Int = 1
     var parent: AVCamViewController?
     var hint1: UILabel?
     var hint2: UILabel?
     var hint3: UILabel?
+
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let width = self.view.frame.width

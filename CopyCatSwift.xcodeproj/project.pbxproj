@@ -73,7 +73,6 @@
 		9748751B1D176EDF0089C385 /* CCPickOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */; };
 		9748751D1D1770880089C385 /* CCCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */; };
 		97551EBF1D3C814D00277556 /* UIButton+HitArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */; };
-		975E3C3F1D6E3C9A00EA5911 /* CCUserGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */; };
 		975E3C411D6E463100EA5911 /* rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 975E3C401D6E463100EA5911 /* rotate.png */; };
 		975E3C431D6EA6EE00EA5911 /* CCSpotLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975E3C421D6EA6EE00EA5911 /* CCSpotLightViewController.swift */; };
 		97636E091D1F39F00073D9EA /* lucky.png in Resources */ = {isa = PBXBuildFile; fileRef = 97636E081D1F39F00073D9EA /* lucky.png */; };
@@ -301,7 +300,6 @@
 		9748751A1D176EDF0089C385 /* CCPickOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCPickOverlayViewController.swift; path = Camera/CCPickOverlayViewController.swift; sourceTree = "<group>"; };
 		9748751C1D1770880089C385 /* CCCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCCategoryCollectionViewCell.swift; path = CopyCatSwift/ViewController/Camera/CCCategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		97551EBE1D3C814D00277556 /* UIButton+HitArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+HitArea.swift"; sourceTree = "<group>"; };
-		975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCUserGuideViewController.swift; sourceTree = "<group>"; };
 		975E3C401D6E463100EA5911 /* rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rotate.png; path = ../rotate.png; sourceTree = "<group>"; };
 		975E3C421D6EA6EE00EA5911 /* CCSpotLightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCSpotLightViewController.swift; path = Camera/CCSpotLightViewController.swift; sourceTree = "<group>"; };
 		97636E081D1F39F00073D9EA /* lucky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lucky.png; sourceTree = "<group>"; };
@@ -793,7 +791,6 @@
 				97254F8F1C2955EF0047968A /* CCWelcomeViewController.swift */,
 				4673A9401D33412A00C1826C /* CCInspireDetailViewController.swift */,
 				973480FF1D284EB400ADB430 /* CCInspireCollectionViewController.swift */,
-				975E3C3E1D6E3C9A00EA5911 /* CCUserGuideViewController.swift */,
 				97262D3A1D58134F00967800 /* CCCrawlViewController.swift */,
 				97CBEC061D6E5B780010DC50 /* CCUserGuideViewController.swift */,
 			);
@@ -1280,7 +1277,6 @@
 				9740CA311C2F5A7B0023FE2C /* UIImage+Rotating.m in Sources */,
 				97FCBBA01CF2B021003734DA /* CCUserManager.swift in Sources */,
 				9727B0DE1C35D3C2005E9D12 /* CCNetUtil.swift in Sources */,
-				975E3C3F1D6E3C9A00EA5911 /* CCUserGuideViewController.swift in Sources */,
 				9740CA811C2FE8B30023FE2C /* DNPhotoBrowser.m in Sources */,
 				9740CA841C2FE8B30023FE2C /* UIColor+Hex.m in Sources */,
 				1A4DF1F71C50875E001A4775 /* CCPreviewViewController.swift in Sources */,
