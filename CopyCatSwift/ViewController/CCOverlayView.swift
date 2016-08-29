@@ -513,7 +513,7 @@ class CCOverlayView: UIView {
             guideLabel1.font = UIFont.systemFontOfSize(22)
             guideLabel1.textColor = .whiteColor()
             guideLabel1.alpha = 0
-            //addSubview(guideLabel1)
+            addSubview(guideLabel1)
             
             guideLabel2.frame = CGRectMake(self.frame.size.width/2-150, self.frame.size.height/2-80,300, 40)
             guideLabel2.text = NSLocalizedString("and learn its composition", comment: "")
@@ -521,7 +521,15 @@ class CCOverlayView: UIView {
             guideLabel2.font = UIFont.systemFontOfSize(19)
             guideLabel2.textColor = .whiteColor()
             guideLabel2.alpha = 0
-            //addSubview(guideLabel2)
+            addSubview(guideLabel2)
+            
+            if self.refOrientation == -90{
+                guideLabel1.frame = CGRectMake(120, self.frame.size.height/2-30,300, 40)
+                guideLabel2.frame = CGRectMake(90, self.frame.size.height/2-30,300, 40)
+                
+                guideLabel1.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                guideLabel2.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+            }
             
             self.stopAnimation = false
             
